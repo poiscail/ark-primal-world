@@ -1,0 +1,68 @@
+/* Combat animé : scène, projectiles, chiffres, barres, bannières, résultat, ambiance */
+#ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+#ambient i{position:absolute;bottom:-12px;width:calc(5px*var(--s));height:calc(5px*var(--s));border-radius:50%;background:var(--acc,#67e5ff);opacity:0;box-shadow:0 0 10px var(--acc,#67e5ff);animation:amb linear infinite}
+@keyframes amb{0%{transform:translate(0,0);opacity:0}10%{opacity:.5}90%{opacity:.25}100%{transform:translate(30px,-105vh);opacity:0}}
+html[data-theme=light] #ambient i{opacity:.0;box-shadow:none;background:#3b6df0}
+body.noanim #ambient{display:none}
+@media (prefers-reduced-motion:reduce){#ambient{display:none}}
+.app{position:relative;z-index:1}
+/* scène */
+.stage{position:relative;overflow:hidden;background-size:cover}
+.stage::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,var(--sc,#ffffff55) 0 1.5px,transparent 2px);background-size:34px 34px;animation:drift 14s linear infinite;opacity:.55}
+@keyframes drift{to{background-position:-34px -68px}}
+.stage>*{position:relative}
+.z-jungle{--sc:#9cff7a88;background-image:linear-gradient(160deg,#15381f55,#0b1f1255 60%,#2c5a1d44)}
+.z-ruines{--sc:#8fb6ff88;background-image:linear-gradient(160deg,#1c2a4a66,#0d1224 60%,#2a3a6a44)}
+.z-volcan{--sc:#ff9a4d99;background-image:linear-gradient(160deg,#4a1a0f66,#1f0b0a 60%,#7a2a0a44)}
+.z-obelisque{--sc:#d19cff88;background-image:linear-gradient(160deg,#35184a66,#150b22 60%,#5a2a8044)}
+.z-volcan::before{animation-name:ember;animation-duration:6s}
+@keyframes ember{to{background-position:20px -102px}}
+html[data-theme=light] .z-jungle{background-image:linear-gradient(160deg,#c9f2c8,#effbea)}
+html[data-theme=light] .z-ruines{background-image:linear-gradient(160deg,#cfdcff,#eef3ff)}
+html[data-theme=light] .z-volcan{background-image:linear-gradient(160deg,#ffd9bf,#fff1e6)}
+html[data-theme=light] .z-obelisque{background-image:linear-gradient(160deg,#e6d2ff,#f6eeff)}
+.bigicon.hit>:not(.pop){display:inline-block;animation:breathe 3s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.07) translateY(-3px)}}
+body.noanim .bigicon.hit>*{animation:none}
+/* projectiles et chiffres */
+.proj{position:absolute;left:0;top:0;width:18px;height:18px;border-radius:50%}
+.dmgnum{position:absolute;font:900 22px system-ui;color:#fff;text-shadow:0 0 8px #ff647b,0 2px 0 #000,0 0 2px #000;white-space:nowrap;text-align:center;pointer-events:none}
+.dmgnum small{display:block;font:900 11px system-ui;color:#ffd15c;letter-spacing:1px}
+.dmgnum.big{font-size:34px;color:#ffe9a0}
+.dmgnum.crit{color:#ff9d3c;text-shadow:0 0 14px #ff3c3c,0 2px 0 #000}
+.dmgnum.foe{color:#ff8095;font-size:20px;text-shadow:0 0 8px #000,0 1px 0 #000}
+.lunge{animation:lunge .42s ease-out}
+@keyframes lunge{0%{transform:none}30%{transform:translate(8px,-14px) scale(1.15)}100%{transform:none}}
+.elunge{animation:elunge .5s ease-out}
+@keyframes elunge{0%{transform:none}35%{transform:translateY(22px) scale(1.18)}100%{transform:none}}
+.shk{animation:shk .4s}
+@keyframes shk{0%,100%{transform:none;filter:none}20%{transform:translateX(-7px);filter:brightness(2) hue-rotate(-40deg)}50%{transform:translateX(6px)}80%{transform:translateX(-3px)}}
+.hurtflash{position:absolute;inset:0;background:radial-gradient(circle,transparent 45%,#ff143c88 100%);animation:hflash .55s ease-out forwards}
+@keyframes hflash{from{opacity:1}to{opacity:0}}
+body.noanim .pop{display:none}
+#battleArea .pop{display:none}
+/* barres */
+.progress.hasTrail{position:relative}
+.progress .trail{position:absolute;left:0;top:0;bottom:0;background:#ffffffcc;transition:width .5s ease-out;border-radius:inherit;text-decoration:none}
+.progress.hasTrail i{position:relative}
+/* bannières */
+.wavebn{position:absolute;left:0;right:0;top:34%;text-align:center;pointer-events:none;animation:wbn 1.8s ease-out forwards}
+.wavebn b{display:inline-block;font:900 clamp(26px,8vw,46px) system-ui;letter-spacing:4px;color:#fff;padding:6px 26px;background:linear-gradient(90deg,transparent,#0009 20%,#0009 80%,transparent);text-shadow:0 0 18px var(--acc,#67e5ff),0 2px 0 #000}
+.wavebn small{display:block;font:800 13px system-ui;letter-spacing:3px;color:var(--acc,#67e5ff);margin-top:2px;text-shadow:0 1px 3px #000}
+.wavebn.boss b{color:#ff8095;text-shadow:0 0 22px #ff143c,0 2px 0 #000;animation:warn .35s steps(2) 4}
+.wavebn.boss small{color:#ffb0b8}
+@keyframes wbn{0%{transform:scaleX(.2);opacity:0}15%{transform:scaleX(1.08);opacity:1}25%{transform:none}80%{opacity:1}100%{transform:translateX(40px);opacity:0}}
+@keyframes warn{50%{filter:brightness(1.8)}}
+/* résultat */
+.resultfx{animation:resin .6s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes resin{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+.resultfx.win .rarity{background:linear-gradient(90deg,#ffd15c,#fff,#ffd15c);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 2s linear infinite;font-size:30px;letter-spacing:3px}
+@keyframes shine{to{background-position:-200% 0}}
+.resultfx.lose .rarity{color:#ff8095;animation:sadin .8s}
+@keyframes sadin{from{letter-spacing:12px;opacity:0}to{letter-spacing:inherit;opacity:1}}
+.stars{font-size:38px;text-align:center;letter-spacing:6px;margin-bottom:4px}
+.stars span{display:inline-block;color:#6a7596;opacity:0;animation:starin .5s cubic-bezier(.2,1.6,.4,1) forwards}
+.stars span.on{color:#ffd15c;text-shadow:0 0 16px #ffb02e}
+@keyframes starin{from{transform:scale(3) rotate(-40deg);opacity:0}to{transform:none;opacity:1}}
+.rise{animation:rise .5s ease-out both}
+@keyframes rise{from{transform:translateY(18px);opacity:0}to{transform:none;opacity:1}}
