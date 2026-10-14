@@ -24,6 +24,7 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `js/97-backups.js` | copies de secours automatiques (`takeBackup`, enveloppe `save()`) |
 | `js/97-teams.js` | équipes enregistrées |
 | `js/98-tutorial.js` | conseils contextuels (`TIPS`) et guide |
+| `js/99-visual.js` | filtres de portrait, scène de combat (`stageBuild`), orbes en verre, cadres |
 | `js/99-expeditions.js` | expéditions chronométrées, succès (`ACH`) et titres |
 | `js/99-enemy-traits.js` | traits d'ennemis et phases de boss |
 | `js/99-summon-fx.js` | animation d'invocation (cercle, cartes retournées) |

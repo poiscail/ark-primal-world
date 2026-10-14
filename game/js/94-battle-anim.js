@@ -14,8 +14,8 @@ const _hd94=hitDino;hitDino=function(k,raw,e){const b=fight.hp[k];_hd94(k,raw,e)
 /* rendu */
 function stageZone(z){return/jungle/i.test(z)?"jungle":/ruine/i.test(z)?"ruines":/volcan/i.test(z)?"volcan":/ob[ée]lisque/i.test(z)?"obelisque":"neutre"}
 const _rb94=renderBattle;renderBattle=function(){_rb94();const f=fight;if(!f||!f.mx)return;const box=$$("battleArea"),first=box.querySelector(".panel");
- if(first)first.classList.add("stage","z-"+stageZone(f.zone||""));
- const eIcon=box.querySelector(".bigicon.hit"),rows=[...box.querySelectorAll(".row .bigicon:not(.hit)")];
+ if(typeof stageBuild==="function")stageBuild();if(typeof orbGlass==="function")orbGlass();
+ const eIcon=box.querySelector(".bigicon.hit"),rows=box.querySelector(".sFig")?[...box.querySelectorAll(".sFig")]:[...box.querySelectorAll(".row .bigicon:not(.hit)")];
  /* barres animées */
  const bars=[...box.querySelectorAll(".progress:not(.gauge)")],now=bars.map(b=>b.firstElementChild?parseFloat(b.firstElementChild.style.width)||0:0),pv=f._pv;let delay=BQ.atk?340:BQ.hurt.length?120:0;
  if(PREFS.anim&&pv&&pv.v.length===now.length){now.forEach((n,i)=>{let p=pv.v[i];if(i===0&&pv.w!==f.wave)p=n;if(Math.abs(p-n)<.5)return;const bar=bars[i],fill=bar.firstElementChild;bar.classList.add("hasTrail");

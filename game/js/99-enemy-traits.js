@@ -15,6 +15,6 @@ const _et99=enemyTurn;enemyTurn=function(){const f=fight,e=f.enemies[f.wave];f.p
  if(tr==="venom"){Object.keys(f.hurt||{}).forEach(k=>{if(f.hp[k]>0)f.pz[k]=3})}
  if(tr==="heal"&&e.hp>0&&e.hp<e.max){const h=Math.round(e.max*.05);e.hp=Math.min(e.max,e.hp+h);f.log+=" · 💚 +"+h}
  if(tr==="berserk"&&e.a0)e.atk=Math.min(Math.round(e.a0*1.5),Math.round(e.atk+e.a0*.06))};
-const _rb99=renderBattle;renderBattle=function(){_rb99();const f=fight;if(!f||!f.mx||!f.enemies)return;const e=f.enemies[f.wave];traitOf(e);const ch=document.querySelector("#battleArea .panel .fchips");
+const _rb99=renderBattle;renderBattle=function(){_rb99();const f=fight;if(!f||!f.mx||!f.enemies)return;const e=f.enemies[f.wave];traitOf(e);const ch=document.querySelector("#battleArea .sHud .fchips")||document.querySelector("#battleArea .panel .fchips");
  if(ch){const add=[];if(e.tr)add.push(`<span class="chip hot" title="${TRAITS[e.tr].d}">${TRAITS[e.tr].i} ${TRAITS[e.tr].n}</span>`);if(e.sh>0)add.push(`<span class="chip good">🛡️ bouclier ${e.sh}</span>`);if(e.boss)add.push(`<span class="chip hot">Phase ${e.p2?3:e.p1?2:1}/3</span>`);ch.insertAdjacentHTML("beforeend",add.join(""))}
- if(f.pz)document.querySelectorAll("#battleArea .row .bigicon:not(.hit)").forEach((el,k)=>{if(f.pz[k]>0)el.insertAdjacentHTML("beforeend",'<i class="pzico">☠️</i>')})};
+ if(f.pz)(document.querySelector("#battleArea .sFig")?document.querySelectorAll("#battleArea .sFig .sfa"):document.querySelectorAll("#battleArea .row .bigicon:not(.hit)")).forEach((el,k)=>{if(f.pz[k]>0)el.insertAdjacentHTML("beforeend",'<i class="pzico">☠️</i>')})};

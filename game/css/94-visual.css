@@ -1,0 +1,79 @@
+/* Graphismes : scène de combat, orbes en verre, cadres */
+.battlestage{position:relative;height:310px;margin:8px 0;border-radius:14px;overflow:hidden;border:1px solid var(--bd2,#2d3d5e);box-shadow:0 8px 30px #0008,inset 0 0 40px #0006}
+.battlestage .scene{position:absolute;inset:0}
+.battlestage .sc-sky{position:absolute;inset:0;width:100%;height:100%}
+.sc-layer{position:absolute;left:0;width:200%;display:block;will-change:transform}
+.sc-layer svg{display:block;width:100%;height:100%}
+.sc-layer.l1{bottom:30%;height:50%;animation:scdrift 120s linear infinite;opacity:.95}
+.sc-layer.l2{bottom:24%;height:48%;animation:scdrift 70s linear infinite}
+.sc-layer.l3{bottom:0;height:34%;animation:scdrift 34s linear infinite}
+@keyframes scdrift{to{transform:translateX(-50%)}}
+.sc-gnd{position:absolute;left:0;bottom:0;width:100%;height:30%}
+.sc-fog{position:absolute;inset:auto 0 0 0;height:60%;background:linear-gradient(0deg,#0008,transparent 70%);pointer-events:none}
+body.noanim .sc-layer{animation:none}
+.sHud{position:absolute;left:8px;right:8px;top:8px;z-index:3;background:linear-gradient(90deg,#050914cc,#050914aa);border:1px solid #ffffff22;border-radius:10px;padding:7px 10px;backdrop-filter:blur(3px);color:#fff}
+.sHud .grow{min-width:0}.sHud b{font-size:14px;color:#fff}html body .sHud .muted,html body .sHud .tiny,html body .sHud .grow div{color:#c3cfe8}
+.sHud .progress{height:10px;margin:3px 0}
+.sHud .tiny{font-size:11px}
+html body .sEnemy.bigicon{position:absolute;right:5%;bottom:17%;width:148px;height:148px;flex-basis:auto;padding:0;background:none;border:0;box-shadow:none;clip-path:none;border-radius:0;display:block;z-index:2;overflow:visible}
+.sEnemy.boss{width:186px;height:186px;right:1%;bottom:15%}
+.sEart{position:absolute;inset:0;filter:hue-rotate(var(--hue,0deg)) drop-shadow(0 8px 10px #0009);animation:breathe 3.2s ease-in-out infinite;transform-origin:50% 90%}
+.sEart .pt,.sEart svg{display:block;width:100%;height:100%}
+.sEart svg{transform:scaleX(-1)}
+.sEart .emo{display:grid;place-items:center;width:100%;height:100%;font-size:96px}
+.sEnemy.boss .sEart{filter:hue-rotate(var(--hue,0deg)) drop-shadow(0 0 14px #ff143c) drop-shadow(0 8px 10px #0009)}
+html body .sEnemy>.sShadow,html body .sFig>.sShadow{animation:none;display:block;position:absolute;left:12%;right:12%;bottom:-4px;height:14px;border-radius:50%;background:radial-gradient(#000a,transparent 70%)}
+html body .sEnemy>.sEart{display:block}
+.sTeam{position:absolute;inset:0;z-index:2;pointer-events:none}
+.sFig{position:absolute;width:76px;height:76px}
+.sFig:nth-child(1){left:7%;bottom:30%}.sFig:nth-child(2){left:27%;bottom:17%;z-index:2}.sFig:nth-child(3){left:2%;bottom:8%;z-index:3}
+.sfa{position:absolute;inset:0;animation:breathe 3.6s ease-in-out infinite;filter:drop-shadow(0 6px 6px #0009);transform-origin:50% 90%;display:block}
+.sFig:nth-child(2) .sfa{animation-delay:-1.1s}.sFig:nth-child(3) .sfa{animation-delay:-2.2s}
+.sfa .pt,.sfa svg{display:block;width:100%;height:100%}
+.sfa>span:not(.pt){display:block;width:100%;height:100%}
+.sfa .pt{width:100%;height:100%}
+.sFig.dead{opacity:.45;filter:grayscale(1)}
+.sTag{position:absolute;left:2px;bottom:6px;font-size:13px;filter:drop-shadow(0 0 4px #000)}
+.sFig .pzico{position:absolute;right:2px;top:2px}
+body.noanim .sEart,body.noanim .sfa{animation:none}
+/* orbes en verre */
+html body .orbboard .orb{position:relative;border-radius:50%;aspect-ratio:1;display:grid;place-items:center;background-image:radial-gradient(circle at 34% 28%,#fff9 0,#fff0 28%),radial-gradient(circle at 50% 60%,var(--orbc,#fff6),#0000 72%),radial-gradient(circle at 50% 50%,var(--orbm,#6a7596),var(--orbd,#222a40) 100%);box-shadow:inset 0 -14px 22px #0007,inset 0 8px 14px #fff5,0 6px 16px #0009,0 0 22px var(--orbc,#fff4)}
+html body .orb.redorb{--orbm:#ff4d6a;--orbd:#6e0a22}html body .orb.blueorb{--orbm:#3aa8ff;--orbd:#0a2a6e}html body .orb.greenorb{--orbm:#34d97a;--orbd:#0a5a2a}html body .orb.purpleorb{--orbm:#b06bff;--orbd:#3a0a7a}html body .orb.goldorb{--orbm:#ffc83a;--orbd:#7a4a0a}
+.osym{width:52%;height:52%;filter:drop-shadow(0 0 5px #fffd) drop-shadow(0 2px 3px #0008);position:relative;z-index:1}
+.orb .gloss{position:absolute;left:14%;top:7%;width:46%;height:26%;border-radius:50%;background:linear-gradient(180deg,#ffffffcc,#fff0);transform:rotate(-18deg);pointer-events:none}
+.orb small{position:absolute;bottom:8%;left:0;right:0;text-align:center;font-weight:900;text-shadow:0 1px 3px #000;z-index:1}
+.orb:active .osym{transform:scale(.9)}
+/* cartes de collection : rareté */
+.dx,.gc{position:relative}
+
+html body .orbboard.n3{grid-template-columns:repeat(3,92px);justify-content:center;gap:12px;padding:14px 8px}
+html body .orbboard .orb{width:92px;height:92px}
+html body .orbboard .orb .obadge{top:-4px;right:-4px;z-index:3}
+
+@media(min-width:700px){.battlestage{height:400px}html body .sEnemy.bigicon{width:210px;height:210px}.sEnemy.boss{width:260px!important;height:260px!important}.sFig{width:104px;height:104px}}
+/* cartes dino : rareté */
+.dcard .bigicon{width:76px;height:76px;flex-basis:76px;padding:2px}
+.dcard.rar-r{border-color:#67e5ff88}
+.dcard.rar-e{border-color:#bd8aff;box-shadow:0 0 14px #bd8aff55}
+.dcard.rar-l{border-color:#ffd15c;box-shadow:0 0 20px #ffd15c66;background-image:linear-gradient(115deg,transparent 40%,#ffd15c22 50%,transparent 60%);background-size:250% 100%;animation:sheen 4s linear infinite}
+@keyframes sheen{from{background-position:200% 0}to{background-position:-100% 0}}
+body.noanim .dcard.rar-l{animation:none}
+/* bestiaire */
+html body .dex{grid-template-columns:repeat(4,minmax(0,1fr))}
+html body .dx{min-width:0;overflow-wrap:anywhere;line-height:1.15;min-height:92px}
+html body .dx .a{height:46px}html body .dx .a .pt{width:44px;height:44px}
+.dx.no{opacity:.75}.dx.no b{opacity:.5}.sil{display:grid;place-items:center;filter:brightness(0) opacity(.4) drop-shadow(0 0 4px #67e5ff)}
+.dcard .btns{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+/* héros de l'accueil */
+.heroDino .pt{display:block;width:150px;height:150px;filter:drop-shadow(0 0 18px var(--acc,#67e5ff)) drop-shadow(0 8px 10px #0008)}
+.heroDino .pt svg{width:100%;height:100%;display:block}
+.banner .heroDino{right:6px;bottom:-6px}
+#home .banner h1,#home .banner p{max-width:64%}
+.heroDino .pt{width:128px;height:128px}
+/* résultats d'invocation */
+.gres.big .gc{padding:10px 4px;font-size:11px}
+.gres.big .gc .art{height:88px;font-size:50px}.gres.big .gc .art .pt{width:84px;height:84px}
+.gres.big .gc strong{font-size:12px}
+.gc .art .pt{filter:drop-shadow(0 4px 6px #0008)}
+.gl-l .art::before{content:"";position:absolute;left:50%;top:14px;width:90px;height:90px;margin-left:-45px;background:radial-gradient(circle,#ffd15c66,transparent 70%);z-index:-1}
+.gc .art{position:relative}

@@ -3,7 +3,7 @@ function fxEmo(x,y,emo,n,o){o=o||{};if(!PREFS.anim)return;for(let i=0;i<n;i++){c
 function fxSlash(R,n,col,big){if(!PREFS.anim)return;for(let i=0;i<n;i++){const s=document.createElement("i");s.className="slashfx";s.style.cssText=`left:${R.left+R.width/2}px;top:${R.top+R.height/2}px;--r:${(big?-35:-25)+i*(big?70:35)}deg;background:linear-gradient(90deg,transparent,${col||"#fff"},transparent);animation-delay:${i*90}ms;width:${R.width*(big?2.4:1.6)}px`;fxAdd(s,700)}}
 function fxCtr(el){const r=el.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2,r}}
 const _us99=useSkill;useSkill=function(k){const f=fight;if(!f||f.over||!alive(k)||f.cd[k]>0)return _us99(k);const id=SK_of(T3()[k]);const hp0=f.hp.slice();_us99(k);if(!PREFS.anim)return;
- const box=$$("battleArea"),eI=box.querySelector(".bigicon.hit"),rows=[...box.querySelectorAll(".row .bigicon:not(.hit)")],me=rows[k];if(!eI)return;const E=fxCtr(eI),M=me?fxCtr(me):E;
+ const box=$$("battleArea"),eI=box.querySelector(".bigicon.hit"),rows=box.querySelector(".sFig")?[...box.querySelectorAll(".sFig")]:[...box.querySelectorAll(".row .bigicon:not(.hit)")],me=rows[k];if(!eI)return;const E=fxCtr(eI),M=me?fxCtr(me):E;
  const send=col=>projectile(me,eI,col,0);
  switch(id){
   case"strike":send("#ff9d3c");setTimeout(()=>fxSlash(E.r,2,"#fff"),380);break;
