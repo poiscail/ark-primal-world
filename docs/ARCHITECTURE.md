@@ -24,6 +24,14 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `js/97-backups.js` | copies de secours automatiques (`takeBackup`, enveloppe `save()`) |
 | `js/97-teams.js` | équipes enregistrées |
 | `js/98-tutorial.js` | conseils contextuels (`TIPS`) et guide |
+| `js/99-expeditions.js` | expéditions chronométrées, succès (`ACH`) et titres |
+| `js/99-enemy-traits.js` | traits d'ennemis et phases de boss |
+| `js/99-summon-fx.js` | animation d'invocation (cercle, cartes retournées) |
+| `js/99-skill-fx.js` | effets visuels des compétences |
+| `js/99-story.js` | dialogues d'histoire (`LORE`) et journal |
+| `js/99-evolution.js` | évolutions d'espèces (`EVO`) |
+| `js/99-music.js` | musique procédurale à 3 ambiances |
+| `js/94-battle-anim.js` | animations de combat (projectiles, chiffres flottants, traînée de PV, bannières, étoiles, ambiance) |
 | `tools/build.py` | construit `dist/ARK_PC` (dossier) et `dist/ARK_Telephone` (fichier unique), avec leurs zips |
 
 ## Ajouter une fonctionnalité

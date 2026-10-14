@@ -126,3 +126,6 @@ body.noanim .pop{display:none}
 @keyframes evoa{0%{transform:scale(1);filter:brightness(1)}60%{transform:scale(1.2);filter:brightness(6) saturate(0)}100%{transform:scale(1.6);filter:brightness(12) saturate(0);opacity:0}}
 @keyframes evob{0%{transform:scale(2.4);opacity:0;filter:brightness(10)}100%{transform:scale(1);opacity:1;filter:drop-shadow(0 0 30px #ffd15c)}}
 #evoFx .evot{position:absolute;bottom:22%;font:800 18px system-ui;color:#fff;text-shadow:0 0 12px #ffd15c;opacity:0;animation:rise .6s ease-out 2s forwards}
+#battleArea .row .bigicon:not(.hit)>:not(.pop):not(.pzico){display:inline-block;animation:breathe 3.6s ease-in-out infinite}
+#battleArea .row:nth-of-type(3) .bigicon:not(.hit)>*{animation-delay:-1.2s}
+body.noanim #battleArea .bigicon>*{animation:none}

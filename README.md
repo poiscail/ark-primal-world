@@ -34,6 +34,10 @@ Jeu de combat 2D à orbes inspiré de Dokkan Battle, avec des dinosaures. Il tou
 - **Tutoriel** : conseils affichés une seule fois au bon moment (orbes, éléments, compétences, victoire, modes…), désactivable, plus un **Guide du jeu** dans les Réglages. Les parties existantes n'ont pas de tutoriel.
 - **Équipes enregistrées** : 5 équipes de 3, changement en un clic (écran Équipe ou barre au-dessus des modes).
 - **Sauvegardes de secours** : 5 copies automatiques (toutes les 10 min de jeu, et avant chaque import), restaurables dans les Réglages.
+- **Combat animé** : projectiles, chiffres flottants, barres à traînée, bannières de vague/boss, étoiles de victoire, effets de compétences, vibrations (téléphone).
+- **Ennemis à traits** (Carapace, Venimeux, Régénérant, Berserker) et **boss en 3 phases**.
+- **Expéditions** : 3 emplacements (15 min / 1 h / 4 h), le butin s'accumule même jeu fermé.
+- **Succès et titres** : 34 succès avec récompenses ; **Évolutions** : 17 chaînes d'espèces ; **Histoire** : 14 dialogues + journal ; **musique** à 3 ambiances.
 - **Admin local** (⚙ ADMIN) : dinosaures, coûts, taux de drop, récompenses (enregistré sur l'appareil).
 
 ## Tests
@@ -48,6 +52,14 @@ python3 tests/test_settings.py  # sons, difficulté, télémétrie, préférence
 python3 tests/test_portraits.py # 46 portraits SVG, mode emoji, import d'image admin
 python3 tests/test_qol.py       # tutoriel, équipes enregistrées, sauvegardes automatiques, guide
 python3 tests/test_transfer.py  # construit PC + téléphone, transfert de sauvegarde dans les deux sens, rejets, clavier
+python3 tests/test_battle_anim.py  # animations de combat
+python3 tests/test_exped.py     # expéditions et succès
+python3 tests/test_traits.py    # traits d'ennemis, phases de boss
+python3 tests/test_summon_fx.py # invocation animée
+python3 tests/test_skill_fx.py  # effets des compétences
+python3 tests/test_story.py     # dialogues et journal
+python3 tests/test_evolution.py # évolutions
+python3 tests/test_music.py     # ambiances musicales
 python3 tests/test_balance.py   # taux de victoire par niveau d'histoire (simulation)
 python3 tests/test_balance_modes.py # idem pour la Tour et l'Arène
 ```

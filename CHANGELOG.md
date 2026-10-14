@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.11.0 — Combat animé, expéditions, succès, évolutions, histoire
+- Combat : projectiles d'attaque, chiffres de dégâts flottants (critique, « EFFICACE ! », combo), barres de PV avec traînée, scènes animées par zone, bannières de vague / boss / rage, écran de victoire avec étoiles, vibrations (téléphone), particules d'ambiance.
+- 14 effets visuels de compétences (entailles, flammes, venin, soins, bouclier, viseur…).
+- Invocation spectaculaire : cercle magique teinté selon la meilleure rareté, cartes face cachée retournées une à une, éclats et rayons pour les légendaires, « toucher pour passer ».
+- Ennemis : traits (Carapace, Venimeux, Régénérant, Berserker) à partir du niveau 8 ; boss en 3 phases (bouclier à 66 %, venin + rage à 33 %).
+- Expéditions chronométrées (3 emplacements, 15 min / 1 h / 4 h) qui continuent fermé le jeu.
+- 34 succès avec récompenses et titres affichés sur l'accueil ; pastilles de notification.
+- Évolutions : 17 chaînes d'espèces (niveau, étoiles, variante conservés), animation dédiée.
+- Histoire : 14 dialogues aux niveaux clés + journal de l'île relisible.
+- Musique procédurale à 3 ambiances (menu, combat, boss).
+- Réglages : vibrations et dialogues d'histoire activables.
+- Tests : `test_battle_anim`, `test_exped`, `test_traits`, `test_summon_fx`, `test_skill_fx`, `test_story`, `test_evolution`, `test_music`.
+
 ## 0.10.0 — Style futuriste, thèmes, boost d'orbes, animations, gacha étendu, rang
 - Style futuriste (grille néon, angles coupés, HUD) avec thème sombre, clair ou automatique.
 - Boost d'orbes : plus il y a d'orbes de la même couleur sur le plateau, plus elles frappent fort (×1,15 à ×3), avec badges et pulsations.
