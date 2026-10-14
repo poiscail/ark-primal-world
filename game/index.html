@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#11182a"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>ARK: Primal World</title>
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><link rel="icon" type="image/png" href="icons/icon-192.png">
 <link rel="stylesheet" href="css/00-base.css"><link rel="stylesheet" href="css/10-combat.css"><link rel="stylesheet" href="css/20-effects.css"><link rel="stylesheet" href="css/30-nav.css"><link rel="stylesheet" href="css/40-skills.css"><link rel="stylesheet" href="css/50-gacha.css"><link rel="stylesheet" href="css/60-equipment.css"><link rel="stylesheet" href="css/70-modes.css"><link rel="stylesheet" href="css/80-fx.css"></head><body><div class="app">
 <header class="top"><div class="title">ARK: <span>PRIMAL WORLD</span></div><div class="sub">DINOSAUR SUMMON BATTLE</div><div class="meters"><div class="meter">🪨 <b id="stone">30</b></div><div class="meter">🔮 <b id="essence">0</b></div><div class="meter">🎟️ <b id="tickets">3</b></div><div class="meter">⭐ Niv. <b id="level">1</b></div></div><div class="progress xpb"><i id="xpBar"></i></div></header>
 <main>
@@ -18,6 +18,7 @@
 <section id="story" class="screen"><div class="banner"><div class="eyebrow">MODE HISTOIRE</div><h1>Les secrets de l'obélisque</h1><p>Les balises réveillent une force ancienne. Trouve les fragments et affronte le gardien.</p><div class="heroDino">🌋</div></div><div id="chapters"></div></section>
 </main>
 <nav class="bottomnav"><button class="active" data-screen="home"><span>🏠</span>Accueil</button><button data-screen="team"><span>🦖</span>Équipe</button><button data-screen="battle"><span>⚔️</span>Combat</button><button data-screen="summon"><span>🔮</span>Invocation</button><button data-screen="story"><span>📜</span>Histoire</button></nav></div>
+<script src="js/00-version.js"></script>
 <script src="js/00-core.js"></script>
 <div id="authVeil" class="authveil">
  <div class="authbox">
@@ -70,4 +71,5 @@
 <script src="js/80-modes.js"></script>
 <script src="js/90-settings-audio.js"></script>
 <script src="js/95-portraits.js"></script>
+<script src="js/99-pwa.js"></script>
 </body></html>

@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.7.0 — Équipement, modes de jeu, sons, illustrations, hors ligne
+- Code découpé en fichiers `css/` et `js/` (plus de fichier unique de 100 Ko).
+- Équipement : armes, armures, talismans (passif), butin, forge +10, démontage, auto-équipement ; 2 nouvelles missions permanentes.
+- Navigation : 5 onglets (Accueil, Équipe, Aventure, Invocation, Missions) + sous-navigation Histoire / Donjons / Tour / Arène / Événements.
+- Tour infinie avec modificateurs et paliers ; Arène avec classement, médailles et boutique ; événements hebdomadaires avec jetons, objectifs et boutique.
+- Réglages : sons et musique (Web Audio), animations, difficulté, rapport d'équilibrage local, réinitialisation.
+- 46 portraits SVG originaux, mode emoji de secours, import d'images dans l'admin (redimensionnées, stockées localement).
+- PWA : manifeste, icônes, service worker versionné, jeu jouable hors ligne (testé sur Chromium via localhost).
+- Iguanodon avait le même emoji que Compsognathus (🦎) : remplacé par 🐸.
+- Tests ajoutés : équipement, modes, réglages, portraits, PWA, équilibrage des modes.
+
 ## 0.6.0 — Gacha étendu, connexion quotidienne, HUD
 - Gacha : tirage gratuit quotidien, bannière vedette (rotation quotidienne, 60 % de vedette parmi les légendaires, garantie à 60), bannière élémentaire, bannière des variantes (x2,5), historique et statistiques.
 - Incubateur : 3 emplacements, œufs commun / rare / épique obtenus en boss, donjons et connexion ; éclosion après des victoires.
