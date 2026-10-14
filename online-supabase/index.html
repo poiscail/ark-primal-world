@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#11182a"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>ARK: Primal World</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--bg:#0c1120;--panel:#171f35;--panel2:#222d49;--line:#39496d;--text:#f5f7ff;--muted:#aab6d1;--gold:#ffd15c;--cyan:#67e5ff;--red:#ff647b;--green:#8cffb0;--purple:#bd8aff}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#11182a,#090d18 70%);color:var(--text);font:14px system-ui,sans-serif;min-height:100dvh}button{font:inherit;font-weight:800;border:0;border-radius:12px;padding:12px;background:linear-gradient(#ffe68b,#ffb52e);color:#221a0a;box-shadow:0 3px 0 #a86a15;cursor:pointer}button:disabled{opacity:.45} .app{max-width:480px;min-height:100dvh;margin:auto;background:radial-gradient(ellipse at top,#24365855,transparent 55%);padding-bottom:84px}.top{position:sticky;top:0;z-index:5;padding:12px 14px;background:#0d1324ed;border-bottom:1px solid #2e3c5c;backdrop-filter:blur(10px)}.title{font-size:21px;font-weight:1000;font-style:italic;letter-spacing:.4px}.title span{color:var(--gold)}.sub{font-size:10px;letter-spacing:2px;color:var(--cyan);font-weight:900}.meters{display:flex;gap:6px;margin-top:9px;overflow:auto}.meter{white-space:nowrap;background:#1c2740;border:1px solid #384968;border-radius:8px;padding:6px 8px;font-size:11px}.meter b{color:var(--gold)}main{padding:12px}.screen{display:none}.screen.active{display:block}.banner{position:relative;overflow:hidden;border:1px solid #526b9d;border-radius:17px;padding:18px 15px;background:linear-gradient(110deg,#17233b 0%,#2a4163 58%,#422f55 100%);min-height:174px}.banner:after{content:"";position:absolute;width:180px;height:180px;right:-38px;top:-32px;border-radius:50%;background:radial-gradient(circle,#7bdaff66,#a06aff20 60%,transparent 70%)}.banner .eyebrow{color:var(--cyan);font-size:10px;font-weight:1000;letter-spacing:2px}.banner h1{font-size:25px;line-height:1.1;margin:7px 0;max-width:240px;text-shadow:0 2px 4px #0008}.banner p{max-width:235px;color:#cbd7ef;font-size:12px;line-height:1.4}.heroDino{position:absolute;right:8px;bottom:13px;font-size:76px;filter:drop-shadow(0 10px 6px #0009);z-index:1}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:17px 2px 9px}.sectionhead h2{font-size:16px;margin:0}.muted{color:var(--muted)}.tiny{font-size:11px}.teamlead{display:flex;gap:10px;overflow-x:auto;padding:2px 1px 10px}.dino{flex:0 0 122px;background:linear-gradient(155deg,#273a5e,#161f34);border:1px solid #455a84;border-radius:13px;padding:9px;text-align:center;position:relative;overflow:hidden}.dino .art{height:70px;display:grid;place-items:center;font-size:48px;background:radial-gradient(circle,#5f8bd044,transparent 70%);}.dino strong{display:block;font-size:12px}.dino small{font-size:10px;color:var(--gold)}.rarity{font-size:9px;font-weight:1000;text-transform:uppercase;letter-spacing:1px;color:var(--cyan)}.rarity.epic{color:var(--purple)}.rarity.legend{color:var(--gold)}.panel{border:1px solid #334565;background:linear-gradient(145deg,#1b2741,#131a2c);border-radius:15px;padding:13px;margin-top:10px}.row{display:flex;align-items:center;gap:10px}.grow{flex:1;min-width:0}.bigicon{width:66px;height:66px;flex:0 0 66px;border-radius:12px;background:#293c5f;display:grid;place-items:center;font-size:40px;border:1px solid #506a9a}.progress{height:7px;background:#090e1b;border-radius:20px;overflow:hidden;margin:7px 0}.progress i{display:block;height:100%;background:linear-gradient(90deg,#5ce8ff,#a4ffce);border-radius:20px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0}.stat{background:#10182a;border:1px solid #2d3d5e;border-radius:9px;padding:8px;text-align:center}.stat b{display:block;font-size:17px;color:var(--gold)}.stat span{font-size:10px;color:var(--muted)}.wide{width:100%;margin-top:9px}.secondary{background:linear-gradient(#53668c,#344567);color:white;box-shadow:0 3px 0 #1c2943}.blue{background:linear-gradient(#9af2ff,#48badc);box-shadow:0 3px 0 #267b9a}.purple{background:linear-gradient(#d6b4ff,#9a6bdf);box-shadow:0 3px 0 #64409c}.red{background:linear-gradient(#ff9caa,#ee536c);box-shadow:0 3px 0 #9c263e;color:#300a12}.orbboard{display:grid;grid-template-columns:repeat(6,1fr);gap:5px;background:#0c1324;padding:9px;border-radius:13px;border:1px solid #36476c;margin:12px 0}.orb{aspect-ratio:1;border-radius:50%;border:2px solid #ffffff40;box-shadow:inset 0 -4px 5px #0004,0 0 8px #0005;display:grid;place-items:center;font-size:19px;color:#fff;text-shadow:0 1px 3px #000}.orb.redorb{background:radial-gradient(circle at 30% 25%,#ffb4a6,#e52e54 55%,#6b1229)}.orb.blueorb{background:radial-gradient(circle at 30% 25%,#b3f6ff,#26a4e7 55%,#144678)}.orb.greenorb{background:radial-gradient(circle at 30% 25%,#d0ffc0,#50c87a 55%,#17613d)}.orb.purpleorb{background:radial-gradient(circle at 30% 25%,#f1d0ff,#a75af3 55%,#52227b)}.orb.goldorb{background:radial-gradient(circle at 30% 25%,#fff4ad,#ffb51b 55%,#94520c)}.orb.selected{outline:3px solid white;transform:scale(.92)}.bottomnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(480px,100%);display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:#0c1222f5;border-top:1px solid #344462;padding:7px 5px calc(7px + env(safe-area-inset-bottom));z-index:10;backdrop-filter:blur(12px)}.bottomnav button{background:transparent;box-shadow:none;border:1px solid transparent;color:#9eacc9;padding:6px 2px;font-size:10px}.bottomnav button span{display:block;font-size:21px;margin-bottom:2px}.bottomnav button.active{color:var(--gold);background:#29334a;border-color:#5c6380;border-radius:10px}.mission{border-left:3px solid var(--gold);padding:8px 10px;background:#252c3b;border-radius:0 9px 9px 0;margin:9px 0}.result{padding:13px;text-align:center;background:#0f1729;border:1px solid #42567c;border-radius:12px;margin-top:12px}.result .art{font-size:68px}.tag{border:1px solid #4b6088;border-radius:6px;padding:3px 6px;font-size:10px;color:var(--cyan)}.feed{font-size:12px;line-height:1.6;color:#c1cde4;max-height:90px;overflow:auto}.hide{display:none!important}.art img,.bigicon img{max-width:100%;max-height:100%;object-fit:contain}.logout{padding:6px 8px;font-size:11px;box-shadow:none;flex:0 0 auto}
+
+.authveil{position:fixed;inset:0;z-index:100;background:#080c16f5;display:grid;place-items:center;padding:18px}
+.authbox{width:min(440px,100%);max-height:92dvh;overflow:auto;background:#17213a;border:1px solid #52658a;border-radius:18px;padding:18px;box-shadow:0 20px 70px #000b}
+.authbox h2{margin:0 0 8px}.authbox p{color:#b9c7e2;font-size:12px;line-height:1.5}
+.authbox input,.authbox select,.authbox textarea{width:100%;padding:11px;margin:5px 0 10px;border-radius:9px;border:1px solid #43577e;background:#0d1527;color:white;font:inherit}
+.authbox label{font-size:11px;color:#c8d4eb;font-weight:800}.authbox .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.adminfab{position:fixed;right:10px;top:10px;z-index:20;background:#2c3c5b;color:white;box-shadow:none;border:1px solid #5c7298;padding:7px 9px;font-size:11px}
+.adminitem{background:#0e1729;border:1px solid #344867;border-radius:12px;padding:12px;margin:10px 0}
+.adminitem .grid2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.adminitem input{margin-bottom:6px}.notice{font-size:11px;color:#ffdb88}
+</style></head><body><div class="app">
+<header class="top"><div class="title">ARK: <span>PRIMAL WORLD</span></div><div class="sub">DINOSAUR SUMMON BATTLE · <span id="syncState">—</span></div><div class="meters"><div class="meter">🪨 <b id="stone">30</b></div><div class="meter">🔮 <b id="essence">0</b></div><div class="meter">🎟️ <b id="tickets">3</b></div><div class="meter">⭐ Niv. <b id="level">1</b></div><button class="secondary logout" onclick="logout()">Quitter</button></div></header>
+<main>
+<section id="home" class="screen active"><div class="banner"><div class="eyebrow">SAISON 01 · L'ÎLE PRIMORDIALE</div><h1>Éveille la puissance des anciens.</h1><p>Recrute des dinosaures, aligne tes orbes et bats les gardiens de l'île.</p><div class="heroDino">🦖</div></div>
+<div class="sectionhead"><h2>Équipe principale</h2><span class="tag">3 emplacements</span></div><div id="leadTeam" class="teamlead"></div>
+<div class="panel"><div class="row"><div class="bigicon">⚡</div><div class="grow"><b>Mission du jour</b><div class="muted tiny" id="dailyText">Termine un combat pour gagner un ticket.</div><div class="progress"><i id="dailyBar" style="width:0%"></i></div></div></div><button class="wide blue" onclick="startBattle()">COMBATTRE MAINTENANT</button></div>
+<div class="sectionhead"><h2>Journal d'expédition</h2><span class="muted tiny">Dernières actions</span></div><div class="panel feed" id="feed"></div></section>
+<section id="team" class="screen"><div class="banner"><div class="eyebrow">COLLECTION</div><h1>Ta meute primordiale</h1><p>Entraîne tes dinosaures et prépare l'équipe pour les boss.</p><div class="heroDino">🦕</div></div><div id="collection"></div></section>
+<section id="battle" class="screen"><div class="banner"><div class="eyebrow">ZONE DE COMBAT</div><h1 id="battleTitle">Ruines perdues</h1><p id="battleDesc">Un prédateur corrompu garde le passage.</p><div class="heroDino">🏛️</div></div><div id="battleArea"></div></section>
+<section id="summon" class="screen"><div class="banner"><div class="eyebrow">AUTEL DES ANCIENS</div><h1>Invocation primordiale</h1><p>Dépense tes tickets gagnés en combat. Chaque invocation ajoute un dinosaure à ta collection.</p><div class="heroDino">🔮</div></div><div class="panel"><div class="row"><div class="grow"><b>Invocation x1</b><div class="muted tiny">1 ticket · 1 dinosaure</div></div><button onclick="summon(1)">INVOQUER</button></div><div class="row" style="margin-top:12px"><div class="grow"><b>Invocation x5</b><div class="muted tiny">5 tickets · 5 dinosaures</div></div><button class="purple" onclick="summon(5)">X5</button></div></div><div class="sectionhead"><h2>Taux d'apparition</h2></div><div class="panel tiny" id="dropRates">Commun <b>55 %</b> · Rare <b>28 %</b> · Épique <b>13 %</b> · Légendaire <b>4 %</b><p class="muted">100 % gratuit. Aucun achat intégré dans ce prototype.</p></div><div id="summonResult"></div></section>
+<section id="story" class="screen"><div class="banner"><div class="eyebrow">MODE HISTOIRE</div><h1>Les secrets de l'obélisque</h1><p>Les balises réveillent une force ancienne. Trouve les fragments et affronte le gardien.</p><div class="heroDino">🌋</div></div><div id="chapters"></div></section>
+</main>
+<nav class="bottomnav"><button class="active" data-screen="home"><span>🏠</span>Accueil</button><button data-screen="team"><span>🦖</span>Équipe</button><button data-screen="battle"><span>⚔️</span>Combat</button><button data-screen="summon"><span>🔮</span>Invocation</button><button data-screen="story"><span>📜</span>Histoire</button></nav></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script>
+let SPEC={
+raptor:{name:"Raptor",e:"🦖",r:"Commun",hp:88,atk:20,def:9,element:"redorb"},
+trike:{name:"Tricératops",e:"🦏",r:"Commun",hp:125,atk:15,def:16,element:"greenorb"},
+stego:{name:"Stégosaure",e:"🦕",r:"Rare",hp:142,atk:23,def:18,element:"blueorb"},
+ptera:{name:"Ptéranodon",e:"🪽",r:"Rare",hp:90,atk:29,def:9,element:"blueorb"},
+rex:{name:"Tyrannosaure",e:"🐲",r:"Épique",hp:175,atk:36,def:18,element:"purpleorb"},
+spino:{name:"Spinosaurus",e:"🐉",r:"Légendaire",hp:205,atk:42,def:21,element:"goldorb"}};
+const DEFAULT_CONFIG={trainCost:8,summonCost1:1,summonCost5:5,exploreStoneMin:6,exploreStoneMax:12,battleStone:15,battleEssence:2,firstBattleTickets:1,chapterStone:10,chapterTickets:1,chapterXP:20,battleXP:28,commonRate:55,rareRate:28,epicRate:13,legendRate:4};
+let CONFIG={...DEFAULT_CONFIG};
+const initial={stone:30,essence:0,tickets:3,xp:0,level:1,chapter:0,doneBattles:0,gear:0,nextId:2,team:[{id:1,type:"raptor",level:1,xp:0}],log:["Bienvenue, survivant. Ta première mission commence." ]};
+const clone=o=>JSON.parse(JSON.stringify(o));function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+let S=clone(initial);
+
+const SPEC_DEFAULT=JSON.parse(JSON.stringify(SPEC));
+function applyRemoteConfig(cfg){
+ try{
+  if(cfg&&cfg.dinos&&typeof cfg.dinos==="object"){const o={};for(const [k,v] of Object.entries(cfg.dinos)){if(v&&v.name&&v.e&&v.hp>0&&v.atk>0)o[k]={...SPEC_DEFAULT.raptor,...v}}SPEC={...SPEC_DEFAULT,...o}}
+  if(cfg&&cfg.economy)CONFIG={...DEFAULT_CONFIG,...cfg.economy};
+ }catch(e){console.warn(e)}
+}
+
+let screen="home",fight=null,orbPick=null;
+const need=l=>35+l*25, sp=d=>SPEC[d.type]||SPEC_DEFAULT.raptor, rarityClass=r=>r==="Épique"?"epic":r==="Légendaire"?"legend":"",isTop=d=>["Épique","Légendaire"].includes(sp(d).r),art=e=>/^https:\/\//i.test(e)?`<img src="${esc(e)}" alt="" loading="lazy" referrerpolicy="no-referrer">`:esc(e);
+function save(){topbar();queueSync()}
+function topbar(){["stone","essence","tickets","level"].forEach(k=>document.getElementById(k).textContent=S[k])}
+function log(s){S.log.unshift(s);S.log=S.log.slice(0,8);save()}
+function addXP(n){S.xp+=n;while(S.xp>=need(S.level)){S.xp-=need(S.level);S.level++;S.tickets++;log("Niveau joueur "+S.level+" : +1 ticket d'invocation.")}}
+function stats(d){let p=sp(d);return {hp:Math.round(p.hp+(d.level-1)*p.hp*.13+S.gear*8),atk:Math.round(p.atk+(d.level-1)*p.atk*.12+S.gear*2),def:p.def+d.level-1+S.gear}}
+function card(d,showActions=true){let p=sp(d),v=stats(d);return `<div class="panel"><div class="row"><div class="bigicon">${art(p.e)}</div><div class="grow"><b>${esc(p.name)}</b> <span class="rarity ${rarityClass(p.r)}">${esc(p.r)}</span><div class="muted tiny">Niveau ${d.level} · XP ${d.xp}/${need(d.level)}</div><div class="progress"><i style="width:${Math.min(100,d.xp/need(d.level)*100)}%"></i></div></div></div><div class="stats"><div class="stat"><b>${v.hp}</b><span>PV</span></div><div class="stat"><b>${v.atk}</b><span>ATTAQUE</span></div><div class="stat"><b>${v.def}</b><span>DÉFENSE</span></div></div>${showActions?`<button class="wide secondary" onclick="train(${d.id})">ENTRAÎNER · ${CONFIG.trainCost} 🪨</button>`:""}</div>`}
+function go(s){screen=s;document.querySelectorAll(".screen").forEach(e=>e.classList.toggle("active",e.id===s));document.querySelectorAll(".bottomnav button").forEach(e=>e.classList.toggle("active",e.dataset.screen===s));render()}
+document.querySelector(".bottomnav").addEventListener("click",e=>{let b=e.target.closest("[data-screen]");if(b)go(b.dataset.screen)});
+function render(){topbar();let sc1=document.querySelector('#summon .panel .row .muted.tiny');if(sc1)sc1.textContent=CONFIG.summonCost1+" ticket(s) · 1 dinosaure";let sc5=document.querySelectorAll('#summon .panel .row .muted.tiny')[1];if(sc5)sc5.textContent=CONFIG.summonCost5+" tickets · 5 dinosaures";let dr=document.getElementById("dropRates");if(dr)dr.innerHTML=`Commun <b>${CONFIG.commonRate} %</b> · Rare <b>${CONFIG.rareRate} %</b> · Épique <b>${CONFIG.epicRate} %</b> · Légendaire <b>${CONFIG.legendRate} %</b><p class="muted">100 % gratuit. Aucun achat intégré dans ce prototype.</p>`;document.getElementById("leadTeam").innerHTML=S.team.slice(0,3).map(d=>`<div class="dino"><div class="art">${art(sp(d).e)}</div><strong>${esc(sp(d).name)}</strong><small>NIV. ${d.level}</small><div class="rarity ${rarityClass(sp(d).r)}">${esc(sp(d).r)}</div></div>`).join("");document.getElementById("collection").innerHTML=S.team.map(d=>card(d)).join("");document.getElementById("feed").innerHTML=S.log.map(x=>"• "+esc(x)).join("<br>");document.getElementById("dailyBar").style.width=Math.min(100,S.doneBattles*100)+"%";document.getElementById("dailyText").textContent=S.doneBattles?"Mission accomplie : +1 ticket déjà obtenu.":"Termine un combat pour gagner un ticket.";renderStory();if(screen==="battle")renderBattle()}
+function renderStory(){let ch=[["Éveil dans la jungle","Explore l'île et rassemble des pierres.",()=>S.stone>=10],["Le premier signal","Remporte un combat dans les ruines.",()=>S.doneBattles>=1],["Une meute se forme","Recrute au moins trois dinosaures.",()=>S.team.length>=3],["Le gardien de l'obélisque","Obtiens un dinosaure épique ou légendaire.",()=>S.team.some(d=>isTop(d))]];document.getElementById("chapters").innerHTML=ch.map((c,i)=>`<div class="panel"><div class="row"><div class="bigicon">${i<S.chapter?"✅":i===S.chapter?"📍":"🔒"}</div><div class="grow"><b>Chapitre ${i+1} — ${c[0]}</b><div class="muted tiny">${c[1]}</div><div class="rarity">${i<S.chapter?"TERMINÉ":i===S.chapter?"EN COURS":"VERROUILLÉ"}</div></div></div>${i===S.chapter?`<button class="wide" onclick="claimChapter(${i})">VALIDER LA QUÊTE</button>`:""}</div>`).join("")}
+function explore(){let n=CONFIG.exploreStoneMin+Math.floor(Math.random()*(CONFIG.exploreStoneMax-CONFIG.exploreStoneMin+1));S.stone+=n;addXP(8);log("Exploration : +"+n+" pierres.");render()}
+function train(id){let d=S.team.find(x=>x.id===id);if(S.stone<CONFIG.trainCost){alert("Il faut "+CONFIG.trainCost+" pierres.");return}S.stone-=CONFIG.trainCost;d.xp+=30;while(d.xp>=need(d.level)){d.xp-=need(d.level);d.level++;log(sp(d).name+" passe niveau "+d.level+".")}log(sp(d).name+" gagne de l'expérience.");save();render()}
+function pickType(rar){let pool=Object.keys(SPEC).filter(k=>SPEC[k].r===rar);if(!pool.length)pool=Object.keys(SPEC);return pool[Math.floor(Math.random()*pool.length)]}
+function summon(n){if(S.tickets<(n===1?CONFIG.summonCost1:CONFIG.summonCost5)){alert("Pas assez de tickets. Termine des combats et des quêtes.");return}S.tickets-=(n===1?CONFIG.summonCost1:CONFIG.summonCost5);let got=[];for(let i=0;i<n;i++){let tot=(CONFIG.commonRate+CONFIG.rareRate+CONFIG.epicRate+CONFIG.legendRate)||100,r=Math.random()*tot, c1=CONFIG.commonRate, c2=c1+CONFIG.rareRate, c3=c2+CONFIG.epicRate;
+let type=pickType(r<c1?"Commun":r<c2?"Rare":r<c3?"Épique":"Légendaire");let d={id:S.nextId++,type,level:1,xp:0};S.team.push(d);got.push(d)}log("Invocation : "+got.length+" dinosaure(s) obtenu(s).");save();document.getElementById("summonResult").innerHTML=`<div class="result"><div class="rarity">RÉSULTAT DE L'INVOCATION</div><div class="teamlead" style="justify-content:center;flex-wrap:wrap">${got.map(d=>`<div class="dino"><div class="art">${art(sp(d).e)}</div><strong>${esc(sp(d).name)}</strong><div class="rarity ${rarityClass(sp(d).r)}">${esc(sp(d).r)}</div></div>`).join("")}</div></div>`;render()}
+function startBattle(){fight={round:0,enemyHP:85+S.chapter*28,enemyMax:85+S.chapter*28,enemy:"Raptor corrompu",enemyE:"☠️",active:0,teamHP:S.team.slice(0,3).map(d=>stats(d).hp),log:"Aligne les orbes pour lancer une attaque."};go("battle")}
+function renderBattle(){let a=S.team.slice(0,3);if(!fight){document.getElementById("battleArea").innerHTML=`<div class="panel"><h3>Prêt pour le combat ?</h3><p class="muted">Affronte les gardiens pour obtenir des pierres, de l'essence et des tickets.</p><button class="wide" onclick="startBattle()">ENTRER DANS LES RUINES</button></div>`;return}document.getElementById("battleTitle").textContent="Ruines perdues · Vague "+(fight.round+1);document.getElementById("battleArea").innerHTML=`<div class="panel"><div class="row"><div class="bigicon">${fight.enemyE}</div><div class="grow"><b>${fight.enemy}</b><div class="muted tiny">PV ${Math.max(0,fight.enemyHP)} / ${fight.enemyMax}</div><div class="progress"><i style="width:${Math.max(0,fight.enemyHP/fight.enemyMax*100)}%;background:linear-gradient(90deg,#ff536c,#ffb04d)"></i></div></div></div><div class="sectionhead"><h2>Choisis une orbe</h2><span class="muted tiny">Tapote pour sélectionner</span></div><div class="orbboard">${Array.from({length:18},(_,i)=>{let c=["redorb","blueorb","greenorb","purpleorb","goldorb"][Math.floor(Math.random()*5)];return `<button class="orb ${c} ${orbPick===i?"selected":""}" onclick="pickOrb(${i},'${c}')">${c==="redorb"?"🔥":c==="blueorb"?"💧":c==="greenorb"?"🌿":c==="purpleorb"?"⚡":"☀️"}</button>`}).join("")}</div><div class="tiny muted">Les orbes représentent l'énergie primordiale de tes dinosaures. Sélectionne une couleur puis lance l'attaque.</div><button class="wide blue" onclick="fireOrb()">LANCER L'ATTAQUE</button><div class="sectionhead"><h2>Ton équipe</h2><span class="muted tiny">3 combattants max.</span></div>${a.map((d,i)=>`<div class="row" style="margin:8px 0"><div class="bigicon">${art(sp(d).e)}</div><div class="grow"><b>${esc(sp(d).name)} · Niv. ${d.level}</b><div class="progress"><i style="width:${Math.max(0,fight.teamHP[i]/stats(d).hp*100)}%;background:linear-gradient(90deg,#62e7a0,#d4ff80)"></i></div><div class="muted tiny">PV ${Math.max(0,fight.teamHP[i])}/${stats(d).hp} · ATQ ${stats(d).atk}</div></div></div>`).join("")}<div class="result tiny">${fight.log}</div><button class="wide secondary" onclick="escapeFight()">FUIR DU COMBAT</button>`}
+function pickOrb(i,c){orbPick=i;fight.chosen=c;renderBattle()}
+function fireOrb(){if(!fight)return;if(!fight.chosen){alert("Sélectionne une orbe avant d'attaquer.");return}let a=S.team.slice(0,3),d=a[0]||S.team[0],v=stats(d),mult=fight.chosen==="goldorb"?1.8:fight.chosen==="purpleorb"?1.5:1.15,damage=Math.round(v.atk*mult+Math.random()*12);fight.enemyHP-=damage;fight.log="Combo d'orbes : "+damage+" dégâts !";fight.chosen=null;orbPick=null;if(fight.enemyHP<=0){S.stone+=CONFIG.battleStone;S.essence+=CONFIG.battleEssence;S.doneBattles++;if(S.doneBattles===1)S.tickets+=CONFIG.firstBattleTickets;addXP(CONFIG.battleXP);a.forEach(d=>{d.xp+=25;while(d.xp>=need(d.level)){d.xp-=need(d.level);d.level++;log(sp(d).name+" passe niveau "+d.level+".")}});log("Victoire dans les ruines : +"+CONFIG.battleStone+" pierres, +"+CONFIG.battleEssence+" essences"+(S.doneBattles===1?", +"+CONFIG.firstBattleTickets+" ticket(s)":"")+".");fight=null;save();render();return}let alive=a.findIndex((d,i)=>fight.teamHP[i]>0);if(alive<0)alive=0;let edmg=8+Math.floor(Math.random()*12)+S.chapter*2;fight.teamHP[alive]=Math.max(0,fight.teamHP[alive]-edmg);fight.log+=" Le gardien riposte : "+edmg+" dégâts.";if(fight.teamHP.every(h=>h<=0)){fight.log+=" Équipe épuisée.";setTimeout(()=>{fight=null;log("Défaite dans les ruines. Entraîne tes dinosaures puis réessaie.");render()},900)}renderBattle();save()}
+function escapeFight(){fight=null;go("home")}
+function claimChapter(i){if(i!==S.chapter)return;let ok=[()=>S.stone>=10,()=>S.doneBattles>=1,()=>S.team.length>=3,()=>S.team.some(d=>isTop(d))][i]();if(!ok){alert("Objectif non terminé. Consulte la description du chapitre.");return}S.chapter++;S.stone+=CONFIG.chapterStone;S.tickets+=CONFIG.chapterTickets;addXP(CONFIG.chapterXP);log("Chapitre "+(i+1)+" terminé : +"+CONFIG.chapterStone+" pierres, +"+CONFIG.chapterTickets+" ticket(s).");save();render()}
+topbar();render();
+</script>
+<div id="authVeil" class="authveil">
+ <div class="authbox">
+  <div class="title">ARK: <span>PRIMAL WORLD</span></div>
+  <h2 id="authTitle">Connexion</h2>
+  <p>Connecte-toi avec ton e-mail pour retrouver ta progression sur PC et téléphone.</p>
+  <label for="authEmail">Adresse e-mail</label><input id="authEmail" type="email" autocomplete="email" placeholder="toi@exemple.com">
+  <label for="authPass">Mot de passe (8 caractères minimum)</label><input id="authPass" type="password" autocomplete="current-password" placeholder="Mot de passe">
+  <div id="authError" class="notice"></div>
+  <button class="wide" id="authSubmit" onclick="authSubmit()">SE CONNECTER</button>
+  <button class="wide secondary" onclick="toggleRegister()" id="registerToggle">Créer un compte</button>
+ </div>
+</div>
+<button id="adminFab" class="adminfab hide" onclick="openAdmin()">⚙ ADMIN</button>
+<div id="adminVeil" class="authveil hide">
+ <div class="authbox">
+  <div class="row"><div class="grow"><h2>Administration du jeu</h2><p>Les modifications sont enregistrées en ligne et appliquées à tous les joueurs.</p></div><button class="secondary" onclick="closeAdmin()">FERMER</button></div>
+  <div class="panel"><b>Économie et récompenses</b><div id="economyFields" class="grid2"></div>
+   <label>Taux de drop (%) — total obligatoire : 100 %</label>
+   <div class="grid2">
+    <div><label>Commun</label><input id="rateCommon" type="number" min="0" max="100"></div>
+    <div><label>Rare</label><input id="rateRare" type="number" min="0" max="100"></div>
+    <div><label>Épique</label><input id="rateEpic" type="number" min="0" max="100"></div>
+    <div><label>Légendaire</label><input id="rateLegend" type="number" min="0" max="100"></div>
+   </div>
+   <div id="rateTotal" class="notice"></div>
+  </div>
+  <div class="sectionhead"><h2>Dinosaures</h2><span class="muted tiny">Nom, image et statistiques</span></div>
+  <div id="adminDinos"></div>
+  <button class="wide blue" onclick="addAdminDino()">+ AJOUTER UN DINOSAURE</button>
+  <button class="wide" onclick="saveAdmin()">ENREGISTRER EN LIGNE</button>
+  <button class="wide secondary" onclick="resetAdmin()">REMETTRE LES VALEURS PAR DÉFAUT (à enregistrer ensuite)</button>
+  <p class="notice">Image : un emoji ou l'URL complète d'une image en HTTPS. Un dinosaure ajouté ne peut pas être supprimé (des joueurs peuvent déjà le posséder).</p>
+ </div>
+</div>
+<script>
+const CFG=window.ARK_SUPABASE||{},RAR=["Commun","Rare","Épique","Légendaire"],$=id=>document.getElementById(id);
+let sb=null,currentUser=null,isAdmin=false,authMode="login",syncTimer=null,lastRemote=null,syncing=false,dirty=false;
+function setSync(t){const e=$("syncState");if(e)e.textContent=t}
+function authMsg(t){$("authError").textContent=t||""}
+function toggleRegister(){authMode=authMode==="login"?"register":"login";$("authTitle").textContent=authMode==="login"?"Connexion":"Créer un compte";$("authSubmit").textContent=authMode==="login"?"SE CONNECTER":"CRÉER LE COMPTE";$("registerToggle").textContent=authMode==="login"?"Créer un compte":"Retour à la connexion";$("authPass").autocomplete=authMode==="login"?"current-password":"new-password";authMsg("")}
+
+async function initOnline(){
+ if(!window.supabase){authMsg("Bibliothèque Supabase non chargée (connexion Internet ?).");return}
+ if(!CFG.url||!CFG.anonKey||/VOTRE|YOUR/i.test(CFG.url+CFG.anonKey)){authMsg("Supabase n'est pas configuré : renseigne config.js.");return}
+ sb=window.supabase.createClient(CFG.url,CFG.anonKey);
+ await loadRemoteConfig();
+ const {data}=await sb.auth.getSession();
+ if(data.session)await onLogin(data.session.user);
+}
+async function loadRemoteConfig(){try{const {data,error}=await sb.from("game_config").select("data").eq("id",1).maybeSingle();if(error)throw error;if(data&&data.data)applyRemoteConfig(data.data)}catch(e){console.warn("config",e)}}
+async function fetchSave(){const {data,error}=await sb.from("game_saves").select("data,updated_at").eq("user_id",currentUser.id).maybeSingle();if(error)throw error;return data}
+async function pushSave(){const {data,error}=await sb.from("game_saves").upsert({user_id:currentUser.id,data:S},{onConflict:"user_id"}).select("updated_at").single();if(error)throw error;lastRemote=data.updated_at}
+async function onLogin(user){
+ currentUser=user;
+ try{
+  const p=await sb.from("profiles").select("role").eq("id",user.id).maybeSingle();
+  isAdmin=!!(p.data&&p.data.role==="admin");
+  await loadRemoteConfig();
+  const r=await fetchSave();
+  if(r){S={...clone(initial),...r.data};lastRemote=r.updated_at}else{S=clone(initial);await pushSave()}
+ }catch(e){currentUser=null;authMsg("Erreur de chargement : "+(e.message||e));return}
+ $("authVeil").classList.add("hide");$("adminFab").classList.toggle("hide",!isAdmin);$("authPass").value="";authMsg("");go("home");setSync("en ligne ✓");
+}
+function queueSync(){if(!sb||!currentUser)return;dirty=true;setSync("…");clearTimeout(syncTimer);syncTimer=setTimeout(flush,1200)}
+async function flush(){
+ if(!sb||!currentUser||!dirty)return;
+ if(syncing){syncTimer=setTimeout(flush,500);return}
+ syncing=true;dirty=false;
+ try{await pushSave();setSync("sauvegardé ✓")}catch(e){dirty=true;setSync("⚠ hors ligne");syncTimer=setTimeout(flush,8000);console.warn(e)}
+ syncing=false;
+}
+document.addEventListener("visibilitychange",async()=>{
+ if(!sb||!currentUser)return;
+ if(document.visibilityState==="hidden"){flush();return}
+ if(dirty||syncing)return;
+ try{await loadRemoteConfig();const r=await fetchSave();if(r&&r.updated_at!==lastRemote){S={...clone(initial),...r.data};lastRemote=r.updated_at;fight=null}render()}catch(e){}
+});
+async function authSubmit(){
+ if(!sb){authMsg("Service indisponible : vérifie config.js et ta connexion.");return}
+ const email=$("authEmail").value.trim(),pw=$("authPass").value;
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){authMsg("Adresse e-mail invalide.");return}
+ if(pw.length<8){authMsg("Mot de passe : 8 caractères minimum.");return}
+ const btn=$("authSubmit");btn.disabled=true;authMsg("…");
+ try{
+  if(authMode==="register"){
+   const {data,error}=await sb.auth.signUp({email,password:pw});if(error)throw error;
+   if(data.session)await onLogin(data.session.user);
+   else{toggleRegister();authMsg("Compte créé. Si une confirmation est requise, clique sur le lien reçu par e-mail, puis connecte-toi.")}
+  }else{const {data,error}=await sb.auth.signInWithPassword({email,password:pw});if(error)throw error;await onLogin(data.user)}
+ }catch(e){authMsg(e.message||"Erreur de connexion.")}
+ btn.disabled=false;
+}
+async function logout(){
+ clearTimeout(syncTimer);
+ if(sb){try{await flush();await sb.auth.signOut()}catch(e){}}
+ currentUser=null;isAdmin=false;S=clone(initial);fight=null;
+ $("adminFab").classList.add("hide");closeAdmin();$("authVeil").classList.remove("hide");setSync("—");render();
+}
+function openAdmin(){if(!isAdmin){alert("Accès réservé à l'administrateur.");return}buildAdmin();$("adminVeil").classList.remove("hide")}
+function closeAdmin(){$("adminVeil").classList.add("hide")}
+const econLabels={trainCost:"Coût d'entraînement (pierres)",summonCost1:"Coût invocation x1 (tickets)",summonCost5:"Coût invocation x5 (tickets)",exploreStoneMin:"Pierres minimum en exploration",exploreStoneMax:"Pierres maximum en exploration",battleStone:"Pierres gagnées par victoire",battleEssence:"Essences gagnées par victoire",battleXP:"XP joueur par victoire",firstBattleTickets:"Tickets bonus au premier combat",chapterStone:"Pierres par chapitre",chapterTickets:"Tickets par chapitre",chapterXP:"XP joueur par chapitre"};
+function dinoForm(k,d){
+ const opt=(arr,v)=>arr.map(r=>`<option ${v===r?"selected":""}>${r}</option>`).join("");
+ return `<div class="adminitem" data-dino="${esc(k)}"><b>${esc(k.toUpperCase())}</b><div class="grid2"><div><label>Nom affiché</label><input data-field="name" value="${esc(d.name)}"></div><div><label>Image (emoji ou URL https)</label><input data-field="e" value="${esc(d.e)}"></div><div><label>Rareté</label><select data-field="r">${opt(RAR,d.r)}</select></div><div><label>Type d'orbe</label><select data-field="element">${opt(["redorb","blueorb","greenorb","purpleorb","goldorb"],d.element)}</select></div><div><label>PV de base</label><input type="number" min="1" data-field="hp" value="${d.hp}"></div><div><label>Attaque de base</label><input type="number" min="1" data-field="atk" value="${d.atk}"></div><div><label>Défense de base</label><input type="number" min="0" data-field="def" value="${d.def}"></div></div></div>`;
+}
+function buildAdmin(){
+ $("economyFields").innerHTML=Object.keys(econLabels).map(k=>`<div><label>${econLabels[k]}</label><input id="econ_${k}" type="number" min="0" value="${CONFIG[k]}"></div>`).join("");
+ $("rateCommon").value=CONFIG.commonRate;$("rateRare").value=CONFIG.rareRate;$("rateEpic").value=CONFIG.epicRate;$("rateLegend").value=CONFIG.legendRate;
+ $("adminDinos").innerHTML=Object.keys(SPEC).map(k=>dinoForm(k,SPEC[k])).join("");updateRateTotal();
+}
+function addAdminDino(){
+ const w=document.createElement("div");w.innerHTML=dinoForm("dino_"+Date.now().toString(36),{name:"Nouveau dinosaure",e:"🦖",r:"Commun",hp:100,atk:15,def:10,element:"redorb"});
+ const el=w.firstElementChild;$("adminDinos").appendChild(el);el.scrollIntoView({block:"center"});
+}
+async function saveAdmin(){
+ if(!isAdmin||!sb)return;
+ const rates=["rateCommon","rateRare","rateEpic","rateLegend"].map(id=>Number($(id).value));
+ if(rates.some(n=>!Number.isFinite(n)||n<0)||Math.round(rates.reduce((a,b)=>a+b,0))!==100)return alert("Les taux de rareté doivent totaliser exactement 100 %.");
+ const eco={};
+ for(const k of Object.keys(econLabels)){const v=Number($("econ_"+k).value);if(!Number.isFinite(v)||v<0)return alert("Les coûts et récompenses doivent être positifs ou nuls.");eco[k]=Math.round(v)}
+ if(eco.exploreStoneMax<eco.exploreStoneMin)return alert("Pierres maximum en exploration < minimum.");
+ const dinos={};
+ for(const el of document.querySelectorAll(".adminitem")){
+  const key=el.dataset.dino,d={};
+  el.querySelectorAll("[data-field]").forEach(i=>{const f=i.dataset.field;d[f]=["hp","atk","def"].includes(f)?Number(i.value):i.value.trim()});
+  if(!/^[a-z0-9_]{1,40}$/.test(key)||!d.name||!d.e||!(d.hp>=1)||!(d.atk>=1)||!(d.def>=0)||!RAR.includes(d.r))return alert("Vérifie les noms, images et statistiques des dinosaures.");
+  if(/^[a-z]+:/i.test(d.e)&&!/^https:\/\//i.test(d.e))return alert("URL d'image : HTTPS uniquement.");
+  dinos[key]=d;
+ }
+ const cfg={dinos,economy:{...eco,commonRate:rates[0],rareRate:rates[1],epicRate:rates[2],legendRate:rates[3]}};
+ const {error}=await sb.from("game_config").upsert({id:1,data:cfg,updated_by:currentUser.id});
+ if(error)return alert("Échec de l'enregistrement : "+error.message);
+ applyRemoteConfig(cfg);buildAdmin();render();alert("Enregistré en ligne. Les joueurs recevront ces paramètres à leur prochain chargement du jeu.");
+}
+function resetAdmin(){if(!confirm("Remettre toutes les valeurs par défaut dans ce formulaire ? (Rien n'est publié tant que tu n'as pas enregistré.)"))return;SPEC=clone(SPEC_DEFAULT);CONFIG={...DEFAULT_CONFIG};buildAdmin();render()}
+function updateRateTotal(){const n=["rateCommon","rateRare","rateEpic","rateLegend"].reduce((s,id)=>s+Number($(id).value||0),0);$("rateTotal").textContent="Total actuel : "+n+" %"+(n===100?" — valide":" — doit être égal à 100 %")}
+["rateCommon","rateRare","rateEpic","rateLegend"].forEach(id=>$(id).addEventListener("input",updateRateTotal));
+initOnline();
+</script>
+</body></html>

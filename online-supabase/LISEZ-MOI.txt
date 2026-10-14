@@ -1,0 +1,69 @@
+ARK: PRIMAL WORLD — version en ligne (Supabase)
+
+ÉTAT HONNÊTE
+Le code est écrit, mais N'A PAS ÉTÉ TESTÉ contre un vrai projet Supabase (pas de
+réseau dans mon environnement). Il faut suivre les étapes ci-dessous et faire les
+vérifications de l'étape 6 avant d'annoncer le jeu à des joueurs.
+
+CONTENU
+- index.html          le jeu (comptes, sauvegarde en ligne, admin)
+- config.js           URL + clé PUBLIQUE Supabase (à remplir)
+- supabase_schema.sql tables profiles / game_saves / game_config + règles RLS
+- manifest.json       installation sur l'écran d'accueil
+
+1) CRÉER LE PROJET SUPABASE (gratuit)
+   supabase.com > New project. Garde le mot de passe de la base quelque part.
+
+2) CRÉER LES TABLES
+   SQL Editor > New query > colle supabase_schema.sql > Run.
+   Vérifie dans Table Editor que les 3 tables existent avec "RLS enabled".
+
+3) RENSEIGNER config.js
+   Project Settings > API : copie "Project URL" et la clé publique (anon /
+   publishable). JAMAIS la clé service_role / secret.
+
+4) AUTHENTIFICATION
+   Authentication > Providers : Email activé.
+   Authentication > URL Configuration : mets l'adresse de ton site (étape 7)
+   dans "Site URL". La confirmation par e-mail est activée par défaut ; l'envoi
+   d'e-mails par le service intégré est fortement limité : pour tester tu peux
+   désactiver "Confirm email", pour une vraie ouverture configure un SMTP.
+
+5) TE DONNER LE RÔLE ADMIN
+   a. Ouvre le jeu, crée ton compte (e-mail + mot de passe).
+   b. SQL Editor :
+        update public.profiles set role='admin'
+        where id=(select id from auth.users where email='ton-email@exemple.com');
+   c. Reconnecte-toi : le bouton ⚙ ADMIN apparaît. Les joueurs n'ont aucun moyen
+      de changer ce rôle (aucune écriture possible sur profiles via l'API).
+
+6) TESTS À FAIRE (avec 2 comptes : toi admin + un compte joueur)
+   - Joueur : gagner un combat sur PC, recharger sur téléphone -> même progression.
+   - Admin : changer un coût / un taux / le nom d'un dinosaure, enregistrer ;
+     recharger avec le compte joueur -> le changement est visible.
+   - Joueur : ouvrir la console du navigateur et essayer
+       await sb.from('game_config').upsert({id:1,data:{}})
+     -> doit être refusé (erreur RLS). Idem pour modifier profiles.role.
+   - Ajouter un dinosaure en admin, vérifier qu'il peut sortir à l'invocation.
+
+7) PUBLIER (HTTPS gratuit)
+   Netlify Drop (app.netlify.com/drop) ou Cloudflare Pages : envoie le dossier
+   (index.html, config.js, manifest.json). Pas besoin de publier le .sql.
+   La clé anon dans config.js est faite pour être publique ; la sécurité repose
+   sur les règles RLS.
+
+LIMITES CONNUES
+- ANTI-TRICHE : les combats et récompenses sont calculés dans le navigateur. Un
+  joueur technique peut modifier SA PROPRE sauvegarde (ressources, dinos) via
+  l'API. Il ne peut pas toucher aux autres joueurs ni à la config. Pour fermer
+  cette faille, il faudra déplacer invocation / récompenses dans des fonctions
+  SQL (RPC) ou des Edge Functions, et interdire l'écriture directe de game_saves.
+- Images : URL HTTPS ou emoji uniquement (pas d'envoi de fichier ; Supabase
+  Storage pourra être ajouté ensuite).
+- Récompenses de chapitre : valeurs communes à tous les chapitres.
+- Conflits multi-appareils : la dernière sauvegarde écrase la précédente ; le jeu
+  recharge la sauvegarde distante quand l'onglet redevient visible.
+- Pas de "mot de passe oublié" dans l'interface (existe côté Supabase).
+- Un dinosaure ajouté ne peut pas être supprimé depuis l'admin.
+- Le script Supabase est chargé depuis jsDelivr (version fixée 2.45.4) sans
+  contrôle d'intégrité SRI ; pour plus de sécurité, héberge ce fichier toi-même.

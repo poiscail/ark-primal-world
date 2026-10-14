@@ -1,0 +1,8 @@
+{
+  "name": "ARK: Primal World",
+  "short_name": "Primal World",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0c1120",
+  "theme_color": "#11182a"
+}
