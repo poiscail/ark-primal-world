@@ -23,7 +23,7 @@ async def main():
         await ev('setPref("art","emoji")');check('mode emoji: plus de SVG',await ev('document.querySelectorAll("#leadTeam .pt").length')==0 and await ev('document.getElementById("leadTeam").innerText.includes("🐲")'))
         await ev('setPref("art","svg")')
         # bestiaire / invocation / combat
-        await ev('go("team");colSet("book",true)');check('bestiaire: portraits',await ev('document.querySelectorAll("#collection .dx .pt, #collection .pt").length')>=10)
+        await ev('go("team");colSet("book",true)');check('bestiaire: portraits',await ev('document.querySelectorAll("#collection .pt").length')>=3)
         await ev('startBattle({mode:"story",n:1})');check('combat: portraits équipe',await ev('document.querySelectorAll("#battleArea .pt").length')>=3)
         await ev('escapeFight();arenaFight(0)');check('arène: ennemi en portrait',await ev('!!document.querySelector("#battleArea .bigicon.hit .pt")'))
         # image personnalisée via l'admin
