@@ -16,7 +16,7 @@ const _go8=go;go=function(s){if(ADV.has(s)&&s!=="battle")lastAdv=s;if(s==="adv")
  const sn=$$("subnav");sn.classList.toggle("hide",!ADV.has(s)||s==="battle");sn.innerHTML=SUBS.map(x=>`<button class="${x[0]===s?"on":""}" onclick="go('${x[0]}')"><span>${x[1]}</span>${x[2]}</button>`).join("")};
 nav.addEventListener("click",e=>{const b=e.target.closest('[data-grp="adv"]');if(b){e.stopImmediatePropagation();go(lastAdv)}},true);
 /* ---- ennemis et combats personnalisés ---- */
-function mkEnemies(n,o){const hp=H(n)*(o.hp||1),at=A(n)*(o.atk||1);return[0,1,2].map(i=>{const last=i===2,boss=last&&!!o.boss,h=Math.round(hp*[1,1.2,boss?2.2:1.5][i]);return{hp:h,max:h,e:o.emo[i],name:o.names?o.names[i]:o.name+" "+(last?"· Élite":"· Ennemi"),el:o.els?o.els[i]:o.el||ORBS[rnd(3)],atk:Math.round(at*[1,1.08,boss?1.4:1.2][i]),boss,regen:o.regen?o.regen:0}})}
+function mkEnemies(n,o){const hp=H(n)*(o.hp||1),at=A(n)*(o.atk||1);return[0,1,2].map(i=>{const last=i===2,boss=last&&!!o.boss,h=Math.round(hp*[1,1.2,boss?2.2:1.5][i]);return{hp:h,max:h,e:o.emo[i],name:o.names?o.names[i]:o.name+" "+(last?"· Élite":"· Ennemi"),el:o.els?o.els[i]:o.el||ORBS[rnd(3)],atk:Math.round(at*[1,1.08,boss?1.4:1.2][i]),boss,regen:o.regen?o.regen:0,pt:o.pts?o.pts[i]:undefined}})}
 const eqLv=f=>Math.round(8+f*1.15);
 const MODES={
  tower(o){const fl=S.tower.floor,n=eqLv(fl),boss=fl%10===0,mods=[];let hp=1,atk=1,regen=0;
@@ -24,7 +24,7 @@ const MODES={
   const th=["🦴","🐗","🦂","🐙","🦇","🗿","🐉"],emo=[th[fl%7],th[(fl+2)%7],boss?"👹":th[(fl+4)%7]];
   return{eq:n,label:"Tour · Étage "+fl+(mods.length?" ("+mods.join(", ")+")":""),enemies:mkEnemies(n,{emo,name:"Tour",hp,atk,boss,regen,el:null})}},
  arena(o){const n=o.n,els=o.sp.map(k=>SPEC[k].element),emo=o.sp.map(k=>SPEC[k].e),names=o.sp.map(k=>SPEC[k].name+" · "+o.team);
-  return{eq:n,label:"Arène · "+o.team,enemies:mkEnemies(n,{emo,names,els,boss:o.d===2})}},
+  return{eq:n,label:"Arène · "+o.team,enemies:mkEnemies(n,{emo,names,els,pts:o.sp,boss:o.d===2})}},
  event(o){const e=EVENTS[wkNow()%EVENTS.length],t=EVT[o.t],n=t[1];
   return{eq:n,label:e.n+" · "+t[0],enemies:mkEnemies(n,{emo:e.en,name:e.n,el:e.el,boss:true,hp:1+.1*o.t,atk:1})}}};
 const _sb8=startBattle;

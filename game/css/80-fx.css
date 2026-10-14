@@ -1,0 +1,16 @@
+/* Animations, réglages */
+@keyframes shk{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+.shake{animation:shk .35s}
+@keyframes orbIn{from{transform:scale(.6);opacity:.3}to{transform:scale(1);opacity:1}}
+.orbboard .orb{animation:orbIn .22s ease-out}
+.fxflash{position:fixed;inset:0;z-index:90;background:radial-gradient(circle,#fff8,#ffd15c55 55%,transparent);pointer-events:none;animation:fxf .5s forwards}
+@keyframes fxf{from{opacity:1}to{opacity:0}}
+.confetti{position:fixed;inset:0;z-index:95;pointer-events:none;overflow:hidden}
+.confetti i{position:absolute;top:-12px;width:8px;height:14px;border-radius:2px;animation:cf linear forwards}
+@keyframes cf{to{transform:translateY(105vh) rotate(720deg);opacity:.7}}
+body.noanim *,body.noanim *::before,body.noanim *::after{animation:none!important;transition:none!important}
+.setbtn{border:1px solid #2d3d5e;box-shadow:none;color:#fff;font-size:12px;padding:3px 8px;border-radius:999px;background:#17213a}
+#setVeil{align-items:start;overflow:auto}#setVeil .authbox{width:min(460px,100%)}
+.balpre{white-space:pre-wrap;font-size:11px;background:#0b1020;border:1px solid #2d3d5e;border-radius:8px;padding:8px;max-height:160px;overflow:auto;margin:6px 0}
+input[type=range]{width:50%}
+.pt{display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;line-height:0}.pt svg{width:100%;height:100%;display:block}.imgtools{margin-top:8px}.imgtools button{padding:6px 10px;font-size:12px}
