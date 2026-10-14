@@ -1,0 +1,6 @@
+/* Navigation en hub, Tour, Arène, Événements */
+.bottomnav{grid-template-columns:repeat(5,1fr)}.bottomnav button{font-size:10px}
+.subnav{display:flex;gap:4px;margin:0 0 10px;}
+.subnav button{flex:1;font-size:10px;padding:6px 0;background:#17213a;color:#cfe;box-shadow:none;border:1px solid #2d3d5e}.subnav button span{display:block;font-size:16px}
+.subnav button.on{background:linear-gradient(#ffe68b,#ffb52e);color:#221a0a}
+.trio{display:flex;gap:2px;flex:0 0 auto}.trio span{width:34px;height:34px;display:grid;place-items:center;font-size:24px;background:#17213a;border:1px solid #2d3d5e;border-radius:8px;overflow:hidden}
