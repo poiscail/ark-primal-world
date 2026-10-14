@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.0 — Style futuriste, thèmes, boost d'orbes, animations, gacha étendu, rang
+- Style futuriste (grille néon, angles coupés, HUD) avec thème sombre, clair ou automatique.
+- Boost d'orbes : plus il y a d'orbes de la même couleur sur le plateau, plus elles frappent fort (×1,15 à ×3), avec badges et pulsations.
+- Animations : particules, ondes de choc, ennemi qui se dissout, secousses, transitions d'écran, compteurs animés, héros flottants.
+- Gacha : roue de la chance quotidienne, invocation d'équipement (garantie à 30), œufs mystères, appels épique/légendaire au choix, jauges de garantie.
+- Rang du survivant : le niveau de joueur donne +0,5 % PV/ATQ par rang et des récompenses à chaque rang.
+- Tests : `test_v10.py`.
+
 ## 0.9.0 — Confort : tutoriel, équipes enregistrées, sauvegardes de secours
 - Tutoriel contextuel (9 conseils à affichage unique, « passer » possible) et Guide du jeu.
 - 5 équipes enregistrées, chargeables depuis l'écran Équipe et la barre des modes ; gestion des dinosaures disparus.

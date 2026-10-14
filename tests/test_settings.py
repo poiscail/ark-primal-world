@@ -12,7 +12,7 @@ async def main():
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
         await pg.goto(GAME);await pg.wait_for_timeout(300);ev=pg.evaluate
         await ev('localStorage.removeItem("arkPrimalPrefs")')
-        base='S.team=[{id:1,type:"rex",level:30,xp:0},{id:2,type:"spino",level:30,xp:0},{id:3,type:"trike",level:30,xp:0}];S.bal={};S.cnt={};S.dcnt={};S.stone=0;S.stage=0;'
+        base='S.team=[{id:1,type:"rex",level:30,xp:0},{id:2,type:"spino",level:30,xp:0},{id:3,type:"trike",level:30,xp:0}];S.bal={};S.cnt={};S.dcnt={};S.stone=0;S.stage=0;S.level=1;S.xp=0;'
         await ev(base);await ev('ens()')
         # sons : on compte les oscillateurs créés
         await ev('window.__osc=0;(()=>{const c=ac();const o=c.createOscillator.bind(c);c.createOscillator=()=>{window.__osc++;return o()}})()')
@@ -27,7 +27,7 @@ async def main():
         check('difficulté: ATQ ordonnée',d['easy'][1]<d['normal'][1]<d['hard'][1],d)
         rw={}
         for k in ['easy','normal','hard']:
-            await ev(f'setPref("diff","{k}")');await ev(base);await ev('startBattle({mode:"story",n:20})');await ev(WIN);rw[k]=await ev('S.stone')
+            await ev(f'setPref("diff","{k}")');await ev(base);await ev('S.level=1;S.xp=0;startBattle({mode:"story",n:20})');await ev(WIN);rw[k]=await ev('S.stone')
         check('difficulté: récompenses proportionnelles',rw['easy']<rw['normal']<rw['hard'],rw)
         check('rapport affiche la même récompense que reçue',await ev('fight.report.includes(String(S.stone))'))
         await ev('setPref("diff","normal")')
