@@ -12,7 +12,7 @@ for(const n of [5,10,20,30,50,70,100]){const L=Math.ceil(n/2)+1,st=Math.min(5,Ma
 async def main():
     async with async_playwright() as p:
         b=await p.chromium.launch();pg=await b.new_page();errs=[];pg.on('pageerror',lambda e:errs.append(str(e)))
-        await pg.goto(GAME);await pg.wait_for_timeout(200)
+        await pg.goto(GAME);await pg.wait_for_timeout(200);await pg.evaluate("PREFS.anim=false;PREFS.lore=false;applyPrefs()")
         res=await pg.evaluate(JS)
         for k,v in res.items():print('niv',k,v)
         print('erreurs:',errs);await b.close()

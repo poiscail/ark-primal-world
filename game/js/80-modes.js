@@ -61,7 +61,7 @@ function renderTower(){const T=S.tower;$$("tower").innerHTML=`<div class="banner
  <div class="sectionhead"><h2>Paliers de récompenses</h2></div>${TMILE.map(m=>{const ok=T.best>=m[0],c=T.claimed[m[0]];return `<div class="panel" style="margin:6px 0;padding:10px"><div class="row"><div class="grow"><b class="tiny">Étage ${m[0]}</b><div class="muted tiny">${fmt(m[1])}${m[2]?" + objet "+(m[2]==="leg"?"légendaire":"épique"):""}</div></div>${c?'<span class="tag">✅</span>':`<button style="padding:8px" ${ok?"":"disabled"} onclick="claimTower(${m[0]})">${ok?"RÉCUPÉRER":"🔒"}</button>`}</div></div>`}).join("")}`}
 function towerPreview(fl){const m=[];if(fl%10===0)m.push("👹 Gardien");else{if(fl%7===0)m.push("Colosse");if(fl%5===0)m.push("Frénésie");if(fl%9===0)m.push("Régénérant")}return m.length?m.join(" · "):"Étage standard"}
 /* ---- ARÈNE ---- */
-const ARENA_D=[["Facile",-10,-8,1,14],["Équilibré",0,-12,2,22],["Redoutable",12,-18,3,34]];
+const ARENA_D=[["Facile",-6,-8,1,14],["Équilibré",6,-12,2,22],["Redoutable",24,-18,3,34]];
 const RANKS=[[0,"Bronze","🥉"],[1100,"Argent","🥈"],[1400,"Or","🥇"],[1700,"Platine","💠"],[2000,"Diamant","💎"],[2400,"Apex","👑"]];
 const rankOf=r=>RANKS.filter(x=>r>=x[0]).pop();
 const NAMES=["Kaïra","Brontos","Zéphyr","Mara","Ôrin","Titan","Luma","Rex Club","Néo","Safran","Bastien","Ysoline","Gorgo","Tamia","Vulcain","Ombre","Alizé","Pyro","Sélène","Drago"];
