@@ -66,3 +66,14 @@ body.noanim .pop{display:none}
 @keyframes starin{from{transform:scale(3) rotate(-40deg);opacity:0}to{transform:none;opacity:1}}
 .rise{animation:rise .5s ease-out both}
 @keyframes rise{from{transform:translateY(18px);opacity:0}to{transform:none;opacity:1}}
+/* expéditions & succès */
+.xslot.ready{border-color:#8cffb0;box-shadow:0 0 14px #8cffb055}
+.xdinos{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.xd{width:62px;padding:6px 2px;display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--panel2,#10182a);border:2px solid #2d3d5e}
+.xd.on{border-color:#67e5ff;box-shadow:0 0 10px #67e5ff88}.xd.match{outline:2px dashed #ffd15c88}
+.xd small{font-size:10px;opacity:.8}
+.ach.done{opacity:.6}.ach.ready{border-color:#ffd15c;box-shadow:0 0 14px #ffd15c55}
+.dot{position:absolute;top:4px;right:6px;width:9px;height:9px;border-radius:50%;background:#ff647b;box-shadow:0 0 8px #ff647b;animation:dotp 1.2s infinite}
+@keyframes dotp{50%{transform:scale(1.5)}}
+.subnav button,.bottomnav button{position:relative}
+.pzico{position:absolute;right:-4px;bottom:-4px;font-size:14px;font-style:normal;animation:dotp 1s infinite}
