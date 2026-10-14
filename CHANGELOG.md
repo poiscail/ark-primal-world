@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.0 — Gacha étendu, connexion quotidienne, HUD
+- Gacha : tirage gratuit quotidien, bannière vedette (rotation quotidienne, 60 % de vedette parmi les légendaires, garantie à 60), bannière élémentaire, bannière des variantes (x2,5), historique et statistiques.
+- Incubateur : 3 emplacements, œufs commun / rare / épique obtenus en boss, donjons et connexion ; éclosion après des victoires.
+- Boutique de fragments (🧩) alimentée par le recyclage ; connexion quotidienne sur 7 jours.
+- HUD : fenêtre de résultats animée avec lueurs par rareté, notifications non bloquantes (remplacent les alertes), journal de combat, profil du survivant, compteurs sur deux lignes.
+- Corrections : la bannière élémentaire pouvait sortir un autre élément (aucun Épique doré) ; grille de résultats qui débordait ; variante Ombre peu lisible.
+- 6 nouvelles missions (œufs éclos, tirages).
+
 ## 0.5.0 — Compétences, attributs spéciaux, 46 espèces, variantes, nouveau HUD
 - 14 compétences actives avec recharge (réduite aux éveils ★3 et ★5) et 13 attributs passifs.
 - 46 espèces (31 nouvelles) ; variantes Alpha / Ombre / Albinos / Doré / Prismatique au gacha.

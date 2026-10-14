@@ -67,8 +67,8 @@ async def main():
         r=await ev('document.querySelectorAll("#collection > .panel").length');check('collection: pagination à 12',r==12,r)
         await ev('colSet("lim",24)');r=await ev('document.querySelectorAll("#collection > .panel").length');check('collection: voir plus',r==24,r)
         await ev('colSet("r","Légendaire")');r=await ev('[...document.querySelectorAll("#collection .rarity")].every(e=>e.textContent=="Légendaire"||!e.closest(".panel"))');check('collection: filtre rareté',r)
-        await ev('colSet("r","all");colSet("book",true)');r=await ev('document.querySelectorAll(".dx").length');check('bestiaire affiche 46 espèces',r==46,r)
-        r=await ev('document.querySelectorAll(".dx.no").length');print('espèces non découvertes (attendu 16):',r)
+        await ev('colSet("r","all");colSet("book",true)');r=await ev('document.querySelectorAll("#colTools .dx").length');check('bestiaire affiche 46 espèces',r==46,r)
+        r=await ev('document.querySelectorAll("#colTools .dx.no").length');print('espèces non découvertes (attendu 16):',r)
         # --- admin
         await ev('S.team=[{id:1,type:"raptor",level:1,xp:0}];go("home");openAdmin();addAdminDino()');
         await ev('(()=>{const el=[...document.querySelectorAll(".adminitem")].pop();el.querySelector("[data-field=name]").value="Test-saure";el.querySelector("[data-field=sk]").value="execute";el.querySelector("[data-field=pa]").value="crit"})()')
