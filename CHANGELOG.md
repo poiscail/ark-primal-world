@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.0 — Confort : tutoriel, équipes enregistrées, sauvegardes de secours
+- Tutoriel contextuel (9 conseils à affichage unique, « passer » possible) et Guide du jeu.
+- 5 équipes enregistrées, chargeables depuis l'écran Équipe et la barre des modes ; gestion des dinosaures disparus.
+- 5 sauvegardes automatiques tournantes, restauration depuis les Réglages ; l'import crée une copie « avant import » (remplace l'ancienne copie unique).
+- Tests : `test_qol.py`.
+
 ## 0.8.0 — Version PC et version téléphone, transfert de sauvegarde
 - Deux versions construites depuis le même code (`tools/build.py`) : dossier PC (clavier, mise en page élargie) et fichier unique téléphone (tactile).
 - Transfert de sauvegarde par fichier `.arksave` ou par code compressé ; enveloppe versionnée, validation stricte, rejet des sauvegardes d'un jeu/format inconnu, annulation du dernier import, anciens codes toujours lus.

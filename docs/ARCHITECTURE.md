@@ -21,6 +21,9 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `js/90-settings-audio.js` | préférences, sons, animations, difficulté (enveloppe `H`/`A`), télémétrie |
 | `js/95-portraits.js` | portraits SVG, remplacement de `art()`, import d'images |
 | `js/96-transfer.js` | export/import de sauvegarde (fichier, code), clavier PC, classe `pc`/`phone` |
+| `js/97-backups.js` | copies de secours automatiques (`takeBackup`, enveloppe `save()`) |
+| `js/97-teams.js` | équipes enregistrées |
+| `js/98-tutorial.js` | conseils contextuels (`TIPS`) et guide |
 | `tools/build.py` | construit `dist/ARK_PC` (dossier) et `dist/ARK_Telephone` (fichier unique), avec leurs zips |
 
 ## Ajouter une fonctionnalité

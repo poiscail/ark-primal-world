@@ -5,3 +5,6 @@ body.phone button{min-height:44px}body.phone .bottomnav button{min-height:52px}
 body.pc .app{max-width:760px}body.pc .bottomnav{max-width:760px}
 body.pc .orbboard.n3{max-width:520px;margin-inline:auto}body.pc button:hover:not(:disabled){filter:brightness(1.08)}
 body.pc #collection{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}body.pc #collection>*{min-width:0}
+.presetbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:0 0 8px}.presetbar button{padding:6px 10px;font-size:12px;background:#17213a;color:#cfe;box-shadow:none;border:1px solid #2d3d5e}.presetbar button.on{background:linear-gradient(#ffe68b,#ffb52e);color:#221a0a}
+.tip{border:2px solid #67e5ff;background:#0f2238;border-radius:12px;padding:10px;margin:0 0 10px;box-shadow:0 0 14px #67e5ff44}
+#guideVeil{align-items:start;overflow:auto}#guideVeil .authbox{width:min(460px,100%)}

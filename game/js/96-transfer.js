@@ -22,7 +22,7 @@ function validate(o){if(!o||typeof o!=="object")throw new Error("Fichier illisib
  return{S:st,cfg,info}}
 function summary(S2){const n=S2.team.length,pw=S2.stage||0;return n+" dinosaures · histoire "+pw+"/100"+(S2.tower?" · tour "+(S2.tower.best||0):"")+(S2.arena?" · arène "+S2.arena.r:"")}
 function applyImport(v){if(!confirm("Importer la sauvegarde ("+v.info.from+", v"+v.info.ver+(v.info.at?", "+v.info.at.slice(0,10):"")+") ?\n"+summary(v.S)+"\n\nElle REMPLACERA la progression de cet appareil ("+summary(S)+"). Exporte d'abord celle-ci si tu veux la garder."))return false;
- const nv={...initial,...v.S};try{localStorage.setItem("arkPrimalMobile.backup",localStorage.getItem("arkPrimalMobile")||"")}catch(e){}
+ const nv={...initial,...v.S};try{takeBackup("avant import",true)}catch(e){}
  try{localStorage.setItem("arkPrimalMobile",JSON.stringify(nv));if(v.cfg&&v.cfg.dinos)localStorage.setItem("arkPrimalConfig",JSON.stringify(v.cfg))}catch(e){toast("Stockage plein ou refusé : import impossible.");return false}
  window.__noSaveOnUnload=true;location.reload();return true}
 /* actions */
@@ -30,7 +30,7 @@ async function trExportCode(){try{const c=await makeCode();$$("trCode").value=c;
 async function trImportCode(){try{applyImport(validate(await parseCode($$("trCode").value)))}catch(e){toast("Code invalide : "+(e.message||"illisible"))}}
 function trExportFile(){const json=JSON.stringify(envelope(true),null,0),blob=new Blob([json],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="ark-primal-world-"+new Date().toISOString().slice(0,10)+".arksave";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);toast("Fichier de sauvegarde créé.")}
 function trImportFile(inp){const f=inp.files&&inp.files[0];if(!f)return;if(f.size>8e6){toast("Fichier trop gros.");inp.value="";return}const rd=new FileReader();rd.onload=()=>{try{applyImport(validate(JSON.parse(rd.result)))}catch(e){toast("Import impossible : "+(e.message||"fichier illisible"))}inp.value=""};rd.readAsText(f)}
-function trRestoreBackup(){const b=localStorage.getItem("arkPrimalMobile.backup");if(!b){toast("Aucune sauvegarde de secours.");return}if(!confirm("Revenir à la progression d'avant le dernier import ?"))return;localStorage.setItem("arkPrimalMobile",b);location.reload()}
+function trRestoreBackup(){const l=bkList().filter(b=>b.l==="avant import");if(!l.length){toast("Aucune sauvegarde d'avant import.");return}bkRestore(l[0].at)}
 /* interface : remplace l'ancien bloc « Sauvegarde » de l'accueil */
 (function(){const old=document.querySelector(".savebox");if(old){const h=old.previousElementSibling;if(h&&h.classList.contains("sectionhead"))h.remove();old.remove()}
  $$("home").insertAdjacentHTML("beforeend",`<div class="sectionhead"><h2>Sauvegarde</h2><span class="muted tiny">PC ↔ téléphone</span></div><div class="panel savebox"><div class="muted tiny" style="margin-bottom:6px">Version ${ARK_PLATFORM==="pc"?"PC":"téléphone"} · v${ARK_VERSION}. Les deux versions utilisent exactement le même format : exporte ici, importe là.</div>

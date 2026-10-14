@@ -31,6 +31,9 @@ Jeu de combat 2D à orbes inspiré de Dokkan Battle, avec des dinosaures. Il tou
 - **Sons et animations** : effets sonores et musique synthétisés (aucun fichier), secousses, éclairs, confettis.
 - **Illustrations** : un portrait SVG original par espèce (interrupteur illustrations/emojis), images personnalisées importables depuis l'admin.
 - **Réglages** (⚙) : audio, animations, difficulté (facile / normal / difficile), rapport d'équilibrage copiable, réinitialisation.
+- **Tutoriel** : conseils affichés une seule fois au bon moment (orbes, éléments, compétences, victoire, modes…), désactivable, plus un **Guide du jeu** dans les Réglages. Les parties existantes n'ont pas de tutoriel.
+- **Équipes enregistrées** : 5 équipes de 3, changement en un clic (écran Équipe ou barre au-dessus des modes).
+- **Sauvegardes de secours** : 5 copies automatiques (toutes les 10 min de jeu, et avant chaque import), restaurables dans les Réglages.
 - **Admin local** (⚙ ADMIN) : dinosaures, coûts, taux de drop, récompenses (enregistré sur l'appareil).
 
 ## Tests
@@ -43,6 +46,7 @@ python3 tests/test_equipment.py # butin, forge, démontage, auto-équipement, pa
 python3 tests/test_modes.py     # navigation, Tour, Arène, événements (règlement, limites, boutiques)
 python3 tests/test_settings.py  # sons, difficulté, télémétrie, préférences, animations
 python3 tests/test_portraits.py # 46 portraits SVG, mode emoji, import d'image admin
+python3 tests/test_qol.py       # tutoriel, équipes enregistrées, sauvegardes automatiques, guide
 python3 tests/test_transfer.py  # construit PC + téléphone, transfert de sauvegarde dans les deux sens, rejets, clavier
 python3 tests/test_balance.py   # taux de victoire par niveau d'histoire (simulation)
 python3 tests/test_balance_modes.py # idem pour la Tour et l'Arène
