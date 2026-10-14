@@ -1,0 +1,18 @@
+/* Variantes, boutons de compétence, collection, bestiaire */
+.v-alpha{filter:drop-shadow(0 0 4px #ff647b) saturate(1.4)}
+.v-shadow{filter:brightness(.7) contrast(1.3) drop-shadow(0 0 3px #d9b8ff) drop-shadow(0 0 6px #a06aff)}
+.v-albino{filter:grayscale(1) brightness(1.5) drop-shadow(0 0 4px #fff)}
+.v-golden{filter:sepia(1) saturate(4) hue-rotate(-10deg) drop-shadow(0 0 5px #ffd15c)}
+.v-prism{animation:prism 3s linear infinite}@keyframes prism{from{filter:hue-rotate(0) drop-shadow(0 0 5px #fff)}to{filter:hue-rotate(360deg) drop-shadow(0 0 5px #fff)}}
+.vtag{font-size:9px;font-weight:900;border-radius:5px;padding:1px 5px;margin-left:4px;border:1px solid;vertical-align:middle}
+.skbtn{flex:0 0 80px;display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 3px;font-size:19px;line-height:1.1}
+.skbtn small{font-size:9px;font-weight:800;max-width:74px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.skbtn.off{background:#2b3550;color:#8d9bb8;box-shadow:none}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}.btns button{margin:0;padding:9px 4px;font-size:11px}.btns .on{outline:2px solid #fff}
+.dex{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.dx{background:#10182a;border:1px solid #2d3d5e;border-radius:9px;padding:6px 2px;text-align:center;font-size:9px}.dx .a{font-size:26px;height:34px;display:grid;place-items:center}.dx.no{opacity:.4}
+.fchips{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}.chip.hot{border-color:#ff647b;color:#ff9aa8}.chip.good{border-color:#8cffb0;color:#8cffb0}
+.pop.hurt{color:#ff647b}.bottomnav button{position:relative}.dot{position:absolute;top:0;right:6px;background:#ff3b5c;color:#fff;border-radius:9px;font-size:9px;padding:1px 5px}
+.orb small{display:block;font-size:9px;line-height:1;font-weight:900}.tools select{width:auto;display:inline-block;margin:3px 4px 3px 0;padding:7px;border-radius:8px;background:#0d1527;color:#fff;border:1px solid #43577e}
+.newtag{color:#8cffb0;font-weight:900;font-size:9px}
+.meters{flex-wrap:wrap!important;overflow:visible!important;gap:4px!important}.meter{padding:4px 7px!important;font-size:10px!important}
+.orbboard.n3{max-width:290px;margin:10px auto}#battle .banner{min-height:88px;padding:10px 14px}#battle .banner p{display:none}#battle .banner h1{font-size:19px;max-width:70%;margin:4px 0}#battle .heroDino{font-size:46px;bottom:8px}.orbboard.n3 .orb{font-size:28px}

@@ -1,0 +1,9 @@
+/* Notifications, fenêtre de résultats, gacha */
+#toasts{position:fixed;left:50%;transform:translateX(-50%);bottom:84px;z-index:300;display:flex;flex-direction:column;gap:6px;align-items:center;pointer-events:none;width:min(440px,92vw)}
+.toast{background:#1d2a47f2;border:1px solid #5d78a8;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:700;box-shadow:0 6px 20px #000a;animation:ti .25s;text-align:center}.toast.out{opacity:0;transition:.4s}@keyframes ti{from{transform:translateY(10px);opacity:0}}
+.gres{display:grid;gap:6px;margin:10px 0}.gc{background:#10182a;border:2px solid #2d3d5e;border-radius:10px;padding:6px 2px;text-align:center;font-size:9px;animation:rv .5s both}.gc{min-width:0}.gc strong{display:block;overflow-wrap:anywhere;line-height:1.15}.gc .art{font-size:30px;height:40px;display:grid;place-items:center}
+@keyframes rv{from{opacity:0;transform:scale(.4) rotate(-10deg)}to{opacity:1;transform:none}}
+.gl-r{border-color:#67e5ff}.gl-e{border-color:#bd8aff;box-shadow:0 0 10px #bd8aff88}.gl-l{border-color:#ffd15c;box-shadow:0 0 16px #ffd15c;animation:rv .5s both,gp 1.4s ease-in-out .6s infinite}@keyframes gp{50%{box-shadow:0 0 26px #ffd15c}}
+.dex3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.dex3 .dx{padding:8px 2px}.dex3 .dx b{font-size:15px;display:block;color:#ffd15c}
+.eltabs{display:flex;gap:4px;margin:6px 0}.eltabs button{flex:1;padding:8px 0;font-size:16px;background:#2b3550;color:#fff;box-shadow:none}.eltabs button.on{outline:2px solid #fff;background:#4a5f8c}
+.hrow{display:flex;gap:3px;flex-wrap:wrap}.hrow .chip{font-size:15px;padding:2px 4px;border-width:2px}

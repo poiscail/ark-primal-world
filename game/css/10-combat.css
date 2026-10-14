@@ -1,0 +1,5 @@
+/* Barre d'XP, animations de combat */
+.xpb{height:5px;margin:7px 0 0}.xpb i{width:0;background:linear-gradient(90deg,#ffd15c,#ff9d3c)}
+@keyframes sh{0%,100%{transform:none}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}.hit{animation:sh .25s}
+.chip{font-size:10px;border:1px solid #4b6088;border-radius:6px;padding:2px 5px}.gauge i{background:linear-gradient(90deg,#ff9d3c,#ff536c)!important}
+.orbboard.n3{grid-template-columns:repeat(3,1fr)}.orbboard .orb{font-size:26px;padding:0}.dead{opacity:.4;filter:grayscale(1)}

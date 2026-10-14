@@ -1,0 +1,5 @@
+/* Navigation, liste de niveaux, missions */
+.bottomnav{grid-template-columns:repeat(7,1fr)}.bottomnav button{font-size:9px;padding:6px 0}.bottomnav button span{font-size:18px}
+.lvl{display:flex;align-items:center;gap:8px;padding:8px;border:1px solid #334565;border-radius:10px;margin:5px 0;background:#131a2c}
+.lvl.boss{border-color:#ff647b}.lvl.cur{border-color:#ffd15c;background:#2a2615}.lvl.lock{opacity:.4}.lvl button{padding:8px 10px}
+.mbar{height:6px}.ok{color:#8cffb0}.scrollbox{max-height:48vh;overflow:auto}.row button{flex:0 0 auto}
