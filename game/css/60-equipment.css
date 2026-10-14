@@ -1,0 +1,4 @@
+/* Équipement : objets, sac, fenêtre d'équipement */
+.it{border:2px solid #2d3d5e;border-radius:10px;padding:8px;margin:6px 0;background:#10182a}
+.it .btns{margin-top:6px}.it .btns button{padding:7px 4px}
+#eqVeil .authbox{width:min(460px,100%)}
