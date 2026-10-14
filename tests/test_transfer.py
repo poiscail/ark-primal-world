@@ -16,7 +16,7 @@ async def newpage(b,url,phone):
     pg=await ctx.new_page();pg.errs=[];pg.on('pageerror',lambda e:pg.errs.append((e.stack or str(e))[:300]));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
     await pg.goto(url);await pg.wait_for_timeout(300);return pg
 async def canon(pg):  # état canonique (clés triées récursivement)
-    return await pg.evaluate('()=>{const s=o=>Array.isArray(o)?o.map(s):o&&typeof o==="object"?Object.fromEntries(Object.keys(o).sort().map(k=>[k,s(o[k])])):o;const o=JSON.parse(JSON.stringify(S));["day","dcnt","dclaimed","login","freeDay","ev","hist","gstat"].forEach(k=>delete o[k]);return JSON.stringify(s(o))}')
+    return await pg.evaluate('()=>{ens();const s=o=>Array.isArray(o)?o.map(s):o&&typeof o==="object"?Object.fromEntries(Object.keys(o).sort().map(k=>[k,s(o[k])])):o;const o=JSON.parse(JSON.stringify(S));["day","dcnt","dclaimed","login","freeDay","ev","hist","gstat"].forEach(k=>delete o[k]);return JSON.stringify(s(o))}')
 async def main():
     async with async_playwright() as p:
         b=await p.chromium.launch()
