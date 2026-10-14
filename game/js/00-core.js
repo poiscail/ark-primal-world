@@ -22,7 +22,7 @@ loadGameConfig();
 
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 let screen="home",fight=null,orbPick=null;
-let need=l=>35+l*25, sp=d=>SPEC[d.type], art=e=>/^https:\/\//i.test(e)?`<img src="${esc(e)}" alt="" style="max-width:100%;max-height:100%">`:esc(e),rarityClass=r=>r==="Épique"?"epic":r==="Légendaire"?"legend":"";
+let need=l=>35+l*25, sp=d=>SPEC[d.type]||SPEC_DEFAULT.raptor, art=e=>/^https:\/\//i.test(e)?`<img src="${esc(e)}" alt="" style="max-width:100%;max-height:100%">`:esc(e),rarityClass=r=>r==="Épique"?"epic":r==="Légendaire"?"legend":"";
 function save(){localStorage.setItem("arkPrimalMobile",JSON.stringify(S));topbar()}
 function topbar(){["stone","essence","tickets","level"].forEach(k=>document.getElementById(k).textContent=S[k])}
 function log(s){S.log.unshift(s);S.log=S.log.slice(0,8);save()}

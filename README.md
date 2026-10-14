@@ -2,10 +2,13 @@
 
 Jeu de combat 2D à orbes inspiré de Dokkan Battle, avec des dinosaures. Il tourne dans un navigateur, **en local, sans serveur ni compte**.
 
-## Lancer le jeu
-- **PC** : ouvrir `game/index.html` (double-clic). Le jeu fonctionne, mais l'installation et le cache hors ligne ne marchent qu'en http(s).
-- **Téléphone** (même Wi-Fi) : dans `game/`, lancer `python3 -m http.server 8000`, puis ouvrir `http://IP-DU-PC:8000`. Sur Android, `http://IP` n'est pas « sécurisé » : l'installation PWA exige https ou localhost (ex. hébergement statique gratuit type GitHub Pages, ou `localhost` via USB). **Non testé sur un vrai téléphone** : seulement Chromium de bureau (hors ligne vérifié via localhost).
-- La progression est enregistrée dans le navigateur de chaque appareil. Pour passer de l'un à l'autre : **Accueil > Exporter / Importer** un code de sauvegarde.
+## Deux versions, une même sauvegarde
+- **Version PC** (`ARK_PC/`) : double-clic sur `index.html`. Raccourcis clavier en combat (1-2-3 orbes, A-Z-E compétences, Espace super), mise en page élargie.
+- **Version téléphone** (`ARK_Telephone/ARK_Primal_World.html`) : **un seul fichier** à ouvrir dans le navigateur du téléphone, boutons tactiles agrandis.
+- Les deux sont construites par `python3 tools/build.py` à partir du même code (`game/`) : seule la plateforme change.
+- **Transfert** : *Accueil > Sauvegarde* → *Exporter un fichier* (`.arksave`) puis *Importer un fichier* sur l'autre appareil, ou *Copier le code* / *Importer ce code*. Format identique des deux côtés, avec contrôles de validité (jeu, version, dinosaures), possibilité d'*annuler le dernier import* et lecture des anciens codes.
+- La progression est enregistrée dans le navigateur de chaque appareil : exporte de temps en temps pour avoir une copie.
+- **Non testé sur un vrai téléphone** (seulement émulation mobile de Chromium). Certains navigateurs mobiles restreignent les fichiers locaux ; voir `LISEZ-MOI.txt` de la version téléphone.
 
 ## Contenu du jeu
 - **Histoire : 100 niveaux**, 4 zones, un boss tous les 10 niveaux, difficulté croissante.
@@ -28,7 +31,6 @@ Jeu de combat 2D à orbes inspiré de Dokkan Battle, avec des dinosaures. Il tou
 - **Sons et animations** : effets sonores et musique synthétisés (aucun fichier), secousses, éclairs, confettis.
 - **Illustrations** : un portrait SVG original par espèce (interrupteur illustrations/emojis), images personnalisées importables depuis l'admin.
 - **Réglages** (⚙) : audio, animations, difficulté (facile / normal / difficile), rapport d'équilibrage copiable, réinitialisation.
-- **Installable / hors ligne** : manifeste, icônes et service worker (voir plus haut pour les conditions).
 - **Admin local** (⚙ ADMIN) : dinosaures, coûts, taux de drop, récompenses (enregistré sur l'appareil).
 
 ## Tests
@@ -41,13 +43,13 @@ python3 tests/test_equipment.py # butin, forge, démontage, auto-équipement, pa
 python3 tests/test_modes.py     # navigation, Tour, Arène, événements (règlement, limites, boutiques)
 python3 tests/test_settings.py  # sons, difficulté, télémétrie, préférences, animations
 python3 tests/test_portraits.py # 46 portraits SVG, mode emoji, import d'image admin
-python3 tests/test_pwa.py       # service worker, cache, jeu hors ligne (serveur local)
+python3 tests/test_transfer.py  # construit PC + téléphone, transfert de sauvegarde dans les deux sens, rejets, clavier
 python3 tests/test_balance.py   # taux de victoire par niveau d'histoire (simulation)
 python3 tests/test_balance_modes.py # idem pour la Tour et l'Arène
 ```
 
 ## Dossiers
-- `game/` : le jeu local (`index.html`, `css/`, `js/`, `icons/`, `sw.js`, `manifest.json`). Architecture : [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+- `game/` : le code source du jeu (`index.html`, `css/`, `js/`). `tools/build.py` en fait les versions PC et téléphone dans `dist/` (non versionné). Architecture : [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 - `online-supabase/` : ancienne piste en ligne (comptes + base Supabase). **Jamais testée contre un vrai Supabase**, non maintenue depuis l'abandon de la mise en ligne.
 
 Voir [CHANGELOG.md](CHANGELOG.md) pour l'historique.

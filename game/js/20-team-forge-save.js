@@ -8,6 +8,4 @@ function forge(){const c=5*(S.gear+1);if(S.essence<c){alert("Il faut "+c+" essen
 const _r=render;render=function(){_r();updForge()};
 const _h=hit;hit=function(d,m){if(fight)fight.pop=d;_h(d,m)};
 const _rb=renderBattle;renderBattle=function(){_rb();if(fight&&fight.pop){const b=document.querySelector("#battleArea .bigicon");if(b){b.style.position="relative";b.insertAdjacentHTML("beforeend",`<span class="pop">-${fight.pop}</span>`)}fight.pop=0}};
-async function exportSave(){const c=btoa(unescape(encodeURIComponent(JSON.stringify(S))));document.getElementById("saveCode").value=c;try{await navigator.clipboard.writeText(c);alert("Code copié. Colle-le sur l'autre appareil avec IMPORTER.")}catch(e){alert("Copie le code affiché dans la zone de texte.")}}
-function importSave(){try{const o=JSON.parse(decodeURIComponent(escape(atob(document.getElementById("saveCode").value.trim()))));if(!o||!Array.isArray(o.team)||!o.team.length||!o.team.every(d=>SPEC[d.type]))throw 0;if(!confirm("Remplacer la progression de cet appareil ?"))return;S={...initial,...o};fight=null;save();render();alert("Sauvegarde importée.")}catch(e){alert("Code invalide.")}}
 render();
