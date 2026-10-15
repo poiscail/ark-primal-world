@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.17.0 — 7 thèmes avec images de fond, nouvelles espèces, Raid, Marché
+- 7 thèmes complets au choix dans les Réglages (Néon, Clair, Jungle, Volcan, Abysses, Mystique, Désert) : couleurs de toute l'interface + image de fond, aperçus cliquables, mode automatique conservé.
+- 7 images de fond générées par programme (`tools/gen_backgrounds.py`, Python/PIL) : décors en couches avec silhouettes de dinosaures, brume, rayons, particules ; WebP intégrées (≈110 Ko au total).
+- 8 nouvelles espèces (54 au total) : Kentrosaure, Dimorphodon, Styracosaure, Élasmosaure, Concavenator, Sarcosuchus et 2 légendaires (Chronosaure, Aurorasaure), avec portraits et 3 évolutions supplémentaires.
+- Raid de la semaine (Aventure → Raid) : boss colossal dont les PV persistent toute la semaine, 3 tentatives de 10 tours par jour, récompense selon les dégâts, 4 paliers (25/50/75/100 %).
+- Marché du jour (Invocation → Marché) : 6 offres tirées chaque jour (tickets, essence, matériaux, fragments, coffre d'équipement, viande +3 niveaux, pioche, œuf), une fois chacune.
+- 3 nouveaux succès. Tests : `test_content.py`.
+
 ## 0.16.0 — Enchaînement auto, animations de plateau, correctif invocation
 - Correctif : le bouton « OK » du résultat d'invocation ne répondait pas (la couche d'effets restait au-dessus après l'animation).
 - Enchaînement automatique des combats : option dans les Réglages et bouton en combat ; après une victoire, compte à rebours puis combat suivant (histoire : niveau suivant ; Tour : étage suivant ; Donjon : même donjon), jusqu'à une défaite, l'arrêt manuel ou la fin de la progression. Compteur de série.

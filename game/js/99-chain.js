@@ -1,6 +1,6 @@
 /* Enchaînement automatique des combats (jusqu'à une défaite) + animations de plateau */
 let chainCount=0,chainT=null;
-function chainNext(f){if(!f||!f.o||f.daily)return null;const m=f.o.mode;
+function chainNext(f){if(!f||!f.o||f.daily||f.raid)return null;const m=f.o.mode;
  if(m==="story"){const n=f.n+1;return n<=100&&n<=S.stage+1?{mode:"story",n}:null}
  if(m==="tower")return{mode:"tower"};
  if(m==="dungeon")return f.o;

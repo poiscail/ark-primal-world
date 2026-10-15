@@ -220,3 +220,12 @@ html body .orbboard .orb.drop.boost2,html body .orbboard .orb.drop.boost3{animat
 html body #battleArea button.red.ready{animation:superready 1.2s ease-in-out infinite;position:relative;overflow:hidden}
 @keyframes superready{0%,100%{box-shadow:0 0 0 0 #ff647b88,0 0 18px #ff647b88;filter:brightness(1)}50%{box-shadow:0 0 0 8px #ff647b00,0 0 32px #ffd15c;filter:brightness(1.25)}}
 body.noanim .orbboard .orb.drop,body.noanim #battleArea button.red.ready{animation:none}
+/* raid & marché */
+.raidpt{display:block;width:150px;height:150px;transform:scaleX(-1);filter:drop-shadow(0 0 18px #ff3c5c) drop-shadow(0 8px 10px #000a)}
+.raidpt svg{width:100%;height:100%}
+.raidbar{height:16px}.raidbar i{background:linear-gradient(90deg,#ff3c5c,#ff9d3c)!important;box-shadow:0 0 12px #ff3c5c}
+.mktgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:6px}
+html body button.mkt{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 6px;text-transform:none;letter-spacing:0;background:var(--surf3,#0d1528);color:var(--txt,#fff);border:1px solid var(--bd2,#2d3d5e);min-height:108px}
+.mkt .mi{font-size:30px;filter:drop-shadow(0 0 8px var(--acc,#67e5ff))}.mkt .mn{font-size:12px;font-weight:700;text-align:center}.mkt .mc{font-size:11px;color:var(--gold,#ffd15c);font-weight:900}
+html body button.mkt.sold{opacity:.45}
+html body .subnav .snwrap button{min-width:52px}

@@ -13,7 +13,7 @@ async def main():
         await pg.goto(GAME);await pg.wait_for_timeout(300);ev=pg.evaluate
         n=await ev('Object.keys(SPEC).length')
         r=await ev('(()=>{const bad=[],seen=new Set();for(const k of Object.keys(SPEC)){const s=portrait(k);if(!s.startsWith("<svg")||s.includes("undefined")||s.includes("NaN"))bad.push(k);seen.add(s)}return [bad,seen.size]})()')
-        check('46 portraits SVG valides (sans undefined/NaN)',r[0]==[] and n==46,r)
+        check('54 portraits SVG valides (sans undefined/NaN)',r[0]==[] and n==54,r)
         check('portraits tous différents',r[1]==n,r)
         check('SVG bien formé (DOMParser)',await ev('(()=>{for(const k of Object.keys(SPEC)){const d=new DOMParser().parseFromString(portrait(k),"image/svg+xml");if(d.querySelector("parsererror"))return k}return true})()')==True)
         check('émojis uniques par espèce',await ev('new Set(Object.values(SPEC).map(s=>s.e)).size')==n)

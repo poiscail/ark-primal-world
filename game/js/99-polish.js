@@ -11,7 +11,7 @@ document.addEventListener("pointerdown",e=>{if(!PREFS.anim)return;const b=e.targ
 /* ===== Carte de l'histoire (chapitres de 10 niveaux, chemin sinueux, étoiles) ===== */
 const _ens99p=ens;ens=function(){_ens99p();S.stars=S.stars||{};S.starCl=S.starCl||0};
 function starsOf(f){const t=S.team.slice(0,3),alv=t.filter((d,k)=>f.hp[k]>0).length,ratio=t.reduce((a,d,k)=>a+f.hp[k]/f.mx[k],0)/(t.length||1);return alv<t.length?1:ratio>.6?3:2}
-const _win99p=win;win=function(){const f=fight,was=f&&f.over;_win99p();if(f&&f.over==="win"&&!was&&f.o&&f.o.mode==="story"&&f.mx){ens();const st=starsOf(f);if(st>(S.stars[f.n]||0)){S.stars[f.n]=st;save()}}};
+const _win99p=win;win=function(){const f=fight,was=f&&f.over;_win99p();if(f&&f.over==="win"&&!was&&f.o&&f.o.mode==="story"&&f.mx&&!f.raid&&!f.daily){ens();const st=starsOf(f);if(st>(S.stars[f.n]||0)){S.stars[f.n]=st;save()}}};
 const STAR_STEP=25;function starTotal(){ens();return Object.values(S.stars).reduce((a,b)=>a+b,0)}
 function starClaim(){ens();const t=starTotal();if(t<(S.starCl+1)*STAR_STEP)return;S.starCl++;give({tickets:2,essence:20,shards:5});save();toast("⭐ Palier d'étoiles "+S.starCl*STAR_STEP+" : +2 🎟️ +20 🔮 +5 🧩",3500);sfx&&sfx("win");render()}
 let mapCh=null;
