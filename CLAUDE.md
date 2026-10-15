@@ -3,7 +3,7 @@
 Jeu de combat d'orbes façon Dokkan Battle avec des dinosaures, **100 % local** (aucun compte, aucun serveur), en HTML/CSS/JS pur, **sans étape de build pour jouer**. Deux livrables construits depuis le même code : version **PC** (dossier) et version **téléphone** (un seul fichier HTML), avec **sauvegarde compatible** entre les deux.
 
 - Dépôt : https://github.com/poiscail/ark-primal-world (branche `main`)
-- Version actuelle : **0.13.0** (`game/js/00-version.js`, `ARK_VERSION` et `SAVE_FORMAT=1`)
+- Version actuelle : **0.14.0** (`game/js/00-version.js`, `ARK_VERSION` et `SAVE_FORMAT=1`)
 - L'utilisateur est français : **répondre en français**, être honnête sur ce qui est testé (jamais affirmer qu'une chose non testée marche ; pas testé sur un vrai téléphone ; équilibrage mesuré par simulation seulement).
 - Attentes permanentes : améliorer sans cesse le gameplay, les animations et les graphismes ; mettre à jour GitHub à la fin de chaque étape ; l'utilisateur dira à la fin ce qu'il veut retirer (ne rien supprimer sans demande).
 
@@ -49,5 +49,6 @@ CSS : 00-base … 80-fx, 92-anim, 93-battle, 94-visual, 95-theme (futuriste, th�
 - Le « truc inutile » signalé par l'utilisateur : hypothèse = niveau du joueur (maintenant rang) ; à confirmer (autre candidat : la jauge ⚔ puissance).
 
 ## Ressources en ligne (vérifié le 15/10/2026)
-- Le conteneur de travail n'a pas accès à npm ni aux sites d'assets : tout est dessiné en SVG/CSS dans le code.
+- L'accès réseau a été ouvert par l'utilisateur. npm passe en forçant le proxy : `NO_PROXY=localhost npm i --proxy "$HTTPS_PROXY" --https-proxy "$HTTPS_PROXY" --noproxy localhost <paquet>`.
+- Intégrés (voir `docs/LICENSES.md`) : polices Orbitron + Exo 2 (`css/91-fonts.css`, base64), 15 textures Kenney Particle Pack CC0 (`css/91-tex.css`, masques teintés via `tex()` dans `js/99-texfx.js`).
 - Utilisables par l'utilisateur via l'admin (import d'image par espèce) : sprites CC0 (OpenGameArt « free dino sprites », Pixelsaurs), Kenney UI Pack Sci-Fi (CC0), police Orbitron (OFL).

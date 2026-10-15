@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.14.0 — Polices futuristes et effets à textures
+- Polices intégrées (fonctionnent hors ligne) : Orbitron pour les titres, chiffres et bannières, Exo 2 pour le texte (licence SIL OFL).
+- 15 textures de particules (Kenney Particle Pack, CC0) teintées par masque : impacts colorés selon l'orbe, entailles de griffes, flammes, fumée de venin, onde de choc, éclairs, éclat de super attaque, fumée à la mort d'un ennemi, cercle de runes à l'invocation.
+- `docs/LICENSES.md` liste les ressources tierces et leurs licences.
+
 ## 0.13.0 — Finitions de l'interface et carte d'histoire
 - Carte de l'histoire : 10 chapitres de 10 niveaux sur un chemin sinueux animé au-dessus du décor de la zone, nœuds terminés / en cours / verrouillés / boss, dino de tête au-dessus du niveau courant.
 - Étoiles (1 à 3) enregistrées par niveau d'histoire, paliers de récompenses tous les 25 étoiles.
