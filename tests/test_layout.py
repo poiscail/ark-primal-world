@@ -19,7 +19,8 @@ async def main():
         for w,h in ((1280,800),(1366,700),(1920,1080)):
             pg=await page(b,w,h);ev=pg.evaluate;tag=f'{w}×{h}'
             await ev('startBattle({mode:"story",n:30})');await pg.wait_for_timeout(400)
-            nav=await ev('document.querySelector(".bottomnav").getBoundingClientRect().top')
+            # bas de l'espace visible : la fenêtre (navigation en colonne à gauche) ou le haut de la barre du bas (fenêtre étroite)
+            nav=await ev('(()=>{const r=document.querySelector(".bottomnav").getBoundingClientRect();return r.height>r.width?innerHeight:r.top})()')
             st=await ev(RECT,'#battleArea .battlestage');ob=await ev(RECT,'#battleArea .orbboard');su=await ev(RECT,'#battleArea .bl-super');tm=await ev(RECT,'#battleArea .bl-team')
             check(tag+' : mise en page de combat active',await ev('document.getElementById("battleArea").classList.contains("bl")&&document.body.classList.contains("inbattle")'))
             check(tag+' : scène en haut',st and st['t']>=0 and st['t']<80,st)

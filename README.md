@@ -35,7 +35,8 @@ Souris partout ; au clavier pendant un combat :
 - **Combat** : plateau de 9 orbes avec boost par couleur, éléments (🔥 > 🌿 > 💧 > 🔥), combos, synergie, super attaque, ennemis à traits (Carapace, Venimeux, Régénérant, Berserker), boss en 3 phases, **auto-combat**, vitesse ×1/×2/×3, **enchaînement automatique** des combats.
 - **Monde** : 20 créatures ennemies dessinées et dinosaures corrompus, attaques animées par famille (morsure, charge, massue, épines, piqué, séisme, cri, jet d'eau), décors de zone, bestiaire des créatures.
 - **Progression** : missions quotidiennes et permanentes, connexion quotidienne, « À faire aujourd'hui », 43 succès et titres, rang du survivant.
-- **Présentation** : 7 thèmes (Néon, Clair, Jungle, Volcan, Abysses, Mystique, Désert), polices Orbitron / Exo 2, effets à textures, musique et sons générés par le jeu, tutoriel et guide.
+- **Présentation** : mise en page PC (navigation à gauche, écrans larges), 7 thèmes (Néon, Clair, Jungle, Volcan, Abysses, Mystique, Désert), polices Orbitron / Exo 2 / Bangers, effets à textures, musique et sons générés par le jeu, tutoriel et guide.
+- **Sensations de combat** : gel à l'impact, secousses, flash de l'ennemi touché, étincelles, super attaque mise en scène façon Dokkan (portrait, nom de l'attaque), invocation dont la couleur peut monter d'un cran, cadres légendaires holographiques, parallaxe à la souris (tout est désactivable dans les Réglages).
 - **Admin local** (⚙ ADMIN) : dinosaures, coûts, taux de drop, récompenses.
 
 ## Pour les développeurs
@@ -43,5 +44,5 @@ Souris partout ; au clavier pendant un combat :
 - `desktop/` : l'application Electron (fenêtre, plein écran, sauvegarde, test de lancement `--smoke-test`).
 - `tools/build.py` : construit l'installateur et le portable (`dist/ARK_Windows/`, non versionné) ; `tools/releases.py` publie une page par version ; `tools/gen_backgrounds.py` génère les images de fond des thèmes.
 - `.github/workflows/windows-exe.yml` : à chaque envoi, construit et teste l'exe sur Windows ; depuis `main`, publie les pages de versions.
-- Tests : `tools/run_tests.sh` (30 suites Playwright, Python 3 + Chromium), `tests/test_balance*.py` (simulations d'équilibrage).
+- Tests : `tools/run_tests.sh` (31 suites Playwright, Python 3 + Chromium), `tests/test_balance*.py` (simulations d'équilibrage).
 - Licences des ressources intégrées : [docs/LICENSES.md](docs/LICENSES.md). Historique détaillé : [CHANGELOG.md](CHANGELOG.md).

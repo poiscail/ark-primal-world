@@ -46,10 +46,13 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `js/99-enemy-skills.js` | compétences ennemies (Arène, gardiens de la Tour) : cadence, effets, intention dans le HUD |
 | `js/99-menu-scenes.js` | décors des bannières de menu (scène de zone + vedette) |
 | `js/99-codex.js` | bestiaire des créatures vaincues (`S.foes`), variété de la 2e vague, 2 succès |
+| `js/99-juice.js` | sensations de combat : gel à l'impact `hitStop`, secousse `addTrauma` (propriétés `translate`/`rotate` de `.battlestage`), flash `hitfx`/`hurtfx`, image d'impact, étincelles canvas `sparkBurst`, coupure de super attaque `#cutin` (bloque les actions ; désactivée sous automatisation sauf `window.__forceCutin`), parallaxe (`--px`/`--py`), fausse piste d'invocation, réglages `PREFS.shake/flash/cutin` |
 | `js/99-desktop.js` | réglages « Application Windows » (plein écran, dernière version, quitter) via `window.arkDesktop` ; lien vers la dernière version |
 | `js/99-layout.js` | mise en page du combat (classes `bl-*`, ordre visuel en CSS) : **doit rester le dernier script** |
 | `css/91-fonts.css` / `css/91-tex.css` | polices Orbitron et Exo 2 (base64) ; textures de particules (masques) |
 | `css/94-layout.css` / `css/94-bestiary.css` | mise en page du combat (grille 2 colonnes, version compacte si la fenêtre est peu haute), auto/vitesse ; bestiaire, effets d'attaque, vedettes des bannières, bestiaire des créatures |
+| `css/91-fonts-fx.css` | police Bangers (sous-ensemble latin, base64) pour les dégâts et la super attaque |
+| `css/97-pc.css` / `css/97-juice.css` | mise en page PC chargée en dernier (navigation en colonne, contenu large, grilles) ; styles des sensations de combat, de la coupure et des cadres holographiques |
 | `css/96-skins.css` | 7 thèmes (`html[data-skin]`) avec images de fond en base64 (`tools/gen_backgrounds.py`) |
 | `desktop/main.js` | application Electron : fenêtre (taille mémorisée, F11, une seule instance), sauvegarde dans `%APPDATA%`, liens externes ouverts dans le navigateur, test de lancement `--smoke-test` |
 | `desktop/preload.js` | pont minimal `window.arkDesktop` (`toggleFullscreen`, `quit`, `info`) ; `contextIsolation` + `sandbox` |

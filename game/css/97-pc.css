@@ -1,0 +1,48 @@
+/* Mise en page PC (0.19) : navigation en colonne à gauche, contenu plus large, listes en grille.
+   Chargée en dernier : n'ajoute que de la mise en page, les couleurs viennent des thèmes (95-theme, 96-skins). */
+:root{--rail:108px;--content:1040px}
+html body .app{max-width:var(--content);margin:0 auto 0 calc(var(--rail) + max(0px,(100% - var(--rail) - var(--content))/2));padding-bottom:28px}
+/* colonne de navigation */
+html body .bottomnav{left:0;right:auto;top:0;bottom:0;transform:none;width:var(--rail);max-width:none;height:100vh;display:flex;flex-direction:column;align-items:stretch;justify-content:center;gap:10px;
+ padding:96px 10px 18px;border-top:0;border-right:1px solid var(--bd2,#2d5a99);box-shadow:10px 0 34px var(--glowc,#00e5ff33)}
+html body .bottomnav::before{content:"ARK";position:absolute;top:22px;left:0;right:0;text-align:center;font-family:Orbitron,sans-serif;font-weight:900;font-size:22px;letter-spacing:.14em;
+ background:linear-gradient(90deg,var(--acc,#67e5ff),var(--acc2,#ff3df2));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 10px var(--glowc,#00e5ff55))}
+html body .bottomnav::after{content:"PRIMAL WORLD";position:absolute;top:52px;left:0;right:0;text-align:center;font-size:8px;font-weight:800;letter-spacing:.2em;color:var(--txt2,#93a9cc)}
+html body .bottomnav button{flex:0 0 auto;min-height:0;padding:12px 4px 10px;font-size:11px;border:0;border-left:3px solid transparent;border-radius:12px;transition:background .2s,color .2s,transform .15s}
+html body .bottomnav button span{font-size:27px;margin-bottom:5px}
+html body .bottomnav button:hover:not(.active){background:var(--surf2,#17213a);transform:translateX(2px)}
+html body .bottomnav button.active{border-left-color:var(--acc,#67e5ff);border-bottom-color:transparent;background:linear-gradient(90deg,var(--glowc,#00e5ff33),transparent)}
+html body .bottomnav button .nb,html body .bottomnav button i.dot{right:12px}
+/* en-tête : titre à gauche, ressources à droite sur une ligne */
+html body .top{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"title meters" "sub meters" "xp xp";align-items:center;column-gap:16px;padding:10px 16px}
+html body .top .title{grid-area:title}html body .top .sub{grid-area:sub}
+html body .top .meters{grid-area:meters;justify-content:flex-end;flex-wrap:wrap;margin:0}
+html body .top .xpb{grid-area:xp;margin-top:8px}
+html body.inbattle .top{display:flex}
+/* bouton ADMIN : sous l'en-tête, à droite du contenu */
+html body .adminfab{top:auto;bottom:14px;right:14px}
+/* grands écrans : contenu plus large, scène et orbes plus grandes si la fenêtre est haute */
+@media (min-width:1600px){:root{--content:1240px}}
+@media (min-width:900px) and (min-height:950px){
+ #battleArea.bl{--stH:clamp(300px,40vh,450px)}
+ html body #battleArea.bl .orbboard.n3{grid-template-columns:repeat(3,96px);gap:12px 16px;padding:12px}
+ html body #battleArea.bl .orbboard .orb{width:96px;height:96px}
+}
+/* « À faire aujourd'hui » sur deux colonnes */
+@media (min-width:1100px){html body #todoBox .todolist{display:grid;grid-template-columns:1fr 1fr;gap:8px}html body #todoBox .todolist>*{margin:0}}
+/* listes en grille sur la largeur disponible */
+@media (min-width:1180px){
+ html body #collection{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 12px}
+ html body #collection>*{min-width:0}
+ html body #collection>:not(.panel){grid-column:1/-1}
+}
+/* écran étroit (fenêtre de développement < 900 px) : on garde la barre du bas */
+@media (max-width:899px){
+ :root{--rail:0px}
+ html body .app{margin:auto;max-width:760px;padding-bottom:84px}
+ html body .bottomnav{top:auto;left:50%;transform:translateX(-50%);width:min(760px,100%);height:auto;flex-direction:row;padding:7px 5px;justify-content:space-around;border-right:0;border-top:1px solid var(--bd2,#2d5a99)}
+ html body .bottomnav::before,html body .bottomnav::after{display:none}
+ html body .bottomnav button{flex:1 1 0;border-left:0;padding:6px 2px}
+ html body .bottomnav button span{font-size:20px}
+ html body .top{display:block}
+}

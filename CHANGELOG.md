@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.19.0 — Refonte visuelle PC : mise en page, sensations de combat, super attaque façon Dokkan
+D'après une recherche en ligne sur le « game feel » des jeux d'action et la mise en scène des gachas (Dokkan Battle et autres).
+- **Mise en page PC** : la navigation passe en colonne à gauche (logo, 5 onglets avec survol), le contenu s'élargit (1040 px, 1240 px sur grand écran), l'en-tête met les ressources sur une ligne à droite, « À faire aujourd'hui » et la collection passent en grille. Sur une fenêtre haute (1080 p), la scène de combat et les orbes s'agrandissent.
+- **Sensations de combat** :
+  - **gel à l'impact** : l'action se fige un instant sur les gros coups (45 ms pour une orbe, 95 ms pour un critique, 150 ms pour la super, 170 ms pour un coup fatal) ;
+  - **secousse « trauma »** de la scène, d'autant plus forte que le coup est puissant, avec un amortissement progressif ;
+  - **l'ennemi touché clignote en blanc et s'écrase** ; un dino blessé clignote en rouge ;
+  - **images d'impact** (négatif contrasté de 55 ms) sur la super attaque et les coups fatals, au plus 3 par seconde ;
+  - **étincelles** à la couleur de l'orbe jouée (canvas en mélange additif), plus nombreuses sur les critiques, la super et les coups fatals ;
+  - chiffres de dégâts en police **Bangers** (style bande dessinée), critiques en dégradé doré.
+- **Super attaque façon Dokkan** : bandes noires, bandeau incliné avec lignes de vitesse, portrait du dino de tête qui surgit et nom de l'attaque selon l'élément (Brasier primordial, Raz-de-marée abyssal, Sève ancestrale, Orage fossile, Aube solaire), puis le coup part. Clic, Espace, Entrée ou Échap pour passer ; aucune autre action possible pendant l'animation.
+- **Invocation** : la couleur du cercle annonce la rareté avant le dino, et elle peut « monter d'un cran » pendant l'incantation (une fois sur trois pour une épique, quatre fois sur dix pour une légendaire), avec flash et secousse.
+- **Parallaxe à la souris** : les plans du décor de combat et des bannières bougent selon la position de la souris.
+- **Cadres légendaires holographiques** : bordure irisée qui tourne et reflet qui suit la souris (collection, résultats d'invocation).
+- **Réglages > Affichage** : secousses d'écran, flashs d'impact et animation de super attaque désactivables (désactivés d'office si Windows demande de réduire les animations).
+- Tests : `test_juice` (25 vérifications) ; `test_layout` adapté à la navigation en colonne. 31 suites.
+
 ## 0.18.0 — Application Windows (.exe), PC uniquement, fusion des deux branches de travail
 **Application Windows**
 - Le jeu devient une application Windows (.exe, Electron) : **installateur** (raccourcis Bureau et menu Démarrer, désinstallation) ou **portable** (un seul fichier). Fenêtre redimensionnable dont la taille est mémorisée, plein écran (F11), une seule fenêtre à la fois, sauvegarde dans `%APPDATA%\ARK Primal World` (conservée d'une version à l'autre). Réglages > Application Windows : plein écran, dernière version, quitter.

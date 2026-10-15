@@ -1,6 +1,5 @@
 /* Spécificités PC (classe sur <body>) */
 .filebtn{display:block;text-align:center;font-weight:800;border-radius:12px;padding:12px;background:#17213a;color:#cfe;border:1px solid #2d3d5e;cursor:pointer;position:relative;overflow:hidden}.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
-body.pc .app{max-width:760px}body.pc .bottomnav{max-width:760px}
 body.pc .orbboard.n3{max-width:520px;margin-inline:auto}body.pc button:hover:not(:disabled){filter:brightness(1.08)}
 @media(min-width:700px){body.pc #collection{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}body.pc #collection>*{min-width:0}}
 .presetbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:0 0 8px}.presetbar button{padding:6px 10px;font-size:12px;background:#17213a;color:#cfe;box-shadow:none;border:1px solid #2d3d5e}.presetbar button.on{background:linear-gradient(#ffe68b,#ffb52e);color:#221a0a}

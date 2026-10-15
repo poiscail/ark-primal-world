@@ -1,0 +1,61 @@
+/* Sensations de combat (js/99-juice.js) : impacts, coupure de super attaque, parallaxe, invocation, cadres holographiques */
+/* image d'impact (super attaque, coup fatal) : 55 ms de négatif contrasté */
+html body .battlestage.impactfr{filter:grayscale(1) contrast(2.6) invert(1)}
+/* ennemi touché : flash blanc + écrasement ; dino blessé : flash rouge (sur l'élément intérieur, sans gêner les autres animations) */
+.sEnemy.hitfx .sEart>*{animation:jxFlash .16s ease-out,jxSquash .3s cubic-bezier(.3,1.7,.5,1)}
+.sFig.hurtfx .sfa>*{animation:jxHurt .3s ease-out}
+@keyframes jxFlash{0%{filter:brightness(3.6) saturate(0)}100%{filter:none}}
+@keyframes jxSquash{0%{transform:scale(1.12,.86)}100%{transform:none}}
+@keyframes jxHurt{0%{filter:brightness(1.6) sepia(1) saturate(6) hue-rotate(-45deg)}100%{filter:none}}
+/* chiffres de dégâts en Bangers (style bande dessinée) */
+html body .dmgnum{font-family:Bangers,Orbitron,sans-serif;font-weight:400;letter-spacing:.04em;-webkit-text-stroke:1.5px #000;paint-order:stroke fill}
+html body .dmgnum.big{font-size:44px}html body .dmgnum.crit{font-size:52px;background:linear-gradient(180deg,#fff6a8,#ffb52e 55%,#ff6a2a);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:0;filter:drop-shadow(0 2px 0 #000) drop-shadow(0 0 10px #ff9d3c)}
+html body .dmgnum small{font-family:Orbitron,sans-serif}
+/* parallaxe à la souris (--px, --py entre -1 et 1, posés par js/99-juice.js) */
+.battlestage .sc-layer,.bscene .sc-layer{left:-24px;transition:translate .3s ease-out}
+.battlestage .sc-layer.l1,.bscene .sc-layer.l1{translate:calc(var(--px,0) * -5px) calc(var(--py,0) * -2px)}
+.battlestage .sc-layer.l2,.bscene .sc-layer.l2{translate:calc(var(--px,0) * -10px) calc(var(--py,0) * -4px)}
+.battlestage .sc-layer.l3,.bscene .sc-layer.l3{translate:calc(var(--px,0) * -18px) calc(var(--py,0) * -6px)}
+.battlestage .sTeam{translate:calc(var(--px,0) * -7px) 0;transition:translate .3s ease-out}
+.battlestage .sEnemy{translate:calc(var(--px,0) * -12px) calc(var(--py,0) * -3px);transition:translate .3s ease-out}
+.banner.hasScene .heroDino{translate:calc(var(--px,0) * -12px) calc(var(--py,0) * -5px);transition:translate .35s ease-out}
+/* coupure de super attaque : bandes noires, bandeau incliné, lignes de vitesse, portrait, nom de l'attaque */
+@property --ciAng{syntax:"<angle>";inherits:false;initial-value:0deg}
+#cutin{position:fixed;inset:0;z-index:60;cursor:pointer;overflow:hidden;--c:#ffd15c;--spd:1}
+#cutin::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 40% 50%,#0000 15%,#000c 80%);animation:ciFade calc(.2s / var(--spd)) both}
+#cutin .ciBar{position:absolute;left:0;right:0;height:12vh;background:#000;z-index:3;animation:ciBar calc(.26s / var(--spd)) cubic-bezier(.2,.9,.2,1) both}
+#cutin .ciBar.t{top:0;transform-origin:top}#cutin .ciBar.b{bottom:0;transform-origin:bottom}
+#cutin .ciBand{position:absolute;left:-12%;right:-12%;top:50%;height:46vh;translate:0 -50%;rotate:-7deg;z-index:1;overflow:hidden;
+ background:linear-gradient(100deg,#05070ff0 10%,color-mix(in srgb,var(--c) 38%,#05070f) 55%,#05070ff0 95%);border-block:3px solid var(--c);box-shadow:0 0 46px var(--c);
+ animation:ciBand calc(.34s / var(--spd)) cubic-bezier(.2,.9,.2,1) both}
+#cutin .ciLines{position:absolute;inset:-60%;background:repeating-conic-gradient(from var(--ciAng) at 32% 50%,#fff0 0deg 4deg,#ffffff40 4.6deg 5.3deg,#fff0 6deg 9deg);mix-blend-mode:screen;animation:ciSpin .24s steps(3) infinite}
+#cutin .ciArt{position:absolute;left:15%;top:52%;width:35vh;height:35vh;translate:0 -50%;rotate:7deg;filter:drop-shadow(0 0 24px var(--c)) drop-shadow(0 12px 12px #000b);animation:ciArt calc(1.25s / var(--spd)) cubic-bezier(.2,.9,.2,1) both}
+#cutin .ciArt .pt,#cutin .ciArt svg{display:block;width:100%;height:100%}
+#cutin .ciArt .emo{display:grid;place-items:center;width:100%;height:100%;font-size:28vh;line-height:1}
+#cutin .ciTxt{position:absolute;right:17%;top:50%;translate:0 -50%;max-width:56%;text-align:right;z-index:2;animation:ciTxt calc(1.25s / var(--spd)) cubic-bezier(.2,.9,.2,1) both}
+#cutin .ciTxt small{display:block;font:800 13px Orbitron,sans-serif;letter-spacing:.22em;color:var(--c);text-shadow:0 0 10px var(--c),0 2px 0 #000}
+#cutin .ciTxt b{display:block;margin-top:6px;font:400 clamp(44px,6.4vw,92px)/1 Bangers,Orbitron,sans-serif;letter-spacing:.04em;color:#fff;-webkit-text-stroke:2px #000;paint-order:stroke fill;text-shadow:0 0 20px var(--c),5px 5px 0 #000}
+#cutin .ciSkip{position:absolute;right:18px;bottom:calc(12vh + 10px);z-index:4;font-size:11px;letter-spacing:.08em;color:#ffffffa0}
+#cutin.out{animation:ciOut calc(.22s / var(--spd)) ease-in both}
+@keyframes ciFade{from{opacity:0}}
+@keyframes ciBar{from{transform:scaleY(0)}}
+@keyframes ciBand{from{transform:translateX(-112%)}}
+@keyframes ciSpin{to{--ciAng:9deg}}
+@keyframes ciArt{0%{transform:translateX(-70%) scale(.8);opacity:0}24%{transform:none;opacity:1}82%{transform:translateX(4%) scale(1.2)}100%{transform:translateX(6%) scale(1.28)}}
+@keyframes ciTxt{0%,18%{transform:translateX(35%);opacity:0}36%{transform:none;opacity:1}100%{transform:translateX(-3%)}}
+@keyframes ciOut{to{opacity:0;filter:brightness(2.6)}}
+/* invocation : la couleur monte d'un cran (fausse piste) */
+#gfxLayer .circle.tease{animation-duration:2.2s}
+#gfxLayer .circle.upgrade{animation:none;filter:drop-shadow(0 0 30px var(--c)) brightness(1.8);transform:scale(1.18);transition:transform .25s cubic-bezier(.2,1.6,.4,1),filter .5s}
+/* cadres légendaires holographiques : bordure irisée qui tourne, reflet sous la souris */
+@property --hang{syntax:"<angle>";inherits:false;initial-value:0deg}
+html body .dcard.rar-l,html body .gc.gl-l:not(.facedown){position:relative;isolation:isolate}
+html body .dcard.rar-l::before,html body .gc.gl-l:not(.facedown)::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;pointer-events:none;z-index:2;
+ background:conic-gradient(from var(--hang),#ffd15c,#ff7ad9,#67e5ff,#7dff9b,#ffd15c);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:holo 5s linear infinite}
+html body .dcard.rar-l::after,html body .gc.gl-l:not(.facedown)::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;opacity:0;transition:opacity .25s;
+ background:radial-gradient(circle at var(--hx,50%) var(--hy,30%),#ffffff55,#ffd15c18 25%,transparent 50%);mix-blend-mode:color-dodge}
+html body .dcard.rar-l:hover::after,html body .gc.gl-l:not(.facedown):hover::after{opacity:1}
+@keyframes holo{to{--hang:360deg}}
+/* étincelles (canvas additif, js/99-juice.js) : au-dessus du combat, ne capte aucun clic */
+#sparkFx{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:45}
+body.noanim #sparkFx{display:none}
