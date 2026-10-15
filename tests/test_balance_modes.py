@@ -17,7 +17,7 @@ return out}'''
 async def main():
     async with async_playwright() as p:
         b=await p.chromium.launch();pg=await b.new_page();errs=[];pg.on('pageerror',lambda e:errs.append(str(e)))
-        await pg.goto(GAME);await pg.wait_for_timeout(200);await pg.evaluate("PREFS.anim=false;PREFS.lore=false;applyPrefs()")
+        await pg.goto(GAME);await pg.wait_for_timeout(200);await pg.evaluate("PREFS.anim=false;PREFS.lore=false;applyPrefs();WX_ON=false")
         res=await pg.evaluate(JS)
         for k,v in res['tower'].items():print('tour étage',k,v)
         for k,v in res['arena'].items():print('arène',k,v)

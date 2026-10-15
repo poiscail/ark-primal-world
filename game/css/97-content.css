@@ -1,0 +1,32 @@
+/* Contenu 0.20 : sacoche de combat (js/99-pouch.js), chef et liens (js/99-leader.js), météo de zone sur la scène */
+/* bouton et fenêtre de la sacoche */
+html body .actl .bagbtn{padding:5px 9px;font-size:10px;letter-spacing:.06em;min-height:0;background:linear-gradient(var(--surf2,#17213a),var(--surf3,#10182a));color:var(--txt,#fff);border:1px solid var(--bd2,#2d5a99)}
+.pouchpop{position:fixed;z-index:70;width:min(360px,calc(100vw - 16px));padding:12px;border-radius:12px;background:var(--surf1,#0d1526);border:1px solid var(--acc,#67e5ff);box-shadow:0 12px 40px #000c,0 0 24px var(--glowc,#00e5ff44);animation:ppIn .16s ease-out}
+@keyframes ppIn{from{opacity:0;transform:translateY(-6px)}}
+.pprow{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--bd,#2d3d5e)}
+.pprow:first-of-type{border-top:0}
+.pprow .ppi{font-size:26px;width:36px;text-align:center;filter:drop-shadow(0 0 6px var(--glowc,#00e5ff55))}
+.pprow button{min-width:110px;padding:8px 10px;font-size:11px}
+#pouchBox .pprow button{min-width:120px}
+/* puces du chef, des liens et de la météo */
+.ldchips{display:contents}
+.wxchip{border-color:#9fd7ff!important;color:#d8f0ff!important}
+html[data-theme="light"] .wxchip{color:#0b4f86!important}
+/* météo sur la scène (calque .sWx entre le décor et les combattants, ne capte aucun clic) */
+.battlestage .sWx{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.battlestage.wx-pluie .sWx{background:repeating-linear-gradient(104deg,transparent 0 22px,#bfe6ff55 22px 23px,transparent 23px 47px);background-size:240px 240px;animation:wxRain .45s linear infinite;mix-blend-mode:screen}
+.battlestage.wx-pluie .sWx::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0a1c3355,transparent 60%)}
+@keyframes wxRain{to{background-position:-60px 240px}}
+.battlestage.wx-brume .sWx{background:radial-gradient(ellipse 40% 30% at 20% 70%,#9dffb840,transparent 70%),radial-gradient(ellipse 50% 35% at 75% 60%,#c6ffd030,transparent 70%);animation:wxDrift 9s ease-in-out infinite alternate}
+@keyframes wxDrift{to{transform:translateX(6%)}}
+.battlestage.wx-sable .sWx{background:linear-gradient(90deg,#d9a75a2e,#f0c27a40,#d9a75a2e),repeating-linear-gradient(90deg,transparent 0 60px,#ffe0a822 60px 64px);background-size:100% 100%,300px 100%;animation:wxSand 1.6s linear infinite}
+@keyframes wxSand{to{background-position:0 0,-300px 0}}
+.battlestage.wx-cendres .sWx{background-image:radial-gradient(circle,#ffb070cc 0 1.6px,transparent 2.4px),radial-gradient(circle,#ff7a3ca0 0 1.2px,transparent 2px);background-size:90px 90px,140px 140px;animation:wxAsh 3.2s linear infinite}
+.battlestage.wx-cendres .sWx::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#ff5a1a22,transparent 55%)}
+@keyframes wxAsh{to{background-position:30px 90px,-40px 140px}}
+.battlestage.wx-orage .sWx{background:linear-gradient(180deg,#1a1240aa,transparent 55%)}
+.battlestage.wx-orage .sWx::after{content:"";position:absolute;inset:0;background:#e8e4ff;opacity:0;animation:wxBolt 6s steps(1) infinite}
+@keyframes wxBolt{0%,91%,93.5%,100%{opacity:0}91.5%{opacity:.45}93%{opacity:.25}}
+.battlestage.wx-aurore .sWx{background:linear-gradient(100deg,transparent 10%,#7dffcf33 30%,#c58bff33 50%,#67e5ff2e 70%,transparent 90%);background-size:200% 60%;background-repeat:no-repeat;animation:wxAur 7s ease-in-out infinite alternate}
+@keyframes wxAur{to{background-position:100% 0}}
+body.noanim .battlestage .sWx,body.noanim .battlestage .sWx::after{animation:none!important}

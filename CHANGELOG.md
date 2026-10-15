@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.20.0 — Chef d'équipe, liens, météo de zone, sacoche de combat
+D'après la recherche en ligne sur les systèmes de Dokkan Battle (compétences de chef, liens, objets de soutien) et la météo de Pokémon.
+- **Chef d'équipe 🚩** : le 1er dino de l'équipe renforce (PV et ATQ) les dinos de **sa famille** (théropodes, cératopsiens, ankylosaures, stégosaures, ptérosaures, sauropodes, hadrosaures, reptiles marins) **ou de son élément** : Commun +6 %, Rare +9 %, Épique +12 %, Légendaire +15 % ; un tiers pour les autres.
+- **Liens 🔗** entre voisins (places 1-2 et 2-3) : même famille → +5 % ATQ (Meute, Troupeau, Escadrille, Banc…), même élément → +5 % PV (Harmonie). Affichés en combat et dans Équipe > Meute.
+- **Météo de zone** (Histoire et Donjons) : chaque jour, chaque zone a sa météo — pluie tropicale, brume de spores, vent de sable, pluie de cendres, orage magnétique, aurore boréale ou ciel clair — qui renforce certaines orbes de 20 % (15 % pour l'aurore) et en affaiblit d'autres de 15 %, avec un effet visuel sur la scène (pluie, brume, sable, cendres, éclairs, aurore). L'aperçu des dégâts sous les orbes en tient compte.
+- **Sacoche de combat 🎒** : 4 objets fabriqués avec les matériaux (Équipe > Sac) — Herbe de soin (+35 % PV à l'équipe), Tonique de rage (+30 % ATQ pendant 2 tours), Pierre fumigène (l'ennemi perd un tour), Éclat d'orbe (5 orbes de l'élément du chef). Jusqu'à 3 par combat, sans prendre le tour ; une herbe offerte pour commencer.
+- 3 succès (Alchimiste, Trousse de survie, Stratège + titre), guide du jeu et tutoriel mis à jour.
+- **Équilibrage** (simulation seulement, équipe la plus favorable : 3 théropodes, chef épique, 2 liens) : l'Histoire reste à 100 % pour une équipe conseillée (éveil + forge) ; une équipe non éveillée gagne davantage au milieu du jeu (niveau 50 : 30 % → 70 % ; niveau 70 : 5 % → 25 %), toujours 0 % au niveau 100. En Arène, l'adversaire a aussi son chef et ses liens, et les équipes Redoutable passent à +20 % PV / +10 % ATQ (Équilibré +5 % PV) : avec 3 théropodes, 100 % aux classements 1000 et 1300 et 82,5 % au classement 1700 (40 combats par mesure ; sans ce renfort : 100 %) ; une équipe d'espèces plus puissantes (légendaire + 2 épiques) reste à 100 %. La Tour se renforce de 10 % PV / 6 % ATQ (une équipe conseillée y gagne toujours 95-100 %). À valider avec de vrais joueurs.
+- Tests : `test_tactics` (32 vérifications). 32 suites.
+
 ## 0.19.0 — Refonte visuelle PC : mise en page, sensations de combat, super attaque façon Dokkan
 D'après une recherche en ligne sur le « game feel » des jeux d'action et la mise en scène des gachas (Dokkan Battle et autres).
 - **Mise en page PC** : la navigation passe en colonne à gauche (logo, 5 onglets avec survol), le contenu s'élargit (1040 px, 1240 px sur grand écran), l'en-tête met les ressources sur une ligne à droite, « À faire aujourd'hui » et la collection passent en grille. Sur une fenêtre haute (1080 p), la scène de combat et les orbes s'agrandissent.
