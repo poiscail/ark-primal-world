@@ -1,5 +1,5 @@
-"""Mise en page du combat : sur téléphone (390x844) et sur PC (1280x800), la scène, les orbes, la super attaque et les compétences
-sont visibles sans défiler ; PV de l'équipe sur la scène ; toucher un dino dont la compétence est prête la lance."""
+"""Mise en page du combat sur PC (1280x800, portable 1366x700, Full HD 1920x1080) : la scène, les orbes, la super attaque et
+les compétences sont visibles sans défiler ; PV de l'équipe sur la scène ; cliquer sur un dino dont la compétence est prête la lance."""
 import asyncio,pathlib,sys
 from playwright.async_api import async_playwright
 GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
@@ -9,15 +9,15 @@ def check(name,cond,info=''):
     if not cond:FAILS.append(name)
 BASE='S.team=[{id:1,type:"spino",level:40,xp:0},{id:2,type:"trike",level:40,xp:0},{id:3,type:"raptor",level:40,xp:0},{id:4,type:"rex",level:10,xp:0}];S.stage=34;S.nextId=10;S.items=[];S.tut={off:true,seen:{}};ens();render();'
 RECT='''s=>{const e=document.querySelector(s);if(!e)return null;const r=e.getBoundingClientRect();return{t:r.top,b:r.bottom,l:r.left,r:r.right,h:r.height}}'''
-async def page(b,phone):
-    ctx=await b.new_context(viewport={'width':390,'height':844} if phone else {'width':1280,'height':800},has_touch=phone,is_mobile=phone)
+async def page(b,w,h):
+    ctx=await b.new_context(viewport={'width':w,'height':h})
     pg=await ctx.new_page();pg.errs=[];pg.on('pageerror',lambda e:pg.errs.append(str(e)));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
     await pg.goto(GAME);await pg.wait_for_timeout(300);await pg.evaluate(BASE);return pg
 async def main():
     async with async_playwright() as p:
         b=await p.chromium.launch()
-        for phone in (True,False):
-            pg=await page(b,phone);ev=pg.evaluate;tag='téléphone' if phone else 'PC'
+        for w,h in ((1280,800),(1366,700),(1920,1080)):
+            pg=await page(b,w,h);ev=pg.evaluate;tag=f'{w}×{h}'
             await ev('startBattle({mode:"story",n:30})');await pg.wait_for_timeout(400)
             nav=await ev('document.querySelector(".bottomnav").getBoundingClientRect().top')
             st=await ev(RECT,'#battleArea .battlestage');ob=await ev(RECT,'#battleArea .orbboard');su=await ev(RECT,'#battleArea .bl-super');tm=await ev(RECT,'#battleArea .bl-team')
@@ -28,12 +28,8 @@ async def main():
             check(tag+' : compétences visibles',tm and tm['b']<=nav+1,(tm,nav))
             check(tag+' : 3 cases d\'équipe étiquetées',await ev('document.querySelectorAll("#battleArea>.bl-team").length')==3)
             await pg.click('#setFab');check(tag+' : réglages accessibles pendant le combat',await ev('!document.getElementById("setVeil").classList.contains("hide")'));await ev('closeSettings()')
-            if phone:
-                check('téléphone : en-tête réduit au titre et aux réglages',await ev('document.querySelector(".top").getBoundingClientRect().height')<60 and await ev('getComputedStyle(document.querySelector(".top .meters")).display')!='none' and await ev('[...document.querySelectorAll(".top .meters>*")].filter(e=>getComputedStyle(e).display!="none").map(e=>e.id).join()')=='setFab')
-                check('téléphone : équipe sur une seule ligne de 3',await ev('(()=>{const r=[...document.querySelectorAll("#battleArea>.bl-team")].map(e=>Math.round(e.getBoundingClientRect().top));return r.every(x=>x===r[0])})()'))
-            else:
-                check('PC : équipe à droite des orbes',tm['l']>=ob['r']-2,(tm,ob))
-                check('PC : en-tête réduit (ressources masquées, réglages gardés)',await ev('[...document.querySelectorAll(".top .meters>*")].filter(e=>getComputedStyle(e).display!="none").map(e=>e.id).join()')=='setFab')
+            check(tag+' : équipe à droite des orbes',tm['l']>=ob['r']-2,(tm,ob))
+            check(tag+' : en-tête réduit (ressources masquées, réglages gardés)',await ev('[...document.querySelectorAll(".top .meters>*")].filter(e=>getComputedStyle(e).display!="none").map(e=>e.id).join()')=='setFab')
             check(tag+' : zone et vague dans le HUD','Vague 1/3' in (await ev('(document.querySelector(".sHud .sZone")||{}).textContent||""')))
             check(tag+' : PV de l\'équipe sur la scène',await ev('document.querySelectorAll(".battlestage .sFig .sHp u").length')==3)
             # compétence prête : toucher le dino sur la scène

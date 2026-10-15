@@ -9,7 +9,7 @@ def check(name,cond,info=''):
 WINJS='for(let i=0;i<80&&!fight.over;i++)tapOrb(0)'
 async def main():
     async with async_playwright() as p:
-        b=await p.chromium.launch();ctx=await b.new_context(viewport={'width':390,'height':844});pg=await ctx.new_page();ev=pg.evaluate
+        b=await p.chromium.launch();ctx=await b.new_context(viewport={'width':1280,'height':800});pg=await ctx.new_page();ev=pg.evaluate
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
         await pg.goto(GAME);await pg.wait_for_timeout(400)
         await ev('S.tut={off:true,seen:{}};S.team=[{id:1,type:"spino",level:80,xp:0},{id:2,type:"magma",level:80,xp:0},{id:3,type:"levia",level:80,xp:0}];S.stage=0;S.tickets=50;ens();setPref("lore",false);setPref("anim",false)')

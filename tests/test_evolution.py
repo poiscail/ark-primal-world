@@ -8,7 +8,7 @@ def check(name,cond,info=''):
     if not cond:FAILS.append(name)
 async def main():
     async with async_playwright() as p:
-        b=await p.chromium.launch();ctx=await b.new_context(viewport={'width':390,'height':844});pg=await ctx.new_page();ev=pg.evaluate
+        b=await p.chromium.launch();ctx=await b.new_context(viewport={'width':1280,'height':800});pg=await ctx.new_page();ev=pg.evaluate
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
         await pg.goto(GAME);await pg.wait_for_timeout(400)
         await ev('S.tut={off:true,seen:{}};S.team=[{id:1,type:"coelo",level:20,star:1,xp:0,v:"alpha"},{id:2,type:"utah",level:10,star:0,xp:0},{id:3,type:"rex",level:5,xp:0}];S.nextId=10;S.essence=1000;S.shards=500;S.mat={bone:100,hide:100,crystal:100,amber:100};ens();go("team")')

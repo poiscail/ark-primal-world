@@ -11,7 +11,7 @@ BASE='S.team=[{id:1,type:"gaia",level:60,xp:0},{id:2,type:"argento",level:60,xp:
 ARENA='startBattle({mode:"arena",go:true,d:2,n:40,team:"Test",sp:%s});fight.enemies.forEach(e=>{e.hp=e.max=999999});fight.mx=fight.mx.map(x=>x*50);fight.hp=fight.mx.slice();renderBattle()'
 async def main():
     async with async_playwright() as p:
-        b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844});ev=pg.evaluate
+        b=await p.chromium.launch();pg=await b.new_page(viewport={'width':1280,'height':800});ev=pg.evaluate
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
         await pg.goto(GAME);await pg.wait_for_timeout(300);await ev(BASE+'setPref("anim",false)')
         await ev(ARENA%'["raptor","trike","dracorex"]');await pg.wait_for_timeout(100)

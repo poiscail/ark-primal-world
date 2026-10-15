@@ -93,7 +93,7 @@ html body .meter{flex:0 0 auto;white-space:nowrap}
 html body .top .title{background:linear-gradient(90deg,#fff 0%,var(--acc,#67e5ff) 40%,var(--acc2,#ff3df2) 70%,#fff 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:titleflow 8s linear infinite}
 html body .top .title span{color:inherit}
 @keyframes titleflow{to{background-position:-220% 0}}
-html[data-theme=light] body .top .title{background:linear-gradient(90deg,#14224a,#2a62ff 50%,#c02ad8);-webkit-background-clip:text;background-clip:text}
+html[data-theme=light] body .top .title{background:linear-gradient(90deg,#14224a,#1d4fd8 50%,#9c1ab4);-webkit-background-clip:text;background-clip:text}
 /* sous-menu : indication de défilement */
 html body .subnav{-webkit-mask:linear-gradient(90deg,#000 90%,transparent);mask:linear-gradient(90deg,#000 90%,transparent);scrollbar-width:none}
 html body .subnav::-webkit-scrollbar{display:none}

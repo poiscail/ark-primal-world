@@ -1,0 +1,119 @@
+# Construit l'application Windows (.exe) sur un vrai Windows, la teste, puis publie une page par version (depuis main).
+name: Application Windows (.exe)
+
+on:
+  push:
+    branches: [main, "claude/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: windows-exe-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows:
+    name: Construire et tester l'exe (Windows)
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: desktop/package-lock.json
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dépendances (Electron, electron-builder)
+        working-directory: desktop
+        run: npm ci --no-audit --no-fund
+
+      - name: Construction (installateur + portable)
+        run: python tools/build.py
+
+      - name: Tests de lancement (dépaqueté x2, portable, installateur)
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $out = Join-Path $env:RUNNER_TEMP "smoke"
+          New-Item -ItemType Directory -Force $out | Out-Null
+          function Invoke-Smoke($exe, $name, $data, $boot) {
+            $json = Join-Path $out "$name.json"
+            $list = @("--smoke-test", "--smoke-data=$data", "--smoke-out=$json", "--smoke-shot=$(Join-Path $out "$name.png")")
+            if ($boot) { $list += "--smoke-expect-boot=$boot" }
+            $p = Start-Process -FilePath $exe -ArgumentList $list -PassThru
+            $null = $p.Handle
+            if (-not $p.WaitForExit(240000)) { Stop-Process -Id $p.Id -Force; throw "$name : délai dépassé" }
+            # l'exe portable peut rendre la main avant la fin du jeu : on attend le rapport
+            for ($i = 0; $i -lt 180 -and -not (Test-Path $json); $i++) { Start-Sleep -Seconds 1 }
+            if (-not (Test-Path $json)) { throw "$name : aucun rapport de test" }
+            $raw = Get-Content $json -Raw
+            Write-Host "$name : $raw"
+            if (-not ($raw | ConvertFrom-Json).ok) { throw "$name : test de lancement en échec" }
+          }
+          $dist = Join-Path $PWD "dist/ARK_Windows"
+          # 1. exe dépaqueté, lancé deux fois avec le même dossier de données (la sauvegarde doit être retrouvée)
+          $unpacked = Join-Path $dist "win-unpacked/ARK Primal World.exe"
+          Invoke-Smoke $unpacked "depaquete1" (Join-Path $out "data") 1
+          Invoke-Smoke $unpacked "depaquete2" (Join-Path $out "data") 2
+          # 2. exe portable
+          $portable = (Get-ChildItem $dist -Filter "*_portable.exe" | Select-Object -First 1).FullName
+          Invoke-Smoke $portable "portable" (Join-Path $out "data-portable") $null
+          # 3. installateur : installation silencieuse, lancement, désinstallation
+          $setup = (Get-ChildItem $dist -Filter "*_installation.exe" | Select-Object -First 1).FullName
+          $p = Start-Process -FilePath $setup -ArgumentList "/S" -PassThru; $null = $p.Handle
+          if (-not $p.WaitForExit(300000)) { throw "installation : délai dépassé" }
+          $installed = Get-ChildItem (Join-Path $env:LOCALAPPDATA "Programs") -Recurse -Filter "ARK Primal World.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $installed) { throw "installation : exe introuvable dans %LOCALAPPDATA%\Programs" }
+          Write-Host "installé dans : $($installed.DirectoryName)"
+          $lnk = Join-Path ([Environment]::GetFolderPath("Desktop")) "ARK Primal World.lnk"
+          Write-Host "raccourci Bureau : $(Test-Path $lnk)"
+          Invoke-Smoke $installed.FullName "installe" (Join-Path $out "data-installe") $null
+          $un = Get-ChildItem $installed.DirectoryName -Filter "Uninstall*.exe" | Select-Object -First 1
+          if ($un) {
+            $p = Start-Process -FilePath $un.FullName -ArgumentList "/S" -PassThru; $null = $p.Handle; $null = $p.WaitForExit(300000)
+            Start-Sleep -Seconds 5
+            Write-Host "désinstallé : $(-not (Test-Path $installed.FullName))"
+          }
+
+      - name: Fichiers .exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: ARK_Primal_World_Windows
+          path: dist/ARK_Windows/*.exe
+          if-no-files-found: error
+
+      - name: Rapports et captures des tests de lancement
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tests-de-lancement
+          path: ${{ runner.temp }}/smoke/*.*
+          if-no-files-found: ignore
+
+  release:
+    name: Publier les versions (une page par version)
+    needs: windows
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: ARK_Primal_World_Windows
+          path: exe
+
+      - name: Pages de versions (anciennes + dernière avec les .exe)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 tools/releases.py --exe-dir=exe

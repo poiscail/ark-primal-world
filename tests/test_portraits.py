@@ -8,7 +8,7 @@ def check(name,cond,info=''):
 PNG=base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==')
 async def main():
     async with async_playwright() as p:
-        b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844})
+        b=await p.chromium.launch();pg=await b.new_page(viewport={'width':1280,'height':800})
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
         await pg.goto(GAME);await pg.wait_for_timeout(300);ev=pg.evaluate
         n=await ev('Object.keys(SPEC).length')

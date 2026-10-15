@@ -9,7 +9,7 @@ WIN='()=>{for(let k=0;k<300&&!fight.over;k++){fight.enemies[fight.wave].hp=1;tap
 LOSE='()=>{fight.hp=fight.hp.map(()=>1);fight.enemies.forEach(e=>{e.atk=99999;e.hp=9e9;e.max=9e9});for(let k=0;k<300&&!fight.over;k++){tapOrb(0);if(fight.stun)fight.stun=0}return fight.over}'
 async def main():
     async with async_playwright() as p:
-        b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844})
+        b=await p.chromium.launch();pg=await b.new_page(viewport={'width':1280,'height':800})
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
         await pg.goto(GAME);await pg.wait_for_timeout(300);ev=pg.evaluate
         base='S.team=[{id:1,type:"raptor",level:30,xp:0},{id:2,type:"rex",level:30,xp:0},{id:3,type:"trike",level:30,xp:0}];S.nextId=10;S.items=[];S.nextItem=1;S.cnt={};S.dcnt={};S.tower=null;S.arena=null;S.ev=null;S.stone=0;S.tickets=0;S.shards=0;S.mat={bone:0,hide:0,crystal:0,amber:0};'
@@ -17,7 +17,7 @@ async def main():
         # navigation
         check('nav: 5 onglets',await ev('document.querySelectorAll(".bottomnav button").length')==5)
         await ev('go("tower")');check('sous-nav visible sur la Tour et Aventure actif',await ev('!document.getElementById("subnav").classList.contains("hide")&&document.querySelector(\'.bottomnav [data-grp="adv"]\').classList.contains("active")'))
-        await ev('go("home")');check('sous-nav cachée sur accueil',await ev('document.getElementById("subnav").classList.contains("hide")'))
+        await ev('go("home")');check('accueil : sous-onglets Accueil / Profil',await ev('!document.getElementById("subnav").classList.contains("hide")&&document.getElementById("subnav").innerText.includes("PROFIL")'))
         await pg.click('.bottomnav [data-grp="adv"]');check('clic Aventure -> dernier écran',await ev('screen')=='tower')
         # tour
         await ev('startBattle({mode:"tower"})');check('tour: combat étage 1',await ev('fight.o.mode==="tower"&&fight.zone.includes("Étage 1")&&fight.enemies.length===3'))

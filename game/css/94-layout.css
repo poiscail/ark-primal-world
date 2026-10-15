@@ -54,6 +54,12 @@ body.inbattle #fxLayer .wavebn{top:var(--bnTop,34%)}
  #battleArea.bl:not(.blover)>:is(.bl-sptxt,.bl-gauge,.bl-super,.bl-team,.bl-log){grid-column:2}
  #battleArea.bl:not(.blover)>.bl-team{margin:6px 0 0!important}
 }
+/* PC peu haut (portable 1366x768, fenêtre réduite) : scène et orbes plus compacts pour tout voir sans défiler */
+@media (min-width:700px) and (max-height:760px){
+ #battleArea.bl{--stH:clamp(190px,31vh,250px)}
+ html body #battleArea.bl .orbboard.n3{grid-template-columns:repeat(3,72px);gap:7px 12px;padding:8px}
+ html body #battleArea.bl .orbboard .orb{width:72px;height:72px}
+}
 /* auto-combat et vitesse */
 .actl{display:flex;gap:5px;margin-left:auto}
 html body .actl button{padding:5px 9px;font-size:10px;letter-spacing:.06em;min-height:0;background:linear-gradient(var(--surf2,#17213a),var(--surf3,#10182a));color:var(--txt,#fff);border:1px solid var(--bd2,#2d5a99)}

@@ -10,16 +10,18 @@ BASE='S.team=[{id:1,type:"spino",level:30,xp:0},{id:2,type:"trike",level:30,xp:0
 CONTR='''(sel)=>{const lum=c=>{const m=c.match(/[\\d.]+/g).map(Number);const f=v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)};return .2126*f(m[0])+.7152*f(m[1])+.0722*f(m[2])};
  const el=document.querySelector(sel),fg=getComputedStyle(el).color;let bg=null,n=el;while(n){const b=getComputedStyle(n).backgroundColor;if(b&&!/rgba\\(0, 0, 0, 0\\)|transparent/.test(b)){bg=b;break}n=n.parentElement}
  if(!bg)bg=getComputedStyle(document.body).getPropertyValue("--bg0").trim()||"rgb(255,255,255)";if(bg[0]==="#"){const h=bg.slice(1);bg=`rgb(${parseInt(h.slice(0,2),16)},${parseInt(h.slice(2,4),16)},${parseInt(h.slice(4,6),16)})`}
- const a=lum(fg),b=lum(bg);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05)}'''
+ /* texte en dégradé (background-clip:text, couleur transparente) : on mesure chaque couleur du dégradé */
+ const cs=getComputedStyle(el),fgs=(cs.backgroundClip==="text"||cs.webkitBackgroundClip==="text")&&/transparent|rgba\\(0, 0, 0, 0\\)/.test(fg)?(cs.backgroundImage.match(/rgba?\\([^)]*\\)/g)||[fg]):[fg];
+ const b=lum(bg);return Math.min(...fgs.map(c=>{const a=lum(c);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05)}))}'''
 async def main():
     async with async_playwright() as p:
-        b=await p.chromium.launch();ctx=await b.new_context(viewport={'width':390,'height':844});pg=await ctx.new_page();ev=pg.evaluate
+        b=await p.chromium.launch();ctx=await b.new_context(viewport={'width':1280,'height':800});pg=await ctx.new_page();ev=pg.evaluate
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
         await pg.goto(GAME);await pg.wait_for_timeout(400);await ev(BASE)
         # ---------- thèmes
         check('thème sombre par défaut',await ev('document.documentElement.dataset.theme')=='dark')
         await ev('setPref("theme","light")');check('thème clair appliqué',await ev('document.documentElement.dataset.theme')=='light')
-        bgL=await ev('getComputedStyle(document.body).backgroundImage');await ev('setPref("theme","dark")');bgD=await ev('getComputedStyle(document.body).backgroundImage')
+        bgL=await ev('document.getElementById("skinBg").className');await ev('setPref("theme","dark")');bgD=await ev('document.getElementById("skinBg").className')
         check('les deux thèmes ont un fond différent',bgL!=bgD)
         await pg.reload();await pg.wait_for_timeout(300)
         check('thème mémorisé au rechargement',await ev('document.documentElement.dataset.theme')=='dark')

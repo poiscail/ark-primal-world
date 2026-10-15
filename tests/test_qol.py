@@ -9,7 +9,7 @@ def check(name,cond,info=''):
 TEAM='S.team=[1,2,3,4,5,6,7].map((i,k)=>({id:i,type:["rex","spino","trike","raptor","giga","mosa","argento"][k],level:10+i,xp:0}));'
 WIN='()=>{for(let k=0;k<300&&!fight.over;k++){fight.enemies[fight.wave].hp=1;tapOrb(0)}return fight.over}'
 async def fresh(b,phone=False):
-    ctx=await b.new_context(viewport={'width':390,'height':844});pg=await ctx.new_page();pg.errs=[];pg.on('pageerror',lambda e:pg.errs.append(str(e)))
+    ctx=await b.new_context(viewport={'width':1280,'height':800});pg=await ctx.new_page();pg.errs=[];pg.on('pageerror',lambda e:pg.errs.append(str(e)))
     pg.on('dialog',lambda d:asyncio.ensure_future(d.accept(pg.promptv if d.type=='prompt' and hasattr(pg,'promptv') else None) if d.type=='prompt' else d.accept()))
     await pg.goto(GAME);await pg.wait_for_timeout(300);return pg
 async def main():
@@ -20,6 +20,7 @@ async def main():
         await ev('go("home")');check('conseil de bienvenue affiché',await ev('!!document.getElementById("tipCard")&&document.getElementById("tipCard").innerText.includes("Bienvenue")'))
         await pg.click('#tipCard button:has-text("PREMIER COMBAT")');await pg.wait_for_timeout(200)
         check('bouton « premier combat » lance le niveau 1',await ev('screen==="battle"&&fight.n===1'))
+        await ev('fight.enemies.forEach(e=>{e.tr="";e.sh=0;e.hp=e.max=99999})')  # le combat dure assez pour voir les 3 conseils
         check('conseil orbes en combat',await ev('document.getElementById("tipCard").innerText.includes("orbes")'))
         await ev('tipDone("orbs")');check('conseil non réaffiché',await ev('!document.getElementById("tipCard")'))
         await ev('tapOrb(0)');check('conseil éléments au tour suivant',await ev('!!document.getElementById("tipCard")&&document.getElementById("tipCard").innerText.includes("éléments")'))

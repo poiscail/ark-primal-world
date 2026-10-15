@@ -11,7 +11,7 @@ BASE='S.team=[{id:1,type:"spino",level:80,xp:0},{id:2,type:"gaia",level:80,xp:0}
 PLAY='''(o=>{startBattle(o);let g=0;while(!fight.over&&g++<300){if(fight.sp>=100)special();else tapOrb(0)}return fight.over})'''
 async def main():
     async with async_playwright() as p:
-        b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844});ev=pg.evaluate
+        b=await p.chromium.launch();pg=await b.new_page(viewport={'width':1280,'height':800});ev=pg.evaluate
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
         await pg.goto(GAME);await pg.wait_for_timeout(300);await ev(BASE)
         check('champ foes initialisé',await ev('typeof S.foes==="object"&&Object.keys(S.foes).length===0'))

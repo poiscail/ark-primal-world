@@ -3,7 +3,7 @@ GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri
 from playwright.async_api import async_playwright
 async def m():
  async with async_playwright() as p:
-  b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':800});errs=[];pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
+  b=await p.chromium.launch();pg=await b.new_page(viewport={'width':1280,'height':800});errs=[];pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
   await pg.goto(GAME);await pg.wait_for_timeout(300)
   async def play(opts):
    await pg.evaluate(f'startBattle({opts})')

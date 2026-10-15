@@ -10,7 +10,7 @@ def check(name,cond,info=''):
 BASE='S.team=[{id:1,type:"spino",level:40,xp:0},{id:2,type:"trike",level:40,xp:0},{id:3,type:"raptor",level:40,xp:0}];S.stage=4;S.nextId=10;S.items=[];S.tut={off:true,seen:{}};ens();render();'
 async def main():
     async with async_playwright() as p:
-        b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844});ev=pg.evaluate
+        b=await p.chromium.launch();pg=await b.new_page(viewport={'width':1280,'height':800});ev=pg.evaluate
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)))
         await pg.goto(GAME);await pg.wait_for_timeout(300);await ev(BASE)
         check('accueil : décor de la zone en cours (jungle)',await ev('document.querySelector("#home .banner .bscene").dataset.z')=='jungle')

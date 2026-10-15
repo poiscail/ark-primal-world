@@ -7,12 +7,12 @@ FAILS=[]
 def check(name,cond,info=''):
     print(('OK   ' if cond else 'FAIL ')+name+(' '+str(info) if (info!='' and not cond) else ''))
     if not cond:FAILS.append(name)
-FAM={'bite':('raptor','.jawfx'),'charge':('trike','.istar'),'club':('ankylo','.swipe'),'spikes':('stego','.spikefx'),'dive':('ptera','.slashfx'),'quake':('argento','.quakefx'),'sonic':('parasau','.sonicfx'),'jet':('mosa','.jetfx')}
+FAM={'bite':('raptor','.jawfx'),'charge':('trike','.istar'),'club':('ankylo','.swipe'),'spikes':('stego','.spikefx'),'dive':('ptera','.tx-slash'),'quake':('argento','.quakefx'),'sonic':('parasau','.sonicfx'),'jet':('mosa','.jetfx')}
 SEEN='window.__fx=new Set();new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.className)String(n.className).split(" ").forEach(c=>c&&__fx.add(c))}))).observe(document.getElementById("fxLayer"),{childList:true})'
 def team(types):return 'S.team=%s.map((t,i)=>({id:i+1,type:t,level:40,xp:0}));S.stage=50;S.nextId=10;S.items=[];S.tut={off:true,seen:{}};ens();render()'%str(types).replace("'",'"')
 async def main():
     async with async_playwright() as p:
-        b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844});ev=pg.evaluate
+        b=await p.chromium.launch();pg=await b.new_page(viewport={'width':1280,'height':800});ev=pg.evaluate
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
         await pg.goto(GAME);await pg.wait_for_timeout(300);await ev(SEEN)
         check('8 familles reliées à une animation',await ev('Object.keys(FAMFX).length')==8 and await ev('Object.values(FAMFX).every(k=>typeof ATK[k]==="function")'))

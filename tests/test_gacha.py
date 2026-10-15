@@ -7,7 +7,7 @@ def check(name,cond,info=''):
     if not cond:FAILS.append(name)
 async def main():
     async with async_playwright() as p:
-        b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844})
+        b=await p.chromium.launch();pg=await b.new_page(viewport={'width':1280,'height':800})
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
         await pg.goto(GAME);await pg.wait_for_timeout(300);ev=pg.evaluate
         base='S.team=[{id:1,type:"raptor",level:1,xp:0}];S.nextId=10;S.pity=0;S.fpity=0;S.eggs=[];S.hist=[];S.gstat={total:0,r:[0,0,0,0]};S.freeDay="";S.cnt={};S.dcnt={};S.tickets=500;S.stone=99999;S.mat={bone:99,hide:99,crystal:999,amber:999};S.shards=0;'
@@ -58,7 +58,7 @@ async def main():
         await ev(base+'S.team=[{id:1,type:"raptor",level:1,xp:0},{id:2,type:"raptor",level:1,xp:0},{id:3,type:"raptor",level:1,xp:0},{id:4,type:"spino",level:1,xp:0},{id:5,type:"rex",level:1,xp:0}]');await ev('recycle(4);recycle(5)');r=await ev('S.shards');check('recyclage donne des fragments (légendaire 40 + épique 14)',r==54,r)
         await ev('S.shards=0;shopBuy("spino")');r=await ev('({s:S.shards,n:S.team.length})');check('boutique: fonds insuffisants',r['s']==0 and r['n']==3,r)
         await ev('S.shards=450;shopBuy("spino")');r=await ev('({s:S.shards,has:S.team.some(d=>d.type==="spino")})');check('boutique: légendaire pour 450 fragments',r['s']==0 and r['has'],r)
-        await ev('setShop("Commun");');r=await ev('document.querySelectorAll("#gachaY .row").length');check('boutique: liste filtrée par rareté (14 communs)',r==14,r)
+        await ev('setShop("Commun");');r=await ev('document.querySelectorAll("#gachaY .row").length');nc=await ev('Object.values(SPEC).filter(s=>s.r==="Commun").length');check(f'boutique: liste filtrée par rareté ({nc} communs)',r==nc,(r,nc))
         # --- connexion quotidienne
         await ev(base+'S.login={last:"",streak:0,ready:false};render()');r=await ev('({s:S.login.streak,r:S.login.ready})');check('connexion: 1er jour, série 1',r==dict(s=1,r=True),r)
         st0=await ev('S.stone');await ev('claimLogin()');r=await ev('({st:S.stone,r:S.login.ready})');check('connexion jour 1: +100 pierres',r['st']==st0+100 and not r['r'],r)
