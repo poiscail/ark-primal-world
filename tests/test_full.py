@@ -28,7 +28,7 @@ async def m():
   for sc in ['home','team','battle','summon','story','dungeon','missions']:
    await pg.evaluate(f'go("{sc}")')
   await pg.screenshot(path='/tmp/ark_shot.png')
-  await pg.evaluate('go("home")');await pg.evaluate('trExportCode()');c=await pg.input_value('#trCode');await pg.evaluate('S.team=[S.team[0]]');await pg.fill('#trCode',c)
+  await pg.evaluate('go("home");subSet("home","profile")');await pg.evaluate('trExportCode()');c=await pg.input_value('#trCode');await pg.evaluate('S.team=[S.team[0]]');await pg.fill('#trCode',c)
   async with pg.expect_navigation():await pg.evaluate('trImportCode()')
   await pg.wait_for_timeout(400);imp=await pg.evaluate('S.team.length>10');print('import ok:',imp)
   print('erreurs:',errs);await b.close()

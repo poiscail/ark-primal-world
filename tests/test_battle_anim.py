@@ -28,6 +28,8 @@ async def main():
         check('allié en charge',await ev('[...document.querySelectorAll("#battleArea .sFig")].some(e=>e.getAnimations().length>0)||document.querySelectorAll("#battleArea .lunge").length>0'))
         await pg.wait_for_timeout(500)
         check('chiffre de dégâts flottant',await ev('document.querySelectorAll(".dmgnum").length')>=1)
+        check('textures d\'impact (Kenney)',await ev('document.querySelectorAll(".tx").length')>=1)
+        check('polices intégrées chargées',await ev('document.fonts.check("900 20px Orbitron") && document.fonts.check("700 14px \\"Exo 2\\"")'))
         if SHOTS:await pg.screenshot(path='/tmp/shots/battle_hit.png')
         await pg.wait_for_timeout(900)
         # attaque ennemie : forcer

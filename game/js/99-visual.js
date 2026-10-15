@@ -41,7 +41,8 @@ function sceneLayer(kind,layer,col,R){let s="";const W=390;
  else if(layer==="fore"){let t="";for(let i=0;i<22;i++){const x=i*18+R()*10,h=14+R()*30;t+=kind==="volcano"||kind==="pillars"||kind==="obelisk"?`<path d="M${x} 220 L${x+6} ${220-h*.8} L${x+13} 220Z" fill="${col}"/>`:`<path d="M${x} 220 Q${x+4} ${220-h} ${x+14} ${220-h*1.2} Q${x+8} ${220-h*.4} ${x+10} 220Z" fill="${col}"/>`}s=tile(t)}
  return s}
 const SC_CACHE={};
-function sceneHTML(z){if(SC_CACHE[z])return SC_CACHE[z];const c=SCN[z]||SCN.neutre,R=rng(hashS(z)),W=390,id="sc"+z;
+let SC_UID=0;function sceneHTML(z){const u="u"+(++SC_UID);return sceneBase(z).split("__U__").join(u)}
+function sceneBase(z){if(SC_CACHE[z])return SC_CACHE[z];const c=SCN[z]||SCN.neutre,R=rng(hashS(z)),W=390,id="sc"+z+"__U__";
  let stars="";if(z==="ruines"||z==="obelisque"||z==="neutre")for(let i=0;i<40;i++)stars+=`<circle cx="${R()*W}" cy="${R()*110}" r="${.4+R()*1.1}" fill="#fff" opacity="${.3+R()*.6}"/>`;
  const sun=z==="ruines"?`<circle cx="290" cy="60" r="24" fill="#fff6e0"/><circle cx="290" cy="60" r="44" fill="#fff6e0" opacity=".12"/>`:z==="jungle"?`<circle cx="300" cy="55" r="34" fill="${c.glow}" opacity=".55"/><circle cx="300" cy="55" r="16" fill="#fffbd0"/>`:z==="volcan"?`<circle cx="200" cy="120" r="80" fill="${c.glow}" opacity=".25"/>`:z==="obelisque"?`<path d="M195 220 L190 40 L200 22 L210 40 L205 220Z" fill="#1d0d40"/><path d="M200 24 L200 200" stroke="#f0c8ff" stroke-width="1.5" opacity=".8"/><circle cx="200" cy="90" r="46" fill="${c.glow}" opacity=".18"/>`:`<circle cx="300" cy="60" r="22" fill="#fff" opacity=".7"/>`;
  const rays=z==="jungle"?[0,1,2,3].map(i=>`<path d="M300 55 L${60+i*80} 220 L${100+i*80} 220Z" fill="#fff6b0" opacity=".08"/>`).join(""):"";

@@ -20,14 +20,11 @@ body.noanim .sEnemy::before{animation:none}
 .wavebn.eskill b{font-size:clamp(20px,6vw,32px);color:#ffd9f6;text-shadow:0 0 18px #ff3bd4,0 2px 0 #000;letter-spacing:2px}
 .wavebn.eskill small{color:#ffb0ee}
 .eskchip{border-color:#ff8ae6!important;color:#ffc4f3!important}html[data-theme="light"] .eskchip{color:#a0157f!important}
-/* décors de menu (js/99-menu-scenes.js) : bannières en scène de zone */
-.bscene{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.bscene .scene{position:absolute;inset:0}
-.bscene::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,7,18,.84),rgba(3,7,18,.5) 50%,rgba(3,7,18,0) 78%)}
+/* vedette des bannières (js/99-menu-scenes.js ; le décor .bscene vient de 99-polish / 94-visual.css) */
 .banner.hasScene>.eyebrow,.banner.hasScene>h1,.banner.hasScene>p{position:relative;z-index:1}
-html body .banner.hasScene h1{color:#fff;text-shadow:0 2px 6px #000}
-html body .banner.hasScene p{color:#d5e2f7;max-width:60%}html body .banner.hasScene h1{max-width:66%}
-html body .banner.hasScene .eyebrow{color:#67e5ff}
+html:not([data-theme=light]) body .banner.hasScene h1{color:#fff;text-shadow:0 2px 6px #000}
+html:not([data-theme=light]) body .banner.hasScene p{color:#d5e2f7}
+html body .banner.hasScene p{max-width:60%}html body .banner.hasScene h1{max-width:66%}
 html body .banner.hasScene .heroDino{z-index:2}
 .heroDino.sceneHero .pt{display:block;width:120px;height:120px;filter:drop-shadow(0 0 14px #0009) drop-shadow(0 8px 10px #0008)}
 .heroDino.sceneHero .pt svg{width:100%;height:100%;display:block}.heroDino.sceneHero .pt.flip svg{transform:scaleX(-1)}

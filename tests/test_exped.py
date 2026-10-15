@@ -14,7 +14,7 @@ async def main():
         await pg.goto(GAME);await pg.wait_for_timeout(400);await ev(BASE)
         await ev('go("exped")');await pg.wait_for_timeout(200)
         check('écran expéditions affiché',await ev('document.querySelector("#exped").classList.contains("active")'))
-        check('sous-menu contient expéditions et succès',await ev('document.querySelectorAll("#subnav button").length')==7)
+        check("sous-menu Quêtes (5 onglets)",await ev('document.querySelectorAll("#subnav button").length')==5)
         await ev('xTog(1);xTog(2);xSet("d",0)');
         check('butin estimé affiché',await ev('document.querySelectorAll("#exped .fchips .chip").length')>=2)
         s0=await ev('S.stone');await ev('xStart(0)')

@@ -1,5 +1,5 @@
 /* Réglages, sons (Web Audio synthétisé, aucun fichier), animations, difficulté, mesure d'équilibrage */
-const PREF_KEY="arkPrimalPrefs",DEF_PREFS={sound:true,vol:.6,music:false,anim:true,vib:true,lore:true,diff:"normal",art:"svg",theme:"dark"};
+const PREF_KEY="arkPrimalPrefs",DEF_PREFS={sound:true,vol:.6,music:false,anim:true,vib:true,lore:true,chain:false,diff:"normal",art:"svg",theme:"dark"};
 let PREFS={...DEF_PREFS};try{PREFS={...DEF_PREFS,...JSON.parse(localStorage.getItem(PREF_KEY)||"{}")}}catch(e){}
 function savePrefs(){try{localStorage.setItem(PREF_KEY,JSON.stringify(PREFS))}catch(e){}}
 const DIFFS={easy:{n:"Facile",h:.75,a:.75,r:.85},normal:{n:"Normal",h:1,a:1,r:1},hard:{n:"Difficile",h:1.3,a:1.25,r:1.3}};

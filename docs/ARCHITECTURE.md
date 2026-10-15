@@ -25,6 +25,11 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `js/97-teams.js` | équipes enregistrées |
 | `js/98-tutorial.js` | conseils contextuels (`TIPS`) et guide |
 | `js/99-visual.js` | filtres de portrait, scène de combat (`stageBuild`), orbes en verre, cadres |
+| `js/99-polish.js` | bannières illustrées, carte d'histoire et étoiles, interrupteurs, écran titre, fin de combat |
+| `js/99-nav.js` | navigation à 5 onglets + sous-onglets, « À faire aujourd'hui », Défi du jour, Fouilles |
+| `js/99-chain.js` | enchaînement automatique des combats, animations du plateau |
+| `js/99-skins.js` | 7 thèmes (couleurs + image de fond), sélecteur dans les Réglages |
+| `js/99-content.js` | 8 espèces supplémentaires, Raid hebdomadaire, Marché du jour |
 | `js/99-expeditions.js` | expéditions chronométrées, succès (`ACH`) et titres |
 | `js/99-enemy-traits.js` | traits d'ennemis et phases de boss |
 | `js/99-summon-fx.js` | animation d'invocation (cercle, cartes retournées) |

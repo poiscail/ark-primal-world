@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.13.0 — Combat repensé, bestiaire des ennemis, auto-combat
+## 0.18.0 — (en cours) Application Windows, PC uniquement, fusion des deux branches de travail
 - Combat sur téléphone : la scène, les orbes, la super attaque et les compétences tiennent dans l'écran sans défiler (avant, les orbes commençaient sous le bas de l'écran) ; en-tête réduit au titre et aux réglages, équipe sur trois cases, PV et compétence prête affichés sur la scène (toucher un dino lance sa compétence), zone et vague dans le HUD. PC : deux colonnes (orbes à gauche, super et équipe à droite). Vérifié en émulation (390×844, 1280×800), pas sur un vrai téléphone.
 - Auto-combat (l'IA lance la super, les compétences utiles, puis la meilleure orbe ; pause si une fenêtre est ouverte, l'écran quitté ou la page cachée), vitesse ×1/×2/×3 des animations et « Enchaîner » 🔁 (après une victoire en auto, le combat suivant démarre seul : niveau suivant, étage suivant, même donjon ; jamais en Arène, arrêt sur défaite ou bouton ARRÊTER) ; touches R et T sur PC ; réglages « Combat ».
 - Bestiaire des ennemis : 20 créatures dessinées (Sarcosuchus, Titanoboa, spectre fossile, squelette animé, scarabée cuirassé, scorpion géant, salamandre de lave, wyverne, rôdeur du néant, sentinelle de pierre, œil du temple, loup sinistre, entélodon, bison colossal, élasmothérium, golem de cristal, chauve-souris géante, ammonite géante, guêpe géante, araignée géante) et dinosaures corrompus par l'obélisque (veines d'énergie, yeux luisants, gardiens couronnés), teintés selon l'élément ; leur nom s'affiche en combat.
@@ -12,6 +12,47 @@
 - Simulations d'équilibrage corrigées : le rang du joueur (+0,5 % PV/ATQ par rang) grimpait pendant la simulation et faussait les dernières mesures ; il est maintenant fixé à chaque combat.
 - Corrections : une compétence de soin faisait « attaquer » toute l'équipe et affichait « -0 » ; un coup entièrement absorbé par un bouclier affiche « ABSORBÉ » ; les réglages restent accessibles pendant un combat.
 - Tests : `test_layout`, `test_auto`, `test_bestiary`, `test_attack_fx`, `test_enemy_skills`, `test_menu_scenes`, `test_codex` (25 suites) ; `test_battle_anim` et `test_skill_fx` adaptés (attaques par famille, comptage des effets ajoutés).
+
+## 0.17.0 — 7 thèmes avec images de fond, nouvelles espèces, Raid, Marché
+- 7 thèmes complets au choix dans les Réglages (Néon, Clair, Jungle, Volcan, Abysses, Mystique, Désert) : couleurs de toute l'interface + image de fond, aperçus cliquables, mode automatique conservé.
+- 7 images de fond générées par programme (`tools/gen_backgrounds.py`, Python/PIL) : décors en couches avec silhouettes de dinosaures, brume, rayons, particules ; WebP intégrées (≈110 Ko au total).
+- 8 nouvelles espèces (54 au total) : Kentrosaure, Dimorphodon, Styracosaure, Élasmosaure, Concavenator, Sarcosuchus et 2 légendaires (Chronosaure, Aurorasaure), avec portraits et 3 évolutions supplémentaires.
+- Raid de la semaine (Aventure → Raid) : boss colossal dont les PV persistent toute la semaine, 3 tentatives de 10 tours par jour, récompense selon les dégâts, 4 paliers (25/50/75/100 %).
+- Marché du jour (Invocation → Marché) : 6 offres tirées chaque jour (tickets, essence, matériaux, fragments, coffre d'équipement, viande +3 niveaux, pioche, œuf), une fois chacune.
+- 3 nouveaux succès. Tests : `test_content.py`.
+
+## 0.16.0 — Enchaînement auto, animations de plateau, correctif invocation
+- Correctif : le bouton « OK » du résultat d'invocation ne répondait pas (la couche d'effets restait au-dessus après l'animation).
+- Enchaînement automatique des combats : option dans les Réglages et bouton en combat ; après une victoire, compte à rebours puis combat suivant (histoire : niveau suivant ; Tour : étage suivant ; Donjon : même donjon), jusqu'à une défaite, l'arrêt manuel ou la fin de la progression. Compteur de série.
+- Animations : orbes qui tombent en cascade à chaque nouveau plateau, bulle « COMBO ×N », bouton de super attaque qui pulse quand elle est prête, anneau de compte à rebours.
+- Tests : `test_chain.py` (dont un vrai clic sur « OK » après invocation x1 et x5).
+
+## 0.15.0 — Onglets épurés et nouvelles activités
+- Navigation : 5 onglets (Accueil, Équipe, Aventure, Invocation, Quêtes) et une barre de sous-onglets collante avec pastilles de notification.
+  - Accueil : Accueil / Profil (journal, profil, sauvegarde rangés à part).
+  - Équipe : Meute / Améliorer (forge, évolutions) / Sac / Bestiaire.
+  - Aventure : Histoire / Donjons / Tour / Arène / Événements.
+  - Invocation : Bannières / Bonus (roue, appels, équipement, œufs) / Boutique.
+  - Quêtes : Missions / Défi / Fouilles / Expéditions / Succès.
+- « À faire aujourd'hui » sur l'accueil : liste des activités disponibles avec accès direct.
+- Défi du jour : combat spécial quotidien (orbes du jour ×1,5, trait imposé, ennemis +50 % PV), récompense une fois par jour, série de 7 jours bonus.
+- Fouilles : 16 cases de sable, 3 pioches gratuites par jour (+3 achetables), trésors dont un fossile légendaire ; terrain différent chaque jour.
+- Missions : les missions terminées sont masquées (bouton pour les afficher).
+- 2 succès supplémentaires (Archéologue, Défieur Quotidien).
+- Tests : `test_nav.py`.
+
+## 0.14.0 — Polices futuristes et effets à textures
+- Polices intégrées (fonctionnent hors ligne) : Orbitron pour les titres, chiffres et bannières, Exo 2 pour le texte (licence SIL OFL).
+- 15 textures de particules (Kenney Particle Pack, CC0) teintées par masque : impacts colorés selon l'orbe, entailles de griffes, flammes, fumée de venin, onde de choc, éclairs, éclat de super attaque, fumée à la mort d'un ennemi, cercle de runes à l'invocation.
+- `docs/LICENSES.md` liste les ressources tierces et leurs licences.
+
+## 0.13.0 — Finitions de l'interface et carte d'histoire
+- Carte de l'histoire : 10 chapitres de 10 niveaux sur un chemin sinueux animé au-dessus du décor de la zone, nœuds terminés / en cours / verrouillés / boss, dino de tête au-dessus du niveau courant.
+- Étoiles (1 à 3) enregistrées par niveau d'histoire, paliers de récompenses tous les 25 étoiles.
+- Bannières de tous les écrans illustrées par un décor animé ; en-tête compact (ressources sur une ligne défilante), titre en dégradé animé.
+- Animations : entrées en cascade, onde au toucher, reflet sur les boutons principaux, icônes de navigation qui rebondissent, équipe qui saute de joie à la victoire / s'effondre à la défaite, ennemi qui charge vers l'équipe.
+- Réglages : vrais interrupteurs ; écran titre animé au lancement.
+- Tests : `test_polish.py`.
 
 ## 0.12.0 — Refonte graphique
 - Portraits : volume (reflet, ombre interne, contour) via filtre SVG, fonds dégradés, cadres de rareté (Rare / Épique / Légendaire doré), version « sans fond » pour la scène.
