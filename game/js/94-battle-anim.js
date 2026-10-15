@@ -1,6 +1,8 @@
 /* Animations de combat : projectiles, chiffres flottants, barres de PV avec traînée, bannières, écran de résultat, ambiance */
 const ELC={redorb:"#ff647b",blueorb:"#5fb8ff",greenorb:"#7dff9b",purpleorb:"#bd8aff",goldorb:"#ffd15c"};
 const BQ={dmg:null,hurt:[],atk:false};
+/* vitesse des animations de combat (×1/×2/×3, réglée par js/99-auto.js) : les délais d'enchaînement passent par fxd() */
+let FX_SPEED=1;const fxd=ms=>ms/FX_SPEED;
 function vib(p){try{if(PREFS.vib!==false&&navigator.vibrate)navigator.vibrate(p)}catch(e){}}
 function fxAdd(el,ms){const L=$$("fxLayer");if(!L)return;L.appendChild(el);setTimeout(()=>el.remove(),ms)}
 function floatNum(txt,x,y,cls,sub){if(!PREFS.anim)return;const d=document.createElement("div");d.className="dmgnum "+(cls||"");d.style.left=x+"px";d.style.top=y+"px";d.innerHTML=txt+(sub?`<small>${sub}</small>`:"");fxAdd(d,1100);d.animate([{transform:"translate(-50%,0) scale(.4)",opacity:0},{transform:"translate(-50%,-14px) scale(1.25)",opacity:1,offset:.2},{transform:"translate(-50%,-34px) scale(1)",opacity:1,offset:.6},{transform:"translate(-50%,-64px) scale(.9)",opacity:0}],{duration:1050,easing:"ease-out"})}
@@ -19,17 +21,17 @@ const _rb94=renderBattle;renderBattle=function(){_rb94();const f=fight;if(!f||!f
  /* barres animées */
  const bars=[...box.querySelectorAll(".progress:not(.gauge)")],now=bars.map(b=>b.firstElementChild?parseFloat(b.firstElementChild.style.width)||0:0),pv=f._pv;let delay=BQ.atk?340:BQ.hurt.length?120:0;
  if(PREFS.anim&&pv&&pv.v.length===now.length){now.forEach((n,i)=>{let p=pv.v[i];if(i===0&&pv.w!==f.wave)p=n;if(Math.abs(p-n)<.5)return;const bar=bars[i],fill=bar.firstElementChild;bar.classList.add("hasTrail");
-  if(p>n){const t=document.createElement("u");t.className="trail";t.style.width=p+"%";bar.insertBefore(t,fill);setTimeout(()=>{t.style.width=n+"%"},delay+380)}
-  fill.style.transition="none";fill.style.width=p+"%";void fill.offsetWidth;setTimeout(()=>{fill.style.transition="";fill.style.width=n+"%"},delay+30)})}
+  if(p>n){const t=document.createElement("u");t.className="trail";t.style.width=p+"%";bar.insertBefore(t,fill);setTimeout(()=>{t.style.width=n+"%"},fxd(delay+380))}
+  fill.style.transition="none";fill.style.width=p+"%";void fill.offsetWidth;setTimeout(()=>{fill.style.transition="";fill.style.width=n+"%"},fxd(delay+30))})}
  f._pv={v:now,w:f.wave};
  /* attaque alliée */
  if(BQ.atk&&BQ.dmg&&eIcon&&PREFS.anim){const q=BQ.dmg,t=S.team.slice(0,3);rows.forEach((el,k)=>{if(!t[k]||f.hp[k]<=0)return;el.classList.add("lunge");el.style.animationDelay=k*60+"ms";projectile(el,eIcon,ELC[sp(t[k]).element]||"#fff",k*60)});
   const r=eIcon.getBoundingClientRect(),crit=/CRITIQUE/.test(q.msg),cb=(q.msg.match(/combo x(\d+)/)||[])[1];
-  setTimeout(()=>{const R=eIcon.getBoundingClientRect();floatNum("-"+q.v,R.left+R.width/2,R.top+R.height*.3,(q.big||crit?"big ":"")+(crit?"crit":""),(q.adv?"EFFICACE !":"")+(crit?" CRITIQUE !":"")+(cb&&!q.adv&&!crit?"COMBO ×"+cb:""));ring(R.left+R.width/2,R.top+R.height/2,"#fff");vib(q.big||crit?[25,30,40]:18)},380+rows.length*40)}
+  setTimeout(()=>{const R=eIcon.getBoundingClientRect();floatNum("-"+q.v,R.left+R.width/2,R.top+R.height*.3,(q.big||crit?"big ":"")+(crit?"crit":""),(q.adv?"EFFICACE !":"")+(crit?" CRITIQUE !":"")+(cb&&!q.adv&&!crit?"COMBO ×"+cb:""));ring(R.left+R.width/2,R.top+R.height/2,"#fff");vib(q.big||crit?[25,30,40]:18)},fxd(380+rows.length*40))}
  /* attaque ennemie */
  if(BQ.hurt.length&&PREFS.anim){if(eIcon){eIcon.classList.add("elunge")}
   const d=document.createElement("div");d.className="hurtflash";fxAdd(d,600);
-  BQ.hurt.forEach(({k,d:dm},j)=>{const el=rows[k];if(!el)return;el.classList.add("shk");setTimeout(()=>{const R=el.getBoundingClientRect();floatNum("-"+dm,R.left+R.width/2,R.top+4,"foe")},220+j*90)});vib([40,40,60])}
+  BQ.hurt.forEach(({k,d:dm},j)=>{const el=rows[k];if(!el)return;el.classList.add("shk");setTimeout(()=>{const R=el.getBoundingClientRect();floatNum("-"+dm,R.left+R.width/2,R.top+4,"foe")},fxd(220+j*90))});vib([40,40,60])}
  else if(BQ.hurt.length)vib([40,40,60]);
  BQ.atk=false;BQ.dmg=null;BQ.hurt=[];
  /* bannières de vague / boss / rage */

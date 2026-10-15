@@ -1,0 +1,82 @@
+/* Mise en page du combat (classes bl-* posées par js/99-layout.js) : l'ordre visuel ne déplace aucun élément du DOM */
+#battleArea.bl{display:flex;flex-wrap:wrap;column-gap:6px;align-items:flex-start}
+#battleArea.bl>*{flex:0 0 100%;min-width:0;order:16}
+#battleArea.bl>.bl-stage{order:0}#battleArea.bl>.bl-tip{order:1}#battleArea.bl>.bl-res{order:2}#battleArea.bl>.bl-rep{order:3}
+#battleArea.bl>.bl-buffs{order:4}#battleArea.bl>.bl-head{order:5}#battleArea.bl>.bl-orbs{order:6}#battleArea.bl>.bl-sptxt{order:7}
+#battleArea.bl>.bl-gauge{order:8}#battleArea.bl>.bl-super{order:9}#battleArea.bl>.bl-team{order:10}#battleArea.bl>.bl-log{order:11}
+#battleArea.bl>.bl-hint{order:12}#battleArea.bl>.bl-help{order:13}#battleArea.bl>.bl-btns{order:14}#battleArea.bl>.bl-jr{order:15}
+html body #battleArea.bl .battlestage{margin:0 0 4px}
+#battleArea.bl>.bl-tip{margin:4px 0 6px}
+#battleArea.bl>.bl-buffs{margin:2px 0 0}
+#battleArea.bl>.bl-head{margin:6px 2px 0}#battleArea.bl>.bl-head h2{font-size:12px}
+#battleArea.bl>.bl-sptxt{margin-top:4px;font-size:10px}
+#battleArea.bl>.bl-gauge{margin:3px 0 0}
+#battleArea.bl>.bl-super{margin-top:4px}
+#battleArea.bl>.bl-log{margin:8px 0 0!important}
+#battleArea.bl>.bl-res{margin-top:6px}
+/* HUD de la scène plus compact : zone et vague, PV à droite du nom */
+html body #battleArea.bl .sHud{left:6px;right:6px;top:6px;padding:5px 9px}
+#battleArea.bl .sZone{font-size:9px;font-weight:800;line-height:1.25;letter-spacing:.12em;text-transform:uppercase;color:var(--acc,#67e5ff);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#battleArea.bl .sHud .grow>b{font-size:13px}
+#battleArea.bl .sHud .grow>div.muted.tiny{float:right;margin:2px 0 0 6px}
+html body #battleArea.bl .sHud .progress{clear:both;height:8px;margin:2px 0}
+#battleArea.bl .sHud .fchips{margin:3px 0 0}#battleArea.bl .sHud .fchips:empty{display:none}
+/* PV de l'équipe sur la scène, compétence prête : touche le dinosaure */
+.sFig .sHp{position:absolute;left:14%;right:14%;top:-7px;height:5px;border-radius:3px;background:#000a;border:1px solid #ffffff40;overflow:hidden;z-index:2}
+.sFig .sHp u{display:block;height:100%;background:linear-gradient(90deg,#62e7a0,#d4ff80);transition:width .45s cubic-bezier(.2,.8,.2,1) .25s;text-decoration:none}
+.sFig .sHp.mid u{background:linear-gradient(90deg,#ffb52e,#ffe27a)}.sFig .sHp.lo u{background:linear-gradient(90deg,#ff3d6a,#ff8095)}
+.sFig.dead .sHp{display:none}
+.sFig.skready{pointer-events:auto;cursor:pointer}
+.sFig.skready::after{content:"";position:absolute;left:6%;right:6%;bottom:-7px;height:15px;border-radius:50%;border:2px solid var(--acc,#67e5ff);box-shadow:0 0 12px var(--acc,#67e5ff),inset 0 0 8px var(--acc,#67e5ff);animation:skready 1.3s ease-in-out infinite;pointer-events:none}
+.sFig .sSk{position:absolute;right:-6px;top:4px;font-size:15px;line-height:1;padding:3px;border-radius:50%;background:radial-gradient(circle,#0b1a33,#050914);border:1px solid var(--acc,#67e5ff);box-shadow:0 0 10px var(--acc,#67e5ff);animation:skbob 1.3s ease-in-out infinite;z-index:3}
+@keyframes skready{50%{transform:scale(1.12);opacity:.55}}
+@keyframes skbob{50%{transform:translateY(-3px)}}
+body.noanim .sFig.skready::after,body.noanim .sFig .sSk{animation:none}
+/* en-tête réduit pendant un combat */
+body.inbattle .top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:3px 12px}
+body.inbattle .top .sub,body.inbattle .top .xpb,body.inbattle .adminfab,body.inbattle .top .meters>:not(#setFab){display:none}
+body.inbattle .top .meters{margin:0}body.inbattle .top .title{font-size:15px}
+body.inbattle #battle>.banner{display:none}
+body.inbattle #fxLayer .wavebn{top:var(--bnTop,34%)}
+/* téléphone (et fenêtre étroite) : une colonne, équipe sur trois cases */
+@media (max-width:699px){
+ html body #battleArea.bl .battlestage{height:228px}
+ html body #battleArea.bl .sEnemy.bigicon{width:124px;height:124px;right:4%;bottom:8%}
+ html body #battleArea.bl .sEnemy.boss{width:150px;height:150px;right:1%;bottom:7%}
+ #battleArea.bl .sFig{width:62px;height:62px}
+ #battleArea.bl .sFig:nth-child(1){left:8%;bottom:34%}#battleArea.bl .sFig:nth-child(2){left:30%;bottom:17%}#battleArea.bl .sFig:nth-child(3){left:3%;bottom:6%}
+ html body #battleArea.bl .orbboard.n3{grid-template-columns:repeat(3,76px);gap:8px 13px;padding:8px;margin:4px auto 0;max-width:none}
+ html body #battleArea.bl .orbboard .orb{width:76px;height:76px}
+ #battleArea.bl>.bl-team{flex:1 1 0;display:grid;grid-template-columns:32px minmax(0,1fr);align-items:center;gap:3px 5px;margin:8px 0 0!important;padding:5px;background:var(--surf3,#10182a);border:1px solid var(--bd,#2d3d5e);border-radius:5px}
+ html body #battleArea.bl>.bl-team>.bigicon{width:32px!important;height:32px!important;flex-basis:32px!important;font-size:19px!important;border-radius:5px}
+ #battleArea.bl>.bl-team>.grow{display:contents}
+ #battleArea.bl>.bl-team>.grow>b,#battleArea.bl>.bl-team>.grow>span{display:none}
+ html body #battleArea.bl>.bl-team>.grow>.progress{grid-column:1/-1;margin:1px 0 0;height:6px}
+ #battleArea.bl>.bl-team>.grow>div.tiny{grid-column:1/-1;font-size:9px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ html body #battleArea.bl>.bl-team>.skbtn{grid-column:2;grid-row:1;width:100%;min-height:34px;padding:3px 2px;gap:0;font-size:15px;letter-spacing:.02em}
+ #battleArea.bl>.bl-team>.skbtn small{font-size:8px;max-width:100%}
+}
+/* PC : orbes à gauche, équipe et super à droite */
+@media (min-width:700px){
+ #battleArea.bl{--stH:clamp(250px,39vh,330px)}
+ html body #battleArea.bl .battlestage{height:var(--stH)}
+ html body #battleArea.bl .sEnemy.bigicon{width:calc(var(--stH)*.54);height:calc(var(--stH)*.54)}
+ html body #battleArea.bl .sEnemy.boss{width:calc(var(--stH)*.65)!important;height:calc(var(--stH)*.65)!important}
+ #battleArea.bl .sFig{width:calc(var(--stH)*.27);height:calc(var(--stH)*.27)}
+ html body #battleArea.bl .orbboard.n3{grid-template-columns:repeat(3,84px);gap:10px 14px;padding:10px}
+ html body #battleArea.bl .orbboard .orb{width:84px;height:84px}
+ #battleArea.bl:not(.blover){display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-auto-flow:row dense;column-gap:14px;align-items:start}
+ #battleArea.bl:not(.blover)>*{grid-column:1/-1}
+ #battleArea.bl:not(.blover)>.bl-head{grid-column:1}
+ #battleArea.bl:not(.blover)>.bl-orbs{grid-column:1;grid-row:span 7;margin-top:4px}
+ #battleArea.bl:not(.blover)>:is(.bl-sptxt,.bl-gauge,.bl-super,.bl-team,.bl-log){grid-column:2}
+ #battleArea.bl:not(.blover)>.bl-team{margin:6px 0 0!important}
+}
+/* auto-combat et vitesse */
+.actl{display:flex;gap:5px;margin-left:auto}
+html body .actl button{padding:5px 9px;font-size:10px;letter-spacing:.06em;min-height:0;background:linear-gradient(var(--surf2,#17213a),var(--surf3,#10182a));color:var(--txt,#fff);border:1px solid var(--bd2,#2d5a99)}
+body.phone .actl button{min-height:30px}
+html body .actl button.on{background:linear-gradient(135deg,var(--acc,#00e5ff),var(--acc3,#7c4dff));color:#001018;border-color:var(--acc,#00e5ff);box-shadow:0 0 12px var(--glowc,#00e5ff66)}
+html body .actl .abtn.on{animation:autoglow 1.6s ease-in-out infinite}
+@keyframes autoglow{50%{box-shadow:0 0 20px var(--acc,#00e5ff)}}
+#battleArea.bl>.bl-head{gap:6px}#battleArea.bl>.bl-head h2{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
