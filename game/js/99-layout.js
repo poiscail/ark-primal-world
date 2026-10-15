@@ -22,7 +22,7 @@ function blStage(box,f){const hud=box.querySelector(".sHud");
  const prev=f._fh||[];f._fh=[];
  box.querySelectorAll(".battlestage .sFig").forEach(el=>{const k=+el.dataset.k,d=T3()[k];if(!d)return;const r=Math.max(0,Math.min(1,f.hp[k]/(f.mx[k]||1))),p=prev[k]===undefined?r:prev[k];f._fh[k]=r;
   el.insertAdjacentHTML("afterbegin",`<i class="sHp ${r<.25?"lo":r<.5?"mid":""}"><u style="width:${p*100}%"></u></i>`);
-  const u=el.querySelector(".sHp u");if(p!==r&&PREFS.anim)requestAnimationFrame(()=>requestAnimationFrame(()=>{u.style.width=r*100+"%"}));else u.style.width=r*100+"%";
+  const u=el.querySelector(".sHp u");if(p>r&&f._hlate)u.style.transitionDelay=Math.round(f._hlate)+"ms";if(p!==r&&PREFS.anim)requestAnimationFrame(()=>requestAnimationFrame(()=>{u.style.width=r*100+"%"}));else u.style.width=r*100+"%";
   const ok=!f.over&&r>0&&f.cd[k]<=0;el.classList.toggle("skready",ok);
   if(ok){el.setAttribute("onclick","useSkill("+k+")");el.title="Compétence prête : touche pour la lancer";el.insertAdjacentHTML("beforeend",`<b class="sSk">${SK[SK_of(d)].i}</b>`)}})}
 function blTag(){const box=$$("battleArea"),f=fight;if(!box)return;
@@ -32,7 +32,7 @@ function blTag(){const box=$$("battleArea"),f=fight;if(!box)return;
  box.querySelectorAll(":scope>.bl-team").forEach((el,k)=>el.dataset.k=k);
  blStage(box,f);
  /* bannières de vague centrées sur la scène (elle n'est plus au milieu de l'écran) */
- const r=box.querySelector(".battlestage").getBoundingClientRect();document.documentElement.style.setProperty("--bnTop",Math.round(Math.min(innerHeight*.4,Math.max(30,r.top+r.height*.36)))+"px")}
+ if(!PREFS.anim)return;const r=box.querySelector(".battlestage").getBoundingClientRect();document.documentElement.style.setProperty("--bnTop",Math.round(Math.min(innerHeight*.4,Math.max(30,r.top+r.height*.36)))+"px")}
 const _rbL=renderBattle;renderBattle=function(){_rbL();blTag()};
 const _goL=go;go=function(s){_goL(s);document.body.classList.toggle("inbattle",screen==="battle"&&!!(fight&&fight.mx))};
 if(screen==="battle")renderBattle();

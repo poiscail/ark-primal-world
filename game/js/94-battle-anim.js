@@ -12,6 +12,7 @@ function projectile(from,to,col,delay){if(!PREFS.anim||!from||!to)return;const a
  p.animate([{transform:`translate(${x0-9}px,${y0-9}px) scale(.6)`,opacity:0},{transform:`translate(${x0-9}px,${y0-9}px) scale(1.2)`,opacity:1,offset:.15},{transform:`translate(${x1-9}px,${y1-9}px) scale(1)`,opacity:1,offset:.9},{transform:`translate(${x1-9}px,${y1-9}px) scale(2.4)`,opacity:0}],{duration:420,delay:delay||0,easing:"cubic-bezier(.4,0,.8,.6)",fill:"both"})}
 /* collecte des événements (avant le rendu) */
 const _aa94=afterAction;afterAction=function(dmg,msg,endTurn){const f=fight;if(f&&!f.over){const e=f.enemies[f.wave];BQ.dmg={v:dmg,msg,adv:f.last&&endTurn&&BEAT[f.last]===e.el,big:dmg>=e.max*.22};BQ.atk=true}return _aa94(dmg,msg,endTurn)};
+const _us94=useSkill;useSkill=function(k){BQ.sk=k;try{return _us94(k)}finally{BQ.sk=undefined}};
 const _hd94=hitDino;hitDino=function(k,raw,e){const b=fight.hp[k];_hd94(k,raw,e);const d=b-fight.hp[k];if(d>0)BQ.hurt.push({k,d})};
 /* rendu */
 function stageZone(z){return/jungle/i.test(z)?"jungle":/ruine/i.test(z)?"ruines":/volcan/i.test(z)?"volcan":/ob[ée]lisque/i.test(z)?"obelisque":"neutre"}
@@ -19,19 +20,21 @@ const _rb94=renderBattle;renderBattle=function(){_rb94();const f=fight;if(!f||!f
  if(typeof stageBuild==="function")stageBuild();if(typeof orbGlass==="function")orbGlass();
  const eIcon=box.querySelector(".bigicon.hit"),rows=box.querySelector(".sFig")?[...box.querySelectorAll(".sFig")]:[...box.querySelectorAll(".row .bigicon:not(.hit)")];
  /* barres animées */
- const bars=[...box.querySelectorAll(".progress:not(.gauge)")],now=bars.map(b=>b.firstElementChild?parseFloat(b.firstElementChild.style.width)||0:0),pv=f._pv;let delay=BQ.atk?340:BQ.hurt.length?120:0;
- if(PREFS.anim&&pv&&pv.v.length===now.length){now.forEach((n,i)=>{let p=pv.v[i];if(i===0&&pv.w!==f.wave)p=n;if(Math.abs(p-n)<.5)return;const bar=bars[i],fill=bar.firstElementChild;bar.classList.add("hasTrail");
-  if(p>n){const t=document.createElement("u");t.className="trail";t.style.width=p+"%";bar.insertBefore(t,fill);setTimeout(()=>{t.style.width=n+"%"},fxd(delay+380))}
-  fill.style.transition="none";fill.style.width=p+"%";void fill.offsetWidth;setTimeout(()=>{fill.style.transition="";fill.style.width=n+"%"},fxd(delay+30))})}
- f._pv={v:now,w:f.wave};
+ const bars=[...box.querySelectorAll(".progress:not(.gauge)")],now=bars.map(b=>b.firstElementChild?parseFloat(b.firstElementChild.style.width)||0:0),pv=f._pv,late=BQ.atk&&BQ.hurt.length?480:0;let delay=BQ.atk?340:BQ.hurt.length?120:0;
+ if(PREFS.anim&&pv&&pv.v.length===now.length){now.forEach((n,i)=>{let p=pv.v[i];if(i===0&&pv.w!==f.wave)p=n;if(Math.abs(p-n)<.5)return;const bar=bars[i],fill=bar.firstElementChild,dl=i>0&&late?late+260:delay;bar.classList.add("hasTrail");
+  if(p>n){const t=document.createElement("u");t.className="trail";t.style.width=p+"%";bar.insertBefore(t,fill);setTimeout(()=>{t.style.width=n+"%"},fxd(dl+380))}
+  fill.style.transition="none";fill.style.width=p+"%";void fill.offsetWidth;setTimeout(()=>{fill.style.transition="";fill.style.width=n+"%"},fxd(dl+30))})}
+ f._pv={v:now,w:f.wave};f._hlate=late?fxd(late+260):0;
+ const live=()=>document.querySelector("#battleArea .bigicon.hit")||eIcon,figs=()=>document.querySelector("#battleArea .sFig")?[...document.querySelectorAll("#battleArea .sFig")]:[...document.querySelectorAll("#battleArea .row .bigicon:not(.hit)")];
  /* attaque alliée */
- if(BQ.atk&&BQ.dmg&&eIcon&&PREFS.anim){const q=BQ.dmg,t=S.team.slice(0,3);rows.forEach((el,k)=>{if(!t[k]||f.hp[k]<=0)return;el.classList.add("lunge");el.style.animationDelay=k*60+"ms";projectile(el,eIcon,ELC[sp(t[k]).element]||"#fff",k*60)});
+ if(BQ.atk&&BQ.dmg&&eIcon&&PREFS.anim){const q=BQ.dmg,t=S.team.slice(0,3);if(BQ.sk!==undefined){if(typeof castFx==="function")castFx(rows[BQ.sk],t[BQ.sk])}else rows.forEach((el,k)=>{if(!t[k]||f.hp[k]<=0)return;if(typeof atkFx==="function"&&atkFx(el,eIcon,t[k],k))return;el.classList.add("lunge");el.style.animationDelay=k*60+"ms";projectile(el,eIcon,ELC[sp(t[k]).element]||"#fff",k*60)});
   const r=eIcon.getBoundingClientRect(),crit=/CRITIQUE/.test(q.msg),cb=(q.msg.match(/combo x(\d+)/)||[])[1];
-  setTimeout(()=>{const R=eIcon.getBoundingClientRect();floatNum("-"+q.v,R.left+R.width/2,R.top+R.height*.3,(q.big||crit?"big ":"")+(crit?"crit":""),(q.adv?"EFFICACE !":"")+(crit?" CRITIQUE !":"")+(cb&&!q.adv&&!crit?"COMBO ×"+cb:""));ring(R.left+R.width/2,R.top+R.height/2,"#fff");vib(q.big||crit?[25,30,40]:18)},fxd(380+rows.length*40))}
+  if(q.v>0)setTimeout(()=>{const R=live().getBoundingClientRect();floatNum("-"+q.v,R.left+R.width/2,R.top+R.height*.3,(q.big||crit?"big ":"")+(crit?"crit":""),(q.adv?"EFFICACE !":"")+(crit?" CRITIQUE !":"")+(cb&&!q.adv&&!crit?"COMBO ×"+cb:""));ring(R.left+R.width/2,R.top+R.height/2,"#fff");vib(q.big||crit?[25,30,40]:18)},fxd(380+rows.length*40));
+  else if(/absorbé/.test(q.msg))setTimeout(()=>{const R=live().getBoundingClientRect();floatNum("🛡️",R.left+R.width/2,R.top+R.height*.3,"","ABSORBÉ")},fxd(380+rows.length*40))}
  /* attaque ennemie */
- if(BQ.hurt.length&&PREFS.anim){if(eIcon){eIcon.classList.add("elunge")}
-  const d=document.createElement("div");d.className="hurtflash";fxAdd(d,600);
-  BQ.hurt.forEach(({k,d:dm},j)=>{const el=rows[k];if(!el)return;el.classList.add("shk");setTimeout(()=>{const R=el.getBoundingClientRect();floatNum("-"+dm,R.left+R.width/2,R.top+4,"foe")},fxd(220+j*90))});vib([40,40,60])}
+ if(BQ.hurt.length&&PREFS.anim){const hurt=BQ.hurt.slice();setTimeout(()=>{const E=live(),R=figs();if(E&&E.isConnected){E.classList.remove("elunge");void E.offsetWidth;E.classList.add("elunge")}
+  const d=document.createElement("div");d.className="hurtflash";fxAdd(d,600);if(typeof foeFx==="function")foeFx(E,R,hurt,f);
+  hurt.forEach(({k,d:dm},j)=>{const el=R[k];if(!el)return;el.classList.remove("shk");void el.offsetWidth;el.classList.add("shk");setTimeout(()=>{const X=(figs()[k]||el).getBoundingClientRect();floatNum("-"+dm,X.left+X.width/2,X.top+4,"foe")},fxd(220+j*90))});vib([40,40,60])},fxd(late))}
  else if(BQ.hurt.length)vib([40,40,60]);
  BQ.atk=false;BQ.dmg=null;BQ.hurt=[];
  /* bannières de vague / boss / rage */

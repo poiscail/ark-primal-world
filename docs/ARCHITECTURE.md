@@ -32,14 +32,24 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `js/99-story.js` | dialogues d'histoire (`LORE`) et journal |
 | `js/99-evolution.js` | évolutions d'espèces (`EVO`) |
 | `js/99-music.js` | musique procédurale à 3 ambiances |
-| `js/94-battle-anim.js` | animations de combat (projectiles, chiffres flottants, traînée de PV, bannières, étoiles, ambiance) |
+| `js/94-battle-anim.js` | animations de combat (projectiles, chiffres flottants, traînée de PV, bannières, étoiles, ambiance) ; crochets `atkFx`/`foeFx`/`castFx`, délais via `fxd()` |
+| `js/99-bestiary.js` | sprites d'ennemis : 20 créatures (`BEAST`), dinos corrompus (`corruptSVG`), choix par ennemi (`enemyLook`), noms (`bnName`) |
+| `js/99-attack-fx.js` | animations d'attaque par famille d'espèce (`ATK`, `atkFx`), ripostes ennemies (`foeFx`), lancement de compétence (`castFx`) |
+| `js/99-auto.js` | auto-combat (`autoPlay`, `autoSkill`, `autoWant`) et vitesse ×1/×2/×3 (`FX_SPEED`, `PREFS.spd`, `PREFS.auto`) |
+| `js/99-enemy-skills.js` | compétences ennemies (Arène, gardiens de la Tour) : cadence, effets, intention dans le HUD |
+| `js/99-menu-scenes.js` | décors des bannières de menu (scène de zone + vedette) |
+| `js/99-codex.js` | bestiaire des créatures vaincues (`S.foes`), variété de la 2e vague, 2 succès |
+| `js/99-layout.js` | mise en page du combat (classes `bl-*`, ordre visuel en CSS) : **doit rester le dernier script** |
+| `css/94-layout.css` / `css/94-bestiary.css` | mise en page du combat, auto/vitesse ; bestiaire, effets d'attaque, décors, bestiaire des créatures |
 | `tools/build.py` | construit `dist/ARK_PC` (dossier) et `dist/ARK_Telephone` (fichier unique), avec leurs zips |
 
 ## Ajouter une fonctionnalité
 1. Nouveau fichier `js/NN-nom.js` (et `css/NN-nom.css`), ajouté dans `index.html` (le build téléphone les intègre automatiquement).
 2. Nouveaux champs d'état : les initialiser dans un wrapper de `ens()`.
 3. Nouveau mode de combat : ajouter une entrée à `MODES` dans `80-modes.js` (construit les ennemis) et son règlement dans `win`/`settleLose`.
-4. Changer `ARK_VERSION` à chaque publication. Si le format de `S` change de façon incompatible, incrémenter `SAVE_FORMAT` et écrire la migration dans `validate()`/`ens()`.
+4. Le combat : ne pas déplacer les éléments de `#battleArea` (d'autres modules les retrouvent par sélecteur) ; `js/99-layout.js` les étiquette (`bl-*`) et `css/94-layout.css` les ordonne. Un nouvel élément ajouté au combat est rangé en fin d'écran (`bl-misc`) sauf si on lui donne une place dans `blKind()`.
+5. Animations de combat : passer les délais par `fxd(ms)` et créer les effets dans `#fxLayer` (via `fxAdd`) pour qu'ils suivent la vitesse ×1/×2/×3.
+6. Changer `ARK_VERSION` à chaque publication. Si le format de `S` change de façon incompatible, incrémenter `SAVE_FORMAT` et écrire la migration dans `validate()`/`ens()`.
 
 ## État
 `S` est sauvegardé dans `localStorage["arkPrimalMobile"]`, la config admin dans `arkPrimalConfig`, les préférences dans `arkPrimalPrefs`.

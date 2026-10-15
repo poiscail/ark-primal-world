@@ -23,8 +23,9 @@ async def main():
         if SHOTS:await pg.screenshot(path='/tmp/shots/battle_start.png')
         await pg.wait_for_timeout(1800)
         await ev('tapOrb(0)');await pg.wait_for_timeout(250)
-        check('projectiles lancés',await ev('document.querySelectorAll(".proj").length')>=1)
-        check('allié en charge',await ev('document.querySelectorAll("#battleArea .lunge").length')>=1)
+        # 0.13 : chaque famille a sa propre attaque (morsure, charge…) au lieu du projectile générique
+        check('effets d\'attaque lancés',await ev('document.querySelectorAll("#fxLayer .proj,#fxLayer .jawfx,#fxLayer .istar,#fxLayer .spdln,#fxLayer .swipe,#fxLayer .spikefx,#fxLayer .quakefx,#fxLayer .sonicfx,#fxLayer .jetfx").length')>=1)
+        check('allié en charge',await ev('[...document.querySelectorAll("#battleArea .sFig")].some(e=>e.getAnimations().length>0)||document.querySelectorAll("#battleArea .lunge").length>0'))
         await pg.wait_for_timeout(500)
         check('chiffre de dégâts flottant',await ev('document.querySelectorAll(".dmgnum").length')>=1)
         if SHOTS:await pg.screenshot(path='/tmp/shots/battle_hit.png')

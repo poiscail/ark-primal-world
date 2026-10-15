@@ -80,3 +80,4 @@ html body .actl button.on{background:linear-gradient(135deg,var(--acc,#00e5ff),v
 html body .actl .abtn.on{animation:autoglow 1.6s ease-in-out infinite}
 @keyframes autoglow{50%{box-shadow:0 0 20px var(--acc,#00e5ff)}}
 #battleArea.bl>.bl-head{gap:6px}#battleArea.bl>.bl-head h2{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chainmsg{margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}html body .chainmsg button{padding:5px 10px;font-size:10px;min-height:0}

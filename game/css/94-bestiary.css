@@ -1,0 +1,41 @@
+/* Bestiaire des ennemis (js/99-bestiary.js) : aura de corruption, gardiens */
+html body .sEnemy.beast .sEart{filter:drop-shadow(0 8px 10px #0009)}
+html body .sEnemy.corrupt .sEart{filter:drop-shadow(0 0 7px #c21fb0aa) drop-shadow(0 8px 10px #0009)}
+html body .sEnemy.crown .sEart{filter:drop-shadow(0 0 12px #ff2f7a) drop-shadow(0 0 4px #ff2f7a) drop-shadow(0 8px 10px #0009)}
+.sEnemy.corrupt::before,.sEnemy.crown::before{content:"";position:absolute;left:8%;right:8%;top:18%;bottom:2%;border-radius:50%;background:radial-gradient(circle,#c21fb03d,transparent 68%);animation:corpulse 2.6s ease-in-out infinite;pointer-events:none}
+.sEnemy.crown::before{background:radial-gradient(circle,#ff2f7a45,transparent 68%)}
+@keyframes corpulse{50%{transform:scale(1.14);opacity:.55}}
+body.noanim .sEnemy::before{animation:none}
+/* animations d'attaque par famille (js/99-attack-fx.js) */
+.jawfx{position:absolute;pointer-events:none}.jawfx svg{width:100%;height:100%;overflow:visible}
+.istar{position:absolute;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);animation:istar .45s ease-out forwards}
+@keyframes istar{0%{transform:scale(.2) rotate(-20deg);opacity:1}60%{transform:scale(1.1) rotate(8deg);opacity:1}100%{transform:scale(1.4) rotate(15deg);opacity:0}}
+.spdln{position:absolute;height:3px;margin-top:-1.5px;border-radius:2px;transform-origin:0 50%}
+.swipe{position:absolute;border:7px solid transparent;border-radius:50%}
+.spikefx{position:absolute;left:0;top:0;width:24px;height:7px;margin:-3.5px 0 0 -12px;clip-path:polygon(0 35%,65% 0,100% 50%,65% 100%,0 65%)}
+.quakefx{position:absolute;left:0;top:0;width:72px;height:20px;margin:-10px 0 0 -36px;border:3px solid;border-radius:50%}
+.sonicfx{position:absolute;left:0;top:0;width:28px;height:48px;margin:-24px 0 0 -14px;border:3px solid transparent;border-radius:50%}
+.jetfx{position:absolute;height:9px;margin-top:-4.5px;border-radius:6px;transform-origin:0 50%}
+/* compétences ennemies (js/99-enemy-skills.js) */
+.wavebn.eskill b{font-size:clamp(20px,6vw,32px);color:#ffd9f6;text-shadow:0 0 18px #ff3bd4,0 2px 0 #000;letter-spacing:2px}
+.wavebn.eskill small{color:#ffb0ee}
+.eskchip{border-color:#ff8ae6!important;color:#ffc4f3!important}html[data-theme="light"] .eskchip{color:#a0157f!important}
+/* décors de menu (js/99-menu-scenes.js) : bannières en scène de zone */
+.bscene{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bscene .scene{position:absolute;inset:0}
+.bscene::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,7,18,.84),rgba(3,7,18,.5) 50%,rgba(3,7,18,0) 78%)}
+.banner.hasScene>.eyebrow,.banner.hasScene>h1,.banner.hasScene>p{position:relative;z-index:1}
+html body .banner.hasScene h1{color:#fff;text-shadow:0 2px 6px #000}
+html body .banner.hasScene p{color:#d5e2f7;max-width:60%}html body .banner.hasScene h1{max-width:66%}
+html body .banner.hasScene .eyebrow{color:#67e5ff}
+html body .banner.hasScene .heroDino{z-index:2}
+.heroDino.sceneHero .pt{display:block;width:120px;height:120px;filter:drop-shadow(0 0 14px #0009) drop-shadow(0 8px 10px #0008)}
+.heroDino.sceneHero .pt svg{width:100%;height:100%;display:block}.heroDino.sceneHero .pt.flip svg{transform:scaleX(-1)}
+/* bestiaire des créatures (js/99-codex.js) */
+.cxgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:8px}
+.cx{position:relative;background:var(--surf3,#10182a);border:1px solid var(--bd,#2d3d5e);border-radius:4px;padding:6px 2px 5px;text-align:center;font-size:9px;line-height:1.15;min-width:0;overflow-wrap:anywhere}
+.cx .cxa{height:58px;display:grid;place-items:center}.cx .pt{width:56px;height:56px;display:block}.cx .pt svg{width:100%;height:100%;display:block;transform:scaleX(-1)}
+.cx b{display:block;margin-top:2px}.cx small{display:block;color:var(--txt2,#93a9cc);font-size:8px;margin-top:2px}
+.cx i{position:absolute;top:3px;right:4px;font-style:normal;font-weight:800;color:var(--gold,#ffd15c)}
+.cx.no .cxa{filter:brightness(0) opacity(.42) drop-shadow(0 0 4px #67e5ff)}.cx.no b{opacity:.55}
+@media(min-width:700px){.cxgrid{grid-template-columns:repeat(6,minmax(0,1fr))}}

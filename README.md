@@ -3,8 +3,8 @@
 Jeu de combat 2D à orbes inspiré de Dokkan Battle, avec des dinosaures. Il tourne dans un navigateur, **en local, sans serveur ni compte**.
 
 ## Deux versions, une même sauvegarde
-- **Version PC** (`ARK_PC/`) : double-clic sur `index.html`. Raccourcis clavier en combat (1-2-3 orbes, A-Z-E compétences, Espace super), mise en page élargie.
-- **Version téléphone** (`ARK_Telephone/ARK_Primal_World.html`) : **un seul fichier** à ouvrir dans le navigateur du téléphone, boutons tactiles agrandis.
+- **Version PC** (`ARK_PC/`) : double-clic sur `index.html`. Raccourcis clavier en combat (1-2-3 orbes, A-Z-E compétences, Espace super, R auto-combat, T vitesse), combat sur deux colonnes (orbes à gauche, équipe à droite).
+- **Version téléphone** (`ARK_Telephone/ARK_Primal_World.html`) : **un seul fichier** à ouvrir dans le navigateur du téléphone, boutons tactiles agrandis ; en combat, la scène, les orbes, la super attaque et les compétences tiennent dans l'écran sans défiler (vérifié en émulation 390×844, pas sur un vrai téléphone).
 - Les deux sont construites par `python3 tools/build.py` à partir du même code (`game/`) : seule la plateforme change.
 - **Transfert** : *Accueil > Sauvegarde* → *Exporter un fichier* (`.arksave`) puis *Importer un fichier* sur l'autre appareil, ou *Copier le code* / *Importer ce code*. Format identique des deux côtés, avec contrôles de validité (jeu, version, dinosaures), possibilité d'*annuler le dernier import* et lecture des anciens codes.
 - La progression est enregistrée dans le navigateur de chaque appareil : exporte de temps en temps pour avoir une copie.
@@ -35,6 +35,11 @@ Jeu de combat 2D à orbes inspiré de Dokkan Battle, avec des dinosaures. Il tou
 - **Équipes enregistrées** : 5 équipes de 3, changement en un clic (écran Équipe ou barre au-dessus des modes).
 - **Sauvegardes de secours** : 5 copies automatiques (toutes les 10 min de jeu, et avant chaque import), restaurables dans les Réglages.
 - **Combat animé** : projectiles, chiffres flottants, barres à traînée, bannières de vague/boss, étoiles de victoire, effets de compétences, vibrations (téléphone).
+- **Attaques par famille** : morsure (théropodes), charge (cératopsiens), coup de massue (ankylosaures), pluie d'épines (stégosaures), piqué (ptérosaures), séisme (sauropodes), cri sonique (hadrosaures), jet d'eau (reptiles marins) ; les ennemis ripostent selon leur créature (morsure, griffes, souffle, projectile, rayon, rocher) et les attaques de zone font une onde de choc.
+- **Auto-combat et vitesse** : bouton AUTO (l'IA utilise la super, les compétences utiles et la meilleure orbe), vitesse ×1/×2/×3 et 🔁 **Enchaîner** (après une victoire en auto, le combat suivant démarre seul : niveau ou étage suivant, même donjon ; jamais en Arène, arrêt sur défaite) ; se met en pause si une fenêtre est ouverte ou l'écran quitté. Réglages > Combat.
+- **Bestiaire des ennemis** : 20 créatures dessinées (Sarcosuchus, Titanoboa, scorpion géant, wyverne, golem de cristal, araignée géante…) et dinosaures corrompus par l'obélisque (veines d'énergie, yeux luisants, gardiens couronnés), teintés selon leur élément. **Bestiaire des créatures** dans Succès (créatures vaincues, silhouettes, habitats).
+- **Compétences ennemies** : en Arène, chaque adversaire utilise la compétence de son espèce (annoncée dans le HUD) et les équipes Redoutable sont renforcées (+10 % PV, +5 % ATQ) ; les gardiens de la Tour ont aussi une compétence (offensive).
+- **Décors** : bannières de l'accueil et des modes en scène de zone, avec le gardien de la zone, la créature du mode ou ton dino de tête.
 - **Ennemis à traits** (Carapace, Venimeux, Régénérant, Berserker) et **boss en 3 phases**.
 - **Expéditions** : 3 emplacements (15 min / 1 h / 4 h), le butin s'accumule même jeu fermé.
 - **Succès et titres** : 34 succès avec récompenses ; **Évolutions** : 17 chaînes d'espèces ; **Histoire** : 14 dialogues + journal ; **musique** à 3 ambiances.
@@ -60,6 +65,14 @@ python3 tests/test_skill_fx.py  # effets des compétences
 python3 tests/test_story.py     # dialogues et journal
 python3 tests/test_evolution.py # évolutions
 python3 tests/test_music.py     # ambiances musicales
+python3 tests/test_layout.py    # mise en page du combat (téléphone 390x844 et PC) sans défilement
+python3 tests/test_auto.py      # auto-combat, vitesse x1/x2/x3, pauses
+python3 tests/test_bestiary.py  # sprites d'ennemis, dinos corrompus, noms
+python3 tests/test_attack_fx.py # animations d'attaque par famille, ripostes
+python3 tests/test_enemy_skills.py # compétences ennemies (Arène, gardiens de la Tour)
+python3 tests/test_menu_scenes.py  # décors des bannières
+python3 tests/test_codex.py     # bestiaire des créatures
+tools/run_tests.sh              # tous les tests fonctionnels ci-dessus (hors équilibrage)
 python3 tests/test_balance.py   # taux de victoire par niveau d'histoire (simulation)
 python3 tests/test_balance_modes.py # idem pour la Tour et l'Arène
 ```

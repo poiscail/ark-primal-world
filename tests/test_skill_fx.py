@@ -16,10 +16,10 @@ async def main():
         ids=await ev('Object.keys(SK)');ok=0
         for sid in ids:
             await ev(f'SPEC.raptor.sk="{sid}";fight.cd=[0,0,0];fight.enemies[fight.wave].hp=fight.enemies[fight.wave].max=999999;fight.hp=fight.mx.map(x=>Math.round(x*.5))')
-            n0=await ev('document.getElementById("fxLayer").children.length')
+            await ev('window.__add=0;window.__mo&&__mo.disconnect();window.__mo=new MutationObserver(ms=>ms.forEach(m=>__add+=m.addedNodes.length));__mo.observe(document.getElementById("fxLayer"),{childList:true})')
             await ev('useSkill(0)');await pg.wait_for_timeout(120)
-            n=await ev('document.getElementById("fxLayer").children.length')
-            if n>n0 or sid=='reorb':ok+=1
+            n=await ev('__add')
+            if n>0 or sid=='reorb':ok+=1
             else:print('   aucun effet pour',sid)
             await pg.wait_for_timeout(900)
         check(f'effet visuel pour chaque compétence ({ok}/{len(ids)})',ok>=len(ids)-1)
