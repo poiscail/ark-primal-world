@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.15.0 — Onglets épurés et nouvelles activités
+- Navigation : 5 onglets (Accueil, Équipe, Aventure, Invocation, Quêtes) et une barre de sous-onglets collante avec pastilles de notification.
+  - Accueil : Accueil / Profil (journal, profil, sauvegarde rangés à part).
+  - Équipe : Meute / Améliorer (forge, évolutions) / Sac / Bestiaire.
+  - Aventure : Histoire / Donjons / Tour / Arène / Événements.
+  - Invocation : Bannières / Bonus (roue, appels, équipement, œufs) / Boutique.
+  - Quêtes : Missions / Défi / Fouilles / Expéditions / Succès.
+- « À faire aujourd'hui » sur l'accueil : liste des activités disponibles avec accès direct.
+- Défi du jour : combat spécial quotidien (orbes du jour ×1,5, trait imposé, ennemis +50 % PV), récompense une fois par jour, série de 7 jours bonus.
+- Fouilles : 16 cases de sable, 3 pioches gratuites par jour (+3 achetables), trésors dont un fossile légendaire ; terrain différent chaque jour.
+- Missions : les missions terminées sont masquées (bouton pour les afficher).
+- 2 succès supplémentaires (Archéologue, Défieur Quotidien).
+- Tests : `test_nav.py`.
+
 ## 0.14.0 — Polices futuristes et effets à textures
 - Polices intégrées (fonctionnent hors ligne) : Orbitron pour les titres, chiffres et bannières, Exo 2 pour le texte (licence SIL OFL).
 - 15 textures de particules (Kenney Particle Pack, CC0) teintées par masque : impacts colorés selon l'orbe, entailles de griffes, flammes, fumée de venin, onde de choc, éclairs, éclat de super attaque, fumée à la mort d'un ennemi, cercle de runes à l'invocation.
