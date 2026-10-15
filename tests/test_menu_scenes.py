@@ -1,5 +1,5 @@
 """Décors de menu : bannières de l'accueil et des modes en scène de zone (suit la progression), vedette (gardien, créature, dino
-de tête), texte lisible et sans chevauchement sur téléphone, mode emoji respecté."""
+de tête), texte lisible et sans chevauchement, mode emoji respecté."""
 import asyncio,pathlib,sys
 from playwright.async_api import async_playwright
 GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()

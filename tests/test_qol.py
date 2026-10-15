@@ -8,7 +8,7 @@ def check(name,cond,info=''):
     if not cond:FAILS.append(name)
 TEAM='S.team=[1,2,3,4,5,6,7].map((i,k)=>({id:i,type:["rex","spino","trike","raptor","giga","mosa","argento"][k],level:10+i,xp:0}));'
 WIN='()=>{for(let k=0;k<300&&!fight.over;k++){fight.enemies[fight.wave].hp=1;tapOrb(0)}return fight.over}'
-async def fresh(b,phone=False):
+async def fresh(b):
     ctx=await b.new_context(viewport={'width':1280,'height':800});pg=await ctx.new_page();pg.errs=[];pg.on('pageerror',lambda e:pg.errs.append(str(e)))
     pg.on('dialog',lambda d:asyncio.ensure_future(d.accept(pg.promptv if d.type=='prompt' and hasattr(pg,'promptv') else None) if d.type=='prompt' else d.accept()))
     await pg.goto(GAME);await pg.wait_for_timeout(300);return pg

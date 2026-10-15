@@ -29,7 +29,7 @@ const GUIDE=[["Combat","Tape une orbe : toute l'équipe attaque, puis l'ennemi r
  ["Invocation","Tickets, pierres ou cristaux. Bannières : standard, vedette (garantie à 60), élémentaire, variantes. Un tirage gratuit par jour, des œufs à faire éclore, des fragments pour acheter l'espèce voulue."],
  ["Modes","Histoire (100 niveaux), Donjons (matériaux), Tour infinie (paliers), Arène (classement et médailles), Événements (semaine en cours, jetons et boutique)."],
  ["Équipes","Enregistre jusqu'à 5 équipes (écran Équipe) et change-les en un clic depuis la barre au-dessus des modes."],
- ["Sauvegarde","Accueil > Sauvegarde : exporte un fichier ou un code pour mettre ta progression à l'abri ou la passer sur un autre PC. Le jeu garde aussi 5 copies automatiques (Réglages)."]];
+ ["Sauvegarde","Accueil > Profil > Sauvegarde : exporte un fichier ou un code pour mettre ta progression à l'abri ou la passer sur un autre PC. Le jeu garde aussi 5 copies automatiques (Réglages)."]];
 document.body.insertAdjacentHTML("beforeend",'<div id="guideVeil" class="authveil hide"><div class="authbox" id="guideBody"></div></div>');
 function openGuide(){$$("guideBody").innerHTML=`<div class="row"><div class="grow"><h2 style="margin:0">Guide du jeu</h2></div><button class="secondary" onclick="closeGuide()">FERMER</button></div>`+GUIDE.map(g=>`<div class="panel"><b>${g[0]}</b><div class="tiny" style="margin-top:4px">${g[1]}</div></div>`).join("")+`<button class="wide secondary" onclick="tutReset();closeGuide()">REVOIR LE TUTORIEL</button>`;$$("guideVeil").classList.remove("hide")}
 function closeGuide(){$$("guideVeil").classList.add("hide")}

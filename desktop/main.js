@@ -22,7 +22,7 @@ function saveState() {
 function createWindow() {
   const st = SMOKE ? {} : loadState();
   win = new BrowserWindow({
-    width: st.w || 1280, height: st.h || 800, x: st.x, y: st.y, minWidth: 960, minHeight: 600,
+    width: st.w || 1280, height: st.h || 800, x: st.x, y: st.y, minWidth: 1024, minHeight: 640,
     backgroundColor: "#04060d", title: "ARK: Primal World", show: false, autoHideMenuBar: true,
     icon: path.join(__dirname, "build", "icon.ico"),
     webPreferences: { preload: path.join(__dirname, "preload.js"), contextIsolation: true, sandbox: true, spellcheck: false,
