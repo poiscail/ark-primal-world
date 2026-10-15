@@ -3,7 +3,7 @@
 Jeu de combat d'orbes façon Dokkan Battle avec des dinosaures, **100 % local** (aucun compte, aucun serveur), en HTML/CSS/JS pur, **sans étape de build pour jouer**. Deux livrables construits depuis le même code : version **PC** (dossier) et version **téléphone** (un seul fichier HTML), avec **sauvegarde compatible** entre les deux.
 
 - Dépôt : https://github.com/poiscail/ark-primal-world (branche `main`)
-- Version actuelle : **0.12.0** (`game/js/00-version.js`, `ARK_VERSION` et `SAVE_FORMAT=1`)
+- Version actuelle : **0.13.0** (`game/js/00-version.js`, `ARK_VERSION` et `SAVE_FORMAT=1`)
 - L'utilisateur est français : **répondre en français**, être honnête sur ce qui est testé (jamais affirmer qu'une chose non testée marche ; pas testé sur un vrai téléphone ; équilibrage mesuré par simulation seulement).
 - Attentes permanentes : améliorer sans cesse le gameplay, les animations et les graphismes ; mettre à jour GitHub à la fin de chaque étape ; l'utilisateur dira à la fin ce qu'il veut retirer (ne rien supprimer sans demande).
 
@@ -11,7 +11,7 @@ Jeu de combat d'orbes façon Dokkan Battle avec des dinosaures, **100 % local** 
 ```
 open game/index.html                 # jouer directement
 python3 tools/build.py               # produit dist/ARK_PC (dossier) + dist/ARK_Telephone/ARK_Primal_World.html + zips v<ver>
-tools/run_tests.sh                   # 18 suites Playwright (python3, chromium headless) ; ~4-5 min
+tools/run_tests.sh                   # 19 suites Playwright (python3, chromium headless) ; ~4-5 min
 python3 tests/test_balance.py        # simulations d'équilibrage (lentes, à lancer en tâche de fond)
 python3 tests/test_balance_modes.py
 ```
@@ -25,7 +25,7 @@ Pas de bundler : les scripts sont chargés dans l'ordre de `game/index.html` et 
 - État `S` dans `localStorage["arkPrimalMobile"]` ; config admin `arkPrimalConfig` ; préférences `arkPrimalPrefs` (`PREFS` : sound, vol, music, anim, vib, lore, diff, art, theme) ; sauvegardes auto `arkPrimalBackups`.
 - Enveloppe de sauvegarde `{game:"ark-primal-world",fmt:1,ver,at,from,S,cfg}` ; codes `ARK2.`(gzip+base64) / `ARK1.` / base64 ancien ; `validate()` strict ; import = copie « avant import » puis rechargement.
 
-Modules JS (ordre) : 00-version, 00-core, 05-admin, 10-combat-v1, 20-team-forge-save, 30-zones-supers, 40-progression, 50-skills-species (moteur de combat final : `startBattle`, `tapOrb`, `useSkill`, `special`, `afterAction`, `killEnemy`, `enemyTurn`, `hitDino`, `renderBattle`), 60-gacha-hud, 70-equipment, 80-modes (Tour, Arène, Événements, navigation à 5 onglets + sous-menu), 90-settings-audio (réglages, sons, difficulté, télémétrie), 92-orbs-fx (boost d'orbes, FX), 93-gacha-plus (roue, œufs, équipement), 94-battle-anim, 95-portraits (portraits SVG par espèce), 96-transfer, 97-backups, 97-teams, 98-tutorial, 99-visual, 99-expeditions (expéditions + succès), 99-enemy-traits, 99-summon-fx, 99-skill-fx, 99-story, 99-evolution, 99-music, 99-tuning (équilibrage global : ennemis ×1,3 PV, ×1,15 ATQ).
+Modules JS (ordre) : 00-version, 00-core, 05-admin, 10-combat-v1, 20-team-forge-save, 30-zones-supers, 40-progression, 50-skills-species (moteur de combat final : `startBattle`, `tapOrb`, `useSkill`, `special`, `afterAction`, `killEnemy`, `enemyTurn`, `hitDino`, `renderBattle`), 60-gacha-hud, 70-equipment, 80-modes (Tour, Arène, Événements, navigation à 5 onglets + sous-menu), 90-settings-audio (réglages, sons, difficulté, télémétrie), 92-orbs-fx (boost d'orbes, FX), 93-gacha-plus (roue, œufs, équipement), 94-battle-anim, 95-portraits (portraits SVG par espèce), 96-transfer, 97-backups, 97-teams, 98-tutorial, 99-visual, 99-expeditions (expéditions + succès), 99-enemy-traits, 99-summon-fx, 99-skill-fx, 99-story, 99-evolution, 99-music, 99-tuning (équilibrage global : ennemis ×1,3 PV, ×1,15 ATQ), 99-polish (bannières illustrées, carte d'histoire + étoiles `S.stars`, interrupteurs, écran titre).
 CSS : 00-base … 80-fx, 92-anim, 93-battle, 94-visual, 95-theme (futuriste, thèmes sombre/clair via `html[data-theme]`), 90-platform.
 
 ## Contenu du jeu (état 0.12.0)
@@ -47,3 +47,7 @@ CSS : 00-base … 80-fx, 92-anim, 93-battle, 94-visual, 95-theme (futuriste, th�
 - Équilibrage : le bot de simulation joue parfaitement ; l'Arène reste à 100 % de victoires pour une équipe préparée → durcir si trop facile. À valider sur de vrais joueurs.
 - Sprites d'ennemis dédiés (aujourd'hui portraits d'espèces réutilisés via `EMO_PT`), animations d'attaque propres par espèce, décors de menu, mode auto-combat/accélération, plus de succès/événements, tests sur vrai téléphone.
 - Le « truc inutile » signalé par l'utilisateur : hypothèse = niveau du joueur (maintenant rang) ; à confirmer (autre candidat : la jauge ⚔ puissance).
+
+## Ressources en ligne (vérifié le 15/10/2026)
+- Le conteneur de travail n'a pas accès à npm ni aux sites d'assets : tout est dessiné en SVG/CSS dans le code.
+- Utilisables par l'utilisateur via l'admin (import d'image par espèce) : sprites CC0 (OpenGameArt « free dino sprites », Pixelsaurs), Kenney UI Pack Sci-Fi (CC0), police Orbitron (OFL).

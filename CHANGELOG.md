@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.13.0 — Finitions de l'interface et carte d'histoire
+- Carte de l'histoire : 10 chapitres de 10 niveaux sur un chemin sinueux animé au-dessus du décor de la zone, nœuds terminés / en cours / verrouillés / boss, dino de tête au-dessus du niveau courant.
+- Étoiles (1 à 3) enregistrées par niveau d'histoire, paliers de récompenses tous les 25 étoiles.
+- Bannières de tous les écrans illustrées par un décor animé ; en-tête compact (ressources sur une ligne défilante), titre en dégradé animé.
+- Animations : entrées en cascade, onde au toucher, reflet sur les boutons principaux, icônes de navigation qui rebondissent, équipe qui saute de joie à la victoire / s'effondre à la défaite, ennemi qui charge vers l'équipe.
+- Réglages : vrais interrupteurs ; écran titre animé au lancement.
+- Tests : `test_polish.py`.
+
 ## 0.12.0 — Refonte graphique
 - Portraits : volume (reflet, ombre interne, contour) via filtre SVG, fonds dégradés, cadres de rareté (Rare / Épique / Légendaire doré), version « sans fond » pour la scène.
 - Scène de combat : décor en parallaxe par zone (jungle, ruines, volcan, obélisque), gros ennemi retourné face à l'équipe, formation de 3 dinos, ennemi teinté selon son élément, boss agrandi avec aura ; plus grande sur PC.
