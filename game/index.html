@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#11182a"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+
 <script>try{var p=JSON.parse(localStorage.getItem("arkPrimalPrefs")||"{}"),t=p.theme||"dark";if(t==="auto")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t)}catch(e){document.documentElement.setAttribute("data-theme","dark")}</script><title>ARK: Primal World</title>
 
 <link rel="stylesheet" href="css/00-base.css"><link rel="stylesheet" href="css/10-combat.css"><link rel="stylesheet" href="css/20-effects.css"><link rel="stylesheet" href="css/30-nav.css"><link rel="stylesheet" href="css/40-skills.css"><link rel="stylesheet" href="css/50-gacha.css"><link rel="stylesheet" href="css/60-equipment.css"><link rel="stylesheet" href="css/70-modes.css"><link rel="stylesheet" href="css/80-fx.css"><link rel="stylesheet" href="css/92-anim.css"><link rel="stylesheet" href="css/93-battle.css"><link rel="stylesheet" href="css/94-visual.css"><link rel="stylesheet" href="css/94-layout.css"><link rel="stylesheet" href="css/94-bestiary.css"><link rel="stylesheet" href="css/95-theme.css"><link rel="stylesheet" href="css/90-platform.css"></head><body><div class="app">
@@ -20,19 +20,6 @@
 <nav class="bottomnav"><button class="active" data-screen="home"><span>🏠</span>Accueil</button><button data-screen="team"><span>🦖</span>Équipe</button><button data-screen="battle"><span>⚔️</span>Combat</button><button data-screen="summon"><span>🔮</span>Invocation</button><button data-screen="story"><span>📜</span>Histoire</button></nav></div>
 <script src="js/00-version.js"></script>
 <script src="js/00-core.js"></script>
-<div id="authVeil" class="authveil">
- <div class="authbox">
-  <div class="title">ARK: <span>PRIMAL WORLD</span></div>
-  <h2 id="authTitle">Connexion</h2>
-  <p>Crée un compte pour enregistrer ta progression sur cet appareil. Les comptes de cette version de démonstration sont stockés dans le navigateur.</p>
-  <label for="authUser">Nom de compte</label><input id="authUser" autocomplete="username" placeholder="Ton pseudo">
-  <label for="authPass">Mot de passe</label><input id="authPass" type="password" autocomplete="current-password" placeholder="Mot de passe">
-  <div id="authError" class="notice"></div>
-  <button class="wide" id="authSubmit" onclick="authSubmit()">SE CONNECTER</button>
-  <button class="wide secondary" onclick="toggleRegister()" id="registerToggle">Créer un compte</button>
-  <p class="notice">Compte administrateur de démonstration : <b>admin</b> / <b>admin</b>. Change ce mot de passe avant tout usage réel. Cette connexion locale n'est pas sécurisée pour un jeu publié en ligne.</p>
- </div>
-</div>
 <button id="adminFab" class="adminfab hide" onclick="openAdmin()">⚙ ADMIN</button>
 <div id="adminVeil" class="authveil hide">
  <div class="authbox">
@@ -51,7 +38,7 @@
   <div id="adminDinos"></div>
   <button class="wide" onclick="saveAdmin()">ENREGISTRER LES MODIFICATIONS</button>
   <button class="wide secondary" onclick="resetAdmin()">RÉINITIALISER LES PARAMÈTRES DU JEU</button>
-  <p class="notice">Les images peuvent être un emoji ou une URL d'image HTTPS. Pour une image locale, privilégie un fichier hébergé en ligne pour qu'il s'affiche sur téléphone.</p>
+  <p class="notice">Les images peuvent être un emoji ou une URL d'image HTTPS. </p>
  </div>
 </div>
 <script src="js/05-admin.js"></script>
@@ -93,5 +80,6 @@
 <script src="js/99-enemy-skills.js"></script>
 <script src="js/99-menu-scenes.js"></script>
 <script src="js/99-codex.js"></script>
+<script src="js/99-desktop.js"></script>
 <script src="js/99-layout.js"></script>
 </body></html>

@@ -1,5 +1,6 @@
 __pycache__/
 *.png
 node_modules/
-online-supabase/config.local.js
 dist/
+desktop/node_modules/
+desktop/app/

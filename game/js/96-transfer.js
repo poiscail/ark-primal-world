@@ -1,4 +1,4 @@
-/* Transfert de sauvegarde PC <-> téléphone : même format dans les deux versions.
+/* Sauvegarde : export / import par fichier ou par code (même format que les anciennes versions navigateur et téléphone).
    Enveloppe : {game, fmt, ver, at, from, S, cfg}. Codes : "ARK2." + gzip/base64, ou "ARK1." + base64. L'ancien code (base64 brut de S) reste lisible. */
 const SAVE_GAME="ark-primal-world";
 const _save96=save;save=function(){if(window.__noSaveOnUnload)return;_save96()};
@@ -33,12 +33,13 @@ function trImportFile(inp){const f=inp.files&&inp.files[0];if(!f)return;if(f.siz
 function trRestoreBackup(){const l=bkList().filter(b=>b.l==="avant import");if(!l.length){toast("Aucune sauvegarde d'avant import.");return}bkRestore(l[0].at)}
 /* interface : remplace l'ancien bloc « Sauvegarde » de l'accueil */
 (function(){const old=document.querySelector(".savebox");if(old){const h=old.previousElementSibling;if(h&&h.classList.contains("sectionhead"))h.remove();old.remove()}
- $$("home").insertAdjacentHTML("beforeend",`<div class="sectionhead"><h2>Sauvegarde</h2><span class="muted tiny">PC ↔ téléphone</span></div><div class="panel savebox"><div class="muted tiny" style="margin-bottom:6px">Version ${ARK_PLATFORM==="pc"?"PC":"téléphone"} · v${ARK_VERSION}. Les deux versions utilisent exactement le même format : exporte ici, importe là.</div>
+ $$("home").insertAdjacentHTML("beforeend",`<div class="sectionhead"><h2>Sauvegarde</h2><span class="muted tiny">fichier ou code</span></div><div class="panel savebox"><div class="muted tiny" style="margin-bottom:6px">${window.arkDesktop?"Application Windows":"Version navigateur"} · v${ARK_VERSION}. Exporte ta progression pour la mettre à l'abri ou la passer sur un autre PC. Les sauvegardes des anciennes versions (navigateur, téléphone) s'importent ici.</div>
  <div class="btns"><button class="blue" onclick="trExportFile()">EXPORTER UN FICHIER</button><label class="filebtn">IMPORTER UN FICHIER<input type="file" accept=".arksave,.json,application/json" onchange="trImportFile(this)"></label></div>
  <div class="muted tiny" style="margin:8px 0 4px">Ou par code (à copier / coller) :</div><textarea id="trCode" placeholder="Code de sauvegarde"></textarea><div class="btns"><button class="secondary" onclick="trExportCode()">COPIER LE CODE</button><button class="secondary" onclick="trImportCode()">IMPORTER CE CODE</button></div>
  <button class="wide secondary" style="margin-top:6px" onclick="trRestoreBackup()">ANNULER LE DERNIER IMPORT</button><div class="muted tiny" style="margin-top:6px">Le fichier inclut aussi tes réglages d'admin (noms, images). Le code, plus court, n'inclut que la progression.</div></div>`)})();
 /* clavier (version PC) */
 if(ARK_PLATFORM==="pc")document.addEventListener("keydown",e=>{if(e.ctrlKey||e.metaKey||e.altKey||screen!=="battle"||!fight||fight.over||!$$("setVeil").classList.contains("hide")||/INPUT|TEXTAREA|SELECT/.test((e.target||{}).tagName||""))return;
- const k=e.key.toLowerCase();if(k>="1"&&k<="3")tapOrb(+k-1);else if("aze".includes(k)&&k.length===1)useSkill("aze".indexOf(k));else if(k===" "){e.preventDefault();special()}});
-const _rbT=renderBattle;renderBattle=function(){_rbT();if(ARK_PLATFORM==="pc"&&fight&&!fight.over)$$("battleArea").insertAdjacentHTML("beforeend",'<div class="tiny muted" style="margin-top:6px">⌨ Clavier : 1-2-3 orbes · A-Z-E compétences · Espace super attaque</div>')};
+ const k=e.key.toLowerCase(),d=/^(?:Digit|Numpad)([1-9])$/.exec(e.code||"");/* chiffres par position de touche : marche aussi en AZERTY sans Maj */
+ if(d){const i=+d[1]-1;if(fight.orbs&&i<fight.orbs.length)tapOrb(i)}else if("aze".includes(k)&&k.length===1)useSkill("aze".indexOf(k));else if(k===" "){e.preventDefault();special()}});
+const _rbT=renderBattle;renderBattle=function(){_rbT();if(ARK_PLATFORM==="pc"&&fight&&!fight.over)$$("battleArea").insertAdjacentHTML("beforeend",'<div class="tiny muted" style="margin-top:6px">⌨ Clavier : 1 à 9 orbes · A-Z-E compétences · Espace super attaque · R auto · T vitesse</div>')};
 render();

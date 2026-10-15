@@ -38,24 +38,6 @@ body.inbattle .top .sub,body.inbattle .top .xpb,body.inbattle .adminfab,body.inb
 body.inbattle .top .meters{margin:0}body.inbattle .top .title{font-size:15px}
 body.inbattle #battle>.banner{display:none}
 body.inbattle #fxLayer .wavebn{top:var(--bnTop,34%)}
-/* téléphone (et fenêtre étroite) : une colonne, équipe sur trois cases */
-@media (max-width:699px){
- html body #battleArea.bl .battlestage{height:228px}
- html body #battleArea.bl .sEnemy.bigicon{width:124px;height:124px;right:4%;bottom:8%}
- html body #battleArea.bl .sEnemy.boss{width:150px;height:150px;right:1%;bottom:7%}
- #battleArea.bl .sFig{width:62px;height:62px}
- #battleArea.bl .sFig:nth-child(1){left:8%;bottom:34%}#battleArea.bl .sFig:nth-child(2){left:30%;bottom:17%}#battleArea.bl .sFig:nth-child(3){left:3%;bottom:6%}
- html body #battleArea.bl .orbboard.n3{grid-template-columns:repeat(3,76px);gap:8px 13px;padding:8px;margin:4px auto 0;max-width:none}
- html body #battleArea.bl .orbboard .orb{width:76px;height:76px}
- #battleArea.bl>.bl-team{flex:1 1 0;display:grid;grid-template-columns:32px minmax(0,1fr);align-items:center;gap:3px 5px;margin:8px 0 0!important;padding:5px;background:var(--surf3,#10182a);border:1px solid var(--bd,#2d3d5e);border-radius:5px}
- html body #battleArea.bl>.bl-team>.bigicon{width:32px!important;height:32px!important;flex-basis:32px!important;font-size:19px!important;border-radius:5px}
- #battleArea.bl>.bl-team>.grow{display:contents}
- #battleArea.bl>.bl-team>.grow>b,#battleArea.bl>.bl-team>.grow>span{display:none}
- html body #battleArea.bl>.bl-team>.grow>.progress{grid-column:1/-1;margin:1px 0 0;height:6px}
- #battleArea.bl>.bl-team>.grow>div.tiny{grid-column:1/-1;font-size:9px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
- html body #battleArea.bl>.bl-team>.skbtn{grid-column:2;grid-row:1;width:100%;min-height:34px;padding:3px 2px;gap:0;font-size:15px;letter-spacing:.02em}
- #battleArea.bl>.bl-team>.skbtn small{font-size:8px;max-width:100%}
-}
 /* PC : orbes à gauche, équipe et super à droite */
 @media (min-width:700px){
  #battleArea.bl{--stH:clamp(250px,39vh,330px)}
@@ -75,7 +57,6 @@ body.inbattle #fxLayer .wavebn{top:var(--bnTop,34%)}
 /* auto-combat et vitesse */
 .actl{display:flex;gap:5px;margin-left:auto}
 html body .actl button{padding:5px 9px;font-size:10px;letter-spacing:.06em;min-height:0;background:linear-gradient(var(--surf2,#17213a),var(--surf3,#10182a));color:var(--txt,#fff);border:1px solid var(--bd2,#2d5a99)}
-body.phone .actl button{min-height:30px}
 html body .actl button.on{background:linear-gradient(135deg,var(--acc,#00e5ff),var(--acc3,#7c4dff));color:#001018;border-color:var(--acc,#00e5ff);box-shadow:0 0 12px var(--glowc,#00e5ff66)}
 html body .actl .abtn.on{animation:autoglow 1.6s ease-in-out infinite}
 @keyframes autoglow{50%{box-shadow:0 0 20px var(--acc,#00e5ff)}}

@@ -1,4 +1,4 @@
-import asyncio,pathlib
+import asyncio,sys,pathlib
 from playwright.async_api import async_playwright
 GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
 FAILS=[]
@@ -77,3 +77,4 @@ async def main():
         check('aucune erreur JavaScript',errs==[],errs)
         print('ÉCHECS:',FAILS if FAILS else 'aucun');await b.close()
 asyncio.run(main())
+sys.exit(1 if FAILS else 0)  # échec visible pour tools/run_tests.sh

@@ -1,0 +1,48 @@
+{
+  "name": "ark-primal-world",
+  "productName": "ARK Primal World",
+  "version": "0.14.0",
+  "description": "ARK: Primal World — jeu de combat d'orbes avec des dinosaures (version de bureau)",
+  "author": "poiscail",
+  "license": "UNLICENSED",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "smoke": "electron . --smoke-test",
+    "dist": "electron-builder --win --x64"
+  },
+  "devDependencies": {
+    "electron": "44.7.2",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "fr.poiscail.arkprimalworld",
+    "productName": "ARK Primal World",
+    "copyright": "ARK: Primal World",
+    "directories": { "output": "../dist/ARK_Windows", "buildResources": "build" },
+    "files": ["main.js", "preload.js", "app/**/*"],
+    "asar": true,
+    "win": {
+      "target": [ { "target": "portable", "arch": ["x64"] }, { "target": "nsis", "arch": ["x64"] } ],
+      "icon": "build/icon.ico",
+      "executableName": "ARK Primal World"
+    },
+    "portable": { "artifactName": "ARK_Primal_World_${version}_portable.exe" },
+    "nsis": {
+      "artifactName": "ARK_Primal_World_${version}_installation.exe",
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "ARK Primal World",
+      "uninstallDisplayName": "ARK Primal World",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerLanguages": ["fr_FR"],
+      "language": "1036"
+    },
+    "linux": { "target": ["dir"], "category": "Game", "executableName": "ark-primal-world" }
+  }
+}

@@ -21,10 +21,13 @@ snap=()=>{ens();const o={};allM().forEach(([m,d])=>o[m.id]=prog(m,d));return o};
 // stats : éveil (+10 % par étoile)
 const _st=stats;stats=function(d){const v=_st(d),m=1+.1*(d.star||0);return{hp:Math.round(v.hp*m),atk:Math.round(v.atk*m),def:Math.round(v.def*m)}};
 // combat
+/* Histoire avec moins de 3 dinos (début de partie) : ennemis affaiblis. Sans ça, le tout premier combat (un raptor seul)
+   était perdu 1 fois sur 3 même en jouant parfaitement. Une équipe de 3 reste toujours plus forte (pas d'abus possible). */
+let SMALL_TEAM=[null,{h:.45,a:.55},{h:.75,a:.8}];
 function startBattle(o){ens();if(o&&o.mode)lastB=o;o=lastB||(lastB={mode:"story",n:Math.min(100,S.stage+1)});
  const n=o.n,dg=o.mode==="dungeon"?DUN[o.d]:null,z=zoneOf(n),bossLv=dg?true:n%10===0,lab=dg?dg.n+" · "+TIERS[o.tier-1][0]:"Niv. "+n+" · "+z[0],
- mk=i=>{const last=i===2,boss=last&&bossLv,hp=Math.round(H(n)*[1,1.25,boss?2.4:1.5][i]),el=dg?dg.el:(i===1?EL[rnd(3)]:z[2]);
-  return{hp,max:hp,e:last?(boss?"👹":"🦖"):(dg?dg.en[i]:z[1][i]),name:last&&boss?"Gardien · "+lab:(dg?dg.n:z[0])+" · "+(last?"Élite":"Ennemi"),el,atk:Math.round(A(n)*[1,1.1,boss?1.5:1.2][i]),boss}},
+ mk=i=>{const last=i===2,boss=last&&bossLv,ad=!dg&&SMALL_TEAM[t.length]||{h:1,a:1},hp=Math.round(H(n)*[1,1.25,boss?2.4:1.5][i]*ad.h),el=dg?dg.el:(i===1?EL[rnd(3)]:z[2]);
+  return{hp,max:hp,e:last?(boss?"👹":"🦖"):(dg?dg.en[i]:z[1][i]),name:last&&boss?"Gardien · "+lab:(dg?dg.n:z[0])+" · "+(last?"Élite":"Ennemi"),el,atk:Math.round(A(n)*[1,1.1,boss?1.5:1.2][i]*ad.a),boss}},
  t=S.team.slice(0,3);
  fight={wave:0,enemies:[mk(0),mk(1),mk(2)],hp:t.map(d=>stats(d).hp),sp:0,combo:0,last:null,log:"Choisis une orbe : la couleur de ton dino donne x1.8 !",orbs:newOrbs(),over:null,turn:0,stun:0,zone:lab,o,n,snap:snap()};
  go("battle");renderBattle()}

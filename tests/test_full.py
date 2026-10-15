@@ -1,4 +1,4 @@
-import asyncio,pathlib
+import asyncio,pathlib,sys
 GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
 from playwright.async_api import async_playwright
 async def m():
@@ -30,6 +30,7 @@ async def m():
   await pg.screenshot(path='/tmp/ark_shot.png')
   await pg.evaluate('go("home")');await pg.evaluate('trExportCode()');c=await pg.input_value('#trCode');await pg.evaluate('S.team=[S.team[0]]');await pg.fill('#trCode',c)
   async with pg.expect_navigation():await pg.evaluate('trImportCode()')
-  await pg.wait_for_timeout(400);print('import ok:',await pg.evaluate('S.team.length>10'))
+  await pg.wait_for_timeout(400);imp=await pg.evaluate('S.team.length>10');print('import ok:',imp)
   print('erreurs:',errs);await b.close()
+  if errs or not imp:print('ÉCHEC');sys.exit(1)
 asyncio.run(m())

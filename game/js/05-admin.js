@@ -1,26 +1,7 @@
-/* Panneau d'administration local (comptes de démonstration) */
-let authMode="login", currentUser=null;
-function getAccounts(){try{return JSON.parse(localStorage.getItem("arkPrimalAccounts")||"{}")}catch(e){return {}}}
-function setAccounts(a){localStorage.setItem("arkPrimalAccounts",JSON.stringify(a))}
-function seedAdmin(){let a=getAccounts();if(!a.admin)a.admin={password:"admin",role:"admin"};setAccounts(a)}
-seedAdmin();
-function toggleRegister(){authMode=authMode==="login"?"register":"login";document.getElementById("authTitle").textContent=authMode==="login"?"Connexion":"Créer un compte";document.getElementById("authSubmit").textContent=authMode==="login"?"SE CONNECTER":"CRÉER LE COMPTE";document.getElementById("registerToggle").textContent=authMode==="login"?"Créer un compte":"Retour à la connexion";document.getElementById("authError").textContent=""}
-function authSubmit(){
- let u=document.getElementById("authUser").value.trim(),p=document.getElementById("authPass").value;
- let err=document.getElementById("authError"),a=getAccounts();
- if(!/^[a-zA-Z0-9_-]{3,20}$/.test(u)){err.textContent="Pseudo : 3 à 20 caractères, lettres, chiffres, _ ou -.";return}
- if(p.length<4){err.textContent="Le mot de passe doit contenir au moins 4 caractères.";return}
- if(authMode==="register"){
-  if(a[u]){err.textContent="Ce nom de compte existe déjà.";return}
-  a[u]={password:p,role:"player"};setAccounts(a);err.textContent="Compte créé. Connexion…";authMode="login";
- }else if(!a[u]||a[u].password!==p){err.textContent="Nom de compte ou mot de passe incorrect.";return}
- currentUser=u;document.getElementById("authVeil").classList.add("hide");
- document.getElementById("adminFab").classList.toggle("hide",a[u].role!=="admin");
- document.getElementById("authPass").value="";
- if(u!=="admin"){let saves=JSON.parse(localStorage.getItem("arkPrimalUserSaves")||"{}");if(saves[u]){S={...initial,...saves[u]};save()}}
- render();
-}
-function openAdmin(){if(currentUser!=="admin"){alert("Accès réservé à l'administrateur.");return}buildAdmin();document.getElementById("adminVeil").classList.remove("hide")}
+/* Panneau d'administration local */
+/* (0.14) l'ancien écran de connexion (comptes de démonstration) a été retiré : on efface ses restes */
+try{localStorage.removeItem("arkPrimalAccounts");localStorage.removeItem("arkPrimalUserSaves")}catch(e){}
+function openAdmin(){buildAdmin();document.getElementById("adminVeil").classList.remove("hide")}
 function closeAdmin(){document.getElementById("adminVeil").classList.add("hide")}
 const econLabels={trainCost:"Coût d'entraînement (pierres)",summonCost1:"Coût invocation x1 (tickets)",summonCost5:"Coût invocation x5 (tickets)",exploreStoneMin:"Pierres minimum en exploration",exploreStoneMax:"Pierres maximum en exploration",battleStone:"Pierres gagnées par victoire",battleEssence:"Essences gagnées par victoire",firstBattleTickets:"Tickets bonus au premier combat",chapterStone:"Pierres par chapitre",chapterTickets:"Tickets par chapitre",chapterXP:"XP joueur par chapitre",battleXP:"XP joueur par victoire"};
 function buildAdmin(){
@@ -38,9 +19,6 @@ function saveAdmin(){
  localStorage.setItem("arkPrimalConfig",JSON.stringify({dinos:SPEC,economy:CONFIG}));save();render();buildAdmin();alert("Paramètres enregistrés sur cet appareil.");
 }
 function resetAdmin(){if(!confirm("Réinitialiser les noms, images, statistiques, coûts, taux et récompenses ?"))return;SPEC=JSON.parse(JSON.stringify(SPEC_DEFAULT));CONFIG={...DEFAULT_CONFIG};localStorage.removeItem("arkPrimalConfig");buildAdmin();render()}
-function saveUserProgress(){if(currentUser&&currentUser!=="admin"){let saves=JSON.parse(localStorage.getItem("arkPrimalUserSaves")||"{}");saves[currentUser]=S;localStorage.setItem("arkPrimalUserSaves",JSON.stringify(saves))}}
-const originalSave=save;
-save=function(){originalSave();saveUserProgress()};
 document.getElementById("rateCommon").addEventListener("input",updateRateTotal);
 ["rateRare","rateEpic","rateLegend"].forEach(id=>document.getElementById(id).addEventListener("input",updateRateTotal));
 function updateRateTotal(){let n=["rateCommon","rateRare","rateEpic","rateLegend"].reduce((s,id)=>s+Number(document.getElementById(id).value||0),0);let el=document.getElementById("rateTotal");if(el)el.textContent="Total actuel : "+n+" %"+(n===100?" — valide":" — doit être égal à 100 %")}

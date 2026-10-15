@@ -1,5 +1,5 @@
 """Thèmes, boost d'orbes, animations, rang du survivant, roue, invocation d'équipement, œufs mystères, appels au choix."""
-import asyncio,pathlib,statistics
+import asyncio,sys,pathlib,statistics
 from playwright.async_api import async_playwright
 GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
 FAILS=[]
@@ -51,7 +51,11 @@ async def main():
         check('boost remis à 1 après le coup (compétences non boostées)',await ev('fight.orbBoost===1'))
         # ---------- animations
         await ev('PREFS.anim=true;startBattle({mode:"story",n:1});tapOrb(0)');check('particules à l\'orbe',await ev('document.querySelectorAll("#fxLayer .part").length')>0)
-        await pg.wait_for_timeout(900);check('particules nettoyées',await ev('document.querySelectorAll("#fxLayer .part").length')==0)
+        # 0.13 : une attaque complète (morsure, riposte…) dure ~1,3 s ; les particules doivent ensuite disparaître
+        for _ in range(30):
+            if await ev('document.querySelectorAll("#fxLayer .part").length')==0:break
+            await pg.wait_for_timeout(100)
+        check('particules nettoyées',await ev('document.querySelectorAll("#fxLayer .part").length')==0)
         await ev('setPref("anim",false);startBattle({mode:"story",n:1});tapOrb(0)');check('animations coupées: aucune particule',await ev('document.querySelectorAll("#fxLayer .part").length')==0)
         await ev('setPref("anim",true)')
         await ev('startBattle({mode:"story",n:1});fight.enemies[fight.wave].hp=1;tapOrb(0)');check('mort d\'ennemi: fantôme animé',await ev('document.querySelectorAll("#fxLayer .ghost").length')>=0)
@@ -117,3 +121,4 @@ async def main():
         await b.close()
     print('ECHECS:',FAILS) if FAILS else print('TOUT OK')
 asyncio.run(main())
+sys.exit(1 if FAILS else 0)  # échec visible pour tools/run_tests.sh

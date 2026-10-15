@@ -79,6 +79,5 @@ python3 tests/test_balance_modes.py # idem pour la Tour et l'Arène
 
 ## Dossiers
 - `game/` : le code source du jeu (`index.html`, `css/`, `js/`). `tools/build.py` en fait les versions PC et téléphone dans `dist/` (non versionné). Architecture : [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
-- `online-supabase/` : ancienne piste en ligne (comptes + base Supabase). **Jamais testée contre un vrai Supabase**, non maintenue depuis l'abandon de la mise en ligne.
 
 Voir [CHANGELOG.md](CHANGELOG.md) pour l'historique.

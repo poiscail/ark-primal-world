@@ -3,7 +3,7 @@ const ELC={redorb:"#ff647b",blueorb:"#5fb8ff",greenorb:"#7dff9b",purpleorb:"#bd8
 const BQ={dmg:null,hurt:[],atk:false};
 /* vitesse des animations de combat (×1/×2/×3, réglée par js/99-auto.js) : les délais d'enchaînement passent par fxd() */
 let FX_SPEED=1;const fxd=ms=>ms/FX_SPEED;
-function vib(p){try{if(PREFS.vib!==false&&navigator.vibrate)navigator.vibrate(p)}catch(e){}}
+function vib(){}/* PC : pas de vibration */
 function fxAdd(el,ms){const L=$$("fxLayer");if(!L)return;L.appendChild(el);setTimeout(()=>el.remove(),ms)}
 function floatNum(txt,x,y,cls,sub){if(!PREFS.anim)return;const d=document.createElement("div");d.className="dmgnum "+(cls||"");d.style.left=x+"px";d.style.top=y+"px";d.innerHTML=txt+(sub?`<small>${sub}</small>`:"");fxAdd(d,1100);d.animate([{transform:"translate(-50%,0) scale(.4)",opacity:0},{transform:"translate(-50%,-14px) scale(1.25)",opacity:1,offset:.2},{transform:"translate(-50%,-34px) scale(1)",opacity:1,offset:.6},{transform:"translate(-50%,-64px) scale(.9)",opacity:0}],{duration:1050,easing:"ease-out"})}
 function banner(t,sub,cls){if(!PREFS.anim)return;const d=document.createElement("div");d.className="wavebn "+(cls||"");d.innerHTML=`<b>${t}</b>${sub?`<small>${sub}</small>`:""}`;fxAdd(d,1900)}

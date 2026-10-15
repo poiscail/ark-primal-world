@@ -86,3 +86,4 @@ async def main():
         await b.close()
     print('ECHECS:',FAILS) if FAILS else print('TOUT OK')
 asyncio.run(main())
+sys.exit(1 if FAILS else 0)  # échec visible pour tools/run_tests.sh

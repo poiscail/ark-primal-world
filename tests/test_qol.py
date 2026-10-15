@@ -1,5 +1,5 @@
 """Équipes enregistrées, sauvegardes automatiques, tutoriel et guide."""
-import asyncio,pathlib,json
+import asyncio,sys,pathlib,json
 from playwright.async_api import async_playwright
 GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
 FAILS=[]
@@ -33,17 +33,19 @@ async def main():
         await ev('localStorage.setItem("arkPrimalMobile",JSON.stringify({...S,tut:undefined,stage:12}));');await pg.reload();await pg.wait_for_timeout(300)
         check('partie existante: tutoriel désactivé',await ev('ens();S.tut.off===true'))
         # guide
-        await ev('openSettings()');await ev('openGuide()');check('guide du jeu complet',await ev('document.getElementById("guideBody").innerText.includes("Équipement")&&document.querySelectorAll("#guideBody .panel").length===8'))
+        await ev('openSettings()');await ev('openGuide()');check('guide du jeu complet (11 rubriques depuis la 0.13)',await ev('(t=>t.includes("Équipement")&&t.includes("Auto-combat")&&t.includes("Compétences ennemies")&&t.includes("Bestiaires"))(document.getElementById("guideBody").innerText)&&document.querySelectorAll("#guideBody .panel").length===GUIDE.length&&GUIDE.length>=11'))
         await ev('closeGuide();closeSettings()')
         # ---------- équipes enregistrées
         await ev(TEAM+'S.presets=[];save();render()')
-        pg.promptv='Ma meute';await ev('presetSave()');check('enregistrer une équipe (nom demandé)',await ev('S.presets.length===1&&S.presets[0].n==="Ma meute"&&S.presets[0].ids.join()==="1,2,3"'))
+        await ev('presetSave()');await pg.fill('#askIn','Ma meute');await pg.click('#modalBody button:has-text("OK")');check('enregistrer une équipe (nom demandé dans une fenêtre du jeu)',await ev('S.presets.length===1&&S.presets[0].n==="Ma meute"&&S.presets[0].ids.join()==="1,2,3"'))
         await ev('S.team=[S.team[3],S.team[4],S.team[5],...S.team.filter((d,i)=>i<3||i>5)];render()')
-        pg.promptv='Boss';await ev('presetSave()');check('deuxième équipe',await ev('S.presets.length===2&&S.presets[1].ids.join()==="4,5,6"'))
+        await ev('presetSave()');await pg.fill('#askIn','Boss');await pg.press('#askIn','Enter');check('deuxième équipe (validée avec Entrée)',await ev('S.presets.length===2&&S.presets[1].ids.join()==="4,5,6"'))
+        await ev('presetRename(1)');await pg.fill('#askIn','Boss final');await pg.click('#modalBody button:has-text("OK")');check('renommer une équipe',await ev('S.presets[1].n==="Boss final"'))
+        await ev('presetRename(1)');await pg.click('#modalBody button:has-text("ANNULER")');check('annuler le renommage',await ev('S.presets[1].n==="Boss final"&&document.getElementById("modalVeil").classList.contains("hide")'))
         await ev('presetLoad(0)');check('charger: les 3 premiers sont les bons',await ev('S.team.slice(0,3).map(d=>d.id).join()==="1,2,3"&&S.team.length===7'))
         check('équipe active marquée',await ev('document.getElementById("presetBox").innerText.includes("ACTIVE")'))
         await ev('go("tower")');check('barre d\'équipes visible dans les modes',await ev('!document.getElementById("presetBar").classList.contains("hide")&&document.querySelectorAll("#presetBar button").length===2'))
-        await pg.click('#presetBar button:has-text("Boss")');check('chargement depuis la barre',await ev('S.team.slice(0,3).map(d=>d.id).join()==="4,5,6"'))
+        await pg.click('#presetBar button:has-text("Boss final")');check('chargement depuis la barre',await ev('S.team.slice(0,3).map(d=>d.id).join()==="4,5,6"'))
         await ev('go("home")');check('barre cachée hors modes',await ev('document.getElementById("presetBar").classList.contains("hide")'))
         await ev('S.team=S.team.filter(d=>d.id!==5);presetLoad(1)');check('dino supprimé: chargement partiel sans plantage',await ev('S.team.length===6&&S.team[0].id===4&&S.team[1].id===6'))
         await ev('S.presets=[1,2,3,4,5].map(i=>({n:"E"+i,ids:[1,2,3]}));presetSave()');check('limite de 5 équipes',await ev('S.presets.length===5'))
@@ -79,3 +81,4 @@ async def main():
         await b.close()
     print('ECHECS:',FAILS) if FAILS else print('TOUT OK')
 asyncio.run(main())
+sys.exit(1 if FAILS else 0)  # échec visible pour tools/run_tests.sh

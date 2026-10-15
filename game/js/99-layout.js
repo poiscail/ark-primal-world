@@ -1,4 +1,4 @@
-/* Mise en page du combat : scène, orbes, super et compétences visibles sans défiler sur téléphone, deux colonnes sur PC.
+/* Mise en page du combat : scène en haut, orbes à gauche, équipe et super à droite, sans défiler.
    Aucun élément n'est déplacé dans le DOM (les autres modules continuent de les trouver) : chacun reçoit une classe bl-*
    et l'ordre visuel vient de css/94-layout.css. Ce module doit rester le dernier à envelopper renderBattle. */
 function blKind(el,st){const c=el.classList;

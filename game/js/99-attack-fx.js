@@ -3,7 +3,7 @@
 const FAMFX={T:"bite",C:"charge",A:"club",G:"spikes",F:"dive",S:"quake",H:"sonic",M:"jet"};
 const FAMN={bite:"Morsure",charge:"Charge",club:"Coup de massue",spikes:"Pluie d'épines",dive:"Piqué",quake:"Séisme",sonic:"Cri sonique",jet:"Jet d'eau"};
 const famOf=d=>{const c=PORT[d.type];return c?c[0]:"T"},atkKind=d=>FAMFX[famOf(d)]||"bite";
-const later=(ms,fn)=>setTimeout(fn,fxd(ms));
+const later=(ms,fn)=>setTimeout(()=>{if(PREFS.anim)fn()},fxd(ms));
 function ctrOf(el){const r=el.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2,w:r.width,h:r.height,r}}
 function fxNode(cls,x,y,css){const n=document.createElement("i");n.className=cls;n.style.cssText=`left:${x}px;top:${y}px;`+(css||"");return n}
 function moveFig(el,kf,ms,delay){try{el.animate(kf,{duration:ms,delay:delay||0,easing:"cubic-bezier(.3,.1,.3,1)"})}catch(e){}}
@@ -63,3 +63,5 @@ function foeFx(E,R,hurt,f){if(!PREFS.anim||!E||!E.isConnected||!f||!f.enemies)re
   case"beam":later(i*70,()=>beamFx(null,A,col,{x:B.x-B.w*.1,y:B.y-B.h*.05}));break;
   case"bite":later(i*70+60,()=>jawFx(A,L&&L.cor?"#ff3bd4":"#ff3b5c",false));break;
   default:later(i*70+60,()=>{if(typeof fxSlash==="function")fxSlash(A.r,3,"#ff3b5c",false)})}})}
+/* couper les animations efface aussi les effets encore à l'écran */
+const _apAF=applyPrefs;applyPrefs=function(){_apAF();if(!PREFS.anim){const L=$$("fxLayer");if(L)L.innerHTML=""}};

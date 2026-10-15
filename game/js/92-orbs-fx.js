@@ -3,6 +3,11 @@
 document.body.insertAdjacentHTML("beforeend",'<div id="modalVeil" class="authveil hide" onclick="if(event.target===this)closeModal()"><div class="authbox" id="modalBody"></div></div><div id="fxLayer"></div>');
 function openModal(h){$$("modalBody").innerHTML=h;$$("modalVeil").classList.remove("hide")}
 function closeModal(){$$("modalVeil").classList.add("hide")}
+/* saisie de texte dans une fenêtre du jeu (prompt() n'existe pas dans la version .exe) */
+let askCb=null;
+function askText(title,def,cb,max){askCb=cb;openModal(`<h2 style="margin:0 0 8px">${esc(title)}</h2><input id="askIn" maxlength="${max||18}" value="${esc(def||"")}" style="width:100%;padding:10px;margin:4px 0 10px;font-size:16px"><div class="btns"><button class="secondary" onclick="askCb=null;closeModal()">ANNULER</button><button onclick="askOk()">OK</button></div>`);
+ const i=$$("askIn");if(i){i.focus();i.select();i.onkeydown=e=>{if(e.key==="Enter")askOk();else if(e.key==="Escape"){askCb=null;closeModal()}}}}
+function askOk(){const i=$$("askIn"),v=(i?i.value:"").trim(),cb=askCb;askCb=null;closeModal();if(cb)cb(v)}
 /* ---- boost d'orbes : x1,15 (2) · x1,3 (3) · x1,5 (4) · x1,8 (5) … x3 (9) selon le nombre d'orbes de la même couleur sur le plateau ---- */
 const BOOST=[1,1,1.15,1.3,1.5,1.8,2.1,2.4,2.7,3],fmtB=b=>String(b).replace(".",",");
 const boostOf=(f,c)=>BOOST[Math.min(9,f.orbs.filter(x=>x===c).length)]||1;

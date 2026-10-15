@@ -79,6 +79,7 @@ body.noanim .pop{display:none}
 .pzico{position:absolute;right:-4px;bottom:-4px;font-size:14px;font-style:normal;animation:dotp 1s infinite}
 /* invocation */
 #gfxLayer{position:fixed;inset:0;z-index:5;overflow:hidden}
+#gachaVeil:not(.summoning) #gfxLayer{pointer-events:none!important}
 #gachaVeil.summoning #gachaBody button,#gachaVeil.summoning #gachaBody .rarity{visibility:hidden}
 .gc.facedown{animation:none!important;box-shadow:none!important;border-color:#3a4a74;background:repeating-linear-gradient(45deg,#14203a 0 6px,#1a2848 6px 12px)}
 .gc.facedown>*{visibility:hidden}
