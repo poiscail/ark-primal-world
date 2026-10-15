@@ -3,7 +3,7 @@
 Jeu de combat d'orbes façon Dokkan Battle avec des dinosaures, **100 % local** (aucun compte, aucun serveur), en HTML/CSS/JS pur, **sans étape de build pour jouer**. Deux livrables construits depuis le même code : version **PC** (dossier) et version **téléphone** (un seul fichier HTML), avec **sauvegarde compatible** entre les deux.
 
 - Dépôt : https://github.com/poiscail/ark-primal-world (branche `main`)
-- Version actuelle : **0.15.0** (`game/js/00-version.js`, `ARK_VERSION` et `SAVE_FORMAT=1`)
+- Version actuelle : **0.16.0** (`game/js/00-version.js`, `ARK_VERSION` et `SAVE_FORMAT=1`)
 - L'utilisateur est français : **répondre en français**, être honnête sur ce qui est testé (jamais affirmer qu'une chose non testée marche ; pas testé sur un vrai téléphone ; équilibrage mesuré par simulation seulement).
 - Attentes permanentes : améliorer sans cesse le gameplay, les animations et les graphismes ; mettre à jour GitHub à la fin de chaque étape ; l'utilisateur dira à la fin ce qu'il veut retirer (ne rien supprimer sans demande).
 
@@ -11,7 +11,7 @@ Jeu de combat d'orbes façon Dokkan Battle avec des dinosaures, **100 % local** 
 ```
 open game/index.html                 # jouer directement
 python3 tools/build.py               # produit dist/ARK_PC (dossier) + dist/ARK_Telephone/ARK_Primal_World.html + zips v<ver>
-tools/run_tests.sh                   # 20 suites Playwright (python3, chromium headless) ; ~4-5 min
+tools/run_tests.sh                   # 21 suites Playwright (python3, chromium headless) ; ~4-5 min
 python3 tests/test_balance.py        # simulations d'équilibrage (lentes, à lancer en tâche de fond)
 python3 tests/test_balance_modes.py
 ```
@@ -22,10 +22,10 @@ Pas de bundler : les scripts sont chargés dans l'ordre de `game/index.html` et 
 - Ne jamais déclarer `const` un nom destiné à être re-patché (`function` ou `let`).
 - **L'ordre des `<script>` et des `<link>` fait partie du contrat.** `css/95-theme.css` doit rester le dernier thème ; `90-platform.css` après.
 - Les modules ajoutent leurs champs de sauvegarde via un wrapper de `ens()` (migration/initialisation).
-- État `S` dans `localStorage["arkPrimalMobile"]` ; config admin `arkPrimalConfig` ; préférences `arkPrimalPrefs` (`PREFS` : sound, vol, music, anim, vib, lore, diff, art, theme) ; sauvegardes auto `arkPrimalBackups`.
+- État `S` dans `localStorage["arkPrimalMobile"]` ; config admin `arkPrimalConfig` ; préférences `arkPrimalPrefs` (`PREFS` : sound, vol, music, anim, vib, lore, chain, diff, art, theme) ; sauvegardes auto `arkPrimalBackups`.
 - Enveloppe de sauvegarde `{game:"ark-primal-world",fmt:1,ver,at,from,S,cfg}` ; codes `ARK2.`(gzip+base64) / `ARK1.` / base64 ancien ; `validate()` strict ; import = copie « avant import » puis rechargement.
 
-Modules JS (ordre) : 00-version, 00-core, 05-admin, 10-combat-v1, 20-team-forge-save, 30-zones-supers, 40-progression, 50-skills-species (moteur de combat final : `startBattle`, `tapOrb`, `useSkill`, `special`, `afterAction`, `killEnemy`, `enemyTurn`, `hitDino`, `renderBattle`), 60-gacha-hud, 70-equipment, 80-modes (Tour, Arène, Événements, navigation à 5 onglets + sous-menu), 90-settings-audio (réglages, sons, difficulté, télémétrie), 92-orbs-fx (boost d'orbes, FX), 93-gacha-plus (roue, œufs, équipement), 94-battle-anim, 95-portraits (portraits SVG par espèce), 96-transfer, 97-backups, 97-teams, 98-tutorial, 99-visual, 99-expeditions (expéditions + succès), 99-enemy-traits, 99-summon-fx, 99-skill-fx, 99-story, 99-evolution, 99-music, 99-tuning (équilibrage global : ennemis ×1,3 PV, ×1,15 ATQ), 99-polish (bannières illustrées, carte d'histoire + étoiles `S.stars`, interrupteurs, écran titre), 99-nav (navigation : `GRP` groupes d'onglets, sous-onglets internes via `markSubs`/`subSet` et classe `.subhide`, « À faire » `todoItems`, Défi du jour `S.dch`, Fouilles `S.dig`).
+Modules JS (ordre) : 00-version, 00-core, 05-admin, 10-combat-v1, 20-team-forge-save, 30-zones-supers, 40-progression, 50-skills-species (moteur de combat final : `startBattle`, `tapOrb`, `useSkill`, `special`, `afterAction`, `killEnemy`, `enemyTurn`, `hitDino`, `renderBattle`), 60-gacha-hud, 70-equipment, 80-modes (Tour, Arène, Événements, navigation à 5 onglets + sous-menu), 90-settings-audio (réglages, sons, difficulté, télémétrie), 92-orbs-fx (boost d'orbes, FX), 93-gacha-plus (roue, œufs, équipement), 94-battle-anim, 95-portraits (portraits SVG par espèce), 96-transfer, 97-backups, 97-teams, 98-tutorial, 99-visual, 99-expeditions (expéditions + succès), 99-enemy-traits, 99-summon-fx, 99-skill-fx, 99-story, 99-evolution, 99-music, 99-tuning (équilibrage global : ennemis ×1,3 PV, ×1,15 ATQ), 99-polish (bannières illustrées, carte d'histoire + étoiles `S.stars`, interrupteurs, écran titre), 99-nav (navigation : `GRP` groupes d'onglets, sous-onglets internes via `markSubs`/`subSet` et classe `.subhide`, « À faire » `todoItems`, Défi du jour `S.dch`, Fouilles `S.dig`), 99-chain (enchaînement auto `chainArm/chainNext/chainStop`, orbes qui tombent, combo, super prête).
 CSS : 00-base … 80-fx, 92-anim, 93-battle, 94-visual, 95-theme (futuriste, thèmes sombre/clair via `html[data-theme]`), 90-platform.
 
 ## Contenu du jeu (état 0.12.0)
@@ -41,6 +41,7 @@ CSS : 00-base … 80-fx, 92-anim, 93-battle, 94-visual, 95-theme (futuriste, th�
 - `giveXP`/`give()` : `give` gère matériaux (`S.mat`) ou champs de `S` (tickets, shards…).
 - Comparer deux états après transfert : appeler `ens()` avant (champs par défaut ajoutés).
 - Chromium headless se détecte « PC » : la grille 2 colonnes de la collection est limitée à ≥700 px.
+- Tester les boutons par de **vrais clics** Playwright (pas seulement en appelant la fonction) : une couche d'effets peut intercepter les clics (bug du bouton OK d'invocation en 0.15).
 - Éviter les `sleep` enchaînés pour attendre des tests ; utiliser un `until` avec timeout.
 
 ## Idées restantes / pistes

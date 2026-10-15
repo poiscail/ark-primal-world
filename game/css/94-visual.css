@@ -201,3 +201,22 @@ html body button.digtile:disabled:not(.open){opacity:.75}
 @keyframes digopen{from{transform:scale(.6) rotate(-8deg)}to{transform:none}}
 #colTools .btns button.blue{display:none}
 #colTools[data-sub="dex"] .tools,#colTools[data-sub="dex"] .btns{display:none}
+/* enchaînement auto */
+html body button.chaintgl{display:block;width:100%;margin:8px 0;padding:9px;font-size:12px;letter-spacing:.04em;text-transform:none;background:var(--surf3,#0d1528);color:var(--txt,#fff);border:1px solid var(--bd2,#2d3d5e)}
+html body button.chaintgl.on{border-color:#8cffb0;box-shadow:0 0 12px #8cffb055;color:#8cffb0}
+.chainbar{display:flex;align-items:center;gap:10px;padding:8px 10px;margin-bottom:10px;border-radius:12px;background:linear-gradient(90deg,#8cffb022,transparent);border:1px solid #8cffb066;text-align:left;animation:rise .35s ease-out}
+.chainbar button{padding:8px 10px;font-size:11px}
+.cring{position:relative;width:42px;height:42px;flex:0 0 42px}.cring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.cring .cbg{fill:none;stroke:#ffffff22;stroke-width:3}.cring .cfg{fill:none;stroke:#8cffb0;stroke-width:3;stroke-dasharray:100;stroke-dashoffset:0;animation:cring linear forwards}
+@keyframes cring{to{stroke-dashoffset:100}}
+.cring b{position:absolute;inset:0;display:grid;place-items:center;font:900 16px var(--fontd,system-ui);color:#8cffb0}
+/* plateau : orbes qui tombent, combo, super prête */
+html body .orbboard .orb.drop{animation:orbdrop .45s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes orbdrop{0%{transform:translateY(-60px) scale(.5);opacity:0}70%{opacity:1}100%{transform:none;opacity:1}}
+html body .orbboard .orb.drop.boost2,html body .orbboard .orb.drop.boost3{animation:orbdrop .45s cubic-bezier(.3,1.5,.5,1) both,boostpulse 1s ease-in-out .5s infinite}
+.combopop{position:absolute;transform:translateX(-50%);font:900 26px var(--fontd,system-ui);color:#fff;letter-spacing:2px;text-shadow:0 0 14px #ff9d3c,0 2px 0 #000;white-space:nowrap;animation:combop 1s cubic-bezier(.2,1.4,.4,1) forwards;pointer-events:none}
+.combopop b{color:#ffd15c;font-size:34px}
+@keyframes combop{0%{transform:translate(-50%,10px) scale(.4);opacity:0}25%{transform:translate(-50%,-10px) scale(1.2);opacity:1}70%{opacity:1}100%{transform:translate(-50%,-40px) scale(1);opacity:0}}
+html body #battleArea button.red.ready{animation:superready 1.2s ease-in-out infinite;position:relative;overflow:hidden}
+@keyframes superready{0%,100%{box-shadow:0 0 0 0 #ff647b88,0 0 18px #ff647b88;filter:brightness(1)}50%{box-shadow:0 0 0 8px #ff647b00,0 0 32px #ffd15c;filter:brightness(1.25)}}
+body.noanim .orbboard .orb.drop,body.noanim #battleArea button.red.ready{animation:none}

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.16.0 — Enchaînement auto, animations de plateau, correctif invocation
+- Correctif : le bouton « OK » du résultat d'invocation ne répondait pas (la couche d'effets restait au-dessus après l'animation).
+- Enchaînement automatique des combats : option dans les Réglages et bouton en combat ; après une victoire, compte à rebours puis combat suivant (histoire : niveau suivant ; Tour : étage suivant ; Donjon : même donjon), jusqu'à une défaite, l'arrêt manuel ou la fin de la progression. Compteur de série.
+- Animations : orbes qui tombent en cascade à chaque nouveau plateau, bulle « COMBO ×N », bouton de super attaque qui pulse quand elle est prête, anneau de compte à rebours.
+- Tests : `test_chain.py` (dont un vrai clic sur « OK » après invocation x1 et x5).
+
 ## 0.15.0 — Onglets épurés et nouvelles activités
 - Navigation : 5 onglets (Accueil, Équipe, Aventure, Invocation, Quêtes) et une barre de sous-onglets collante avec pastilles de notification.
   - Accueil : Accueil / Profil (journal, profil, sauvegarde rangés à part).

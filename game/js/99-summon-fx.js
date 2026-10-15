@@ -8,7 +8,7 @@ function gReveal(cards,veil){const done=()=>{cards.forEach(c=>c.classList.remove
   if(lv>=1)gBurst(r.left+r.width/2,r.top+r.height/2,GCOL[lv],lv===3?36:lv===2?22:10);
   if(lv===3){const b=document.createElement("div");b.className="beam";b.style.left=(r.left+r.width/2)+"px";const L=document.getElementById("gfxLayer");if(L){L.appendChild(b);gTimers.push(setTimeout(()=>b.remove(),1400))}document.body.classList.remove("bigshake");void document.body.offsetWidth;document.body.classList.add("bigshake");gTimers.push(setTimeout(()=>document.body.classList.remove("bigshake"),500));vib&&vib([60,40,120])}
   else if(lv===2)vib&&vib(40)},i*(cards.length>6?170:260)))});
- gTimers.push(setTimeout(()=>{veil.classList.remove("summoning")},cards.length*(cards.length>6?170:260)+500))}
+ gTimers.push(setTimeout(()=>{veil.classList.remove("summoning");const L=document.getElementById("gfxLayer");if(L)L.style.pointerEvents="none"},cards.length*(cards.length>6?170:260)+500))}
 const _sg99=showGacha;showGacha=function(got,news,title){_sg99(got,news,title);if(!PREFS.anim)return;const veil=$$("gachaVeil"),cards=[...veil.querySelectorAll(".gres .gc")];if(!cards.length)return;gClear();
  const best=got.reduce((m,d)=>Math.max(m,RAR5.indexOf(sp(d).r)),0),lv=Math.min(3,Math.max(0,best>=3?3:best)),col=GCOL[lv];
  cards.forEach(c=>c.classList.add("facedown"));veil.classList.add("summoning");

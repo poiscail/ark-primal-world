@@ -129,3 +129,4 @@ body.noanim .pop{display:none}
 #battleArea .row .bigicon:not(.hit)>:not(.pop):not(.pzico){display:inline-block;animation:breathe 3.6s ease-in-out infinite}
 #battleArea .row:nth-of-type(3) .bigicon:not(.hit)>*{animation-delay:-1.2s}
 body.noanim #battleArea .bigicon>*{animation:none}
+#gachaVeil:not(.summoning) #gfxLayer{pointer-events:none!important}
