@@ -62,7 +62,7 @@ async def main():
         await ev(BASE+'setPref("anim",false);setPref("spd",3);PREFS.auto=true;PREFS.chain=false;savePrefs()')
         await ev('startBattle({mode:"story",n:7})');await pg.wait_for_timeout(150)
         await pg.click('#battleArea .cbtn')
-        check('🔁 active l\'enchaînement',await ev('PREFS.chain===true&&document.querySelector("#battleArea .cbtn").classList.contains("on")'))
+        check('🔁 active l\'enchaînement',await ev('PREFS.chain===true&&(()=>{const b=document.querySelector("#battleArea .cbtn");return !b||b.classList.contains("on")})()'))  # le combat peut déjà être fini (auto ×3)
         ok=await until(pg,'fight.n===8',30000)
         check('victoire en auto -> niveau suivant démarré seul',ok,await ev('[fight.n,fight.over]'))
         check('série affichée sur 🔁',await ev('document.querySelector("#battleArea .cbtn").textContent.includes("1")'))

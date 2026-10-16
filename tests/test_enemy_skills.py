@@ -17,7 +17,7 @@ async def main():
         await ev(ARENA%'["raptor","trike","dracorex"]');await pg.wait_for_timeout(100)
         check('arène : compétence de l\'espèce adverse (Raptor → Morsure brutale)',await ev('fight.enemies[0].esk')=='strike')
         chip=await ev('(document.querySelector("#battleArea .eskchip")||{}).textContent||""')
-        check('intention affichée dans le HUD',('Morsure brutale' in chip) and ('dans 2 tours' in chip),chip)
+        check('intention affichée dans le HUD',('Morsure brutale' in chip) and (' tour' in chip),chip)  # l'ouverture du chef (0.31) peut décaler le compte
         await ev('fight.stun=0;tapOrb(0)')
         check('1er tour ennemi : pas encore de compétence',not await ev('fight.esUsed'))
         check('intention : au prochain tour',('au prochain tour' in (await ev('document.querySelector("#battleArea .eskchip").textContent'))))

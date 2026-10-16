@@ -1,0 +1,21 @@
+/* Boss (js/99-bosses.js) */
+html body .orbboard button.orb.locked{filter:grayscale(.85) brightness(.6);outline:3px dashed #3f8a3a;outline-offset:-6px}
+html body .orbboard button.orb.locked::after{content:"🌿";position:absolute;inset:auto 0 30% 0;text-align:center;font-size:22px}
+.bmparts{display:inline-flex;align-items:center;gap:6px;margin:4px 0 0 0;vertical-align:middle}
+html body button.bmpart{padding:3px 8px;font-size:11px;border:1px solid var(--bd2);background:var(--surf2);color:var(--txt);border-radius:10px}
+html body button.bmpart.on{border-color:#ff536c;box-shadow:0 0 8px #ff536c88}
+html body button.bmpart.broken{opacity:.5}
+.sEnemy .bbub{position:absolute;top:52%;right:86%;white-space:normal;width:max-content;z-index:4;max-width:220px;padding:6px 10px;border-radius:12px 12px 2px 12px;text-align:left;background:#fff;color:#1a1020;font-size:12px;font-weight:700;box-shadow:0 4px 12px #0006;animation:bbub .35s ease-out both;pointer-events:none}
+@keyframes bbub{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.battlestage.bph2 .scene{filter:saturate(1.3) hue-rotate(-12deg)}
+.battlestage.bph2::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 80px #ff3c3c55}
+.battlestage.bph3 .scene{filter:saturate(1.5) brightness(.75) hue-rotate(-25deg)}
+.battlestage.bph3::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 120px #ff1a1a88;animation:bph3 1.6s ease-in-out infinite}
+@keyframes bph3{50%{box-shadow:inset 0 0 60px #ff1a1a55}}
+.battlestage.bcorr .sEnemy{filter:drop-shadow(0 0 14px #9b4dff) saturate(.8)}
+.bossin{position:fixed;inset:0;z-index:58;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;background:radial-gradient(circle,#ff1a1a33,transparent 70%);animation:bossin 1.5s ease-out both}
+.bossin small{font-size:16px;letter-spacing:6px;color:#ffb3a0;font-weight:800}
+.bossin b{font-family:Bangers,var(--font),sans-serif;font-size:56px;letter-spacing:3px;color:#fff;text-shadow:0 0 20px #ff3c3c,0 4px 0 #5a0000}
+.bossin.corr b{text-shadow:0 0 20px #9b4dff,0 4px 0 #2a0055}
+@keyframes bossin{0%{opacity:0;transform:scale(1.4)}15%{opacity:1;transform:scale(1)}80%{opacity:1}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.battlestage.bph3::before,.bossin,.sEnemy .bbub{animation:none}}

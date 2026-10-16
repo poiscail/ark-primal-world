@@ -60,6 +60,8 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `js/99-combat2.js` | Combat I : super ×`SUPER_TUNE` et effet de famille du chef (`SUPER_FAM`), Ruée, Coup final (`killEnemy`), rage ennemie (`e.rage`, furie dans `enemyTurn`/`hitDino`), Garde (`guard`, touche G), épines (`f.thorn`), frise `c2Timeline`, recharges en cercle, infobulles, jauge « presque prête » |
 | `js/99-combat3.js` | Combat II : états ennemis `e.st` (`ST3` : brûlure, gel → `f.stun`, saignement, peur) déclenchés dans `afterAction`, décomptés dans `enemyTurn` ; résistances `c3Res` ; faiblesse par créature `c3Weak` (+25 % via `atkOf`) ; fiche d'ennemi `c3Sheet` (clic sur `.sEnemy`) ; terrains `TER3`/`f.ter` ; objets `ITEM3`/`f.item`/`c3Pick` (aussi pris par l'auto-combat) ; faiblesses dans le bestiaire |
 | `js/99-combat4.js` | Combat III : duos d'ennemis (`C4`, `c4Setup`, `c4Target`, second ennemi `.sEnemy2`, deux attaques par tour, `killEnemy` qui range les ennemis), grand plateau 4×4 (`f.big4`, `c4Orbs`, boost ramené à 9 cases) |
+| `js/99-skills3.js` | Compétences II : 5 compétences (`cry`, `minion`, `vamp`, `defy`, `gild`), talents `d.tal` (stats, super), ordre de l'auto-combat `d.auto` (`autoSkill`), super prismatique, soins ciblés `f.healT`, mise en scène légendaire `s3Cut` ; chargé avant 99-mastery |
+| `js/99-mastery.js` | Maîtrise : niveaux de compétence `d.skx`/`msLv`, 2e compétence `d.sk2` (`useSkill2`, touches Q/S/D, `f.cd2`), ouverture du chef `MS_OPEN`, terrain natal (`atkOf`), paliers 20/40/60 (`stats`), fiche `msHowTo` |
 | `js/99-desktop.js` | réglages « Application Windows » (plein écran, dernière version, quitter) via `window.arkDesktop` ; lien vers la dernière version |
 | `js/99-layout.js` | mise en page du combat (classes `bl-*`, ordre visuel en CSS) : **doit rester le dernier script** |
 | `css/91-fonts.css` / `css/91-tex.css` | polices Orbitron et Exo 2 (base64) ; textures de particules (masques) |
@@ -74,7 +76,8 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `css/97-player.css` | dresseur : puce de la barre du haut, éditeur, carte de profil, emote de victoire ; chargé après `97-nest.css` |
 | `css/97-combat2.css` | frise des tours ennemis, jauge de rage, recharges en cercle, Ruée et Coup final ; chargé après `97-player.css` |
 | `css/97-combat3.css` | terrains (voile sur la scène), objets, fiche d'ennemi, HUD compact ; chargé après `97-combat2.css` |
-| `css/97-combat4.css` | second ennemi du duo, plateau 4×4 ; chargé en dernier |
+| `css/97-combat4.css` | second ennemi du duo, plateau 4×4 ; chargé après `97-combat3.css` |
+| `css/97-mastery.css` / `css/97-skills3.css` | maîtrise et 2e compétence ; talents, soins ciblés, mise en scène légendaire ; chargés en dernier |
 | `css/97-pc.css` / `css/97-juice.css` | mise en page PC chargée en dernier (navigation en colonne, contenu large, grilles) ; styles des sensations de combat, de la coupure et des cadres holographiques |
 | `css/96-skins.css` | 7 thèmes (`html[data-skin]`) avec images de fond en base64 (`tools/gen_backgrounds.py`) |
 | `desktop/main.js` | application Electron : fenêtre (taille mémorisée, F11, une seule instance), sauvegarde dans `%APPDATA%`, liens externes ouverts dans le navigateur, test de lancement `--smoke-test` |

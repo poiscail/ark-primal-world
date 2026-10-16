@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.31.0 — Maîtrise, talents et nouvelles compétences
+- **Maîtrise des compétences** : chaque compétence progresse en l'utilisant (niveaux 1 à 5 à 10, 30, 60 et 100 utilisations) : +5 % de dégâts par niveau, recharge −1 au niveau 5. Le niveau s'affiche sur le bouton et la fiche.
+- **2e compétence à l'éveil ★★★** : à choisir parmi les compétences de la famille du dino. Elle a son propre bouton et sa propre recharge en combat (touches Q, S, D).
+- **5 nouvelles compétences** (aussi proposées en 2e compétence) : 📯 Cri de meute (−2 tours de recharge aux alliés), 🦖 Appel du petit (un petit allié frappe 3 tours), 🧛 Morsure vampirique (dégâts + soin de l'équipe), 🗯️ Défi (attire les coups 2 tours et renvoie 40 %), 🌟 Pluie d'or (la couleur d'orbe la plus faible devient dorée, +10 % de super).
+- **Arbre de talents** : 1 point tous les 10 niveaux à répartir entre Attaque (+2 % d'ATQ par rang), Défense (+3 % de PV) et Soutien (+1 % de super par orbe), 5 rangs par branche, réinitialisation gratuite. Le même écran règle l'**auto-combat** pour ce dino (en priorité, normal, jamais).
+- **Ouverture du chef** : chaque combat commence par un effet de la famille du chef (embuscade, charge d'ouverture, formation tortue, hérisson, repérage, pas lourd, chœur, ressac).
+- **Terrain natal** : +10 % d'attaque pour un dino dans le terrain de son élément (jungle 🌿, volcan 🔥, ruines et toundra 💧, obélisque et abysses ⚡).
+- **Paliers aux niveaux 20, 40 et 60** : +3 % de PV, +3 % d'attaque, puis +4 % des deux.
+- **Super prismatique** : avec 3 éléments différents dans l'équipe, la super frappe 20 % plus fort.
+- **Soins ciblés** : clique sur le portrait d'un de tes dinos (liste sous la scène) pour diriger vers lui la Régénération.
+- **Compétences légendaires mises en scène** (bandeau avec le portrait), **fiche « Comment le jouer »** sur chaque dino (rôle, orbes, compétence, passif, rôle de chef, terrain natal).
+- 2 succès (« Maître d'armes », « Arbre de vie »), entrées du guide.
+- **Équilibrage** (simulation seulement, histoire, 20 combats par mesure) : avec des équipes neuves (sans talents ni maîtrise accumulée), pas d'écart au-delà du bruit (non éveillée : 90 % au niveau 50, 40 % au niveau 70 ; éveillée et forgée : 95 à 100 %). Les talents et la maîtrise rendront les équipes entraînées plus fortes : à surveiller avec de vrais joueurs.
+- Tests : `test_mastery` (15 vérifications), `test_skills3` (16 vérifications), vrais clics ; 5 anciens tests adaptés (ouverture du chef, nouvelles compétences, effets visuels, course de timing de l'auto-combat). 44 suites.
+
 ## 0.30.0 — Combat : duos d'ennemis et grand plateau de 16 orbes
 - **Duos d'ennemis** (30 % des combats d'histoire dès le niveau 20, du Grand Nord et du Cauchemar) : les deux premiers ennemis arrivent ensemble et attaquent tous les deux à chaque tour, le second décalé d'un tour dans le cycle des attaques puissantes. **Clique sur l'autre ennemi** (clic gauche ou droit) pour le viser, sans perdre ton tour ; un 🎯 marque la cible. Quand l'un tombe, on continue contre l'autre, puis vient la dernière vague. Compensation : PV ×0,9 et attaque ×0,7 pour les deux.
 - **Grand plateau de 16 orbes** (4×4) dans le Cauchemar, le Grand Nord et la Tour dès l'étage 30 : plus de choix. Le boost d'orbes compte les orbes de même couleur ramenées à un plateau de 9, pour garder la même force (8 orbes sur 16 comptent comme 5 sur 9).

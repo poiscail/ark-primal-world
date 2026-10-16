@@ -1,0 +1,20 @@
+/* Compétences II (js/99-skills3.js) */
+.s3row{display:flex;align-items:center;gap:8px;margin:8px 0;padding:6px 8px;border-radius:10px;background:var(--surf2);border:1px solid var(--bd)}
+.s3row .s3i{font-size:22px;width:30px;text-align:center}
+html body .s3row button{padding:6px 10px;min-width:34px;font-size:12px}
+.s3pips{display:flex;gap:3px;margin-top:3px}
+.s3pips i{width:14px;height:6px;border-radius:3px;background:#ffffff22}
+.s3pips i.on{background:linear-gradient(90deg,#67e5ff,#c58bff)}
+html body button.s3free{border-color:#ffd15c;box-shadow:0 0 8px #ffd15c55}
+.sFig .s3heal{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:16px;filter:drop-shadow(0 0 6px #62e7a0);pointer-events:none}
+#battleArea .sTeam .sFig{cursor:pointer}
+.lgcut{position:fixed;left:0;right:0;top:30%;z-index:55;display:flex;align-items:center;justify-content:center;gap:14px;padding:10px 0;pointer-events:none;
+ background:linear-gradient(90deg,transparent,#ffd15c33 20%,#ff8a3c55 50%,#ffd15c33 80%,transparent);animation:lgcut .95s ease-out both}
+.lgcut .lgp{width:84px;height:84px;filter:drop-shadow(0 0 14px #ffd15c)}
+.lgcut .lgp svg{width:100%;height:100%}
+.lgcut b{font-family:Bangers,var(--font),sans-serif;font-size:34px;letter-spacing:2px;color:#fff;text-shadow:0 0 12px #ffb04d}
+.lgcut i{font-style:normal;font-size:16px;color:#ffe08a}
+@keyframes lgcut{0%{transform:translateX(-30%);opacity:0}15%{transform:translateX(0);opacity:1}80%{opacity:1}100%{transform:translateX(12%);opacity:0}}
+@media (prefers-reduced-motion:reduce){.lgcut{animation:none}}
+#battleArea .row > .bigicon.s3pick{cursor:pointer;position:relative}
+#battleArea .row > .bigicon .s3heal{top:-10px}

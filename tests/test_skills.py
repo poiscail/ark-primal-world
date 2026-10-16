@@ -24,12 +24,12 @@ async def main():
         res={}
         for sk in ['strike','cleave','roar','heal','selfheal','shield','stun','burn','poison','drain','focus','charge','reorb','execute']:
             await fresh(sk)
-            before=await ev('({e:fight.enemies[0].hp,hp:[...fight.hp],sp:fight.sp,orbs:fight.orbs.join()})')
+            before=await ev('({e:fight.enemies[0].hp,hp:[...fight.hp],sp:fight.sp,orbs:fight.orbs.join(),dots:fight.dots.length})')
             await ev('useSkill(0)')
             a=await ev('({e:fight.enemies[0].hp,hp:[...fight.hp],sp:fight.sp,buff:fight.buff,stun:fight.stun,dots:fight.dots.length,crit:fight.crit,cd:fight.cd[0],orbs:fight.orbs.join(),combo:fight.combo,over:fight.over})')
             ok={'strike':a['e']<before['e'],'cleave':a['e']<before['e'] and a['sp']==before['sp']+10,'roar':a['buff']['atk']==3,
              'heal':all(x>y for x,y in zip(a['hp'],before['hp'])),'selfheal':sum(a['hp'])>sum(before['hp']),'shield':a['buff']['shield']==2,
-             'stun':a['stun']==1 and a['e']<before['e'],'burn':a['dots']==1 and a['e']<before['e'],'poison':a['dots']==1,
+             'stun':a['stun']==1 and a['e']<before['e'],'burn':a['dots']==before['dots']+1 and a['e']<before['e'],'poison':a['dots']==before['dots']+1,
              'drain':a['e']<before['e'] and a['hp'][0]>before['hp'][0],'focus':a['crit']==True,'charge':a['sp']==before['sp']+50,
              'reorb':a['combo']==1,'execute':a['e']<before['e']}[sk]
             check('compétence '+sk,ok and a['cd']>=2,(before,a))

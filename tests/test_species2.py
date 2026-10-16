@@ -102,7 +102,7 @@ async def main():
         await ev('subSet("team","dex")');await pg.wait_for_timeout(150)
         check('bestiaire : 84 entrées',await ev('document.querySelectorAll("#colTools .dx").length')==84)
         check('invocation : les nouvelles légendaires peuvent sortir',await ev('(()=>{const s=new Set();for(let i=0;i<600;i++)s.add(pickType("Légendaire"));return ["wuerho","titano","tropeo","dread","shanto","krono"].every(k=>s.has(k))})()'))
-        check('administration : les nouvelles compétences sont proposées',await ev('(()=>{buildAdmin();return document.querySelectorAll("#adminDinos [data-field=\\"sk\\"]")[0].options.length})()')==22)
+        check('administration : les nouvelles compétences sont proposées',await ev('(()=>{buildAdmin();return document.querySelectorAll("#adminDinos [data-field=\\"sk\\"]")[0].options.length})()')==await ev('Object.keys(SK).length'))
         # ---- chargement : talisman portant un nouvel attribut (déclaré par un module chargé après l'équipement)
         await ev('S.items=[{id:1,s:"c",r:3,lvl:0,n:"Test",pa:"counter"}];S.team=[{id:1,type:"titano",level:5,xp:0,eq:{c:1}},{id:2,type:"raptor",level:5,xp:0},{id:3,type:"trike",level:5,xp:0}];save()')
         await pg.reload();await pg.wait_for_timeout(500);await ev('setPref("anim",false);go("team");subSet("team","bag")')
