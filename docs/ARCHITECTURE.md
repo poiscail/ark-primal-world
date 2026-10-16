@@ -58,6 +58,7 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `js/99-events2.js` | 4 événements de la semaine ajoutés à `EVENTS` (décor `zn`, incubation `nest`, essence `ess`), récompenses via `eventWin` enveloppé ; règles du Défi du jour `DRULES` (`dchInfo().rule`, `DRULE_FORCE`) : Colosse solitaire, Surcharge, Coups critiques, Blessures profondes (`drRule`, `drDeep`), succès « Maître des règles » |
 | `js/99-player.js` | Mon dresseur : `S.player` (pseudo, île, apparence, emote, compagnon), avatar SVG `plAvatar`, éditeur en fenêtre (`plEdit`, `plSet`, `plRandom`, `plSave`, pièces `PL_LOCK`), puce de la barre du haut, accueil et profil (`#playerBox`), emote et photo de groupe sur la victoire, carte PNG (`plCardSVG` → canvas → `plExport`), pseudo dans les dialogues (`loreShow`) et l'Arène (`board`) |
 | `js/99-combat2.js` | Combat I : super ×`SUPER_TUNE` et effet de famille du chef (`SUPER_FAM`), Ruée, Coup final (`killEnemy`), rage ennemie (`e.rage`, furie dans `enemyTurn`/`hitDino`), Garde (`guard`, touche G), épines (`f.thorn`), frise `c2Timeline`, recharges en cercle, infobulles, jauge « presque prête » |
+| `js/99-combat3.js` | Combat II : états ennemis `e.st` (`ST3` : brûlure, gel → `f.stun`, saignement, peur) déclenchés dans `afterAction`, décomptés dans `enemyTurn` ; résistances `c3Res` ; faiblesse par créature `c3Weak` (+25 % via `atkOf`) ; fiche d'ennemi `c3Sheet` (clic sur `.sEnemy`) ; terrains `TER3`/`f.ter` ; objets `ITEM3`/`f.item`/`c3Pick` (aussi pris par l'auto-combat) ; faiblesses dans le bestiaire |
 | `js/99-desktop.js` | réglages « Application Windows » (plein écran, dernière version, quitter) via `window.arkDesktop` ; lien vers la dernière version |
 | `js/99-layout.js` | mise en page du combat (classes `bl-*`, ordre visuel en CSS) : **doit rester le dernier script** |
 | `css/91-fonts.css` / `css/91-tex.css` | polices Orbitron et Exo 2 (base64) ; textures de particules (masques) |
@@ -70,7 +71,8 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `css/97-far.css` | Grand Nord : fonds des scènes `.z-toundra`/`.z-abysses`, neige et bulles (`.sc-snow`), annonce du gardien rallié `.farjoin`, gardiens `.farguards` ; chargé après `97-trials.css` |
 | `css/97-nest.css` | Nid d'élevage (parents, œufs animés par famille, gènes `.gtag`, liste des parents, révélation) et règles du Défi du jour ; chargé après `97-far.css` |
 | `css/97-player.css` | dresseur : puce de la barre du haut, éditeur, carte de profil, emote de victoire ; chargé après `97-nest.css` |
-| `css/97-combat2.css` | frise des tours ennemis, jauge de rage, recharges en cercle, Ruée et Coup final ; chargé en dernier |
+| `css/97-combat2.css` | frise des tours ennemis, jauge de rage, recharges en cercle, Ruée et Coup final ; chargé après `97-player.css` |
+| `css/97-combat3.css` | terrains (voile sur la scène), objets, fiche d'ennemi, HUD compact ; chargé en dernier |
 | `css/97-pc.css` / `css/97-juice.css` | mise en page PC chargée en dernier (navigation en colonne, contenu large, grilles) ; styles des sensations de combat, de la coupure et des cadres holographiques |
 | `css/96-skins.css` | 7 thèmes (`html[data-skin]`) avec images de fond en base64 (`tools/gen_backgrounds.py`) |
 | `desktop/main.js` | application Electron : fenêtre (taille mémorisée, F11, une seule instance), sauvegarde dans `%APPDATA%`, liens externes ouverts dans le navigateur, test de lancement `--smoke-test` |

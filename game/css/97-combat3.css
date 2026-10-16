@@ -1,0 +1,20 @@
+/* Combat II (js/99-combat3.js) : terrains, objets, fiche d'ennemi */
+.battlestage.ter-boue::after,.battlestage.ter-lave::after,.battlestage.ter-glace::after,.battlestage.ter-brume::after{content:"";position:absolute;inset:auto 0 0 0;height:34%;pointer-events:none;z-index:1}
+.battlestage.ter-boue::after{background:linear-gradient(transparent,#5a3a1a88)}
+.battlestage.ter-lave::after{background:linear-gradient(transparent,#ff4a1a66);animation:c3lava 2.4s ease-in-out infinite}
+.battlestage.ter-glace::after{background:linear-gradient(transparent,#cdeeff77)}
+.battlestage.ter-brume::after{height:100%;background:radial-gradient(ellipse at 50% 70%,#dfe6ff33,transparent 70%);animation:c3fog 6s ease-in-out infinite}
+@keyframes c3lava{50%{opacity:.6}}
+@keyframes c3fog{50%{transform:translateX(4%)}}
+html body button.c3item{margin-top:4px;padding:4px 10px;font-size:12px;border:1px solid #ffd15c;background:#ffd15c22;color:var(--txt);border-radius:12px;animation:c3bob 1.2s ease-in-out infinite}
+html body button.c3item small{opacity:.7;margin-left:4px}
+@keyframes c3bob{50%{box-shadow:0 0 12px #ffd15c}}
+.c3sheet .c3rows div{margin:5px 0;font-size:13px}
+.c3sheet .c3rows b{display:inline-block;min-width:96px;color:var(--acc)}
+.cx .cxw{display:block;margin-top:2px;color:#9dffc9;font-size:9px}
+@media (prefers-reduced-motion:reduce){.battlestage.ter-lave::after,.battlestage.ter-brume::after,html body button.c3item{animation:none}}
+/* HUD compact : frise, rage et objet sur une seule ligne */
+#battleArea .sHud .etl,#battleArea .sHud .rage{display:inline-flex;vertical-align:middle;margin:4px 12px 0 0}
+#battleArea .sHud .rage{width:200px}
+#battleArea .sHud .rage i{max-width:90px}
+html body #battleArea .sHud button.c3item{display:inline-block;vertical-align:middle;margin:4px 0 0}
