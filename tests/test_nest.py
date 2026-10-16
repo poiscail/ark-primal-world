@@ -117,7 +117,7 @@ async def main():
         r=await ev('''(()=>{const f=fight;f.sp=100;f.stun=9;f.enemies[f.wave].hp=f.enemies[f.wave].max;special();return f.log})()''')
         check('Surcharge : la super frappe 25 % plus fort','surcharge ×1,25' in r,r)
         await ev(DS%'crit')
-        r=await ev('''(()=>{const r=Math.random;Math.random=()=>0;fight.enemies[fight.wave].hp=fight.enemies[fight.wave].max;tapOrb(0);Math.random=r;return fight.log})()''')
+        r=await ev('''(()=>{const r=Math.random;Math.random=()=>0;fight.enemies[fight.wave].hp=fight.enemies[fight.wave].max=1e9;tapOrb(0);Math.random=r;return fight.log})()''')
         check('Coups critiques : pour toi et pour les ennemis','CRITIQUE ×1,8' in r and 'critique ennemi' in r,r)
         await ev(DS%'deep');dp=await ev('fight.enemies[0].max')
         check('Blessures profondes : ennemis −5 % de PV',abs(dp/base[0]['max']-T['deepHp'])<.01,(dp,base[0]))
