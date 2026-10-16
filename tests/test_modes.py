@@ -50,7 +50,7 @@ async def main():
         await ev('buyEv(4)');check('boutique événement: limite respectée',await ev('S.ev.bought[4]')==1)
         await ev('S.ev.clears=3');await ev('claimEv(3)');check('objectif événement',await ev('S.ev.claimed[3]===1'))
         await ev('S.ev.wk=wkNow()-1;evSync()');check('nouvelle semaine: remise à zéro',await ev('S.ev.tokens===0&&S.ev.clears===0&&Object.keys(S.ev.claimed).length===0'))
-        r=await ev('[0,1,2,3,4,5,6,7].map(i=>EVENTS[(wkNow()+i)%4].n)');check('rotation des 4 événements',len(set(r))==4,r)
+        r=await ev('[0,1,2,3,4,5,6,7].map(i=>EVENTS[(wkNow()+i)%EVENTS.length].n)');check('rotation des 8 événements',len(set(r))==8,r)
         # rendu complet
         for s in ['tower','arena','events','story','dungeon','missions']:
             await ev(f'go("{s}")')

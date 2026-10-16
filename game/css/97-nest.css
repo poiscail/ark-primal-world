@@ -1,0 +1,41 @@
+/* Nid d'élevage (js/99-nest.js) et règles du Défi du jour (js/99-events2.js) */
+.nestpair{display:flex;align-items:stretch;gap:8px;margin-top:8px}
+html body .nestpar{flex:1 1 0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:118px;padding:10px 8px;border:1px dashed var(--bd2);background:var(--surf2);color:var(--txt);text-align:center}
+html body .nestpar.on{border-style:solid;border-color:var(--acc);box-shadow:0 0 14px #67e5ff22}
+.nestpar .a{display:block;width:64px;height:64px;margin:0 auto 6px;font-size:52px;line-height:64px;filter:drop-shadow(0 2px 6px #0008)}
+.nestpar .a .pt,.nestpar .a svg,.nestpar .a img{width:64px;height:64px;vertical-align:top}
+.nestpar .nq{font-size:30px;opacity:.6}
+.nheart{align-self:center;font-size:24px;animation:nbeat 1.4s ease-in-out infinite}
+@keyframes nbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.22)}30%{transform:scale(.96)}45%{transform:scale(1.12)}}
+.nestinfo{margin:8px 0;padding:8px 10px;border-radius:10px;background:var(--surf2);border:1px solid var(--bd);line-height:1.6}
+.nestslot{border-color:#ffd15c55}
+.nestslot.ready{border-color:#ffd15c;box-shadow:0 0 20px #ffd15c33}
+.negg{position:relative;width:58px;height:58px;flex:0 0 58px;display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle at 50% 60%,#ffd15c33,transparent 70%)}
+.negg span{font-size:38px;display:inline-block;transform-origin:50% 90%;animation:nwobble 2.6s ease-in-out infinite}
+.nestslot.ready .negg span{animation:nhop .9s ease-in-out infinite}
+@keyframes nwobble{0%,70%,100%{transform:rotate(0)}76%{transform:rotate(-9deg)}82%{transform:rotate(8deg)}88%{transform:rotate(-5deg)}94%{transform:rotate(3deg)}}
+@keyframes nhop{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-6px) scale(1.06)}}
+.negg.f-T{background:radial-gradient(circle at 50% 60%,#ff647b44,transparent 70%)}
+.negg.f-C,.negg.f-A{background:radial-gradient(circle at 50% 60%,#ffb04d44,transparent 70%)}
+.negg.f-G,.negg.f-H{background:radial-gradient(circle at 50% 60%,#62e7a044,transparent 70%)}
+.negg.f-F{background:radial-gradient(circle at 50% 60%,#c58bff44,transparent 70%)}
+.negg.f-S,.negg.f-M{background:radial-gradient(circle at 50% 60%,#67e5ff44,transparent 70%)}
+html body button.nesthatch{background:linear-gradient(90deg,#ffb04d,#ffd15c);color:#2a1a00;border-color:#ffd15c;font-weight:800}
+.gtag{display:inline-block;padding:1px 6px;margin:1px 0;border-radius:8px;border:1px solid var(--bd2);background:var(--surf2);font-size:10px;white-space:nowrap}
+.gtag.on{border-color:#62e7a0;color:#9dffc9}
+.gtag.imp.on{border-color:#ffd15c;color:#ffe08a}
+.genes{margin-top:4px}
+.nestlist{display:flex;flex-direction:column;gap:6px;max-height:min(58vh,520px);overflow-y:auto;margin:8px 0}
+html body .nprow{display:flex;align-items:center;gap:10px;padding:8px 10px;text-align:left;background:var(--surf2);color:var(--txt);border:1px solid var(--bd)}
+html body .nprow:hover{border-color:var(--acc)}
+.nprow .a,.nbest .a{display:block;width:44px;height:44px;flex:0 0 44px;font-size:36px;line-height:44px;text-align:center}
+.nprow .a .pt,.nprow .a svg,.nprow .a img,.nbest .a .pt,.nbest .a svg,.nbest .a img{width:44px;height:44px;vertical-align:top}
+html body .nbest{display:flex;align-items:center;gap:10px;margin:6px 0;min-height:48px}
+.nestborn{text-align:center;margin:-2px 0 10px}
+.nmut{margin-top:6px;font-family:Bangers,var(--font),sans-serif;font-size:22px;letter-spacing:1px;color:#9dffc9;text-shadow:0 0 12px #62e7a0;animation:nmutin .7s ease-out both}
+@keyframes nmutin{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.nestev{border-color:#ff7aa8!important;box-shadow:0 0 16px #ff7aa833}
+.nestrules div{margin:3px 0}
+.drule{border-color:#ffd15c88!important}
+.drchip{border-color:#ffd15c!important}
+@media (prefers-reduced-motion:reduce){.nheart,.negg span,.nmut{animation:none}}
