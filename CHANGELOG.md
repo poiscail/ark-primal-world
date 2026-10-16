@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.29.0 — Combat : états, faiblesses, terrains et objets à ramasser
+- **États infligés par les orbes** : 🔥 Brûlure (orbe rouge avec avantage, 20 % : −3 % de PV par tour pendant 3 tours), 🧊 Gel (orbe bleue avec avantage, 12 % : l'ennemi saute son tour), 🩸 Saignement (orbe verte avec avantage, 20 % : −2,5 % par tour), 😱 Peur (orbe violette, 15 % : l'ennemi frappe 25 % moins fort pendant 2 tours). Effets moitié moins forts ou moins fréquents sur les boss.
+- **Résistances** : un ennemi de feu ne brûle pas, un ennemi d'eau ne gèle pas ; les golems, squelettes, méduses et cristaux ne saignent pas ; les morts-vivants et golems n'ont pas peur ; les bêtes de la toundra ne gèlent pas.
+- **Faiblesse de chaque créature** : une famille de dinos lui inflige +25 %. Elle est révélée après avoir vaincu la créature une fois (puce dans le combat, fiche, bestiaire des créatures).
+- **Fiche d'ennemi** : clique sur l'ennemi pour voir ses PV, son attaque, sa rage, sa faiblesse, ses résistances, son trait, sa compétence, ses états et le terrain.
+- **Terrains** (30 % des combats d'histoire, de donjon, d'événement, de Tour, du Grand Nord, du Cauchemar et du Labyrinthe) : Boue (🌿 +20 %, 🔥 −10 %), Coulée de lave (🔥 +15 %, tout le monde perd 2 % de PV par tour), Sol gelé (💧 +20 %, Gel deux fois plus fréquent), Brume (⚡ +20 %, Peur deux fois plus fréquente). Ils se voient sur la scène.
+- **Objets qui tombent pendant le combat** (12 % par tour ennemi, 3 tours pour les ramasser, sans perdre son tour) : 🪶 plume (+15 % de super), 🍖 viande (soigne le dino le plus blessé de 12 %), 💎 éclat (la prochaine orbe ×1,5). L'auto-combat les ramasse aussi.
+- Le haut de l'écran de combat est plus compact (frise, rage et objet sur une ligne). Succès « Pilleur de terrain », entrée du guide.
+- **Équilibrage** (simulation seulement, histoire, 20 combats par mesure, avec et sans ces nouveautés) : pas d'écart au-delà du bruit de mesure (équipe non éveillée au niveau 50 : 75 % contre 65 % ; niveau 70 : 25 % contre 50 % ; éveillée et forgée : 100 % partout). Pas de nouveau réglage.
+- Tests : `test_combat3` (23 vérifications, vrais clics). 41 suites.
+
 ## 0.28.0 — Combat : super de famille, Ruée, Garde et rage ennemie
 - **Super attaque renforcée** (×1,7) : elle ne faisait que 1,1 à 1,4 fois les dégâts de la meilleure orbe. Elle ajoute maintenant **un effet selon la famille du chef** : Saignement (théropodes, 3 tours), Brise-carapace (cératopsiens, +15 %), Rempart (ankylosaures, −50 % de dégâts 2 tours), Épines (stégosaures, 30 % renvoyés), Piqué (ptérosaures, +25 % de jauge), Séisme (sauropodes, étourdit), Chant de harde (hadrosaures, soin 15 %), Raz-de-marée (reptiles marins, retire le trait de l'ennemi et soigne 10 %). L'effet est écrit sur le bouton de super, et la jauge s'anime à partir de 90 %.
 - **Ruée** : la 3e orbe de la même couleur d'affilée frappe ×1,3 et rend 10 % de super (les orbes qui la déclenchent brillent).
