@@ -25,7 +25,7 @@ async def main():
         imgs=await ev('["neon","clair","jungle","volcan","abysses","mystique","desert"].every(k=>{const d=document.createElement("div");d.className="bg-"+k;document.body.appendChild(d);const ok=getComputedStyle(d).backgroundImage.includes("data:image/webp");d.remove();return ok})')
         check('7 images de fond présentes',imgs)
         # espèces
-        check('80 espèces',await ev('Object.keys(SPEC).length')==80)
+        check('84 espèces',await ev('Object.keys(SPEC).length')==84)
         check('portraits des nouvelles espèces',await ev('NEWSP.every(a=>portrait(a[0]).includes("<svg")&&!/NaN|undefined/.test(portrait(a[0])))'))
         check('emojis uniques',await ev('(()=>{const e=Object.values(SPEC).map(s=>s.e);return new Set(e).size===e.length})()'))
         check('nouvelles évolutions valides',await ev('["dimorph","kentro","elasmo"].every(k=>SPEC[EVO[k]])'))

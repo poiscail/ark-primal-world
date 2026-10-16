@@ -1,0 +1,21 @@
+/* Le Grand Nord (js/99-far.js) : décors de la toundra et des abysses, gardiens à rallier */
+.z-toundra{--sc:#ffffffaa;background-image:linear-gradient(160deg,#1c3a5a66,#0b1a2a 60%,#5a8fb844)}
+.z-abysses{--sc:#7fe8ff88;background-image:linear-gradient(160deg,#04203a88,#010810 60%,#0b4a6a44)}
+html[data-theme=light] .z-toundra{background-image:linear-gradient(160deg,#dff1ff,#f4fbff)}
+html[data-theme=light] .z-abysses{background-image:linear-gradient(160deg,#cfe9ff,#eef7ff)}
+.scene .sc-snow{position:absolute;inset:0;pointer-events:none}
+.z-toundra .sc-snow{background-image:radial-gradient(circle,#fff 0 1.4px,transparent 2px),radial-gradient(circle,#fff 0 1px,transparent 1.6px);background-size:60px 60px,90px 90px;animation:farSnow 6s linear infinite;opacity:.8}
+@keyframes farSnow{to{background-position:30px 60px,-20px 90px}}
+.z-abysses .sc-snow{background-image:radial-gradient(circle,transparent 0 2px,#bff8ff99 2.2px 3px,transparent 3.4px);background-size:70px 70px;animation:farBubble 7s linear infinite;opacity:.6}
+@keyframes farBubble{to{background-position:0 -70px}}
+body.noanim .sc-snow{animation:none!important}
+.farjoin{display:flex;align-items:center;gap:10px;margin:8px 0;padding:8px;border:1px solid #7fe8ff;border-radius:10px;background:#7fe8ff14;text-align:left}
+.farjoin .pt{display:block;width:52px;height:52px;flex:0 0 52px}.farjoin .pt svg{width:100%;height:100%}
+.farguards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.farg{text-align:center;padding:8px;border-radius:10px;background:var(--surf3,#10182a);border:1px solid var(--bd,#2d3d5e)}
+.farg .a{width:72px;height:72px;margin:0 auto 4px;display:grid;place-items:center;font-size:40px}
+.farg .a .pt,.farg .a svg{display:block;width:72px;height:72px}
+.farg.no .sil{display:block;filter:brightness(0) opacity(.45)}
+.farg b{display:block;font-size:12px}
+.farg small{display:block;font-size:10px;opacity:.8;margin-top:2px}
+.farmap .mnode .mn{font-size:15px}

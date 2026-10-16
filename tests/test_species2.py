@@ -16,7 +16,7 @@ async def main():
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)[:300]))
         await pg.goto(GAME);await pg.wait_for_timeout(400);await ev('setPref("anim",false);setPref("lore",false);WX_ON=false')
         # ---- espèces
-        check('80 espèces',await ev('Object.keys(SPEC).length')==80)
+        check('84 espèces',await ev('Object.keys(SPEC).length')==84)
         check('images toutes différentes',await ev('(()=>{const s=new Set(Object.values(SPEC).map(x=>x.e));return s.size===Object.keys(SPEC).length})()'))
         check('portraits SVG pour les 26 nouvelles',await ev('NEWSP2.every(a=>/<svg/.test(portrait(a[0])))'))
         bad=await ev('''(()=>{const R={"Commun":[74,125,14,21],"Rare":[90,175,19,31],"Épique":[168,225,30,41],"Légendaire":[205,295,36,50]};return NEWSP2.filter(a=>{const r=R[a[3]];return !r||a[5]<r[0]||a[5]>r[1]||a[6]<r[2]||a[6]>r[3]}).map(a=>a[0])})()''')
@@ -83,13 +83,24 @@ async def main():
         await ev(team(['titano','diplo','yuty']))
         r=await ev('''(()=>{fight=null;startBattle({mode:"story",n:15});let g=0;fight.hp[1]=0;const w=autoWant("revive",fight,fight.enemies[fight.wave],T3());while(fight&&!fight.over&&g++<300)autoPlay();return [w,fight.over]})()''')
         check('auto-combat : ranime un allié KO et termine le combat',r[0] is True and r[1] in ('win','lose'),r)
+        # ---- anti-enlisement : l'ennemi s'acharne après 40 actions (perd son trait, +20 % ATQ toutes les 5 actions)
+        r=await ev('''(()=>{fight=null;startBattle({mode:"story",n:15});const f=fight,e=f.enemies[f.wave];e.tr="heal";e.hp=e.max*.5;f.stun=0;const a0=e.atk;
+          f.turn=39;enemyTurn();const before=!!e.stall;f.turn=40;f.hp=f.mx.slice();enemyTurn();const a1=e.atk;f.turn=41;f.hp=f.mx.slice();enemyTurn();const a2=e.atk;
+          f.turn=45;f.hp=f.mx.slice();enemyTurn();renderBattle();return [before,!!e.stall,e.tr,a1/a0,a2/a0,e.atk/a0,!!document.querySelector("#battleArea .nwchip.hot")]})()''')
+        check('anti-enlisement : rien avant 40 actions',r[0] is False,r)
+        check('anti-enlisement : à 40 actions, l\'ennemi perd son trait et frappe +20 %',r[1] is True and r[2]=='' and abs(r[3]-1.2)<.02,r)
+        check('anti-enlisement : +20 % de nouveau 5 actions plus tard (pas avant)',abs(r[4]-1.2)<.02 and abs(r[5]-1.44)<.03,r)
+        check('anti-enlisement : puce « Acharné » dans le HUD',r[6] is True,r)
+        r=await ev('''(()=>{fight=null;S.stage=99;startBattle({mode:"story",n:60});let g=0;const f=fight;f.enemies.forEach(e=>{e.tr="heal";e.sh=0});
+          while(!fight.over&&g++<2000){fight.hp=fight.hp.map((h,i)=>h>0?Math.min(fight.mx[i],h+40):h);tapOrb(g%9)}return [fight.over,g]})()''')
+        check('anti-enlisement : un combat impossible à gagner finit quand même',r[0]=='lose' and r[1]<400,r)
         # ---- évolution réelle (vrai clic)
         await ev('S.team=[{id:1,type:"proto",level:15,xp:0,star:1},{id:2,type:"raptor",level:5,xp:0},{id:3,type:"trike",level:5,xp:0}];S.essence=100;S.shards=50;S.mat={bone:50,hide:50,crystal:50,amber:50};save();go("team");subSet("team","up")')
         await pg.wait_for_timeout(150);await pg.locator('#evoBox button:has-text("ÉVOLUER")').first.click()
         check('évolution : Protocératops → Chasmosaure (vrai clic)',await ev('S.team[0].type')=='chasmo')
         # ---- bestiaire et invocation
         await ev('subSet("team","dex")');await pg.wait_for_timeout(150)
-        check('bestiaire : 80 entrées',await ev('document.querySelectorAll("#colTools .dx").length')==80)
+        check('bestiaire : 84 entrées',await ev('document.querySelectorAll("#colTools .dx").length')==84)
         check('invocation : les nouvelles légendaires peuvent sortir',await ev('(()=>{const s=new Set();for(let i=0;i<600;i++)s.add(pickType("Légendaire"));return ["wuerho","titano","tropeo","dread","shanto","krono"].every(k=>s.has(k))})()'))
         check('administration : les nouvelles compétences sont proposées',await ev('(()=>{buildAdmin();return document.querySelectorAll("#adminDinos [data-field=\\"sk\\"]")[0].options.length})()')==22)
         # ---- chargement : talisman portant un nouvel attribut (déclaré par un module chargé après l'équipement)

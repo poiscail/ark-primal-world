@@ -12,7 +12,7 @@ async def main():
         await pg.goto(GAME);await pg.wait_for_timeout(300);await pg.evaluate('setPref("anim",false);setPref("lore",false)')
         ev=pg.evaluate
         # --- données
-        n=await ev('Object.keys(SPEC).length');check('80 espèces',n==80,n)
+        n=await ev('Object.keys(SPEC).length');check('84 espèces',n==84,n)
         bad=await ev('Object.keys(SPEC).filter(k=>!SK[SPEC[k].sk]||(SPEC[k].pa&&!PA[SPEC[k].pa]))');check('toutes les espèces ont compétence+attribut valides',bad==[],bad)
         used=await ev('[...new Set(Object.values(SPEC).map(s=>s.sk))].length');check('22 compétences utilisées',used==22,used)
         pas=await ev('[...new Set(Object.values(SPEC).map(s=>s.pa))].length');check('19 attributs utilisés',pas==19,pas)
@@ -67,7 +67,7 @@ async def main():
         r=await ev('document.querySelectorAll("#collection > .panel").length');check('collection: pagination à 12',r==12,r)
         await ev('colSet("lim",24)');r=await ev('document.querySelectorAll("#collection > .panel").length');check('collection: voir plus',r==24,r)
         await ev('colSet("r","Légendaire")');r=await ev('[...document.querySelectorAll("#collection .rarity")].every(e=>e.textContent=="Légendaire"||!e.closest(".panel"))');check('collection: filtre rareté',r)
-        await ev('colSet("r","all");colSet("book",true)');r=await ev('document.querySelectorAll("#colTools .dx").length');check('bestiaire affiche 80 espèces',r==80,r)
+        await ev('colSet("r","all");colSet("book",true)');r=await ev('document.querySelectorAll("#colTools .dx").length');check('bestiaire affiche 84 espèces',r==84,r)
         r=await ev('document.querySelectorAll("#colTools .dx.no").length');print('espèces non découvertes (attendu 16):',r)
         # --- admin
         await ev('S.team=[{id:1,type:"raptor",level:1,xp:0}];go("home");openAdmin();addAdminDino()');
@@ -89,7 +89,7 @@ async def main():
                    if(fight.hp.some(h=>!Number.isFinite(h))||!Number.isFinite(fight.enemies[fight.wave].hp))nan=true}
                   return {over:fight.over,nan,g}}''',[key,tier])
             if r['nan'] or not r['over']:bad.append((key,tier,r))
-        check('80 espèces × 2 niveaux: combats terminés, aucun NaN',bad==[],bad[:3])
+        check('84 espèces × 2 niveaux: combats terminés, aucun NaN',bad==[],bad[:3])
         # --- captures HUD
         await ev(setup+'S.stage=30;startBattle({mode:"story",n:31});useSkill(0);tapOrb(0)');await pg.screenshot(path='/tmp/ark_hud_battle.png',full_page=True)
         await ev('go("team")');await pg.screenshot(path='/tmp/ark_hud_team.png')

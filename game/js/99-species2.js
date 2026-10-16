@@ -106,7 +106,12 @@ const _keNw=killEnemy;killEnemy=function(){const f=fight;if(f&&f.mx){T3().forEac
 const _rbNw=renderBattle;renderBattle=function(){_rbNw();const f=fight;if(!f||!f.mx||f.over)return;const ch=document.querySelector("#battleArea .sHud .fchips");if(!ch||ch.querySelector(".nwchip"))return;const t=T3(),a=[];
  if(f.ewk>0)a.push(`<span class="chip good nwchip" title="${esc(SK.weaken.d)}">😱 Ennemi affaibli (${f.ewk})</span>`);
  if(f.taunt&&f.taunt.t>0&&t[f.taunt.k])a.push(`<span class="chip good nwchip" title="${esc(SK.fortify.d)}">⛰️ Ancrage : ${esc(sp(t[f.taunt.k]).name)} (${f.taunt.t})</span>`);
- if(f.rly>0)a.push(`<span class="chip good nwchip" title="${esc(SK.rally.d)}">🥁 Danse de guerre (${f.rly})</span>`);if(a.length)ch.insertAdjacentHTML("beforeend",a.join(""))};
+ if(f.rly>0)a.push(`<span class="chip good nwchip" title="${esc(SK.rally.d)}">🥁 Danse de guerre (${f.rly})</span>`);const ee=f.enemies[f.wave];if(ee&&ee.stall)a.push(`<span class="chip hot nwchip" title="Après ${STALL_T} actions contre le même ennemi, il perd son trait et frappe 20 % plus fort toutes les 5 actions.">⏳ Acharné</span>`);if(a.length)ch.insertAdjacentHTML("beforeend",a.join(""))};
+/* ---- anti-enlisement : après STALL_T actions contre le même ennemi (soins, Cri de ralliement contre un Régénérant…),
+   il s'acharne : il perd son trait et frappe 20 % plus fort toutes les 5 actions. Le Raid garde sa propre limite de tours. ---- */
+const STALL_T=40;
+const _etStall=enemyTurn;enemyTurn=function(){const f=fight;if(f&&!f.over&&!f.raid&&f.turn>=STALL_T){const e=f.enemies[f.wave];
+  if(e&&e.hp>0&&e.stT!==f.turn){e.stT=f.turn;if(!e.stall){e.stall=1;e.tr="";e.sh=0;f.log+=" · ⏳ L'ennemi s'acharne !"}if((f.turn-STALL_T)%5===0)e.atk=Math.round(e.atk*1.2)}}return _etStall()};
 /* ---- auto-combat et compétences ennemies ---- */
 if(typeof AUTO_PRIO!=="undefined"){AUTO_PRIO[0].push("revive");AUTO_PRIO[1].push("fortify","weaken","quake");AUTO_PRIO[2].push("rally");AUTO_PRIO[3].push("pierce","multi");AUTO_PRIO[4].push("convert")}
 if(typeof autoWant==="function"){const _awNw=autoWant;autoWant=function(id,f,e,t){const r=t.map((d,k)=>alive(k)?f.hp[k]/f.mx[k]:1),low=Math.min(...r),big=!f.stun&&3-f.turn%3===1;
