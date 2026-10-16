@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.22.0 — Histoire Cauchemar : l'île corrompue
+Une deuxième histoire de 100 niveaux pour la suite de la progression : bouton **🌑 Cauchemar** en haut de l'écran Histoire.
+- **Les 100 niveaux sur une île corrompue** : carte et décors assombris, ennemis bien plus forts (niveau des ennemis = niveau × 1,2 + 6). Un chapitre de 10 niveaux s'ouvre quand son gardien a été vaincu en mode normal.
+- **Ennemis plus tactiques** : chaque ennemi a un trait (Carapace, Venimeux, Régénérant, Berserker) **et** une compétence (frappe lourde, coup de zone, choc, brûlure, venin, dévoration, coup fatal, rugissement, vol de super, orbes brouillées…), annoncée dans le HUD quelques tours à l'avance : il faut se protéger au bon moment. Les gardiens gardent leurs 3 phases et ont aussi une compétence.
+- **Étoiles noires** séparées (★ à ★★★ par niveau) et paliers tous les 30 étoiles.
+- **Éclats d'ombre 🌑** : 3 à la première victoire (12 pour un gardien, davantage plus loin), 1 en rejouant ; tickets à la première victoire des niveaux 5, 10, 15…
+- **Boutique de l'ombre** : **Rite d'ombre** (le dino de ton choix, sans variante, devient une variante Ombre : ATQ ×1,3), œuf épique, talisman légendaire, tickets.
+- Bouton « Cauchemar suivant » après une victoire, enchaînement automatique des niveaux, 4 succès (dont le titre « Seigneur des Cauchemars »), missions quotidienne et permanentes, entrée du guide.
+- **Équilibrage** (simulation seulement, 20 combats par mesure) : une équipe au niveau des ennemis (éveil + forge) gagne 100 % jusqu'au Cauchemar 50, 80 % au 70 et 75 % au 100 ; l'équipe qui vient de finir le chapitre normal gagne 100 % au Cauchemar 5 et 95 % au 10, puis il faut la renforcer (0 % dès le 30). Un premier réglage plus dur (40-50 % dès le niveau 50) a été écarté. À valider avec de vrais joueurs.
+- Tests : `test_nightmare` (31 vérifications, vrais clics) ; simulation `tests/test_balance_nightmare.py`. 34 suites.
+
 ## 0.21.0 — Labyrinthe des reliques (mode rejouable à l'infini)
 Nouveau mode inspiré de Slay the Spire et de Hades : Aventure > 🌀 Labyrinthe, dès le niveau 10 de l'histoire.
 - **Une course en 3 actes** (Jungle, Volcan, Obélisque). Chaque acte est une carte de 6 étapes à embranchements, puis un gardien 👑. On choisit sa route parmi ⚔️ combats (2 ennemis), 💀 élites (3 ennemis, la dernière avec un trait et une compétence), ❓ mystères, 🏕️ campements, 🛒 marchands et 💎 trésors.

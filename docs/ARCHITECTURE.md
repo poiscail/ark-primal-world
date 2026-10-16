@@ -50,6 +50,7 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `js/99-leader.js` | chef d'équipe (`leaderInfo`, `LEAD_PCT`), liens entre voisins (`linksOf`, `LINK_PCT`), bonus appliqués au premier rendu du combat (`fight._tm`), météo de zone (`WX`, `wxOf` paresseux car les modes transforment un combat d'histoire ; `WX_ON` coupé par les simulations, `WX_FORCE` pour les tests), panneau `#leadBox` |
 | `js/99-pouch.js` | sacoche de combat : `POUCH` (4 objets), fabrication `pouchCraft` (Équipe > Sac, `#pouchBox`), utilisation `pouchUse` (3 par combat, sans prendre le tour), fenêtre `#pouchPop` hors de `#battleArea` |
 | `js/99-maze.js` | Labyrinthe des reliques (rogue-lite) : course `S.maze.run` (carte `mzMap` de 6 étapes + gardien, PV conservés par place, reliques `RELICS`, mystères `MZ_EV`, marchand, campement), combats via `MODES.maze` (victoire : `eventWin` remplacé ; défaite : `settleLose` remplacé ; même case = reprise du combat en cours), effets des reliques par wrappers gardés par `mzOn(fight)` (statistiques `f.mzSt` calculées au début du combat), profondeurs `mzDepth`, marques et boutique permanente `MZ_UP`/`MZ_SHOP`, codex |
+| `js/99-nightmare.js` | Histoire Cauchemar : `S.nm` (progression, étoiles noires, éclats d'ombre), `MODES.nightmare` (ennemis de niveau `NM_EQ(n)`, trait + compétence pour chacun), victoire via `eventWin` remplacé, bouton Normal/Cauchemar et carte corrompue (enveloppe de `renderStory`, `nmView`), boutique de l'ombre et Rite d'ombre, `chainNext` étendu |
 | `js/99-desktop.js` | réglages « Application Windows » (plein écran, dernière version, quitter) via `window.arkDesktop` ; lien vers la dernière version |
 | `js/99-layout.js` | mise en page du combat (classes `bl-*`, ordre visuel en CSS) : **doit rester le dernier script** |
 | `css/91-fonts.css` / `css/91-tex.css` | polices Orbitron et Exo 2 (base64) ; textures de particules (masques) |
@@ -57,6 +58,7 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `css/91-fonts-fx.css` | police Bangers (sous-ensemble latin, base64) pour les dégâts et la super attaque |
 | `css/97-content.css` | sacoche (bouton, fenêtre, atelier), puces du chef/des liens/de la météo, effets de météo sur la scène (`.sWx`, `.wx-*`) |
 | `css/97-maze.css` | écran du labyrinthe (carte horizontale, cases, cartes de reliques, mystères, marchand, codex) ; chargé après `97-content.css` |
+| `css/97-nightmare.css` | mode Cauchemar : bouton Normal/Cauchemar, carte et scène de combat corrompues, Rite d'ombre ; chargé après `97-maze.css` |
 | `css/97-pc.css` / `css/97-juice.css` | mise en page PC chargée en dernier (navigation en colonne, contenu large, grilles) ; styles des sensations de combat, de la coupure et des cadres holographiques |
 | `css/96-skins.css` | 7 thèmes (`html[data-skin]`) avec images de fond en base64 (`tools/gen_backgrounds.py`) |
 | `desktop/main.js` | application Electron : fenêtre (taille mémorisée, F11, une seule instance), sauvegarde dans `%APPDATA%`, liens externes ouverts dans le navigateur, test de lancement `--smoke-test` |
