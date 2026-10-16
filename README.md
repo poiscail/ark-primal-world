@@ -35,6 +35,7 @@ Souris partout ; au clavier pendant un combat :
 - **Combat** : plateau de 9 orbes avec boost par couleur, éléments (🔥 > 🌿 > 💧 > 🔥), combos, synergie, super attaque, ennemis à traits (Carapace, Venimeux, Régénérant, Berserker), boss en 3 phases, **auto-combat**, vitesse ×1/×2/×3, **enchaînement automatique** des combats.
 - **Stratégie d'équipe** : le 1er dino est le **chef** (bonus aux dinos de sa famille ou de son élément selon sa rareté), **liens** entre voisins de même famille ou de même élément, **météo** du jour par zone qui renforce certaines orbes, **sacoche de combat** (herbe de soin, tonique de rage, pierre fumigène, éclat d'orbe, fabriqués avec les matériaux, 3 par combat).
 - **Monde** : 28 créatures ennemies dessinées (dont mammouths, smilodons, calmars géants et mégalodons du Grand Nord) et dinosaures corrompus, attaques animées par famille (morsure, charge, massue, épines, piqué, séisme, cri, jet d'eau), décors de zone, bestiaire des créatures.
+- **Mon dresseur** : pseudo, nom de l'île, apparence personnalisable (peau, coiffure, tenue, accessoire, décor, pièces à débloquer), emote de victoire, compagnon, carte de dresseur et photo de groupe en image.
 - **Progression** : missions quotidiennes et permanentes, connexion quotidienne, « À faire aujourd'hui », 69 succès et titres, rang du survivant.
 - **Présentation** : mise en page PC (navigation à gauche, écrans larges), 7 thèmes (Néon, Clair, Jungle, Volcan, Abysses, Mystique, Désert), polices Orbitron / Exo 2 / Bangers, effets à textures, musique et sons générés par le jeu, tutoriel et guide.
 - **Sensations de combat** : gel à l'impact, secousses, flash de l'ennemi touché, étincelles, super attaque mise en scène façon Dokkan (portrait, nom de l'attaque), invocation dont la couleur peut monter d'un cran, cadres légendaires holographiques, parallaxe à la souris (tout est désactivable dans les Réglages).
@@ -45,5 +46,5 @@ Souris partout ; au clavier pendant un combat :
 - `desktop/` : l'application Electron (fenêtre, plein écran, sauvegarde, test de lancement `--smoke-test`).
 - `tools/build.py` : construit l'installateur et le portable (`dist/ARK_Windows/`, non versionné) ; `tools/releases.py` publie une page par version ; `tools/gen_backgrounds.py` génère les images de fond des thèmes.
 - `.github/workflows/windows-exe.yml` : à chaque envoi, construit et teste l'exe sur Windows ; depuis `main`, publie les pages de versions.
-- Tests : `tools/run_tests.sh` (38 suites Playwright, Python 3 + Chromium), `tests/test_balance*.py` (simulations d'équilibrage).
+- Tests : `tools/run_tests.sh` (39 suites Playwright, Python 3 + Chromium), `tests/test_balance*.py` (simulations d'équilibrage).
 - Licences des ressources intégrées : [docs/LICENSES.md](docs/LICENSES.md). Historique détaillé : [CHANGELOG.md](CHANGELOG.md).

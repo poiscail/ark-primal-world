@@ -47,7 +47,7 @@ function createWindow() {
 function setupDownloads() {
   session.defaultSession.on("will-download", (e, item) => {
     if (SMOKE) { item.setSavePath(path.join(app.getPath("userData"), item.getFilename())); return }
-    item.setSaveDialogOptions({ title: "Exporter la sauvegarde", defaultPath: path.join(app.getPath("documents"), item.getFilename()) });
+    item.setSaveDialogOptions({ title: /\.png$/i.test(item.getFilename()) ? "Enregistrer l'image" : "Exporter la sauvegarde", defaultPath: path.join(app.getPath("documents"), item.getFilename()) });
   });
 }
 ipcMain.on("ark:fullscreen", () => { if (win) win.setFullScreen(!win.isFullScreen()) });

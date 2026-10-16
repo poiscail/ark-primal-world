@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.27.0 — Mon dresseur : pseudo, apparence et carte de profil
+Clique sur ton avatar en haut à gauche (ou Accueil > Profil) pour créer ton dresseur.
+- **Pseudo** (3 à 16 caractères) et **nom de ton île**. Le pseudo s'affiche dans la barre du haut, sur l'accueil (« Bienvenue, … »), dans le classement de l'Arène, et remplace « survivant » dans les dialogues de l'histoire. Un rappel « À faire » invite à le choisir.
+- **Apparence du dresseur**, dessinée par le jeu : 6 couleurs de peau, 6 coiffures, 8 couleurs de cheveux, 6 tenues, 8 couleurs de tenue, 7 accessoires, 6 décors, et un bouton « au hasard ». Des pièces se débloquent en progressant : armure d'os (histoire 30), cape d'ombre (Cauchemar 10), manteau de fourrure et combinaison de plongée (Grand Nord 10 et 21), aurore boréale (Grand Nord 40), casque de l'arène (10 victoires), plume (un œuf éclos au Nid), couronne de la Graine (histoire 100).
+- **Emote de victoire** (8, dont 2 à débloquer) : ton dresseur la lance sur l'écran de victoire.
+- **Compagnon** : un dino de ta collection qui sautille à côté de toi sur l'accueil et figure sur ta carte.
+- **Carte de dresseur en image** (PNG) : avatar, pseudo, titre, île, chiffres clés et équipe. **Photo de groupe** après chaque boss vaincu.
+- Succès « Un nom pour l'histoire », entrée du guide. Dans l'application Windows, l'enregistrement d'une image ouvre la fenêtre « Enregistrer l'image » (non testé à la main sous Windows : seule la construction automatique l'a lancé).
+- Tests : `test_player` (21 vérifications, vrais clics, PNG vérifié). 39 suites.
+
 ## 0.26.0 — Le Nid d'élevage : gènes, mutations et lignées
 Quêtes > 🥚 Nid, dès le niveau 15 de l'histoire (2e nid au niveau 40) : élève tes propres dinos.
 - **Couvées** : deux dinos de la même famille (niveau 10 ou plus) pondent un œuf. Le petit est de l'une des deux espèces et naît au niveau de la moitié du plus faible des parents. Incubation de 20 min (commun) à 6 h (légendaire), qui continue jeu fermé ; on peut l'accélérer avec de l'essence (1 🔮 par quart d'heure restant). Coût en cuir, os, ambre et cristaux selon la rareté. Les parents veillent sur l'œuf jusqu'à l'éclosion. Les 4 gardiens du Grand Nord ne pondent pas.
