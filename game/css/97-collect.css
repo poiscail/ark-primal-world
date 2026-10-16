@@ -1,0 +1,17 @@
+/* Collection I (js/99-collect.js) */
+.cocard.fav{box-shadow:inset 0 0 0 2px #ffd15c55}
+.cotags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}.cotags .chip{font-size:10px}.cotags .chip.fav{color:#ffd15c;border-color:#ffd15c}
+.cobtn button{font-size:11px;padding:6px 8px}html body .cobtn button.on{border-color:#ffd15c;color:#ffd15c}
+.subhide2{display:none !important}
+.cotools{margin-top:6px}.cotools select{max-width:200px}
+.cofavs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}html body .cofavs button{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;font-size:11px}
+.cofavs .pt,.cofavs svg{width:22px;height:22px;display:inline-block}
+.cocmp{width:100%;border-collapse:collapse;margin:6px 0}.cocmp td,.cocmp th{padding:4px 6px;text-align:center;border-bottom:1px solid #fff1;font-size:12px}
+.cocmp th{color:var(--muted,#9aa6c0);font-weight:600}.cocmp td.best{color:#6dffa0;font-weight:800}.cocmp .pt,.cocmp svg{width:56px;height:56px;display:block;margin:0 auto}
+.costat{display:grid;grid-template-columns:120px 1fr 54px;gap:8px;align-items:center;font-size:12px;margin:3px 0}
+.covars{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.covars span{border:1px solid;border-radius:10px;padding:2px 8px;font-size:11px;font-weight:700}.covars span.no{opacity:.4}
+.coaff{border-left:3px solid #ff7ab8;margin-top:8px}
+.v-fossil svg,.v-fossil img{filter:sepia(.8) saturate(.6) brightness(1.05)}
+.v-crystal svg,.v-crystal img{filter:hue-rotate(160deg) saturate(1.3) brightness(1.15) drop-shadow(0 0 4px #9fe8ff)}
+.v-lava svg,.v-lava img{filter:hue-rotate(-30deg) saturate(1.8) drop-shadow(0 0 5px #ff7a3c)}
+.v-spectral svg,.v-spectral img{filter:grayscale(.6) brightness(1.2) opacity(.8) drop-shadow(0 0 6px #c9b8ff)}

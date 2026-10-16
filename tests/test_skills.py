@@ -12,7 +12,7 @@ async def main():
         await pg.goto(GAME);await pg.wait_for_timeout(300);await pg.evaluate('setPref("anim",false);setPref("lore",false)')
         ev=pg.evaluate
         # --- données
-        n=await ev('Object.keys(SPEC).length');check('84 espèces',n==84,n)
+        n=await ev('Object.keys(SPEC).length');check('100 espèces',n==100,n)
         bad=await ev('Object.keys(SPEC).filter(k=>!SK[SPEC[k].sk]||(SPEC[k].pa&&!PA[SPEC[k].pa]))');check('toutes les espèces ont compétence+attribut valides',bad==[],bad)
         used=await ev('[...new Set(Object.values(SPEC).map(s=>s.sk))].length');check('22 compétences utilisées',used==22,used)
         pas=await ev('[...new Set(Object.values(SPEC).map(s=>s.pa))].length');check('19 attributs utilisés',pas==19,pas)
@@ -49,7 +49,7 @@ async def main():
         s=await ev('window.__s');ov=await ev('window.__over');expected=await ev('Math.round((CONFIG.battleStone+2)*1.2)');check('pillard +20% de pierres',ov=='win' and s==expected,(s,expected,ov))
         # --- variantes
         await ev('window.__c={};for(let i=0;i<20000;i++){const v=rollVariant();__c[v]=(__c[v]||0)+1}');c=await ev('window.__c')
-        check('variantes: ~78,5% normal',.76<c['normal']/20000<.81,c);check('variantes: alpha ~9%',.07<c['alpha']/20000<.11,c);check('variantes: prismatique rare',0<c.get('prism',0)/20000<.015,c)
+        check('variantes: ~75,4% normal (4 variantes de plus en 0.35)',.73<c['normal']/20000<.78,c);check('variantes: alpha ~9%',.07<c['alpha']/20000<.11,c);check('variantes: prismatique rare',0<c.get('prism',0)/20000<.015,c)
         await ev('S.team=[{id:1,type:"raptor",level:5,xp:0,v:"shadow"}];S.nextId=5');
         r=await ev('({n:sp(S.team[0]).name,e:sp(S.team[0]).e.length>2,html:art(sp(S.team[0]).e)})');check('variante: nom + rendu coloré',r['n']=='Raptor Ombre' and 'v-shadow' in r['html'],r)
         st=await ev('(()=>{const a=stats({type:"raptor",level:5,xp:0}),b=stats({type:"raptor",level:5,xp:0,v:"shadow"});return b.atk>a.atk&&b.def<a.def})()');check('ombre: +ATQ -DÉF',st)
@@ -67,7 +67,7 @@ async def main():
         r=await ev('document.querySelectorAll("#collection > .panel").length');check('collection: pagination à 12',r==12,r)
         await ev('colSet("lim",24)');r=await ev('document.querySelectorAll("#collection > .panel").length');check('collection: voir plus',r==24,r)
         await ev('colSet("r","Légendaire")');r=await ev('[...document.querySelectorAll("#collection .rarity")].every(e=>e.textContent=="Légendaire"||!e.closest(".panel"))');check('collection: filtre rareté',r)
-        await ev('colSet("r","all");colSet("book",true)');r=await ev('document.querySelectorAll("#colTools .dx").length');check('bestiaire affiche 84 espèces',r==84,r)
+        await ev('colSet("r","all");colSet("book",true)');r=await ev('document.querySelectorAll("#colTools .dx").length');check('bestiaire affiche 100 espèces',r==100,r)
         r=await ev('document.querySelectorAll("#colTools .dx.no").length');print('espèces non découvertes (attendu 16):',r)
         # --- admin
         await ev('S.team=[{id:1,type:"raptor",level:1,xp:0}];go("home");openAdmin();addAdminDino()');
@@ -89,7 +89,7 @@ async def main():
                    if(fight.hp.some(h=>!Number.isFinite(h))||!Number.isFinite(fight.enemies[fight.wave].hp))nan=true}
                   return {over:fight.over,nan,g}}''',[key,tier])
             if r['nan'] or not r['over']:bad.append((key,tier,r))
-        check('84 espèces × 2 niveaux: combats terminés, aucun NaN',bad==[],bad[:3])
+        check('100 espèces × 2 niveaux: combats terminés, aucun NaN',bad==[],bad[:3])
         # --- captures HUD
         await ev(setup+'S.stage=30;startBattle({mode:"story",n:31});useSkill(0);tapOrb(0)');await pg.screenshot(path='/tmp/ark_hud_battle.png',full_page=True)
         await ev('go("team")');await pg.screenshot(path='/tmp/ark_hud_team.png')

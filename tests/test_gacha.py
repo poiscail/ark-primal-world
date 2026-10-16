@@ -33,7 +33,7 @@ async def main():
         await ev(base);r=await ev('''()=>{let bad=0;S.mat.crystal=9999;for(const el of ["redorb","blueorb","greenorb","purpleorb","goldorb"]){gEl=el;for(let i=0;i<300;i++){const k=pullEl(el,false);if(SPEC[k].element!==el)bad++}}return bad}''');check('bannière élémentaire: 0 intrus sur 1500 tirages',r==0,r)
         await ev(base+'gEl="blueorb"');await ev('elPull(10)');r=await ev('({c:S.mat.crystal,ok:S.team.slice(1).every(d=>SPEC[d.type].element==="blueorb")})');check('x10 élémentaire: -27 cristaux, tous bleus',r['c']==972 and r['ok'],r)
         # --- variantes x2,5
-        r=await ev('''()=>{let n=0,m=0;for(let i=0;i<20000;i++){if(rollVariant(2.5)!=="normal")n++;if(rollVariant(1)!=="normal")m++}return [n/20000,m/20000]}''');check('bannière variantes: ~54% vs ~21,5% de base',.5<r[0]<.58 and .19<r[1]<.24,r)
+        r=await ev('''()=>{let n=0,m=0;for(let i=0;i<20000;i++){if(rollVariant(2.5)!=="normal")n++;if(rollVariant(1)!=="normal")m++}return [n/20000,m/20000]}''');check('bannière variantes: ~58% vs ~25% de base (9 variantes depuis 0.35)',.54<r[0]<.63 and .22<r[1]<.28,r)
         await ev(base);await ev('varPull(10)');r=await ev('({a:S.mat.amber,n:S.team.length})');check('x10 variantes: -36 ambre',r['a']==963 and r['n']==11,r)
         # --- tirage gratuit
         await ev(base);await ev('freePull()');r=await ev('({n:S.team.length,t:S.tickets,d:S.freeDay})');check('tirage gratuit: 1 dino, 0 ticket dépensé',r['n']==2 and r['t']==500,r)

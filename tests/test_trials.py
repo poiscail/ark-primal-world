@@ -62,7 +62,7 @@ async def main():
         check('« Rétablir mon équipe » (vrai clic)',await ev('S.team.slice(0,3).map(d=>d.id)')==t0 and await ev('S.trial.prev')==None)
         # ---- médailles, succès, sauvegarde
         check('médailles comptées',await ev('trMedals()')==await ev('Object.values(S.trial.done).reduce((a,b)=>a+b+1,0)'))
-        await ev('Object.keys(FAMNAME).forEach(k=>S.trial.done["fam_"+k]=1)');check('succès « Toutes familles » atteignable',await ev('ACH.find(a=>a[0]==="tr2")[3]()')==8)
+        await ev('"TCAGFSHM".split("").forEach(k=>S.trial.done["fam_"+k]=1)');check('succès « Toutes familles » atteignable',await ev('ACH.find(a=>a[0]==="tr2")[3]()')==8)
         await ev('save()');await pg.reload();await pg.wait_for_timeout(400)
         check('progression conservée après rechargement',await ev('S.trial.done.rar_c')==1)
         await ev('setPref("anim",false);go("trials")')

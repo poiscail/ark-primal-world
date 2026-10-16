@@ -15,7 +15,7 @@ async def main():
         b=await p.chromium.launch();pg=await b.new_page(viewport={'width':1280,'height':800});ev=pg.evaluate
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
         await pg.goto(GAME);await pg.wait_for_timeout(300);await ev(SEEN)
-        check('8 familles reliées à une animation',await ev('Object.keys(FAMFX).length')==8 and await ev('Object.values(FAMFX).every(k=>typeof ATK[k]==="function")'))
+        check('10 familles reliées à une animation (mammifères et insectes depuis 0.35)',await ev('Object.keys(FAMFX).length')==10 and await ev('Object.values(FAMFX).every(k=>typeof ATK[k]==="function")'))
         for kind,(sp,cls) in FAM.items():
             await ev(team([sp,sp,sp]));await ev('startBattle({mode:"story",n:30});fight.enemies.forEach(e=>{e.hp=e.max=999999});fight.stun=5;renderBattle()');await pg.wait_for_timeout(250)
             check('famille de %s : %s'%(sp,kind),await ev('atkKind(S.team[0])')==kind)

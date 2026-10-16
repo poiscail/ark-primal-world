@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.35.0 — La collection : nouvelles familles, style, albums et mythiques
+- **Deux nouvelles familles jouables** : 🦣 **Mammifères** (Mammouth laineux, Smilodon, Mégacéros, Mégathérium, Ours des cavernes) et 🪲 **Insectes** (Arthropleura, Meganeura, Titanomyrma, Mante géante), avec leurs portraits, leur effet de chef (Charge de horde, Nuée), leur super (Piétinement : +20 % et étourdit ; Essaim : poison 3 tours) et leurs liens (Horde, Essaim).
+- **4 nouvelles variantes** : Fossile, Cristal, Lave, Spectral (environ 1 % chacune).
+- **Sur chaque carte** : ✏️ surnom, ⭐ favori (épinglé en haut de la collection), 🔒 verrou (empêche le recyclage), ⚖️ comparaison avec un autre dino, 💕 **affection** (monte à chaque victoire ensemble : 4 niveaux, jusqu'à +4 % de PV et d'attaque, avec une réplique), 📊 statistiques d'utilisation (combats, victoires, K.O.).
+- **Galerie & style** : vue 3D du dino qui suit la souris, **6 couleurs** et **6 accessoires** (collier, casque, selle, couronne, écharpe, lunettes ; 30 🔮 pour débloquer chacun), visibles en combat ; **taille réelle** comparée à un humain et **faits scientifiques** (aussi dans la fiche « Comment le jouer »).
+- **Portraits vivants** (respiration au repos) et **cri de chaque famille** (son synthétisé) quand on touche un portrait.
+- **Collection** : filtres par famille, élément, compétence et passif ; tris par gènes, génération, affection ou favoris ; **recyclage intelligent** (garde le meilleur exemplaire de chaque espèce et tout ce qui est protégé) ; **statistiques de collection** (raretés, familles, variantes) ; **albums par famille** (récompense quand une famille est complète) ; 📸 **mode photo** (ton équipe dans un décor au choix, image PNG).
+- **Boutique saisonnière** (collection et événements) : 4 espèces de saison (Citrouillosaure en automne, Givrosaure en hiver, Fleurosaure au printemps, Solarosaure en été), 120 🧩 pendant leur saison, 300 🧩 le reste de l'année ; jamais tirées en invocation.
+- **3 dinos mythiques** obtenus par des quêtes (Wyrm de la Graine, Roi des Abysses, Premier Croc).
+- **Évolutions** : une **2e branche** pour les espèces qui évoluent (autre espèce de même famille et même rareté, mêmes conditions) et des **évolutions par fossile rare** (Mégacéros ou Mégathérium → Mammouth, Titanomyrma → Arthropleura, Meganeura → Mante géante, Smilodon → Ours des cavernes, Compsognathus → Raptor). Fossiles rares : fossile légendaire des fouilles, 1 chance sur 10 sur un boss.
+- 100 espèces en tout. 6 succès, entrées du guide.
+- Tests : `test_collect` (17 vérifications) et `test_collect2` (25 vérifications), vrais clics ; 4 anciens tests mis à jour (nombre d'espèces). 54 suites.
+
 ## 0.34.0 — Nouveaux modes de jeu et mini-jeux
 - **Écran « Modes »** (Aventure > Modes) :
   - 🔥 **Survie** : vagues infinies avec une seule équipe ; les PV restent d'une série à l'autre (+10 % entre deux séries), gardien toutes les 5 séries, récompense selon le nombre de séries, record personnel.

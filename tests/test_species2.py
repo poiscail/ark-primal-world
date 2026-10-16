@@ -16,7 +16,7 @@ async def main():
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)[:300]))
         await pg.goto(GAME);await pg.wait_for_timeout(400);await ev('setPref("anim",false);setPref("lore",false);WX_ON=false')
         # ---- espèces
-        check('84 espèces',await ev('Object.keys(SPEC).length')==84)
+        check('100 espèces',await ev('Object.keys(SPEC).length')==100)
         check('images toutes différentes',await ev('(()=>{const s=new Set(Object.values(SPEC).map(x=>x.e));return s.size===Object.keys(SPEC).length})()'))
         check('portraits SVG pour les 26 nouvelles',await ev('NEWSP2.every(a=>/<svg/.test(portrait(a[0])))'))
         bad=await ev('''(()=>{const R={"Commun":[74,125,14,21],"Rare":[90,175,19,31],"Épique":[168,225,30,41],"Légendaire":[205,295,36,50]};return NEWSP2.filter(a=>{const r=R[a[3]];return !r||a[5]<r[0]||a[5]>r[1]||a[6]<r[2]||a[6]>r[3]}).map(a=>a[0])})()''')
@@ -100,7 +100,7 @@ async def main():
         check('évolution : Protocératops → Chasmosaure (vrai clic)',await ev('S.team[0].type')=='chasmo')
         # ---- bestiaire et invocation
         await ev('subSet("team","dex")');await pg.wait_for_timeout(150)
-        check('bestiaire : 84 entrées',await ev('document.querySelectorAll("#colTools .dx").length')==84)
+        check('bestiaire : 100 entrées',await ev('document.querySelectorAll("#colTools .dx").length')==100)
         check('invocation : les nouvelles légendaires peuvent sortir',await ev('(()=>{const s=new Set();for(let i=0;i<600;i++)s.add(pickType("Légendaire"));return ["wuerho","titano","tropeo","dread","shanto","krono"].every(k=>s.has(k))})()'))
         check('administration : les nouvelles compétences sont proposées',await ev('(()=>{buildAdmin();return document.querySelectorAll("#adminDinos [data-field=\\"sk\\"]")[0].options.length})()')==await ev('Object.keys(SK).length'))
         # ---- chargement : talisman portant un nouvel attribut (déclaré par un module chargé après l'équipement)
