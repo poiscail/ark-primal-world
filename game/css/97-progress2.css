@@ -1,0 +1,7 @@
+/* Progression II (js/99-progress2.js) */
+.p2adv{border-left:4px solid #7fd3ff}.p2adv .bigicon,.p2ret .bigicon{width:44px;height:44px;flex-basis:44px;font-size:22px}.p2adv .row{gap:8px}
+.p2ret{border-left:4px solid #ff536c;animation:awglow 1.6s ease-in-out infinite}.p2week{border-left:4px solid #ffd15c}.p2week .tiny{margin:4px 0}
+.p2goal{display:flex;align-items:center;gap:8px;margin:6px 0}.p2goal .grow{min-width:0}
+.p2line{margin-top:4px;opacity:.85}
+.pwchart{width:100%;height:auto;background:#0b1222;border-radius:10px;margin-top:6px}
+html body .smap .mnode.p2mst::after{content:"💎";position:absolute;right:-6px;bottom:-4px;font-size:13px;filter:drop-shadow(0 1px 2px #000)}

@@ -20,7 +20,7 @@ async def main():
         n0=await ev('window.__osc');await ev('setPref("sound",false)');await ev('tapOrb(1)');check('son coupé: aucun oscillateur',await ev('window.__osc')==n0)
         await ev('setPref("sound",true)')
         # difficulté
-        d={};await ev('if(typeof C4!=="undefined")C4.duoP=0')  # les duos (0.30) changent les PV/ATQ au hasard
+        d={};await ev('if(typeof C4!=="undefined")C4.duoP=0;if(typeof F2!=="undefined"){F2.newP=0;F2.goldP=0;F2.callP=0}')  # les duos (0.30) changent les PV/ATQ au hasard
         for k in ['easy','normal','hard']:
             await ev(f'setPref("diff","{k}")');d[k]=await ev('(()=>{startBattle({mode:"story",n:20});return [fight.enemies[0].hp,fight.enemies[0].atk]})()')
         check('difficulté: facile < normal < difficile (PV)',d['easy'][0]<d['normal'][0]<d['hard'][0],d)

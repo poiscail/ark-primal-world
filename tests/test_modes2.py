@@ -69,7 +69,7 @@ async def main():
         n0=await ev('S.team.length');await ev('Math._r=Math.random;Math.random=()=>.1')
         await pg.click('#battleArea .m2tame');await ev('Math.random=Math._r')
         r=await ev('[S.team.length,S.essence,S.m2.tame.n,fight.over]')
-        check('vrai clic : purifié (−30 essences), il rejoint la meute, combat gagné',r[0]==n0+1 and r[1]<=80 and r[2]==1 and r[3]=='win',r)
+        check('vrai clic : purifié (−30 essences), il rejoint la meute, combat gagné',r[0]==n0+1 and r[1]<=85 and r[2]==1 and r[3]=='win',r)
         # revanche
         await ev('fight=null;startBattle({mode:"story",n:6})');b0=await ev('fight.orbs.join()')
         await ev('fight.stun=0;tapOrb(0)');b1=await ev('fight.orbs.join()');dd=await ev(DIE)

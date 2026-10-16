@@ -1,0 +1,13 @@
+/* Progression I (js/99-progress.js) */
+.bigicon.aw{position:relative}
+.bigicon.aw1{box-shadow:0 0 0 2px #7fd3ff55}.bigicon.aw2{box-shadow:0 0 8px #7fd3ff99}.bigicon.aw3{box-shadow:0 0 12px #c45cffaa}
+.bigicon.aw4{box-shadow:0 0 14px #ff9d3ccc}.bigicon.aw5{box-shadow:0 0 16px #ffd15c;animation:awglow 2.4s ease-in-out infinite}
+.bigicon.aw6{box-shadow:0 0 18px #ff5cf0,0 0 30px #7fd3ff88;animation:awglow 1.6s ease-in-out infinite}
+.bigicon.aw5::after,.bigicon.aw6::after{content:"👑";position:absolute;left:-6px;top:-10px;font-size:15px;filter:drop-shadow(0 1px 2px #000)}
+.bigicon.aw6::after{content:"🌟"}
+@keyframes awglow{50%{filter:brightness(1.18)}}
+@media (prefers-reduced-motion:reduce){.bigicon.aw5,.bigicon.aw6{animation:none}}
+.pgfeed button{font-size:11px;padding:6px 8px}
+.pgsec{padding:8px 0;border-bottom:1px solid #fff1}.pgsec:last-of-type{border-bottom:0}
+.pgbox .bigicon{width:44px;height:44px;flex-basis:44px;font-size:22px}
+html body .pgaw6{background:linear-gradient(90deg,#ff5cf0,#7fd3ff)}

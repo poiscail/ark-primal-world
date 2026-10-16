@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.36.0 — Progression : éveil ultime, prestige, objectifs et conseils
+- **Niveau maximum 100**, porté à **120** par l'**éveil ultime ★★★★★★** (après ★5 : 25 🟠, 25 💎, 200 🔮, 60 🦴). **Auras d'éveil** sur les portraits (couronne à ★5, étoile à ★6).
+- **XP** : les dinos hors équipe gagnent 10 % de l'XP des combats (entraînement passif), ceux 5 niveaux sous la moyenne de l'équipe le double (rattrapage), ceux entre les niveaux 40 et 60 +20 % (creux de la courbe) ; **partage réglable** (équitable, priorité au plus faible, priorité au chef) ; **baies 🫐 et viande 🍖** trouvées en combat à donner directement (+60 / +250 XP).
+- **Progression du dresseur** (Accueil) : **récompenses de rang** (tous les 5 rangs, plus grosses tous les 10 et 25), **arbre du dresseur** (Vigueur, Férocité, Prospection, Savoir : 1 point tous les 5 rangs), **prestige** (après l'histoire 100 : l'histoire recommence contre +10 % d'XP et de pierres et +2 points d'arbre, jusqu'à 5 fois).
+- **Objectifs et progression** (Accueil) : **conseil « quoi faire ensuite »**, **objectifs sur 30 jours** (avec un grand coffre), **paliers de puissance** (chaque palier ouvre un **défi de puissance**), **connexion du mois** (paliers de 5 à 25 jours), **maîtrise d'espèce** (100 victoires → « Maître des … »), **graphique de puissance** jour par jour, **résumé de la semaine passée**, **cadeau de retour** après 3 jours d'absence ou plus, **bonus de 1re victoire du jour** (+150 🪨 +12 🔮 +1 🎟️).
+- **Maîtrise des niveaux** : un niveau d'histoire gagné sans perdre de PV est marqué 💎 sur la carte (+5 🔮 la 1re fois).
+- **Éveil** : à partir de ★3, il faut aussi des **jetons de la famille** du dino (1 par victoire où la famille combat ; 10 offerts par famille) ; **âmes d'espèce** : chaque dino recyclé laisse une âme, 5 âmes = +1★ pour un dino de cette espèce.
+- **Lisibilité** : la défense indique combien elle bloque par coup ; la barre du haut affiche le **niveau moyen de l'équipe** au lieu de « ⚔ puissance » (la puissance reste dans l'infobulle).
+- **Plafond contre les cumuls absurdes** : au-delà de ×4 (PV) et ×3,5 (attaque) des stats de base du niveau, l'excédent ne compte qu'au tiers (un dino « tout au maximum » reste sous ×5, vérifié par test). Sans effet sur les mesures d'équilibrage habituelles.
+- 6 succès, entrées du guide.
+- Tests : `test_progress` (19 vérifications) et `test_progress2` (24 vérifications), vrais clics. 56 suites.
+
 ## 0.35.0 — La collection : nouvelles familles, style, albums et mythiques
 - **Deux nouvelles familles jouables** : 🦣 **Mammifères** (Mammouth laineux, Smilodon, Mégacéros, Mégathérium, Ours des cavernes) et 🪲 **Insectes** (Arthropleura, Meganeura, Titanomyrma, Mante géante), avec leurs portraits, leur effet de chef (Charge de horde, Nuée), leur super (Piétinement : +20 % et étourdit ; Essaim : poison 3 tours) et leurs liens (Horde, Essaim).
 - **4 nouvelles variantes** : Fossile, Cristal, Lave, Spectral (environ 1 % chacune).
