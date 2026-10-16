@@ -62,6 +62,9 @@ async def main():
         # stats
         await pg.click('#colTools button:has-text("STATISTIQUES")');await pg.wait_for_timeout(50)
         check('statistiques de collection (raretés, familles, variantes)',await pg.locator('#modalBody .costat').count()>=14 and await pg.locator('#modalBody .covars span').count()==9)
+        # une sauvegarde avec les nouvelles variantes se recharge sans erreur (la collection s'affiche avant que ce module les déclare)
+        await ev('S.team[0].v="fossil";S.team[1].v="spectral";save()');await pg.reload();await pg.wait_for_timeout(500)
+        check('rechargement avec des variantes Fossile/Spectral : aucune erreur',errs==[] and await ev('S.team[0].v')=='fossil',errs)
         check('aucune erreur JS',errs==[],errs)
         await b.close()
     print('ÉCHECS:',FAILS or 'aucun');sys.exit(1 if FAILS else 0)

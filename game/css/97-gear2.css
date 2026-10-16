@@ -1,0 +1,14 @@
+/* Équipement II (js/99-gear2.js) */
+.g2tags{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0}.g2tags .chip{font-size:10px}
+.g2cmp{margin:3px 0}.g2cmp .ok{color:#6dffa0}.g2cmp .hot{color:#ff7a7a}
+html body button.g2b{padding:4px 7px;font-size:12px;min-width:0}
+.g2tools{margin:6px 0}.g2gems{margin:6px 0}
+.bigicon .g2eqi{position:absolute;left:-4px;bottom:-6px;font-size:10px;background:#000b;border-radius:8px;padding:1px 3px;z-index:3;pointer-events:none;letter-spacing:-1px}
+.g2mat{color:#ffd15c}
+.g2forge{display:flex;align-items:center;gap:10px;margin-bottom:8px}.g2forge .anvil{font-size:30px;animation:g2ham 1.4s ease-in-out infinite;transform-origin:70% 80%}
+.g2forge .sparks{width:8px;height:8px;border-radius:50%;background:#ffd15c;box-shadow:0 0 10px #ff9d3c;animation:g2sp 1.4s ease-out infinite}
+@keyframes g2ham{0%,60%,100%{transform:rotate(0)}30%{transform:rotate(-25deg)}}@keyframes g2sp{0%,25%{opacity:0;transform:scale(.4)}35%{opacity:1;transform:scale(1.4)}70%{opacity:0;transform:translate(10px,-14px)}}
+.g2chest{position:relative;animation:g2open .7s ease-out both}.g2chest .chestbox{font-size:34px;text-align:center;animation:g2lid .9s ease-out both}
+@keyframes g2open{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}@keyframes g2lid{0%{transform:scale(.6) rotate(-10deg)}40%{transform:scale(1.25) rotate(8deg)}100%{transform:none}}
+@media (prefers-reduced-motion:reduce){.g2forge .anvil,.g2forge .sparks,.g2chest,.g2chest .chestbox{animation:none}}
+.g2hist{max-height:320px;overflow:auto;margin:6px 0}

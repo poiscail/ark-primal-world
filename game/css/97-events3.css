@@ -1,0 +1,15 @@
+/* Événements II (js/99-events3.js) */
+.e3cal{border-left:4px solid #7fd3ff}.e3ws{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0}
+.e3w{padding:8px;border-radius:10px;background:var(--surf2);font-size:12px;text-align:center}.e3w small{display:block;font-size:10px;opacity:.75}.e3w.on{outline:2px solid #ffd15c}
+.e3act{border-left:4px solid #ff7ab8}.e3e{display:flex;gap:10px;align-items:center;margin:6px 0}.e3e>span{font-size:28px}
+.e3wk,.e3launch{border-left:4px solid #6dffa0}.e3shop{border-left:4px solid #ffd15c}
+html body .smap .mnode.ev3inv{box-shadow:0 0 0 3px #ff3bd4,0 0 18px #ff3bd4}html body .smap .mnode.ev3inv::before{content:"👾";position:absolute;left:-8px;top:-10px;font-size:16px}
+.e3home{cursor:pointer;overflow:hidden;background:linear-gradient(90deg,#ff3bd433,#ffd15c33,#7fd3ff33);background-size:200% 100%;animation:e3bg 6s linear infinite;border-left:4px solid #ffd15c}
+.e3marq{white-space:nowrap;display:flex;gap:40px;animation:e3marq 18s linear infinite;font-weight:700;font-size:13px}
+@keyframes e3marq{from{transform:translateX(30%)}to{transform:translateX(-100%)}}@keyframes e3bg{to{background-position:200% 0}}
+.battlestage.ev-ecl .scene{filter:brightness(.6) saturate(.7) hue-rotate(250deg)}
+.battlestage.ev-ice .scene{filter:hue-rotate(170deg) saturate(.5) brightness(1.2)}
+.battlestage.ev-vol .scene{filter:saturate(1.6) hue-rotate(-20deg) brightness(.95)}
+.battlestage.ev-hal .scene{filter:hue-rotate(-40deg) saturate(1.4) brightness(.7)}
+.battlestage.ev-noel .scene{filter:brightness(1.1) saturate(.8)}
+@media (prefers-reduced-motion:reduce){.e3home,.e3marq{animation:none}}

@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.38.0 — L'équipement, les invocations et les événements, plus loin
+- **Équipement** :
+  - **Ensembles** (25 % des objets) : 3 pièces du même ensemble donnent un bonus (Croc du Roi +10 % d'attaque, Écaille de glace +12 % de PV, Ambre ancestral +15 % de défense et +5 % de PV, Plume d'orage +2 de super par orbe).
+  - **Objets de famille** (réservés à une famille, plus forts), **objets maudits** (×1,8 mais −12 % de PV), **objets uniques** (Croc de Tyran, Cuirasse du Mammouth, Œil de l'Obélisque, Cœur de la Graine, chacun avec un effet).
+  - **Gemmes** à sertir (Rubis, Saphir, Émeraude, Topaze), **gravure** du talisman (choisir son attribut, 40 🔮), **apparence** (prendre le nom d'un autre objet), **verrou** et tri du sac, comparaison avec l'objet équipé.
+  - **Amélioration risquée** (option) : coût divisé par deux dès +4, mais 10 à 50 % d'échec (l'objet reste intact).
+  - **Atelier** : conversions de matériaux, **recettes trouvées dans les fouilles**, fabrication en série ; **parchemin d'étude** (XP +50 % pendant 1 h).
+  - **Durabilité** (option « hardcore ») : les objets s'usent, une réparation à l'atelier.
+  - **Les objets évoluent** : +1 niveau toutes les 25 victoires de leur porteur.
+  - **Sacoche** : bombe d'ambre, filet, totem. **Icônes d'équipement** sur le portrait, **matériaux de la zone** sur la carte, **forge illustrée**, **coffre de butin animé**, **historique des objets**.
+  - Les bonus d'ensembles et de gemmes passent par le **plafond de puissance** de 0.36 (vérifié par test).
+- **Invocations** :
+  - **Bannière de famille** (une seule famille, garantie légendaire à 40 comme d'habitude), **bannière de choix** (ta vedette parmi 5 légendaires de la semaine : 70 % des légendaires), **bannière élémentaire Épique+**, **bannière de retour** des espèces de saison (du 15 au 17 de chaque mois), **bannière anniversaire**.
+  - **Liste de souhaits** (3 espèces plus probables), **ticket de variante garantie**, **tirage gratuit doublé le week-end**, **échange de 3 doublons** contre l'espèce de son choix (même rareté).
+  - **Garanties et taux affichés**, **récapitulatif** des ×10 (nouveautés d'abord), bouton **« invoquer encore »**, mode sans animation pour les ×10, son de suspense réglable, œuf qui éclot selon la rareté.
+  - **Cartes d'invocation** (album), **historique complet** et statistiques, **récompense toutes les 100 invocations** (+5 🎟️ et un ticket de variante), **tickets du bestiaire** (paliers jusqu'à 100 %).
+  - Admin : **simulation des taux**.
+- **Événements** :
+  - **Événements spéciaux datés** qui reviennent chaque mois : Invasion (1-4 : 10 niveaux envahis à libérer), Nostalgie (5-6 : l'événement de la semaine dernière revient), Éclipse (7-9 : ennemis +10 % ATQ, +20 % d'essence), Chasse aux œufs dorés (10-14), Grande pêche (15-17 : prises doublées), Course contre la montre (18-19, Sprint), Âge de glace (20-22 : orbes 💧 +15 %), Éveil des volcans (25-27 : feu ×1,5 des deux côtés), Grande migration (28+ : apprivoisement facile), plus **Halloween** et **Noël** (cadeau chaque jour), avec leur décor.
+  - **Jetons de fête 🎉** : gagnés en combattant pendant un événement (même en cas de défaite) ; les **jetons de la semaine non dépensés deviennent des jetons de fête** au lieu d'être perdus ; **boutique d'événement** qui change chaque semaine.
+  - **Boss d'événement** : 10 tours pour infliger un maximum de dégâts, **classement personnel**.
+  - **Calendrier des 4 prochaines semaines**, **défis du week-end**, **mission de lancement** de chaque version (5 victoires en 3 jours), **bandeau animé** et notification sur l'accueil.
+- **Correctif** (présent depuis 0.35) : une sauvegarde contenant un dino Fossile, Cristal, Lave ou Spectral provoquait des erreurs au démarrage (la collection s'affichait avant que ces variantes soient déclarées) ; vérifié par un rechargement dans `test_collect`.
+- 9 succès, entrées du guide.
+- Tests : `test_gear2` (27 vérifications), `test_gacha2` (19) et `test_events3` (32), vrais clics. 61 suites.
+
 ## 0.37.0 — L'élevage et le Grand Nord, plus loin
 - **Élevage** :
   - **Gènes de défense** (+3 % par point) et **de super** (+0,4 de jauge par orbe et par point), hérités comme les autres ; **mutations de couleur** visibles sur le portrait.
