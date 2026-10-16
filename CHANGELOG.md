@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.23.0 — Épreuves de la meute : toute la collection a enfin un rôle
+Aventure > 🏅 Épreuves, dès le niveau 10 de l'histoire : 18 défis à contraintes qui font jouer les dinos qu'on laissait de côté.
+- **8 épreuves de famille** : 3 dinos de la même famille (Meute des théropodes, Charge des cératopsiens, Rempart des ankylosaures, Épines des stégosaures, Escadrille des ptérosaures, Pas des colosses, Harde des hadrosaures, Banc des reptiles marins).
+- **5 épreuves d'élément** (Fournaise, Marée, Canopée, Tempête, Aube) : 3 dinos du même élément ; pour 🔥 💧 🌿, les ennemis ont l'élément qui les bat.
+- **2 épreuves de rareté** : « Les humbles » (communs seulement), « Sans légende » (ni épique ni légendaire).
+- **3 règles spéciales**, avec n'importe quelle équipe : sans super attaque, sans compétences, « Contre la montre » (12, 16 ou 20 actions au plus selon le palier ; les compétences ne comptent pas).
+- **3 paliers par épreuve** (🥉 bronze niv. 15, 🥈 argent niv. 45, 🥇 or niv. 80), chacun débloqué par le précédent, avec un gardien à la fin ; récompense à la première victoire de chaque palier (jusqu'à 108 tickets au total). Bouton « palier suivant » après une victoire.
+- **« Former l'équipe »** met en tête les 3 dinos éligibles les plus puissants ; **« Rétablir mon équipe »** remet l'équipe d'avant. Chaque carte indique si l'équipe est conforme et combien de dinos éligibles tu possèdes.
+- 3 succès (dont le titre « Maître des Épreuves »), missions permanentes, entrée du guide.
+- **Équilibrage** (simulation seulement, 20 combats par mesure, équipe conseillée pour le niveau du palier) : 100 % à tous les paliers, sauf « Contre la montre » en or (60 %). La difficulté vient surtout de la contrainte : il faut entraîner et éveiller 3 dinos éligibles. À valider avec de vrais joueurs.
+- Tests : `test_trials` (28 vérifications, vrais clics) ; simulation `tests/test_balance_trials.py`. 35 suites.
+
 ## 0.22.0 — Histoire Cauchemar : l'île corrompue
 Une deuxième histoire de 100 niveaux pour la suite de la progression : bouton **🌑 Cauchemar** en haut de l'écran Histoire.
 - **Les 100 niveaux sur une île corrompue** : carte et décors assombris, ennemis bien plus forts (niveau des ennemis = niveau × 1,2 + 6). Un chapitre de 10 niveaux s'ouvre quand son gardien a été vaincu en mode normal.
