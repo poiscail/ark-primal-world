@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.28.0 — Combat : super de famille, Ruée, Garde et rage ennemie
+- **Super attaque renforcée** (×1,7) : elle ne faisait que 1,1 à 1,4 fois les dégâts de la meilleure orbe. Elle ajoute maintenant **un effet selon la famille du chef** : Saignement (théropodes, 3 tours), Brise-carapace (cératopsiens, +15 %), Rempart (ankylosaures, −50 % de dégâts 2 tours), Épines (stégosaures, 30 % renvoyés), Piqué (ptérosaures, +25 % de jauge), Séisme (sauropodes, étourdit), Chant de harde (hadrosaures, soin 15 %), Raz-de-marée (reptiles marins, retire le trait de l'ennemi et soigne 10 %). L'effet est écrit sur le bouton de super, et la jauge s'anime à partir de 90 %.
+- **Ruée** : la 3e orbe de la même couleur d'affilée frappe ×1,3 et rend 10 % de super (les orbes qui la déclenchent brillent).
+- **Coup final** : achever un ennemi avec l'élément qui le bat rend 20 % de super.
+- **Rage ennemie** : frapper sans l'élément qui bat l'ennemi le met en rage (+20), l'élément avantageux le calme (−10). Pleine, sa prochaine attaque fait ×1,5 (FURIE).
+- **Garde** (bouton ou touche G) : on passe son tour sans dégâts ni super ; le prochain coup ennemi est divisé par deux et le plateau d'orbes change.
+- **Frise des 4 prochains tours ennemis** (attaque, attaque puissante ou de zone, compétence, étourdi, furie), **recharge des compétences en cercle**, **infobulles chiffrées** sur les orbes (dégâts estimés, avantage, Ruée) et les compétences.
+- **Équilibrage** (simulation seulement, histoire, 20 combats par mesure) : ces nouveautés rendaient le jeu plus facile (équipe non éveillée au niveau conseillé : 100 % au niveau 50 au lieu de 65 %, 65 % au niveau 70 au lieu de 20 %). Compensation : les ennemis ont 15 % de PV en plus (`C2_EHP`, appliqué à chaque nouvel ennemi, sauf le boss du Raid). Avec elle : équipe non éveillée 100 % au niveau 50 et 25 % au niveau 70 ; équipe 6 niveaux en dessous 70 % au niveau 30 et 10 % au niveau 50 (65 % et 5 % avant) ; équipe éveillée et forgée : 100 % partout, comme avant. Un autre réglage (super ×1,4, PV +8 %) a été écarté. Les autres modes n'ont pas été remesurés. À valider avec de vrais joueurs.
+- Succès « Furie maîtrisée », entrée du guide.
+- Tests : `test_combat2` (24 vérifications : effet de chaque famille, Ruée, Coup final, rage, Garde par un vrai clic et la touche G, frise, infobulles). 40 suites.
+
 ## 0.27.0 — Mon dresseur : pseudo, apparence et carte de profil
 Clique sur ton avatar en haut à gauche (ou Accueil > Profil) pour créer ton dresseur.
 - **Pseudo** (3 à 16 caractères) et **nom de ton île**. Le pseudo s'affiche dans la barre du haut, sur l'accueil (« Bienvenue, … »), dans le classement de l'Arène, et remplace « survivant » dans les dialogues de l'histoire. Un rappel « À faire » invite à le choisir.

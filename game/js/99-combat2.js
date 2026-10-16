@@ -4,7 +4,7 @@
    est divisé par deux, et le plateau change), frise des prochains tours ennemis, recharge des compétences en cercle,
    jauge de super « presque prête », infobulles chiffrées des orbes et des compétences.
    Drapeaux de combat : f._sup2 (super en cours), f._tap (couleur de l'orbe touchée), f.guard, f._furie, f.thorn, e.rage. */
-let SUPER_TUNE=1.7,C2_EHP=1;   // la super ne faisait que 1,1 à 1,4 fois la meilleure orbe (mesuré en 0.26) ; C2_EHP compense par les PV ennemis
+let SUPER_TUNE=1.7,C2_EHP=1.15;   // la super ne faisait que 1,1 à 1,4 fois la meilleure orbe (mesuré en 0.26) ; C2_EHP compense par les PV ennemis
 const C2={rageHit:20,rageAdv:10,rageMul:1.5,rueeN:3,rueeMul:1.3,rueeSp:10,finalSp:20,guardMul:.5};
 const SUPER_FAM={T:{i:"🩸",n:"Saignement",d:"l'ennemi saigne 3 tours (10 % des dégâts de la super par tour)"},
  C:{i:"🪨",n:"Brise-carapace",d:"brise la carapace de l'ennemi, dégâts +15 %"},A:{i:"🛡️",n:"Rempart",d:"l'équipe subit −50 % de dégâts pendant 2 tours"},
