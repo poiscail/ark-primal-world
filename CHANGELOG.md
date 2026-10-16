@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.24.0 — La grande migration : 26 nouvelles espèces, 8 compétences, 6 attributs
+- **26 nouvelles espèces** (54 → 80), surtout dans les familles qui en manquaient : stégosaures (Huayangosaure, Dacentrurus, Miragaia, Wuerhosaure), cératopsiens (Protocératops, Chasmosaure, Kosmocératops, Titanocératops), ankylosaures (Nodosaure, Euoplocéphale, Zuul), ptérosaures (Rhamphorhynchus, Tapejara, Hatzegopteryx, Tropéognathe), sauropodes (Brachiosaure, Diplodocus, Dreadnoughtus), hadrosaures (Lambéosaure, Edmontosaure, Shantungosaure), reptiles marins (Nothosaure, Liopleurodon, Kronosaure), théropodes (Majungasaure, Yutyrannus). Portraits dessinés par le jeu, 4 nouveaux effets (vague, étoile, feuilles, orage). Chaque famille compte désormais au moins 4 espèces, ce qui ouvre davantage les Épreuves de famille.
+- **8 nouvelles compétences** : Ruée frénétique (3 coups), Coup perforant (brise les boucliers), Piétinement (peut étourdir), Hurlement de terreur (l'ennemi perd 35 % d'attaque), Ancrage (attire les coups, −60 % de dégâts), Cri de ralliement (ranime un dino KO), Éclat élémentaire (4 orbes de son élément), Danse de guerre (+20 % ATQ et +25 % de super). Effets visuels, puces d'état dans le combat.
+- **6 nouveaux attributs** : Contre-attaque, Charognard, Instinct de meute, Écailles épaisses, Énergie primordiale, Embuscade ; aussi sur les talismans.
+- **7 nouvelles chaînes d'évolution** (37 évolutions au total), par exemple Protocératops → Chasmosaure → Kosmocératops → Titanocératops, ou Rhamphorhynchus → Tapejara → Hatzegopteryx → Tropéognathe.
+- L'auto-combat sait utiliser les nouvelles compétences (relever un allié KO, s'ancrer avant une attaque puissante…) ; en Arène, les adversaires qui les possèdent utilisent une compétence ennemie équivalente.
+- 3 succès (dont les titres « Arche Vivante » et « Encyclopédiste »), entrée du guide.
+- **Correctif** : un talisman portant un attribut ajouté par un module chargé plus tard provoquait une erreur au démarrage (affichage du sac).
+- Tests : `test_species2` (36 vérifications : effets de chaque compétence et attribut, évolution par un vrai clic, Arène, auto-combat, rechargement) ; `test_skills` joue désormais les 80 espèces. 36 suites.
+
 ## 0.23.0 — Épreuves de la meute : toute la collection a enfin un rôle
 Aventure > 🏅 Épreuves, dès le niveau 10 de l'histoire : 18 défis à contraintes qui font jouer les dinos qu'on laissait de côté.
 - **8 épreuves de famille** : 3 dinos de la même famille (Meute des théropodes, Charge des cératopsiens, Rempart des ankylosaures, Épines des stégosaures, Escadrille des ptérosaures, Pas des colosses, Harde des hadrosaures, Banc des reptiles marins).

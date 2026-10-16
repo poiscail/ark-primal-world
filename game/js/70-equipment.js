@@ -10,6 +10,8 @@ const itemOwner=id=>S.team.find(d=>d.eq&&Object.values(d.eq).includes(id));
 function itemStats(it){const m=1+.2*it.lvl;if(it.s==="w")return{atk:Math.round([5,9,15,24][it.r]*m)};if(it.s==="a")return{hp:Math.round([25,45,75,120][it.r]*m),def:Math.round([2,4,6,9][it.r]*(1+.15*it.lvl))};return{hp:Math.round([10,18,30,48][it.r]*m),atk:Math.round([2,4,6,10][it.r]*m)}}
 const statTxt=it=>{const s=itemStats(it);return[s.hp?"PV +"+s.hp:"",s.atk?"ATQ +"+s.atk:"",s.def?"DÉF +"+s.def:""].filter(Boolean).join(" · ")};
 function eqBonus(d){const o={hp:0,atk:0,def:0};if(!d.eq||!S.items)return o;for(const k of ["w","a","c"]){const it=d.eq[k]?findItem(d.eq[k]):null;if(it){const s=itemStats(it);o.hp+=s.hp||0;o.atk+=s.atk||0;o.def+=s.def||0}}return o}
+/* attribut d'un objet : sûr même si l'attribut est déclaré par un module chargé plus tard (ex. 99-species2) */
+const paOf=k=>PA[k]||{i:"✨",n:k,d:""};
 function charmPA(d){const it=d.eq&&d.eq.c?findItem(d.eq.c):null;return it&&PA[it.pa]?it.pa:""}
 const hasPA=(d,id)=>PA_of(d)===id||charmPA(d)===id;
 const _st7=stats;stats=function(d){const v=_st7(d),b=eqBonus(d);return{hp:v.hp+b.hp,atk:v.atk+b.atk,def:v.def+b.def}};
@@ -19,7 +21,7 @@ function addItem(it){ens();if(S.items.length>=MAX_ITEMS){toast("Sac plein ("+MAX
 function lootRar(level,boost){const w=[Math.max(10,62-level*.55),28,8+level*.18,2+level*.14];for(let i=0;i<(boost||0);i++){w[0]*=.4;w[2]*=1.4;w[3]*=1.8}return rollW(w)}
 function rollItem(level,boost,slot){return newItem(slot||["w","a","c"][rnd(3)],lootRar(level,boost))}
 const itemName=it=>`${SLOTS[it.s].i} <b style="color:${ICOL[it.r]}">${esc(it.n)}</b>${it.lvl?" +"+it.lvl:""} <span class="muted tiny">(${IRAR[it.r]})</span>`;
-const lootPanel=items=>`<div class="panel"><b>🎒 Butin</b>${items.map(it=>`<div class="tiny" style="margin-top:4px">${itemName(it)} — ${statTxt(it)}${it.pa?" · "+PA[it.pa].i+" "+PA[it.pa].n:""}</div>`).join("")}</div>`;
+const lootPanel=items=>`<div class="panel"><b>🎒 Butin</b>${items.map(it=>`<div class="tiny" style="margin-top:4px">${itemName(it)} — ${statTxt(it)}${it.pa?" · "+paOf(it.pa).i+" "+paOf(it.pa).n:""}</div>`).join("")}</div>`;
 /* butin des combats d'histoire et de donjon (les autres modes appellent giveLoot eux-mêmes) */
 function giveLoot(items){const got=items.filter(addItem);return got}
 const _win7=win;win=function(){_win7();const f=fight;if(!f||f.over!=="win"||f.lootDone||!["story","dungeon"].includes(f.o.mode))return;f.lootDone=true;ens();const items=[];
@@ -44,14 +46,14 @@ function autoEquip(){ens();const team=T3(),inTeam=new Set(team.map(d=>d.id));tea
   const pool=S.items.filter(it=>it.s===s&&!used.has(it.id)).sort((a,b)=>iscore(b)-iscore(a));team.forEach((d,i)=>{if(pool[i])d.eq[s]=pool[i].id})}
  log("Équipement : équipe équipée automatiquement.");toast("Équipement optimisé pour l'équipe.");save();render()}
 const eqSummary=d=>["w","a","c"].map(k=>{const it=d.eq&&d.eq[k]?findItem(d.eq[k]):null;return it?SLOTS[k].i+(it.lvl?"+"+it.lvl:""):"▫️"}).join(" ");
-function eqLine(d){let h="";for(const k of ["w","a","c"]){const it=d.eq&&d.eq[k]?findItem(d.eq[k]):null;if(it)h+=`<div class="tiny" style="margin-top:3px">${itemName(it)} — ${statTxt(it)}${it.pa?" · "+PA[it.pa].i+" "+PA[it.pa].n:""}</div>`}return h}
+function eqLine(d){let h="";for(const k of ["w","a","c"]){const it=d.eq&&d.eq[k]?findItem(d.eq[k]):null;if(it)h+=`<div class="tiny" style="margin-top:3px">${itemName(it)} — ${statTxt(it)}${it.pa?" · "+paOf(it.pa).i+" "+paOf(it.pa).n:""}</div>`}return h}
 /* fenêtre d'équipement d'un dinosaure */
 let eqOpen=false,eqDino=0,eqSlot="w",bagF="all",bagLim=10;
 document.body.insertAdjacentHTML("beforeend",'<div id="eqVeil" class="authveil hide"><div class="authbox" id="eqBody"></div></div>');
 function openEq(id){eqDino=id;eqOpen=true;eqRender();$$("eqVeil").classList.remove("hide")}
 function closeEq(){eqOpen=false;$$("eqVeil").classList.add("hide")}
 function setEqSlot(s){eqSlot=s;eqRender()}
-function itemRow(it,btns){const o=itemOwner(it.id);return `<div class="it" style="border-color:${ICOL[it.r]}"><div>${itemName(it)}</div><div class="tiny">${statTxt(it)}${it.pa?`<br>${PA[it.pa].i} <b>${PA[it.pa].n}</b> : ${PA[it.pa].d}`:""}</div>${o?`<div class="tiny muted">Équipé sur ${esc(SPEC[o.type]?SPEC[o.type].name:"?")}</div>`:""}<div class="btns">${btns}</div></div>`}
+function itemRow(it,btns){const o=itemOwner(it.id);return `<div class="it" style="border-color:${ICOL[it.r]}"><div>${itemName(it)}</div><div class="tiny">${statTxt(it)}${it.pa?`<br>${paOf(it.pa).i} <b>${paOf(it.pa).n}</b> : ${paOf(it.pa).d}`:""}</div>${o?`<div class="tiny muted">Équipé sur ${esc(SPEC[o.type]?SPEC[o.type].name:"?")}</div>`:""}<div class="btns">${btns}</div></div>`}
 function eqRender(){const d=S.team.find(x=>x.id===eqDino);if(!d){closeEq();return}const cur=d.eq&&d.eq[eqSlot]?findItem(d.eq[eqSlot]):null,v=stats(d),b=eqBonus(d);
  const cand=S.items.filter(it=>it.s===eqSlot&&(!cur||it.id!==cur.id)).sort((a,b2)=>iscore(b2)-iscore(a)).slice(0,12);
  $$("eqBody").innerHTML=`<div class="row"><div class="grow"><h2 style="margin:0">Équipement</h2><div class="muted tiny">${esc(sp(d).name)} · PV ${v.hp} · ATQ ${v.atk} · DÉF ${v.def}<br>Bonus d'équipement : PV +${b.hp} · ATQ +${b.atk} · DÉF +${b.def}</div></div><button class="secondary" onclick="closeEq()">FERMER</button></div>
