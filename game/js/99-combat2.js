@@ -4,7 +4,7 @@
    est divisé par deux, et le plateau change), frise des prochains tours ennemis, recharge des compétences en cercle,
    jauge de super « presque prête », infobulles chiffrées des orbes et des compétences.
    Drapeaux de combat : f._sup2 (super en cours), f._tap (couleur de l'orbe touchée), f.guard, f._furie, f.thorn, e.rage. */
-let SUPER_TUNE=1.7;   // la super ne faisait que 1,1 à 1,4 fois la meilleure orbe (mesuré en 0.26)
+let SUPER_TUNE=1.7,C2_EHP=1;   // la super ne faisait que 1,1 à 1,4 fois la meilleure orbe (mesuré en 0.26) ; C2_EHP compense par les PV ennemis
 const C2={rageHit:20,rageAdv:10,rageMul:1.5,rueeN:3,rueeMul:1.3,rueeSp:10,finalSp:20,guardMul:.5};
 const SUPER_FAM={T:{i:"🩸",n:"Saignement",d:"l'ennemi saigne 3 tours (10 % des dégâts de la super par tour)"},
  C:{i:"🪨",n:"Brise-carapace",d:"brise la carapace de l'ennemi, dégâts +15 %"},A:{i:"🛡️",n:"Rempart",d:"l'équipe subit −50 % de dégâts pendant 2 tours"},
@@ -43,7 +43,8 @@ function c2Timeline(f,e){const out=[];let stun=f.stun||0,sk=e.esk?e.skcd:99;for(
   if(stun>0){stun--;c="s";ic="💫";tt="étourdi"}else{sk--;if(t%3===0){c="b";ic=e.boss?"🌋":"⚠️";tt=e.boss?"attaque de zone":"attaque puissante"}else if(e.esk&&sk<=0){c="k";ic="✨";tt="compétence"}}
   if(i===1&&(e.rage||0)>=100&&c!=="s"){c+=" r";tt+=" + furie"}out.push(`<span class="etl-t ${c}" title="Tour ${i} : ${tt}">${ic}</span>`)}
  return `<div class="etl" title="Prochains tours de l'ennemi"><span class="etl-l">Ennemi :</span>${out.join("")}</div>`}
-const _rbC2=renderBattle;renderBattle=function(){_rbC2();const f=fight,box=$$("battleArea");if(!box)return;box.classList.toggle("spnear",!!(f&&!f.over&&f.sp>=90&&f.sp<100));if(!c2On(f))return;const e=f.enemies[f.wave],hud=box.querySelector(".sHud");
+/* compensation : PV ennemis ×C2_EHP, appliqué à chaque nouvel ennemi au rendu (les modes remplacent les ennemis du combat d'histoire ; un dialogue peut différer startBattle) */
+const _rbC2=renderBattle;renderBattle=function(){const f0=fight;if(f0&&f0.mx&&f0.enemies&&C2_EHP!==1&&!f0.raid&&!f0.over)f0.enemies.forEach(e=>{if(e&&!e._c2&&e.hp===e.max){e._c2=1;e.max=Math.round(e.max*C2_EHP);e.hp=e.max;if(e.tr==="shield")e.sh=Math.round(e.max*.2)}});_rbC2();const f=fight,box=$$("battleArea");if(!box)return;box.classList.toggle("spnear",!!(f&&!f.over&&f.sp>=90&&f.sp<100));if(!c2On(f))return;const e=f.enemies[f.wave],hud=box.querySelector(".sHud");
  if(hud&&e&&!hud.querySelector(".etl")){const r=Math.round(e.rage||0);hud.insertAdjacentHTML("beforeend",c2Timeline(f,e)+`<div class="rage ${r>=100?"full":""}" title="Rage : frapper sans l'élément qui bat l'ennemi l'énerve (+${C2.rageHit}). Pleine, sa prochaine attaque fait ×1,5. L'élément avantageux la calme (−${C2.rageAdv}).">😤<i style="width:${r}%"></i><b>${r>=100?"FURIE":"Rage "+r+" %"}</b></div>`+(f.guard?'<span class="chip good c2g">🛡️ Garde</span>':"")+(f.thorn>0?`<span class="chip good c2g">🌵 Épines (${f.thorn})</span>`:""))}
  const t=T3();box.querySelectorAll('button.skbtn[onclick^="useSkill("]').forEach(b=>{const k=+(/useSkill\((\d)/.exec(b.getAttribute("onclick"))||[])[1];const d=t[k];if(!d)return;const tot=skCd(d),cd=f.cd[k]||0,s=SK[SK_of(d)]||{};
   b.style.setProperty("--p",cd>0?Math.round((tot-cd)/Math.max(1,tot)*100):100);b.classList.add("cdr");b.title=`${s.n||""} : ${s.d||""} · recharge ${tot} tour(s)${cd>0?" (encore "+cd+")":" · prête"} · ATQ ${Math.round(atkOf(k))}`});
