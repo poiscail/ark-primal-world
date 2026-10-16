@@ -1,0 +1,35 @@
+/* Le monde (js/99-world.js) : carte du monde, nuit, saisons, intro, journal */
+.wdmap{position:relative;height:520px;border-radius:16px;overflow:hidden;border:1px solid var(--bd2,#2d3d5e);margin:10px 0}
+.wdmap .wdsea{position:absolute;inset:0;width:100%;height:100%}
+html body .wdmap button.wdreg{position:absolute;z-index:2;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 12px;border-radius:14px;background:#000a;border:2px solid #7fd3ff;color:#fff;min-width:110px}
+.wdmap .wdreg span{font-size:30px;line-height:1}.wdmap .wdreg b{font-size:12px}.wdmap .wdreg small{font-size:10px;opacity:.85}
+html body .wdmap button.wdreg.lock{border-color:#666;opacity:.6}
+html body .wdmap button.wdreg:not(.lock):hover{box-shadow:0 0 16px #7fd3ff}
+/* nuit */
+.battlestage.wdnight .scene{filter:brightness(.55) saturate(.8) hue-rotate(200deg)}
+.battlestage.wdnight::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at 85% 12%,#fff8 0 2%,#cfe3ff33 3%,transparent 9%),radial-gradient(ellipse at 50% 100%,transparent 40%,#0a1030aa)}
+html[data-daytime="night"] .banner{box-shadow:inset 0 0 0 2000px #0a103033}
+/* saisons : particules qui tombent (fond animé) */
+html[data-season] .battlestage::after,html[data-season] .smap::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background-size:180px 180px;opacity:.55;animation:wdfall 9s linear infinite}
+html[data-season="automne"] .battlestage::after,html[data-season="automne"] .smap::before{background-image:radial-gradient(circle at 20% 30%,#ff9d3c 0 3px,transparent 4px),radial-gradient(circle at 70% 60%,#d9541e 0 2.5px,transparent 3.5px),radial-gradient(circle at 45% 85%,#ffcf5c 0 2px,transparent 3px)}
+html[data-season="hiver"] .battlestage::after,html[data-season="hiver"] .smap::before{background-image:radial-gradient(circle at 20% 30%,#fff 0 2px,transparent 3px),radial-gradient(circle at 70% 60%,#eaf6ff 0 1.5px,transparent 2.5px),radial-gradient(circle at 45% 85%,#fff 0 1.2px,transparent 2px)}
+html[data-season="printemps"] .battlestage::after,html[data-season="printemps"] .smap::before{background-image:radial-gradient(circle at 20% 30%,#ffb3d1 0 2.5px,transparent 3.5px),radial-gradient(circle at 70% 60%,#fff0f6 0 2px,transparent 3px)}
+html[data-season="ete"] .battlestage::after,html[data-season="ete"] .smap::before{background-image:radial-gradient(circle at 20% 30%,#fff59a 0 1.6px,transparent 3px),radial-gradient(circle at 70% 60%,#d8ff7a 0 1.4px,transparent 2.6px);animation-duration:14s;opacity:.4}
+@keyframes wdfall{from{background-position:0 0}to{background-position:40px 180px}}
+@media (prefers-reduced-motion:reduce){html[data-season] .battlestage::after,html[data-season] .smap::before{animation:none}}
+html body .smap button.wdev{position:absolute;z-index:4;width:36px;height:36px;padding:0;border-radius:50%;font-size:18px;transform:translate(-50%,-50%);background:radial-gradient(circle,#7fd3ff,#1d5f86);border:2px solid #e8f6ff;box-shadow:0 0 10px #7fd3ff}
+html body .smap button.wdev.done{background:var(--surf2);box-shadow:none;opacity:.75}
+/* intro */
+.wdintro{position:fixed;inset:0;z-index:9000;background:#000d;display:flex;align-items:center;justify-content:center;padding:16px}
+.wdpanel{width:min(720px,100%);border-radius:18px;padding:28px 24px 18px;border:2px solid #7fd3ff;box-shadow:0 0 40px #0008;color:#fff;text-align:center}
+.wdemo{display:flex;justify-content:center;gap:28px;font-size:72px;margin:10px 0 18px}
+.wdemo span{display:inline-block;animation:wdpop .6s ease-out both;animation-delay:calc(var(--i)*.18s)}
+@keyframes wdpop{from{transform:scale(.3) translateY(30px);opacity:0}to{transform:none;opacity:1}}
+.wdpanel p{font-size:18px;line-height:1.5;margin:0 0 14px;text-shadow:0 2px 6px #000}
+.wddots{display:flex;justify-content:center;gap:6px;margin-bottom:10px}.wddots i{width:8px;height:8px;border-radius:50%;background:#fff4}.wddots i.on{background:#7fd3ff}
+/* journal, histoire d'espèce, énigme */
+.wdart{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:8px}
+.wdart span{display:flex;flex-direction:column;align-items:center;padding:6px 2px;border-radius:10px;background:var(--surf2);font-size:24px;opacity:.45}
+.wdart span.on{opacity:1;box-shadow:inset 0 0 0 1px #ffd15c}.wdart small{font-size:9px;text-align:center;line-height:1.1;margin-top:2px}
+.wdtale{margin-top:8px;border-left:3px solid #ffd15c}
+.wdrid .wdletters{font-family:Orbitron,monospace;font-size:20px;letter-spacing:3px;margin:8px 0}

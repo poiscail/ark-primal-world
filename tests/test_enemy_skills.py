@@ -18,24 +18,24 @@ async def main():
         check('arène : compétence de l\'espèce adverse (Raptor → Morsure brutale)',await ev('fight.enemies[0].esk')=='strike')
         chip=await ev('(document.querySelector("#battleArea .eskchip")||{}).textContent||""')
         check('intention affichée dans le HUD',('Morsure brutale' in chip) and (' tour' in chip),chip)  # l'ouverture du chef (0.31) peut décaler le compte
-        await ev('fight.stun=0;tapOrb(0)')
+        await ev('fight.stun=0;(fight.orbs=fight.orbs.map(()=>"goldorb"),tapOrb(0))')
         check('1er tour ennemi : pas encore de compétence',not await ev('fight.esUsed'))
         check('intention : au prochain tour',('au prochain tour' in (await ev('document.querySelector("#battleArea .eskchip").textContent'))))
-        hp0=await ev('fight.hp.slice()');await ev('fight.stun=0;tapOrb(0)')
+        hp0=await ev('fight.hp.slice()');await ev('fight.stun=0;(fight.orbs=fight.orbs.map(()=>"goldorb"),tapOrb(0))')
         check('2e tour ennemi : compétence utilisée',await ev('fight.esUsed')==1 and 'Morsure brutale' in await ev('fight.log'),await ev('fight.log'))
         hp1=await ev('fight.hp.slice()');lost=[a-b for a,b in zip(hp0,hp1)]
         check('frappe forte sur une seule cible (remplace l\'attaque)',sum(1 for x in lost if x>0)==1,lost)
         # cadence : pas avant 4 tours, jamais sur une attaque puissante
         used=[]
         for i in range(9):
-            await ev('fight.stun=0;tapOrb(0)');used.append((await ev('fight.turn'),await ev('fight.esUsed')))
+            await ev('fight.stun=0;(fight.orbs=fight.orbs.map(()=>"goldorb"),tapOrb(0))');used.append((await ev('fight.turn'),await ev('fight.esUsed')))
         turns=[t for (t,u),(t0,u0) in zip(used,[(2,1)]+used[:-1]) if u>u0]
         check('tous les 4 tours ensuite, jamais sur un tour d\'attaque puissante',len(turns)>=2 and all(t%3!=0 for t in turns) and all(b-a>=4 for a,b in zip([2]+turns,turns)),turns)
         # effets des compétences de soutien et de contrôle
         async def force(sk,js_before=''):
-            await ev('(()=>{const e=fight.enemies[fight.wave];e.esk="%s";e.skcd=1;fight.stun=0;fight.turn=1;%s})()'%(sk,js_before));await ev('tapOrb(0)')
+            await ev('(()=>{const e=fight.enemies[fight.wave];e.esk="%s";e.skcd=1;fight.stun=0;fight.turn=1;%s})()'%(sk,js_before));await ev('(fight.orbs=fight.orbs.map(()=>"goldorb"),tapOrb(0))')
         await force('shield');check('Carapace : bouclier ennemi',await ev('fight.enemies[fight.wave].sh')>0)
-        await ev('fight.stun=5;tapOrb(0)');check('le bouclier absorbe les dégâts',('absorbé' in await ev('fight.log')))
+        await ev('fight.stun=5;(fight.orbs=fight.orbs.map(()=>"goldorb"),tapOrb(0))');check('le bouclier absorbe les dégâts',('absorbé' in await ev('fight.log')))
         await force('heal','fight.enemies[fight.wave].hp=500000');check('Souffle vital : l\'ennemi se soigne de 20 %',await ev('fight.enemies[fight.wave].hp')>=500000+0.19*999999-200000)
         await force('poison','fight.pz=[0,0,0]');check('Venin : toute l\'équipe empoisonnée',await ev('fight.pz.every(x=>x>=2)'),await ev('fight.pz'))
         await force('stun','fight.cd=[0,0,0]');check('Choc sismique : compétence d\'un dino bloquée',await ev('fight.cd.some(x=>x>=1)'),await ev('fight.cd'))
@@ -46,7 +46,7 @@ async def main():
         await ev('startBattle({mode:"story",n:30})');check('histoire : aucune compétence ennemie',await ev('fight.enemies.every(e=>!esOf(e,fight))'))
         await ev('S.tower.floor=20;startBattle({mode:"tower"})');check('Tour : seul le gardien a une compétence',await ev('!esOf(fight.enemies[0],fight)&&!!esOf(fight.enemies[2],fight)'))
         # bannière quand les animations sont actives
-        await ev('setPref("anim",true)');await ev(ARENA%'["trike","trike","trike"]');await ev('fight.enemies[0].skcd=1;fight.stun=0;fight.turn=1;tapOrb(0)');await pg.wait_for_timeout(150)
+        await ev('setPref("anim",true)');await ev(ARENA%'["trike","trike","trike"]');await ev('fight.enemies[0].skcd=1;fight.stun=0;fight.turn=1;(fight.orbs=fight.orbs.map(()=>"goldorb"),tapOrb(0))');await pg.wait_for_timeout(150)
         check('bannière de compétence ennemie',await ev('document.querySelectorAll("#fxLayer .wavebn.eskill").length')>=1)
         # l'auto-combat se protège avant une compétence offensive
         await ev('setPref("anim",false);S.team=[{id:1,type:"ankylo",level:60,xp:0},{id:2,type:"raptor",level:60,xp:0},{id:3,type:"trike",level:60,xp:0}];render()')

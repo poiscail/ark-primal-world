@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.33.0 — Le camp, le monde et de nouvelles régions
+- **Camp de base** (Quêtes > Camp, dès le niveau 3 de l'histoire) : tes dinos s'y promènent autour du feu.
+  - **5 bâtiments** à construire puis améliorer (niveaux 1 à 5, pierres + os + peaux) : 🛡️ Palissade (+2 % de PV par niveau pour tous tes dinos), 🍖 Garde-manger (+2 % d'attaque par niveau), ⛏️ Carrière (+25 🪨 par heure et par niveau) et 📚 Bibliothèque (+1 🔮 par heure et par niveau), à récolter (jusqu'à 12 h d'avance), 🪺 Couveuse (incubation du Nid −6 % par niveau).
+  - **Habitants** : 🧑‍🔬 le Dr Elara t'écrit **une lettre chaque semaine** avec une question ; ta réponse choisit le cadeau. 🧢 **Kael, ton rival**, revient tous les 10 niveaux d'histoire (10 manches) avec une équipe de vrais dinos qui progresse (rares puis épiques puis légendaires, compétence ennemie dès la manche 3) ; tu peux **parier** des pierres (gagné : mise doublée et récompense ×1,5). 🧕 **Mira la marchande** propose 3 offres par semaine. 👴 **Oto le vieux chercheur** confie une **quête en 8 carnets** (combats, boss, camp, invocations, chasses, Nid, rival).
+  - 3 succès (« Bâtisseur », « Rival respecté », « Les carnets d'Oto »), rappels dans « À faire », pastille sur l'onglet.
+- **Le monde** :
+  - 🌍 **Carte du monde** (Aventure > Monde) : l'île, le Cauchemar, le Grand Nord, le Labyrinthe, le camp et l'archipel volcanique (bientôt), avec la progression de chaque région ; un clic pour s'y rendre.
+  - 🌙 **Jour et nuit réels** : de 20 h à 6 h, des créatures nocturnes (chauves-souris, loups, araignées, yeux) remplacent parfois les premiers ennemis, le décor s'assombrit et chaque victoire rapporte +3 🔮.
+  - 🍂 **Saisons réelles** : feuilles d'automne, neige en hiver, pétales au printemps, lucioles en été, sur les combats et la carte.
+  - 📜 **Résumés du narrateur** pour chaque chapitre battu, **épilogues** des régions terminées (île, Cauchemar, Grand Nord, Labyrinthe, Graine) et **3 fins** selon tes réponses aux lettres d'Elara et tes exploits (le gardien, le savant, le dresseur légendaire), dans le journal.
+  - 📖 **Histoire de chaque espèce** dans la fiche « Comment le jouer », lisible quand un dino de l'espèce atteint le niveau 30.
+  - 🔐 **Énigmes d'Oto** (6) : les fouilles révèlent leurs lettres ; réponds quand tu veux (+2 🎟️ +20 🔮).
+  - 🏺 **Journal des découvertes** : 12 artefacts à trouver dans les fouilles et sur les boss (collection complète : +5 🎟️ +50 🔮 +5 💎). 🌱 **Archives de la Graine** : une page tous les 5 succès.
+  - 🎬 **Cinématique d'introduction** en 5 cases pour une nouvelle partie (à revoir depuis le journal ; « Passer » à tout moment, coupée avec les dialogues).
+  - 🎪 **Événement du jour sur la carte** de l'histoire : marchand ambulant, dino blessé, coffre échoué, œuf perdu, chacun avec un choix.
+  - 3 succès (« Archéologue », « Esprit vif », « Oiseau de nuit »), entrées du guide.
+- **Nouvelles régions** (Aventure > Régions, 5 onglets, carte à chapitres avec étoiles et gardiens nommés) :
+  - 🌋 **Chapitre 5 : l'archipel volcanique**, niveaux 101 à 150 après l'histoire, 5 gardiens (Roi des Cendres, Hydre de magma, Titan d'obsidienne, Phénix noir, Cœur de l'archipel) avec l'éruption.
+  - 🏜️ **Les Badlands** (dès l'histoire 30, 20 niveaux) : tous les 3 tours, une tempête de sable cache un tiers des orbes (elles frappent quand même, mais à l'aveugle).
+  - 💎 **Les grottes de cristal** (dès l'histoire 60, 20 niveaux) : dans le noir, seule une moitié des orbes est éclairée à chaque tour.
+  - ☁️ **Les îles célestes** (dès l'histoire 80, 20 niveaux) : les ptérosaures frappent 30 % plus fort ; tous les 4 tours, une rafale mélange les orbes.
+  - ♾️ **Nouvelle partie +** (après l'histoire) : les 100 niveaux de l'île avec des ennemis bien plus forts, des récompenses ×1,5 et des dialogues différents (Kael, Elara, Oto, Mira… et la Graine).
+  - Elles apparaissent sur la carte du monde ; 3 succès (« Explorateur », « Grand voyageur », « Recommencement »).
+- **Équilibrage** (simulation seulement, 20 combats par mesure) : régions avec une équipe éveillée et forgée au niveau conseillé : 95 à 100 % partout (Badlands, grottes, îles célestes, archipel jusqu'au niveau 150, Nouvelle partie + jusqu'au niveau 100) ; le robot voit les orbes cachées, un vrai joueur aura plus de mal dans les Badlands et les grottes. Kael 100 % aux manches 1 et 3 (équipe non éveillée), 90 % à la manche 5 et 85 % à la manche 10 avec une équipe éveillée et forgée à son niveau, 5 % à la manche 5 sans éveil. Les bâtiments du camp renforcent l'équipe (jusqu'à +10 % de PV et d'attaque) : non pris en compte dans les simulations.
+- Tests : `test_camp` (24 vérifications), `test_world` (29 vérifications) et `test_regions` (21 vérifications), vrais clics ; `test_enemy_skills` rendu indépendant du gel aléatoire des orbes, nombre d'onglets mis à jour dans `test_nav` et `test_exped`. 50 suites.
+
 ## 0.32.0 — Boss de zone, nouvelles créatures et chasses
 - **Mécanique de boss par zone** (histoire et donjons) : 🌿 **Lianes** dans la jungle (tous les 3 tours, 3 orbes sont enlacées ; une orbe 🌿 les libère toutes, toucher une orbe enlacée l'arrache mais coûte un tour), 🔷 **Bouclier runique** dans les ruines (seule la couleur de la rune frappe fort, ×0,6 sinon, l'estimation des orbes en tient compte ; la rune change tous les 3 tours), 🌋 **Éruption** au volcan (−6 % de PV pour toute l'équipe tous les 3 tours), 🦑 **Saisie** à l'obélisque (un dino est pris tous les 4 tours : pas de compétence, −4 % de PV par tour ; 2 orbes de l'élément qui bat le boss le libèrent).
 - **Boss corrompus du Cauchemar** : deux mécaniques à la fois (celle de la zone et la suivante).

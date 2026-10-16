@@ -13,7 +13,7 @@ const BLINES={jungle:["La jungle entière se dresse contre toi !","Mes racines t
 const bmOn=f=>!!(f&&f.mx&&!f.over);
 const bmBoss=f=>{const e=f&&f.enemies&&f.enemies[f.wave];return e&&e.boss&&f.wave===2&&!f.raid?e:null};
 const bmCol=e=>Object.keys(BEAT).find(c=>BEAT[c]===e.el)||"blueorb";
-function bmSetup(f){const e=bmBoss(f);if(!e||e.bmSet)return;e.bmSet=1;const m=f.o&&f.o.mode||"story";if(!/^(story|nightmare|dungeon|secret|seed)$/.test(m)||f.daily||(f.o&&f.o.daily))return;
+function bmSetup(f){const e=bmBoss(f);if(!e||e.bmSet)return;e.bmSet=1;const m=f.o&&f.o.mode||"story";if(!/^(story|nightmare|dungeon|secret|seed|region)$/.test(m)||f.daily||(f.o&&f.o.daily))return;
  const z=stageZone(f.zone||""),k=BM_ZONE[z];f.bm=k?[k]:[];if(m==="nightmare"&&k){f.bm.push(BM_NEXT[k]);e.corr=1}
  const P=Math.round(e.max*.2);f.parts={jaw:{n:"Mâchoire",i:"🦷",hp:P,max:P,d:"brisée : ATQ −20 %"},tail:{n:"Queue",i:"🦎",hp:P,max:P,d:"brisée : plus d'attaque de zone"}};f.part=null;
  if(f.bm.includes("rune"))f.rune=["redorb","blueorb","greenorb","purpleorb"][rnd(4)];

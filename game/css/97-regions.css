@@ -1,0 +1,15 @@
+/* Régions (js/99-regions.js) : onglets, décors teintés, orbes cachées (sable) ou dans le noir */
+.rgtabs{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:10px 0}
+html body .rgtabs button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;font-size:12px;background:var(--surf2);border:1px solid var(--bd2)}
+.rgtabs button span{font-size:22px}.rgtabs button small{font-size:10px;opacity:.8}
+html body .rgtabs button.on{border-color:#7fd3ff;box-shadow:0 0 10px #7fd3ff66}html body .rgtabs button.lock{opacity:.55}
+.battlestage.rg-bad .scene,.smap.rgmap-bad .scene{filter:sepia(.75) saturate(1.4) hue-rotate(-12deg) brightness(1.05)}
+.battlestage.rg-cave .scene,.smap.rgmap-cave .scene{filter:brightness(.55) saturate(1.5) hue-rotate(40deg)}
+.battlestage.rg-cave::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 30% 60%,transparent 20%,#000a 70%)}
+.battlestage.rg-sky .scene,.smap.rgmap-sky .scene{filter:hue-rotate(160deg) saturate(.7) brightness(1.25)}
+.battlestage.rg-arch .scene,.smap.rgmap-arch .scene{filter:saturate(1.4) hue-rotate(-8deg)}
+.battlestage.rg-ngp::before{content:"♾️ NG+";position:absolute;right:10px;bottom:8px;z-index:2;font-weight:900;font-size:12px;opacity:.7;pointer-events:none}
+html body .orbboard button.orb.rgsand,html body .orbboard button.orb.rgdark{background:radial-gradient(circle at 35% 30%,#c9a86a,#7a5a2a) !important;box-shadow:none !important}
+html body .orbboard button.orb.rgdark{background:radial-gradient(circle at 35% 30%,#2a3040,#0a0c14) !important}
+html body .orbboard button.orb.rgsand>*,html body .orbboard button.orb.rgdark>*{visibility:hidden}
+html body .orbboard button.orb.rgsand::after,html body .orbboard button.orb.rgdark::after{content:"?";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;color:#fff8}
