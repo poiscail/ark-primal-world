@@ -1,0 +1,86 @@
+/* Labyrinthe des reliques (js/99-maze.js) : carte d'acte, cases, reliques, mystères, marchand, codex */
+.mzrun{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:12px;align-items:start}
+.mzrun>*{min-width:0}
+.mzside>.panel{margin-top:0}
+@media (max-width:1150px){.mzrun{grid-template-columns:1fr}}
+/* carte */
+.mzmapbox{padding:10px}
+.mzmap{position:relative;height:clamp(250px,40vh,360px);border-radius:12px;overflow:hidden;border:1px solid var(--bd2,#2d3d5e);background:#0b1220;margin-top:6px}
+.mzmap .scene{position:absolute;inset:0;opacity:.6}
+.mzmap .sc-sky{position:absolute;inset:0;width:100%;height:100%}
+.mzmap::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,transparent 35%,#000a 100%);pointer-events:none;z-index:1}
+.mzlines{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.mzlines path{stroke:#c9d6f066;stroke-width:3;stroke-dasharray:7 7;fill:none;vector-effect:non-scaling-stroke;stroke-linecap:round}
+.mzlines path.on{stroke:#ffd15c;stroke-dasharray:none;stroke-width:4;filter:drop-shadow(0 0 4px #ffd15c)}
+.mzlines path.nx{stroke:#67e5ff;stroke-width:3.5;animation:mzDash 1s linear infinite}
+@keyframes mzDash{to{stroke-dashoffset:-14}}
+html body .mznode{position:absolute;z-index:3;width:56px;height:56px;margin:-28px 0 0 -28px;padding:0;min-height:0;border-radius:50%!important;clip-path:none!important;display:grid;place-items:center;font-size:25px;line-height:1;
+ background:radial-gradient(circle at 35% 30%,#ffffff30,transparent 45%),linear-gradient(160deg,#2b3758,#141b2f);border:3px solid #5a6c93;box-shadow:0 5px 12px #000a;color:#fff;opacity:1;transition:transform .15s,filter .15s}
+html body .mznode:disabled{opacity:.72;cursor:default}
+html body .mznode.t-f{border-color:#ff8095}
+html body .mznode.t-e{border-color:#c58bff;background:radial-gradient(circle at 35% 30%,#ffffff30,transparent 45%),linear-gradient(160deg,#4b2a6e,#1b0f2e)}
+html body .mznode.t-q{border-color:#67e5ff}
+html body .mznode.t-c{border-color:#ffb04d;background:radial-gradient(circle at 35% 30%,#ffffff30,transparent 45%),linear-gradient(160deg,#5a3712,#21140a)}
+html body .mznode.t-s{border-color:#ffd15c;background:radial-gradient(circle at 35% 30%,#ffffff30,transparent 45%),linear-gradient(160deg,#5c4a12,#211a07)}
+html body .mznode.t-t{border-color:#7dffcf}
+html body .mznode.t-b{width:84px;height:84px;margin:-42px 0 0 -42px;font-size:40px;border-color:#ff3c5c;background:radial-gradient(circle at 35% 30%,#ffffff40,transparent 45%),linear-gradient(160deg,#ff3c5c,#5a0618);box-shadow:0 0 26px #ff3c5c88,0 6px 14px #000a}
+html body .mznode.reach{opacity:1;cursor:pointer;animation:mzPulse 1.3s ease-in-out infinite;box-shadow:0 0 0 4px #ffffff26,0 0 22px var(--glowc,#00e5ff99),0 5px 12px #000a}
+html body .mznode.reach:hover{transform:scale(1.15);animation:none;filter:brightness(1.15)}
+html body .mznode.done{opacity:.9;filter:saturate(.55) brightness(.85)}
+html body .mznode.done::after{content:"✓";position:absolute;right:-5px;bottom:-5px;width:21px;height:21px;border-radius:50%;display:grid;place-items:center;background:#2fd27a;color:#04210f;font:900 13px system-ui;box-shadow:0 2px 5px #0008}
+html body .mznode.here{outline:3px solid #fff;outline-offset:3px;opacity:1;filter:none}
+html body .mznode.cur{opacity:1;filter:none;animation:mzFight .9s ease-in-out infinite}
+@keyframes mzPulse{50%{transform:scale(1.09)}}
+@keyframes mzFight{50%{box-shadow:0 0 0 6px #ff3c5c55,0 0 26px #ff3c5c}}
+.mzlegend{margin-top:6px;text-align:center}
+/* choix en cours (relique, mystère, campement, marchand) */
+.mzpend{border:2px solid var(--acc,#67e5ff)!important;box-shadow:0 0 26px var(--glowc,#00e5ff33);animation:mzIn .22s ease-out}
+@keyframes mzIn{from{opacity:0;transform:translateY(-6px)}}
+.mzpend .evi,.mzev .evi{font-size:44px;width:64px;text-align:center;filter:drop-shadow(0 0 10px #fff4)}
+.mzhint{text-align:center}
+.mzrels{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px;margin:10px 0}
+html body .mzrel{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 10px;min-height:150px;border-radius:12px;text-align:center;font-size:12px;font-weight:600;line-height:1.3;letter-spacing:0;text-transform:none;
+ background:linear-gradient(170deg,var(--surf2,#17213a),var(--surf3,#10182a));border:2px solid #7d8db3;color:var(--txt,#fff);box-shadow:0 6px 16px #0006;transition:transform .15s}
+html body .mzrel .ri{font-size:36px;filter:drop-shadow(0 0 8px #fff5)}
+html body .mzrel b{font-size:13px}
+html body .mzrel small{font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+html body .mzrel.r-r{border-color:#4cc9ff;box-shadow:0 0 16px #4cc9ff33,0 6px 16px #0006}
+html body .mzrel.r-l{border-color:#ffd15c;box-shadow:0 0 20px #ffd15c55,0 6px 16px #0006}
+html body .mzrel.r-x{border-color:#ff536c}
+html body .mzrel.r-l small{color:#ffd15c}html body .mzrel.r-r small{color:#7fd8ff}html body .mzrel.r-x small{color:#ff8095}
+html body button.mzrel:not(:disabled):hover{transform:translateY(-4px)}
+html body button.mzrel:disabled{opacity:.6}
+.mzprice{font-style:normal;font-weight:900;margin-top:auto;padding:3px 10px;border-radius:99px;background:#ffd15c;color:#2a1d00}
+.mzprice.no{background:#5a6378;color:#d0d6e4}.mzprice.sold{background:#2fd27a;color:#04210f}
+.mzopts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:10px}
+html body .mzopts button{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;padding:10px 12px;letter-spacing:0;text-transform:none}
+html body .mzopts button b{font-size:13px}
+html body .mzopts button small{font-size:11px;font-weight:500;opacity:.85}
+/* panneau latéral */
+.mzt{display:flex;align-items:center;gap:8px;margin:6px 0}
+.mzt.ko{opacity:.55;filter:grayscale(.8)}
+.mzp{width:44px;height:44px;flex:0 0 44px;display:grid;place-items:center;font-size:28px;border-radius:10px;background:var(--surf3,#10182a);overflow:hidden}
+.mzp .pt,.mzp svg{width:44px;height:44px;display:block}
+.mzrl{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-top:1px solid var(--bd,#2d3d5e)}
+.mzrl:first-of-type{border-top:0}
+.mzrl .ri{font-size:22px;width:28px;text-align:center}
+.mzrl.r-x b{color:#ff8095}.mzrl.r-l b{color:#ffd15c}
+.mzrelbox{max-height:360px;overflow:auto}
+/* écran d'accueil du labyrinthe */
+.mzhow{margin:6px 0 8px;padding-left:18px;font-size:12px;line-height:1.5}
+.mzdepth{flex-wrap:wrap}
+html body .mzdepth button{min-width:44px}
+.mzteamp{display:flex;align-items:center;gap:8px;margin:10px 0}
+.mzteamp .tiny{flex:1}
+.mzsum.win{border-color:#ffd15c!important;box-shadow:0 0 24px #ffd15c33}
+.mzsum.lose{border-color:#ff536c!important}
+.mzmk{color:#c58bff}
+.mzrelmini{font-size:20px;letter-spacing:2px;margin-top:4px}
+.mzcodex{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:6px}
+.mzcx{height:52px;display:grid;place-items:center;font-size:26px;border-radius:10px;background:var(--surf3,#10182a);border:2px solid #56688f}
+.mzcx.r-r{border-color:#4cc9ff}.mzcx.r-l{border-color:#ffd15c}.mzcx.r-x{border-color:#ff536c}
+.mzcx.no{filter:grayscale(1);opacity:.4;border-color:#3a4561}
+.mzchip{border-color:#c58bff!important}
+html[data-theme="light"] .mzmap{background:#dfe8f5}
+html[data-theme="light"] .mzlines path{stroke:#33456a77}
+body.noanim .mznode,body.noanim .mzlines path,body.noanim .mzpend{animation:none!important}

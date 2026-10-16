@@ -33,6 +33,8 @@ startBattle=function(o){o=o||lastB;if(!o||!MODES[o.mode])return _sb8(o);ens();
  if(o.mode==="event"&&o.wk!==wkNow()){toast("Cet événement est terminé.");go("events");return}
  const sp8=MODES[o.mode](o);_sb8({mode:"story",n:sp8.eq});
  const o2={...o,go:false};lastB=o2;const f=fight;f.o=o2;f.n=sp8.eq;f.zone=sp8.label;f.enemies=sp8.enemies;f.lootDone=true;
+ /* la bannière d'ouverture a déjà été affichée avec le combat d'histoire de base : on la refait avec le vrai nom du mode */
+ document.querySelectorAll("#fxLayer .wavebn").forEach(x=>x.remove());f._lw=undefined;
  const t=document.getElementById("battleTitle");if(t)t.textContent=sp8.label;renderBattle()};
 const _et8=enemyTurn;enemyTurn=function(){const f=fight;if(f&&MODES[f.o.mode]){const e=f.enemies[f.wave];if(e&&e.regen&&e.hp>0)e.hp=Math.min(e.max,e.hp+Math.round(e.max*e.regen))}
  _et8();if(f&&f.over==="lose"&&MODES[f.o.mode]&&!f.settled)settleLose()};

@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.21.0 — Labyrinthe des reliques (mode rejouable à l'infini)
+Nouveau mode inspiré de Slay the Spire et de Hades : Aventure > 🌀 Labyrinthe, dès le niveau 10 de l'histoire.
+- **Une course en 3 actes** (Jungle, Volcan, Obélisque). Chaque acte est une carte de 6 étapes à embranchements, puis un gardien 👑. On choisit sa route parmi ⚔️ combats (2 ennemis), 💀 élites (3 ennemis, la dernière avec un trait et une compétence), ❓ mystères, 🏕️ campements, 🛒 marchands et 💎 trésors.
+- **Les PV sont conservés** d'un combat à l'autre (par place dans l'équipe) : se soigner au campement ou chez le marchand devient un vrai choix. Fuir garde les dégâts subis ; entre deux actes, l'équipe récupère 30 %.
+- **30 reliques** (12 communes, 12 rares, 6 légendaires) qui changent les règles jusqu'à la fin de la course : orbes d'une couleur renforcées, super prête au départ, compétences prêtes, œuf de phénix, avantage d'élément ×1,6, ennemi qui perd son premier tour, combo renforcé, épines, soins après chaque combat… et **5 malédictions**. Relique de départ au choix parmi 3 ; relique au choix après les élites, les gardiens, les trésors et parfois les combats.
+- **14 mystères** à choix (source chaude, nid abandonné, autel de sang, meute errante, totem, œuf doré, étoile filante…), certains risqués.
+- **Crocs 🦷**, la monnaie de la course, à dépenser chez le marchand : reliques, soins, purification d'une malédiction, herbe de soin pour la sacoche.
+- **Fin de course** : pierres, essences, fragments, tickets en cas de victoire, et **marques 🌀** pour une boutique permanente : 6 améliorations du labyrinthe ; tickets, fragments, œuf épique et objet légendaire avec une limite par semaine.
+- **11 profondeurs** (0 à 10) : chaque victoire débloque la suivante, avec un modificateur de plus (ennemis plus solides, élite supplémentaire, malédiction de départ…) et davantage de marques.
+- Niveau des ennemis : d'après la progression dans l'histoire, ou le niveau de l'équipe s'il est plus élevé.
+- Codex des 35 reliques, 4 succès (dont le titre « Seigneur du Labyrinthe »), missions quotidienne et permanentes, entrée du guide, conseil du tutoriel, pastille sur l'onglet quand un choix attend.
+- **Correctif** : en Tour, Arène et Événements, la bannière d'ouverture du combat affichait « Niv. N · zone » au lieu du nom du mode.
+- **Équilibrage** (simulation seulement, 10 courses par mesure, avec un bot qui joue bien et choisit sa route) : équipe conseillée (éveil + forge), histoire 40 à 100 : 90-100 % de courses gagnées en profondeur 0, 70-90 % en profondeur 3, 40-80 % en profondeur 6, 0-10 % en profondeur 10 ; équipe non éveillée (histoire 40) : 100 % en profondeur 0, 20 % en profondeur 3. Une course gagnée compte environ 13 combats. À valider avec de vrais joueurs.
+- Tests : `test_maze` (vrais clics, PV conservés, effets des reliques, mystères, campement, marchand, actes, victoire, défaite, abandon, sauvegarde, boutique, mise en page de 1024×640 à 1920×1080) ; simulation `tests/test_balance_maze.py`. 33 suites.
+
 ## 0.20.0 — Chef d'équipe, liens, météo de zone, sacoche de combat
 D'après la recherche en ligne sur les systèmes de Dokkan Battle (compétences de chef, liens, objets de soutien) et la météo de Pokémon.
 - **Chef d'équipe 🚩** : le 1er dino de l'équipe renforce (PV et ATQ) les dinos de **sa famille** (théropodes, cératopsiens, ankylosaures, stégosaures, ptérosaures, sauropodes, hadrosaures, reptiles marins) **ou de son élément** : Commun +6 %, Rare +9 %, Épique +12 %, Légendaire +15 % ; un tiers pour les autres.
