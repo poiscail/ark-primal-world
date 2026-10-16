@@ -21,7 +21,7 @@ async def main():
         await ev('subSet("team","bag")');check('Équipe : Sac',await ev('!document.getElementById("bagBox").classList.contains("subhide") && document.getElementById("collection").classList.contains("subhide")'))
         await ev('subSet("team","dex")');check('Équipe : Bestiaire',await ev('colF.book===true && document.querySelectorAll("#colTools .dx").length')==True or await ev('document.querySelectorAll("#colTools .dx").length')>=40)
         await ev('go("summon");subSet("summon","shop")');check('Invocation : Boutique',await ev('!document.getElementById("gachaY").classList.contains("subhide") && document.getElementById("gachaX").classList.contains("subhide")'))
-        await ev('go("story")');check('Aventure : 11 sous-onglets (avec Monde, Raid, Labyrinthe, Épreuves, Grand Nord et Régions)',await ev('document.querySelectorAll("#subnav button").length')==11)
+        await ev('go("story")');check('Aventure : 12 sous-onglets (avec Monde, Raid, Labyrinthe, Épreuves, Grand Nord, Régions et Modes)',await ev('document.querySelectorAll("#subnav button").length')==12)
         await ev('go("missions")');check('Quêtes : 7 sous-onglets (avec le Camp et le Nid)',await ev('document.querySelectorAll("#subnav button").length')==7)
         await ev('go("exped");go("home");document.querySelector(".bottomnav [data-screen=missions]").click()');check('Quêtes revient au dernier sous-onglet',await ev('screen')=='exped')
         # défi du jour

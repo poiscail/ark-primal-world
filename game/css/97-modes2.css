@@ -1,0 +1,13 @@
+/* Modes (js/99-modes2.js) */
+.m2grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:10px}
+.m2grid .panel{margin:0;display:flex;flex-direction:column;justify-content:space-between}.m2grid .bigicon{width:46px;height:46px;flex-basis:46px;font-size:24px}
+.m2card button.wide{margin-top:8px}
+.m2puz{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:8px 0}
+html body .m2puz button{display:flex;flex-direction:column;gap:2px;padding:10px 8px}.m2puz small{opacity:.8;font-weight:400;font-size:11px}
+html body button.m2tame{padding:3px 10px;font-size:11px;border-radius:10px;background:linear-gradient(90deg,#3fd1ff,#c45cff);color:#fff;border:0;box-shadow:0 0 10px #7fd3ff;animation:m2glow 1.2s ease-in-out infinite}
+@keyframes m2glow{50%{box-shadow:0 0 20px #c45cff}}
+.m2rev{border-left:4px solid #3fd1ff}
+.battlestage.m2-train .scene{filter:grayscale(.5) brightness(.9)}
+.battlestage.m2-mirror .scene{filter:hue-rotate(180deg) saturate(.8)}
+.battlestage.m2-surv::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 70px #ff6a3c66}
+.battlestage.m2-puzzle .scene{filter:saturate(.6) brightness(.85)}

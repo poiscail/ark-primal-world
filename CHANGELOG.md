@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.34.0 — Nouveaux modes de jeu et mini-jeux
+- **Écran « Modes »** (Aventure > Modes) :
+  - 🔥 **Survie** : vagues infinies avec une seule équipe ; les PV restent d'une série à l'autre (+10 % entre deux séries), gardien toutes les 5 séries, récompense selon le nombre de séries, record personnel.
+  - ⏱️ **Sprint** : 10 combats d'affilée chronométrés, record personnel, récompense une fois par jour.
+  - 🧩 **Combats-énigmes** (8) : plateau imposé et nombre d'actions limité (2 à 7) : trouve le bon ordre.
+  - 🪞 **Miroir** : affronte le reflet corrompu de ta propre équipe.
+  - 🚫 **Sans orbes** : compétences, super et Garde seulement (toucher une orbe = Garde) ; recharges et super plus rapides.
+  - 🎯 **Entraînement** : un mannequin qui ne riposte pas, avec compteur de dégâts (total, moyenne, meilleur coup).
+  - 📖 **Découverte** : l'histoire de l'île en 10 niveaux courts.
+- **Aventures de la semaine** : 🗺️ **expédition dans le brouillard** (une carte 5×5 par jour, case par case : combats, coffres, sources, gardien au bout), 🐾 **traque** (3 pistes puis le dino rare de la semaine à apprivoiser), 🏆 **tournoi** (quarts, demies, finale contre des équipes de vrais dinos, élimination directe).
+- **Mini-jeux** : 🏁 **course de dinos** (réflexes : clique ou appuie sur Espace dans la zone verte, 3 courses par jour) et 🎣 **pêche dans les abysses** (ferre au bon moment, 7 poissons à collectionner, 5 lancers par jour, dès l'histoire 50).
+- **En combat** : 💠 **apprivoisement** (un dino corrompu, hors boss, à moins de 15 % de PV peut être purifié : 30 🔮, 60 % de réussite, 3 fois par jour ; il rejoint ta meute) et 🔁 **revanche** (après une défaite, rejoue le combat avec le même tirage : mêmes orbes et mêmes coups du sort tant que tu joues pareil).
+- **Arène par saisons** (2 semaines) avec 6 ligues (Bronze, Argent, Or, Platine, Diamant, Légende) : récompense de fin de saison selon la meilleure ligue atteinte, puis classement ramené à mi-chemin de 1000.
+- 🗓️ **Défi de la semaine** (écran du Défi du jour) : deux règles du Défi du jour à la fois (+5 🎟️ +50 🔮 +15 🧩).
+- **Fouilles** : 🖌️ pinceau (voir le contenu d'une case sans la creuser, 3 par jour) et 🧨 dynamite (une croix de 5 cases pour 3 pioches).
+- 9 succès, entrées du guide.
+- **Équilibrage** (simulation seulement, robot qui choisit la meilleure orbe, 10 essais par mesure) : énigmes 70 à 100 % pour 6 d'entre elles avec une équipe niveau 30 ; les 2 plus dures ont été adoucies (10-30 % avant) ; Survie : 3 à 5 séries (équipe niveau 30 à 50) ; Miroir, Sans orbes, Sprint et Découverte : 100 % avec une équipe adaptée. À valider avec de vrais joueurs.
+- Tests : `test_modes2` (20 vérifications) et `test_modes3` (26 vérifications), vrais clics. 52 suites.
+
 ## 0.33.0 — Le camp, le monde et de nouvelles régions
 - **Camp de base** (Quêtes > Camp, dès le niveau 3 de l'histoire) : tes dinos s'y promènent autour du feu.
   - **5 bâtiments** à construire puis améliorer (niveaux 1 à 5, pierres + os + peaux) : 🛡️ Palissade (+2 % de PV par niveau pour tous tes dinos), 🍖 Garde-manger (+2 % d'attaque par niveau), ⛏️ Carrière (+25 🪨 par heure et par niveau) et 📚 Bibliothèque (+1 🔮 par heure et par niveau), à récolter (jusqu'à 12 h d'avance), 🪺 Couveuse (incubation du Nid −6 % par niveau).

@@ -68,6 +68,8 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `js/99-camp.js` | Camp de base : écran `camp` (groupe Quêtes), bâtiments `CAMP_B` (`S.camp.b`, wrapper de `stats`, `nestLay`), production `campProd`, lettre d'Elara `ELARA_L`, Mira `MIRA_O`, quête d'Oto `OTO_Q`, rival `MODES.rival` (`rivalTeam`, pari) ; état `S.camp` |
 | `js/99-world.js` | Le monde : écran `world` (carte), nuit `wdNight`/`WD_FORCE` (créatures nocturnes `f.night`), saisons `html[data-season]`, résumés `LORE.sumN`, épilogues, fins `wdEnd`, histoire d'espèce (wrapper de `msHowTo`), énigmes `WD_RID` (wrapper de `digTap`), découvertes `WD_ART`, archives, intro `wdIntro`, événement de carte `WD_EV` ; état `S.wd` |
 | `js/99-regions.js` | Régions : moteur commun `RG` (archipel = chapitre 5, Badlands, grottes, îles célestes, Nouvelle partie +), `MODES.region` ({r,n}), mécaniques `f.rgHide` (sable, obscurité), rafale et ptérosaures (wrappers d'`enemyTurn`/`atkOf`), écran `regions` ; état `S.rg` |
+| `js/99-modes2.js` | Modes : écran `modes2`, `MODES.surv` (séries, wrapper de `killEnemy`), `sprint`, `puzzle` (`PUZ`, actions comptées dans `afterAction`), `mirror`, `noorb`, `train`, `short` ; apprivoisement `m2Tame`/`TAME` ; revanche (enregistrement de `Math.random`, `M2R`) ; état `S.m2` |
+| `js/99-modes3.js` | Modes II : brouillard `MODES.fog` (`fogCell`), traque `MODES.trk`, tournoi `MODES.tour`, saisons d'Arène (`LEAGUES`, `m3SeaCheck`), Défi de la semaine (`wchRules`, `f.daily.rule2`, `drSetup`/`drHas` de 99-events2), course `RACE`, pêche `FISH`, outils de fouille `digTool` ; état `S.m3` |
 | `js/99-desktop.js` | réglages « Application Windows » (plein écran, dernière version, quitter) via `window.arkDesktop` ; lien vers la dernière version |
 | `js/99-layout.js` | mise en page du combat (classes `bl-*`, ordre visuel en CSS) : **doit rester le dernier script** |
 | `css/91-fonts.css` / `css/91-tex.css` | polices Orbitron et Exo 2 (base64) ; textures de particules (masques) |
@@ -86,6 +88,7 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `css/97-mastery.css` / `css/97-skills3.css` | maîtrise et 2e compétence ; talents, soins ciblés, mise en scène légendaire ; chargés en dernier |
 | `css/97-bosses.css` / `css/97-foes2.css` / `css/97-hunts.css` | boss (orbes enlacées, parties, bulle, phases) ; dorés, meneurs, élites ; chasses (carte, duel, phases du raid, Graine) ; chargés en dernier |
 | `css/97-camp.css` / `css/97-world.css` / `css/97-regions.css` | camp (scène, bâtiments, lettres) ; carte du monde, nuit, saisons, intro, journal ; régions (onglets, décors teintés, orbes cachées) ; chargés en dernier |
+| `css/97-modes2.css` / `css/97-modes3.css` | modes, énigmes, purification, revanche ; brouillard, tournoi, course, pêche, outils de fouille ; chargés en dernier |
 | `css/97-pc.css` / `css/97-juice.css` | mise en page PC chargée en dernier (navigation en colonne, contenu large, grilles) ; styles des sensations de combat, de la coupure et des cadres holographiques |
 | `css/96-skins.css` | 7 thèmes (`html[data-skin]`) avec images de fond en base64 (`tools/gen_backgrounds.py`) |
 | `desktop/main.js` | application Electron : fenêtre (taille mémorisée, F11, une seule instance), sauvegarde dans `%APPDATA%`, liens externes ouverts dans le navigateur, test de lancement `--smoke-test` |

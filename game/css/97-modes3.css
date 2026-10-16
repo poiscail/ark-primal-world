@@ -1,0 +1,23 @@
+/* Modes II (js/99-modes3.js) : brouillard, tournoi, traque, saisons, mini-jeux, outils de fouille */
+.fogg{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-width:420px;margin:10px auto}
+html body .fogg button.fogc{aspect-ratio:1;padding:0;font-size:22px;border-radius:10px;background:#1a2438;border:1px solid #2d3d5e;color:#fff}
+html body .fogg button.fogc.vis{background:#22324f}html body .fogg button.fogc.done{background:#2c4a3a;opacity:.85}
+html body .fogg button.fogc.here{background:#3a6b4a;box-shadow:0 0 12px #6dffa0;opacity:1}
+html body .fogg button.fogc.can{border-color:#7fd3ff;box-shadow:0 0 8px #7fd3ff88}
+.tbrk{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}
+.tbrk .tr{display:flex;flex-direction:column;align-items:center;padding:8px 4px;border-radius:10px;background:var(--surf2);font-size:12px;opacity:.6;text-align:center}
+.tbrk .tr small{font-size:10px;opacity:.8}.tbrk .tr span{font-size:18px}.tbrk .tr.cur{opacity:1;outline:2px solid #ff536c}.tbrk .tr.won{opacity:.9;outline:1px solid #6dffa0}.tbrk .tr.lost{opacity:.5;text-decoration:line-through}
+.m3trk .bigicon{width:56px;height:56px;flex-basis:56px;overflow:hidden}.m3trk .bigicon svg{width:100%;height:100%}
+.m3sea{border-left:4px solid #ffd15c}.m3wch{border-left:4px solid #ff536c}.m3wch .tiny{margin:6px 0}
+#raceTrack{margin:10px 0}.rlane{position:relative;height:34px;border-bottom:1px dashed #fff3;background:linear-gradient(90deg,transparent 96%,#ffd15c55 96%)}
+.rlane span{position:absolute;top:2px;font-size:24px;transform:translateX(-50%) scaleX(-1);transition:left .12s linear}.rlane small{position:absolute;left:4px;bottom:1px;font-size:9px;opacity:.6}
+.racebar{position:relative;height:18px;border-radius:9px;background:#33223a;margin:8px 0;overflow:hidden}
+.racebar .rz{position:absolute;left:42%;width:16%;top:0;bottom:0;background:#3fae4a}.racebar .rz::before{content:"";position:absolute;left:-50%;width:200%;top:0;bottom:0;background:#ffd15c44;z-index:-1}
+.racebar .rc{position:absolute;top:-2px;bottom:-2px;width:4px;margin-left:-2px;background:#fff;box-shadow:0 0 6px #fff}
+.fishsea{position:relative;height:120px;border-radius:12px;margin:10px 0;background:linear-gradient(#0a2236,#020a12);display:flex;align-items:center;justify-content:center;font-size:34px}
+.fishsea .bob{animation:fbob 1.6s ease-in-out infinite}.fishsea.bite .bob{animation:fbite .15s linear infinite}
+@keyframes fbob{50%{transform:translateY(6px)}}@keyframes fbite{50%{transform:translateY(10px) rotate(8deg)}}
+.digtools{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}
+html body .digtools button{display:flex;flex-direction:column;gap:2px;padding:8px 4px;font-size:12px;background:var(--surf2);border:1px solid var(--bd2)}
+.digtools small{font-size:10px;opacity:.75;font-weight:400}html body .digtools button.on{border-color:#ffd15c;box-shadow:0 0 10px #ffd15c66}
+.digtile.peek{outline:2px dashed #ffd15c;opacity:.75}
