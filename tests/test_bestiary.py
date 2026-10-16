@@ -26,14 +26,15 @@ async def main():
         # le correctif des yeux n'altère pas les portraits des dinos du joueur
         same=await ev('(()=>{Object.keys(PCACHE).forEach(k=>delete PCACHE[k]);const a=portrait("raptor");corruptSVG("raptor","redorb",{});Object.keys(PCACHE).forEach(k=>delete PCACHE[k]);const b=portrait("raptor");return a===b&&!a.includes("eglow")})()')
         check('portraits du joueur inchangés',same)
-        # scène : histoire, donjon, tour, événement
+        # scène : histoire, donjon, tour, événement (sans les créatures et duos tirés au hasard)
+        await ev("F2.newP=0;F2.goldP=0;F2.callP=0;C4.duoP=0")
         for js,want,cls in [('startBattle({mode:"story",n:3})','Sarcosuchus','beast'),('startBattle({mode:"story",n:4});fight.wave=2;renderBattle()','corrompu (élite)','corrupt'),
                             ('startBattle({mode:"story",n:40});fight.wave=2;renderBattle()','Gardien','crown'),('startBattle({mode:"dungeon",d:2,tier:1,n:3})','Golem de cristal','beast'),
                             ('startBattle({mode:"dungeon",d:3,tier:2,n:15});fight.wave=2;renderBattle()','Gardien','crown'),('S.tower.floor=3;startBattle({mode:"tower"})','Tour · ','beast'),
                             ('startBattle({mode:"event",t:0,wk:wkNow()});fight.wave=2;renderBattle()','(gardien)','crown')]:
             await ev(js);await pg.wait_for_timeout(150)
             nm=await ev('fight.enemies[fight.wave].name');hud=await ev('document.querySelector(".sHud .grow>b").textContent');c=await ev('document.querySelector(".battlestage .sEnemy").className')
-            check('scène %s : %s'%(js.split('(')[1][:24],nm),want in nm and hud==nm and cls in c and await ev('!!document.querySelector(".battlestage .sEnemy .sEart svg")'),(nm,hud,c))
+            check('scène %s : %s'%(js.split('(')[1][:24],nm),want in nm and hud.endswith(nm) and cls in c and await ev('!!document.querySelector(".battlestage .sEnemy .sEart svg")'),(nm,hud,c))
         # arène : les équipes adverses restent des dinosaures (portraits d'espèces)
         await ev('startBattle({mode:"arena",go:true,d:0,n:20,team:"Test",sp:["raptor","trike","rex"]})');await pg.wait_for_timeout(150)
         c=await ev('document.querySelector(".battlestage .sEnemy").className');nm=await ev('fight.enemies[0].name')

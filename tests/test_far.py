@@ -56,7 +56,7 @@ async def main():
         await pg.locator('#far .starbar button').click()
         check('palier de 30 étoiles (vrai clic)',await ev('S.far.starCl')==1 and await ev('S.tickets')==tk+3)
         # ---- bestiaire des créatures, succès, sauvegarde
-        check('bestiaire : 8 créatures de plus',await ev('CX_ALL().length')==38)
+        check('bestiaire : 8 créatures du Grand Nord',await ev('["mammoth","smilodon","cavebear","terrorbird","squid","angler","jelly","megalodon"].every(k=>CX_ALL().some(x=>x.id===k))'))
         check('succès « Gardiens ralliés » à 1/4',await ev('ACH.find(a=>a[0]==="far4")[3]()')==1)
         # ---- journaux : celui de l'île ne compte que ses 14 pages, le Grand Nord a le sien
         await ev('S.far.lore={far1:1,far10:1};go("achs")');await pg.wait_for_timeout(150)

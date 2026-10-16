@@ -21,13 +21,14 @@ async def main():
         await ev(BOSS,10);await ev('(()=>{const f=fight;f.turn=1;f.stun=0;enemyTurn();f.orbs=["redorb","blueorb","greenorb","redorb","blueorb","purpleorb","redorb","blueorb","purpleorb"];f.locked=[0,1,3];renderBattle()})()')
         check('lianes : orbes enlacées affichées',await ev('document.querySelectorAll("#battleArea .orbboard .orb.locked").length')==3)
         t0=await ev('fight.turn');await pg.locator('#battleArea .orbboard .orb').nth(0).click();await pg.wait_for_timeout(50)
-        check('une orbe enlacée ne fait rien (vrai clic)',await ev('fight.turn')==t0 and 'enlacée' in await ev('fight.log'))
+        check('une orbe enlacée : arrachée, tour perdu sans dégâts (vrai clic)',await ev('fight.turn')==t0+1 and 'arraches' in await ev('fight.log') and await ev('fight.locked.length')==2)
+        await ev('(()=>{const f=fight;f.orbs[2]="greenorb";f.locked=f.locked||[1,3];f.stun=9;renderBattle()})()')
         await pg.locator('#battleArea .orbboard .orb').nth(2).click();await pg.wait_for_timeout(50)
         check('une orbe verte libère les lianes',await ev('fight.locked')==None and 'libérées' in await ev('fight.log'))
         # ---- rune
         await ev(BOSS,30)
         r=await ev('''(()=>{const f=fight,e=f.enemies[2];e.hp=e.max=1e7;e.p1=e.p2=1;f.rune="redorb";const hit=c=>{e.hp=e.max;f.orbs=Array(9).fill(c);f.combo=0;f.last=null;f.stun=9;tapOrb(0);return e.max-e.hp};const r0=Math.random;Math.random=()=>.99;const a=hit("redorb"),b=hit("blueorb");Math.random=r0;return [a,b,orbPreview("blueorb")>0]})()''')
-        check('rune : les autres couleurs frappent ×0,4',r[1]<r[0]*.6,r)
+        check('rune : les autres couleurs frappent ×0,6 (et l\'estimation le montre)',r[1]<r[0]*.75 and r[2],r)
         # ---- éruption
         await ev(BOSS,60)
         r=await ev('(()=>{const f=fight;f.hp=f.mx.slice();f.turn=2;f.stun=0;const _h=hitDino;hitDino=function(){};enemyTurn();hitDino=_h;return f.mx.map((m,k)=>Math.round((m-f.hp[k])/m*100))})()')

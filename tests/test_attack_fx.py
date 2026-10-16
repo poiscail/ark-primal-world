@@ -32,7 +32,7 @@ async def main():
         await ev('fight.enemies[fight.wave].sh=99999;fight.cd=[0,0,0];__fx.clear()');await ev('useSkill(1)');await pg.wait_for_timeout(700)
         check('bouclier ennemi : « ABSORBÉ » affiché',await ev('__fx.has("dmgnum")')and 'absorbé' in await ev('fight.log'),await ev('[...__fx]'))
         # ripostes : crocodile = morsure, spectre = orbe
-        await ev(team(['raptor','trike','stego']));await ev('startBattle({mode:"story",n:3});fight.enemies.forEach(e=>{e.hp=e.max=999999});renderBattle()');await pg.wait_for_timeout(250)
+        await ev(team(["raptor","trike","stego"]));await ev("F2.newP=0;F2.callP=0;F2.goldP=0;C4.duoP=0");await ev('startBattle({mode:"story",n:3});fight.enemies.forEach(e=>{e.hp=e.max=999999});renderBattle()');await pg.wait_for_timeout(250)
         await ev('__fx.clear()');await ev('fight.turn=2;fight.stun=0;tapOrb(0)');await pg.wait_for_timeout(1100)
         check('riposte du Sarcosuchus : morsure sur l\'équipe',await ev('__fx.has("hurtflash")')and await ev('__fx.has("jawfx")'),await ev('[...__fx]'))
         await ev('startBattle({mode:"story",n:33});fight.enemies.forEach(e=>{e.hp=e.max=999999});renderBattle()');await pg.wait_for_timeout(250)

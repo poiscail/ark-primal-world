@@ -1,0 +1,6 @@
+/* Ennemis II (js/99-foes2.js) */
+#battleArea .sEnemy.gold .sEart{filter:sepia(1) saturate(4) hue-rotate(-10deg) brightness(1.15) drop-shadow(0 0 14px #ffd15c)}
+#battleArea .sEnemy.gold::after{content:"✨";position:absolute;top:0;right:10%;font-size:22px;animation:f2tw 1.2s ease-in-out infinite}
+@keyframes f2tw{50%{opacity:.3;transform:scale(.8)}}
+#battleArea .sEnemy.elite .sEart{filter:drop-shadow(0 0 10px #ff8a3c) drop-shadow(0 0 2px #fff)}
+@media (prefers-reduced-motion:reduce){#battleArea .sEnemy.gold::after{animation:none}}

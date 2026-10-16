@@ -29,7 +29,9 @@ function msPick2(id){ens();const d=S.team.find(x=>x.id===id);if(!d)return;if((d.
  openModal(`<h3 style="margin:0 0 6px">2e compétence : ${esc((SPEC[d.type]||sp(d)).name)}</h3><div class="tiny muted">Utilisable en combat avec son propre bouton (touches Q, S, D), en plus de ${esc(SK[main].n)}.</div><div class="nestlist">${L.map(k=>`<button class="nprow ${d.sk2===k?"on":""}" onclick="msSet2(${d.id},'${k}')"><span class="a">${SK[k].i}</span><span class="grow"><b>${esc(SK[k].n)}</b> <span class="tiny muted">recharge ${SK[k].cd}</span><br><span class="tiny">${esc(SK[k].d)}</span></span></button>`).join("")}</div><button class="wide secondary" onclick="closeModal()">FERMER</button>`)}
 function msSet2(id,k){ens();const d=S.team.find(x=>x.id===id);if(!d||!SK[k])return;d.sk2=k;save();closeModal();toast(SK[k].i+" 2e compétence : "+SK[k].n);render()}
 /* ---- ouverture du chef, terrain natal ---- */
-function msOpen(f){if(f.msOpenO===f.o)return;f.msOpenO=f.o;const t=T3(),L=t[0];if(!L||f.raid)return;const fam=msFam(L),e=f.enemies[f.wave],O=MS_OPEN[fam];f.msOpen=fam;
+function msOpen(f){if(f.msOpenO===f.o)return;const again=!!f.msOpenO;f.msOpenO=f.o;const t=T3(),L=t[0];if(!L||f.raid)return;const fam=msFam(L),e=f.enemies[f.wave],O=MS_OPEN[fam];f.msOpen=fam;
+ /* les modes (80-modes) transforment un combat d'histoire déjà affiché : 2e passage = seulement les effets sur les nouveaux ennemis (sinon saignement, PV et message doublés) */
+ if(again){if(fam==="C"){if(e)e.sh=0}else if(fam==="S"){if(e&&!e.boss)f.stun=Math.max(f.stun||0,1)}else if(fam==="M"){if(e){e.tr="";e.sh=0}}return}
  if(fam==="T")f.dots.push({dmg:Math.max(1,Math.round(atkOf(0)*.4)),t:2});else if(fam==="C"){if(e)e.sh=0}else if(fam==="A")f.buff.shield=Math.max(f.buff.shield||0,1);
  else if(fam==="G")f.thorn=Math.max(f.thorn||0,1);else if(fam==="F")f.sp=Math.max(f.sp||0,20);else if(fam==="S"){if(e&&!e.boss)f.stun=Math.max(f.stun||0,1)}
  else if(fam==="H"){f.mx=f.mx.map(m=>Math.round(m*1.05));f.hp=f.hp.map((h,j)=>h>0?Math.min(f.mx[j],Math.round(h*1.05)):h)}else if(fam==="M"){if(e){e.tr="";e.sh=0}}

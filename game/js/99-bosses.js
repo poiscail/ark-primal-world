@@ -1,11 +1,11 @@
 /* Boss (0.32) : mécanique propre à chaque zone (idée 51), parties à viser (52), décor qui change à chaque phase (56),
    répliques des boss (66), entrée en scène (71), variantes corrompues du Cauchemar avec deux mécaniques (62).
    Mécaniques (f.bm = liste) : lianes (jungle : 3 orbes enlacées tous les 3 tours, une orbe verte les libère),
-   rune (ruines : seule la couleur de la rune frappe fort, ×0,4 sinon ; change tous les 3 tours), eruption (volcan :
+   rune (ruines : seule la couleur de la rune frappe fort, ×0,6 sinon ; change tous les 3 tours), eruption (volcan :
    tout le monde perd 6 % de ses PV tous les 3 tours), saisie (obélisque : le boss saisit un dino tous les 4 tours ;
    2 orbes de l'élément qui le bat le libèrent). Parties : Mâchoire (brisée : ATQ −20 %) et Queue (brisée : plus
    d'attaque de zone), 20 % des PV du boss chacune ; les dégâts sur une partie comptent aussi pour le boss. */
-const BM={lianes:{i:"🌿",n:"Lianes",d:"tous les 3 tours, 3 orbes sont enlacées ; une orbe 🌿 les libère"},rune:{i:"🔷",n:"Bouclier runique",d:"seules les orbes de la couleur de la rune frappent fort (×0,4 sinon) ; la rune change tous les 3 tours"},
+const BM={lianes:{i:"🌿",n:"Lianes",d:"tous les 3 tours, 3 orbes sont enlacées ; une orbe 🌿 les libère toutes, toucher une orbe enlacée l'arrache mais coûte un tour"},rune:{i:"🔷",n:"Bouclier runique",d:"seules les orbes de la couleur de la rune frappent fort (×0,6 sinon) ; la rune change tous les 3 tours"},
  eruption:{i:"🌋",n:"Éruption",d:"tous les 3 tours, toute l'équipe perd 6 % de ses PV"},saisie:{i:"🦑",n:"Saisie",d:"tous les 4 tours, le boss saisit un dino (plus de compétence, −4 % de PV par tour) ; 2 orbes de l'élément qui le bat le libèrent"}};
 const BM_ZONE={jungle:"lianes",ruines:"rune",volcan:"eruption",obelisque:"saisie"},BM_NEXT={lianes:"rune",rune:"eruption",eruption:"saisie",saisie:"lianes"};
 const BLINES={jungle:["La jungle entière se dresse contre toi !","Mes racines t'étoufferont…","Assez joué !"],ruines:["Ces ruines sont mon royaume.","Les runes me protègent !","Je ne tomberai pas !"],
@@ -13,7 +13,7 @@ const BLINES={jungle:["La jungle entière se dresse contre toi !","Mes racines t
 const bmOn=f=>!!(f&&f.mx&&!f.over);
 const bmBoss=f=>{const e=f&&f.enemies&&f.enemies[f.wave];return e&&e.boss&&f.wave===2&&!f.raid?e:null};
 const bmCol=e=>Object.keys(BEAT).find(c=>BEAT[c]===e.el)||"blueorb";
-function bmSetup(f){const e=bmBoss(f);if(!e||e.bmSet)return;e.bmSet=1;const m=f.o&&f.o.mode||"story";if(!/^(story|nightmare|dungeon)$/.test(m)||f.daily||(f.o&&f.o.daily))return;
+function bmSetup(f){const e=bmBoss(f);if(!e||e.bmSet)return;e.bmSet=1;const m=f.o&&f.o.mode||"story";if(!/^(story|nightmare|dungeon|secret|seed)$/.test(m)||f.daily||(f.o&&f.o.daily))return;
  const z=stageZone(f.zone||""),k=BM_ZONE[z];f.bm=k?[k]:[];if(m==="nightmare"&&k){f.bm.push(BM_NEXT[k]);e.corr=1}
  const P=Math.round(e.max*.2);f.parts={jaw:{n:"Mâchoire",i:"🦷",hp:P,max:P,d:"brisée : ATQ −20 %"},tail:{n:"Queue",i:"🦎",hp:P,max:P,d:"brisée : plus d'attaque de zone"}};f.part=null;
  if(f.bm.includes("rune"))f.rune=["redorb","blueorb","greenorb","purpleorb"][rnd(4)];
@@ -22,13 +22,14 @@ function bmSay(f,i){const z=stageZone(f.zone||""),L=BLINES[z]||BLINES.neutre;f.b
 function bmEntrance(e){try{const el=document.createElement("div");el.className="bossin"+(e.corr?" corr":"");el.innerHTML=`<small>⚠ BOSS</small><b>${esc(String(e.name).split(" · ").pop())}</b>`;fxAdd(el,typeof fxd==="function"?fxd(1500):1500)}catch(x){}}
 /* ---- orbes : lianes, rune, saisie ---- */
 const _toBM=tapOrb;tapOrb=function(i){const f=fight;if(bmOn(f)&&f.orbs&&!(typeof CUT!=="undefined"&&CUT)){const c=f.orbs[i];
-  if(f.locked&&f.locked.includes(i)&&c!=="greenorb"){f.log="🌿 Cette orbe est enlacée : touche une orbe 🌿 pour libérer les lianes.";renderBattle();return}
+  if(f.locked&&f.locked.includes(i)&&c!=="greenorb"){f.locked=f.locked.filter(x=>x!==i);if(!f.locked.length)f.locked=null;f.combo=0;f.last=null;return afterAction(0,"🌿 Tu arraches une liane (tour perdu). Une orbe 🌿 libère toutes les lianes d'un coup.",true)}
   if(f.locked&&c==="greenorb"){f.locked=null;f._bmFree=1}
   if(f.grab&&c===f.grab.col){f.grab.need--;if(f.grab.need<=0){f._bmFreed=sp(T3()[f.grab.k]).name;f.grab=null}}}
  return _toBM(i)};
+const _opBM=orbPreview;orbPreview=function(c){const v=_opBM(c),f=fight;return f&&f.rune&&bmBoss(f)&&c!==f.rune?Math.round(v*.6):v};
 const _aaBM=afterAction;afterAction=function(dmg,msg,endTurn){const f=fight;if(bmOn(f)){const e=bmBoss(f);
   if(f._bmFree){f._bmFree=0;msg+=" · 🌿 lianes libérées"}if(f._bmFreed){msg+=" · 🦑 "+f._bmFreed+" est libéré !";f._bmFreed=null}
-  if(e&&f.rune&&f._tap&&f._tap!==f.rune&&dmg>0){dmg=Math.round(dmg*.4);f.pop=dmg;msg+=" · 🔷 la rune "+(ICO[f.rune]||"")+" bloque (×0,4)"}
+  if(e&&f.rune&&f._tap&&f._tap!==f.rune&&dmg>0){dmg=Math.round(dmg*.6);f.pop=dmg;msg+=" · 🔷 la rune "+(ICO[f.rune]||"")+" bloque (×0,6)"}
   if(e&&f.part&&f.parts&&dmg>0){const P=f.parts[f.part];if(P&&P.hp>0){P.hp=Math.max(0,P.hp-dmg);if(P.hp===0){msg+=" · 💥 "+P.n+" BRISÉE ("+P.d+")";if(f.part==="jaw")e.atk=Math.round(e.atk*.8);if(e.a0&&f.part==="jaw")e.a0=Math.round(e.a0*.8);f.part=null;if(typeof banner==="function")banner(P.n.toUpperCase()+" BRISÉE",P.d,"boss")}}}}
  return _aaBM(dmg,msg,endTurn)};
 const _usBM=useSkill;useSkill=function(k){const f=fight;if(bmOn(f)&&f.grab&&f.grab.k===k){f.log="🦑 "+sp(T3()[k]).name+" est saisi : il ne peut pas utiliser sa compétence.";renderBattle();return}return _usBM(k)};

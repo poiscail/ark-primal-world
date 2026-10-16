@@ -1,0 +1,83 @@
+"""Chasses (0.33) : mini-boss errant du jour (carte, vrai clic, récompense une fois par jour), niveaux sans perte et boss
+secret de chapitre, duel de champions (un seul dino, 3 essais par jour), raid en 3 phases, Graine originelle après le Grand Nord."""
+import asyncio,pathlib,sys,os
+from playwright.async_api import async_playwright
+GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/os.environ.get('ARK_PAGE','index.html')).as_uri()
+FAILS=[]
+def check(name,cond,info=''):
+    print(('OK   ' if cond else 'FAIL ')+name+(' '+str(info) if (info!='' and not cond) else ''))
+    if not cond:FAILS.append(name)
+KILL='(()=>{const f=fight;f.wave=2;f.stun=9;f.locked=null;f.rune=null;f.grab=null;const e=f.enemies[2];e.hp=1;e.tr="";e.sh=0;f.orbs=Array(f.orbs.length).fill("goldorb");tapOrb(0);return f.over})()'
+async def main():
+    async with async_playwright() as p:
+        b=await p.chromium.launch();pg=await b.new_page(viewport={'width':1280,'height':800});ev=pg.evaluate
+        errs=[];pg.on('pageerror',lambda e:errs.append(str(e)[:300]))
+        await pg.goto(GAME);await pg.wait_for_timeout(400)
+        await ev('setPref("anim",false);setPref("lore",false);WX_ON=false;S.tut={off:true,seen:{}};S.team=["rex","giga","raptor"].map((t,i)=>({id:i+1,type:t,level:30,xp:0}));S.stage=30;S.stars={};ens();C4.duoP=0;F2.newP=0;F2.goldP=0;F2.callP=0;S.hunt.clean={};S.hunt.sec={};S.hunt.wd="";save()')
+        # ---- errant
+        wn=await ev('huWanderN()')
+        check('un errant par jour, sur un niveau déjà joué',1<=wn<=30,wn)
+        await ev(f'mapCh={(wn-1)//10};go("story")')
+        check('errant affiché sur la carte',await pg.locator('#chapters .smap .huwand').count()==1)
+        check('panneau des chasses (errant + boss secret)',await pg.locator('#chapters .huhint .row').count()==2)
+        await pg.click('#chapters .smap .huwand');await pg.wait_for_timeout(100)
+        r=await ev('[fight.o.mode,!!fight.enemies[2].wander,fight.enemies[2].boss,/Errant/.test(fight.enemies[2].name)]')
+        check('vrai clic : combat contre le mini-boss errant',r==['wander',True,True,True],r)
+        t0=await ev('S.tickets');r=await ev(KILL)
+        check('errant vaincu : récompense du jour',r=='win' and await ev('S.hunt.wd===todayK()') and await ev('S.tickets')==t0+1,[r,t0])
+        await ev(f'mapCh={(wn-1)//10};go("story")')
+        check('errant marqué vaincu jusqu\'à demain',await ev('document.querySelector("#chapters .huwand").disabled'))
+        t0=await ev('S.tickets');await ev('fight=null;startBattle({mode:"wander",n:5})');await ev(KILL)
+        check('pas de 2e récompense le même jour','déjà reçue' in await ev('fight.report||""'))
+        # ---- niveaux sans perte et boss secret
+        await ev('fight=null;startBattle({mode:"story",n:5})');await ev(KILL)
+        check('niveau gagné sans perte : noté',await ev('S.hunt.clean[5]')==1)
+        await ev('fight=null;startBattle({mode:"story",n:6});fight.hp[1]=0');await ev(KILL)
+        check('niveau gagné avec un dino KO : pas noté',await ev('!S.hunt.clean[6]'))
+        await ev('mapCh=0;go("story")')
+        check('boss secret verrouillé (compte affiché)',await ev('document.querySelector("#chapters .husec").disabled') and '/10' in await pg.inner_text('#chapters .husec'))
+        await ev('for(let i=1;i<=10;i++)S.hunt.clean[i]=1;mapCh=0;go("story")')
+        check('10 niveaux sans perte : boss secret ouvert',await ev('!document.querySelector("#chapters .husec").disabled'))
+        await pg.click('#chapters .smap .husec');await pg.wait_for_timeout(100)
+        await ev('fight.wave=2;renderBattle()')
+        r=await ev('[fight.o.mode,fight.bm,/Secret/.test(fight.enemies[2].name)]')
+        check('vrai clic : boss secret, avec la mécanique de sa zone',r==['secret',['lianes'],True],r)
+        t0=await ev('S.tickets');r=await ev(KILL)
+        check('boss secret vaincu : +5 tickets, noté',r=='win' and await ev('S.hunt.sec[0]')==1 and await ev('S.tickets')>=t0+5,[r,t0])
+        # ---- duel
+        await ev('fight=null;S.hunt.du={day:todayK(),left:3,won:""};go("arena")')
+        check('panneau du duel dans l\'Arène',await pg.locator('#arena .huduel').count()==1)
+        await pg.click('#arena .huduel button.red');await pg.wait_for_timeout(100)
+        check('choix du dino (3 boutons)',await pg.locator('#modalBody .hudpick button').count()==3)
+        await pg.locator('#modalBody .hudpick button').nth(1).click();await pg.wait_for_timeout(100)
+        r=await ev('[fight.o.mode,fight.wave,fight.hp[0],fight.hp[1]>0,fight.hp[2],S.hunt.du.left,document.querySelectorAll("#battleArea .sTeam .sFig.huout").length]')
+        check('vrai clic : duel en un contre un',r==['duel',2,0,True,0,2,2],r)
+        t0=await ev('S.tickets');r=await ev(KILL)
+        check('duel gagné : +2 tickets une fois par jour',r=='win' and await ev('S.tickets')>=t0+2 and 'Duel gagné' in await ev('fight.report||""') and await ev('S.hunt.du.won===todayK()'),[r,t0])
+        await ev('S.hunt.du.left=0;fight=null;startBattle({mode:"duel",k:0,ch:0})')
+        check('plus de duel après 3 essais',await ev('!fight'))
+        # ---- raid en phases
+        await ev('fight=null;S.stage=30;ens();S.raid.left=3;S.raid.hp=Math.round(S.raid.max*.5);raidStart()')
+        r=await ev('[fight.rPh,fight.enemies[2].el===raidBoss().el,!!document.querySelector("#battleArea .huph")]')
+        check('raid : phase 2 à 50 % détruits (élément changé, puce)',r[0]==2 and (r[1] is False or (await ev('["purpleorb","goldorb"].includes(raidBoss().el)'))) and r[2],r)
+        await ev('fight=null;go("raid")')
+        check('écran du raid : phase 2/3 affichée','Phase 2/3' in await pg.inner_text('#raid .hurph'))
+        # ---- Graine originelle
+        await ev('fight=null;go("far")')
+        check('Graine : verrouillée avant la fin du Grand Nord',await pg.locator('#far .huseed').count()==1 and await pg.locator('#far .huseed button').count()==0)
+        await ev('S.stage=100;S.far.stage=FAR_N;S.team.forEach(d=>d.level=60);go("far")')
+        await pg.click('#far .huseed button');await pg.wait_for_timeout(100)
+        await ev('fight.wave=2;renderBattle()')
+        r=await ev('[fight.o.mode,fight.bm,fight.enemies[2].name]')
+        check('vrai clic : la Graine originelle, deux mécaniques',r==['seed',['lianes','eruption'],'La Graine originelle'],r)
+        r=await ev('[(fight.log.match(/Ouverture du chef/g)||[]).length,fight.dots.length]')
+        check('ouverture du chef appliquée une seule fois dans un combat de mode',r[0]<=1 and r[1]<=1,r)
+        check('sprite de la Graine',await ev('!!document.querySelector("#battleArea .sEnemy svg")'))
+        t0=await ev('S.tickets');r=await ev(KILL)
+        check('Graine apaisée : +10 tickets, épilogue',r=='win' and await ev('S.hunt.seed')==1 and await ev('S.tickets')>=t0+10 and 'huepi' in await ev('fight.report||""'),[r,t0])
+        check('4 succès de chasse',await ev('ACH.filter(a=>/^hu/.test(a[0])).length')==4)
+        check('sauvegarde : S.hunt rechargée',await ev('(()=>{save();const x=JSON.parse(localStorage.arkPrimalMobile);return !!(x.hunt&&x.hunt.seed===1&&x.hunt.sec[0]===1)})()'))
+        check('aucune erreur JS',errs==[],errs)
+        await b.close()
+    print('ÉCHECS:',FAILS or 'aucun');sys.exit(1 if FAILS else 0)
+asyncio.run(main())

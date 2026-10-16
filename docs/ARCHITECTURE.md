@@ -62,6 +62,9 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `js/99-combat4.js` | Combat III : duos d'ennemis (`C4`, `c4Setup`, `c4Target`, second ennemi `.sEnemy2`, deux attaques par tour, `killEnemy` qui range les ennemis), grand plateau 4×4 (`f.big4`, `c4Orbs`, boost ramené à 9 cases) |
 | `js/99-skills3.js` | Compétences II : 5 compétences (`cry`, `minion`, `vamp`, `defy`, `gild`), talents `d.tal` (stats, super), ordre de l'auto-combat `d.auto` (`autoSkill`), super prismatique, soins ciblés `f.healT`, mise en scène légendaire `s3Cut` ; chargé avant 99-mastery |
 | `js/99-mastery.js` | Maîtrise : niveaux de compétence `d.skx`/`msLv`, 2e compétence `d.sk2` (`useSkill2`, touches Q/S/D, `f.cd2`), ouverture du chef `MS_OPEN`, terrain natal (`atkOf`), paliers 20/40/60 (`stats`), fiche `msHowTo` |
+| `js/99-bosses.js` | Boss de zone : mécaniques `f.bm` (`BM`, `BM_ZONE`, `BM_NEXT` pour le Cauchemar), lianes `f.locked`, rune `f.rune` (wrapper d'`orbPreview`), saisie `f.grab`, parties `f.parts`/`f.part`, répliques `f.bline`, décor `bph2`/`bph3`, entrée `.bossin` ; posé au premier rendu (`bmSetup`) |
+| `js/99-foes2.js` | Nouvelles créatures : 10 sprites `BEAST` (`FOES2` par zone), ennemis dorés `e.gold`, meneurs `e.caller` (renforts `f.reinf`), double trait `e.tr2`, élites `e.elite`, récompense de première victoire ; posé au premier rendu, une fois par `f.o` (`f.f2O`) ; réglages `F2` |
+| `js/99-hunts.js` | Chasses : `MODES.wander` (errant du jour `huWanderN`), `MODES.secret` (boss secret de chapitre, niveaux sans perte `S.hunt.clean`), `MODES.duel` (un seul dino, `f.duel`), `MODES.seed` (Graine originelle, sprite `BEAST.seed`), raid en phases (`huRaidPh`, `f.rPh`) ; état `S.hunt`, réglages `HU` |
 | `js/99-desktop.js` | réglages « Application Windows » (plein écran, dernière version, quitter) via `window.arkDesktop` ; lien vers la dernière version |
 | `js/99-layout.js` | mise en page du combat (classes `bl-*`, ordre visuel en CSS) : **doit rester le dernier script** |
 | `css/91-fonts.css` / `css/91-tex.css` | polices Orbitron et Exo 2 (base64) ; textures de particules (masques) |
@@ -78,6 +81,7 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `css/97-combat3.css` | terrains (voile sur la scène), objets, fiche d'ennemi, HUD compact ; chargé après `97-combat2.css` |
 | `css/97-combat4.css` | second ennemi du duo, plateau 4×4 ; chargé après `97-combat3.css` |
 | `css/97-mastery.css` / `css/97-skills3.css` | maîtrise et 2e compétence ; talents, soins ciblés, mise en scène légendaire ; chargés en dernier |
+| `css/97-bosses.css` / `css/97-foes2.css` / `css/97-hunts.css` | boss (orbes enlacées, parties, bulle, phases) ; dorés, meneurs, élites ; chasses (carte, duel, phases du raid, Graine) ; chargés en dernier |
 | `css/97-pc.css` / `css/97-juice.css` | mise en page PC chargée en dernier (navigation en colonne, contenu large, grilles) ; styles des sensations de combat, de la coupure et des cadres holographiques |
 | `css/96-skins.css` | 7 thèmes (`html[data-skin]`) avec images de fond en base64 (`tools/gen_backgrounds.py`) |
 | `desktop/main.js` | application Electron : fenêtre (taille mémorisée, F11, une seule instance), sauvegarde dans `%APPDATA%`, liens externes ouverts dans le navigateur, test de lancement `--smoke-test` |

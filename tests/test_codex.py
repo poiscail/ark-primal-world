@@ -2,7 +2,7 @@
 panneau dans Succès (silhouettes, compteur), succès associés, sauvegarde compatible (champ foes)."""
 import asyncio,pathlib,sys
 from playwright.async_api import async_playwright
-GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
+GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/__import__('os').environ.get('ARK_PAGE','index.html')).as_uri()
 FAILS=[]
 def check(name,cond,info=''):
     print(('OK   ' if cond else 'FAIL ')+name+(' '+str(info) if (info!='' and not cond) else ''))
@@ -15,7 +15,7 @@ async def main():
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
         await pg.goto(GAME);await pg.wait_for_timeout(300);await ev(BASE)
         check('champ foes initialisé',await ev('typeof S.foes==="object"&&Object.keys(S.foes).length===0'))
-        check('38 entrées (28 créatures + 10 dinos corrompus)',await ev('CX_ALL().length')==38)
+        check('49 entrées (39 créatures + 10 dinos corrompus)',await ev('CX_ALL().length')==49)
         # toutes les créatures sont rencontrables : on parcourt les sources d'ennemis
         reach=await ev('''(()=>{const seen=new Set(),add=(e,f)=>{const L=enemyLook(e,f);if(L)seen.add(L.k||"c:"+L.cor)};
           for(let n=1;n<=100;n++){const f={o:{mode:"story"},n,zone:"Niv. "+n+" · "+zoneOf(n)[0],enemies:[]};const z=zoneOf(n);
@@ -23,9 +23,12 @@ async def main():
           DUN.forEach((d,di)=>[1,2].forEach(t=>{const f={o:{mode:"dungeon",d:di,tier:t},zone:d.n,enemies:[]};[d.en[0],d.en[1],"👹"].forEach((x,i)=>{const e={e:x,el:d.el,name:"x · Ennemi",boss:i===2};f.enemies[i]=e;f.wave=i;cxVary(e,f);add(e,f)})}));
           ["🦴","🐗","🦂","🐙","🦇","🗿","🐉","👹"].forEach(x=>add({e:x,el:"redorb",name:"Tour · Ennemi",boss:x==="👹"},{o:{mode:"tower"},zone:"Tour · Étage 1"}));
           EVENTS.forEach(ev=>ev.en.forEach(x=>add({e:x,el:ev.el,name:"x · Ennemi"},{o:{mode:"event"},zone:ev.n})));
+          add({e:"🌱",el:"greenorb",name:"La Graine originelle",boss:true},{o:{mode:"seed"},zone:"Cœur de la jungle · La Graine originelle"});
+          if(typeof FOES2!=="undefined")Object.entries(FOES2).forEach(([z,L])=>L.forEach(x=>add({e:x,el:"redorb",name:"x · Ennemi"},{o:{mode:"story"},zone:"Niv. 3 · "+({jungle:"Jungle",ruines:"Ruines",volcan:"Volcan",obelisque:"Obélisque"})[z]})));
           for(let n=1;n<=40;n++){const Z=farZone(n),f={o:{mode:"far",n},zone:"Grand Nord · Niv. "+n+" · "+Z.z,enemies:[]};[...Z.em,"🦖"].forEach((x,i)=>{const e={e:x,el:Z.el,name:Z.z+(i===4?" · Élite":" · Ennemi")};const w=i===4?2:0;f.enemies[w]=e;f.wave=w;add(e,f)})}
           return CX_ALL().filter(x=>!seen.has(x.id)).map(x=>x.id)})()''')
         check('toutes les créatures du bestiaire sont rencontrables',reach==[],reach)
+        await ev('if(typeof F2!=="undefined"){F2.newP=0;F2.goldP=0}if(typeof C4!=="undefined")C4.duoP=0')  # créatures (0.33) et duos (0.30) tirés au hasard
         r=await ev(PLAY,{'mode':'story','n':3});check('victoire (histoire 3)',r=='win')
         f=await ev('JSON.stringify(S.foes)');check('ennemis vaincus notés (dont le Sarcosuchus)','"croc"' in f and await ev('Object.values(S.foes).reduce((a,b)=>a+b,0)')==3,f)
         await ev(PLAY,{'mode':'story','n':4})
@@ -35,9 +38,9 @@ async def main():
         check('arène : non comptée',await ev('Object.values(S.foes).reduce((a,b)=>a+b,0)')==n0)
         # panneau
         await ev('go("achs");cxToggle()');await pg.wait_for_timeout(150)
-        check('panneau du bestiaire dans Succès',await ev('!!document.getElementById("codexBox")&&document.querySelectorAll("#codexBox .cx").length===38'))
-        check('silhouettes pour les créatures non vaincues',await ev('document.querySelectorAll("#codexBox .cx.no").length')==38-await ev('cxSeen()'))
-        check('compteur affiché',('%d / 38'%await ev('cxSeen()')) in await ev('document.getElementById("codexBox").textContent'))
+        check('panneau du bestiaire dans Succès',await ev('!!document.getElementById("codexBox")&&document.querySelectorAll("#codexBox .cx").length===49'))
+        check('silhouettes pour les créatures non vaincues',await ev('document.querySelectorAll("#codexBox .cx.no").length')==49-await ev('cxSeen()'))
+        check('compteur affiché',('%d / 49'%await ev('cxSeen()')) in await ev('document.getElementById("codexBox").textContent'))
         check('succès Naturaliste et Encyclopédie vivante',await ev("ACH.some(a=>a[0]==='cx1')&&ACH.some(a=>a[0]==='cx2'&&a[6]===\"Naturaliste de l'île\")"))
         await ev('save()');await pg.reload();await pg.wait_for_timeout(300)
         check('bestiaire conservé après rechargement',await ev('(ens(),Object.keys(S.foes).length)')>=4)
