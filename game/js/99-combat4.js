@@ -8,10 +8,10 @@
    Décidés au premier rendu (les modes remplacent le combat d'histoire). */
 const C4={duoP:.3,duoMin:20,duoHp:.9,duoAtk:.7};
 const c4On=f=>!!(f&&f.mx&&!f.over);
-function c4Setup(f){if(f.c4Set)return;f.c4Set=1;const m=f.o&&f.o.mode||"story";
+function c4Setup(f){if(f.c4Set===f.o)return;f.c4Set=f.o;f.big4=0;f.duo=0;const m=f.o&&f.o.mode||"story";
  if(m==="nightmare"||m==="far"||(m==="tower"&&S.tower&&S.tower.floor>=30))f.big4=1;
  const lvl=m==="story"?(f.o.n||0):m==="far"||m==="nightmare"?99:0;
- if(!f.raid&&!f.daily&&f.wave===0&&lvl>=C4.duoMin&&/^(story|far|nightmare)$/.test(m)&&Math.random()<C4.duoP){const a=f.enemies[0],b=f.enemies[1];
+ if(!f.raid&&!f.daily&&!(f.o&&(f.o.daily||f.o.raid))&&f.wave===0&&lvl>=C4.duoMin&&/^(story|far|nightmare)$/.test(m)&&Math.random()<C4.duoP){const a=f.enemies[0],b=f.enemies[1];
   if(a&&b&&!a.boss&&!b.boss&&a.hp===a.max&&b.hp===b.max){f.duo=1;[a,b].forEach(e=>{e.max=Math.round(e.max*C4.duoHp);e.hp=e.max;e.atk=Math.round(e.atk*C4.duoAtk);if(e.a0)e.a0=e.atk;if(e.tr==="shield")e.sh=Math.round(e.max*.2)})}}}
 const c4Other=f=>{if(!f||!f.duo||f.wave>1)return -1;const o=1-f.wave,e=f.enemies[o];return e&&e.hp>0?o:-1};
 function c4Target(i){const f=fight;if(!c4On(f)||!f.duo||f.wave>1||i===f.wave||!(i===0||i===1))return;const e=f.enemies[i];if(!e||e.hp<=0)return;if(typeof CUT!=="undefined"&&CUT)return;

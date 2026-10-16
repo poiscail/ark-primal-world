@@ -61,6 +61,7 @@ async def main():
         async def fresh(rel,t='f'):
             await ev('(()=>{const r=S.maze.run;r.relics=%s;r.hp=[1,1,1];r.buf={atk:0,hp:0};r.phx=0})()'%rel)
             await ev(FORCE,t)
+            await ev('fight.enemies.forEach(e=>{e.e="🐊"});fight.ter=""')  # même créature et pas de terrain (faiblesses et terrains de la 0.29)
         await fresh('[]');base=await ev('({mx:fight.mx.slice(),cd:fight.cd.slice(),sp:fight.sp,a:atkOf(0),r:orbPreview("redorb")})')
         await fresh('["griffe"]');a=await ev('atkOf(0)');check('Griffe affûtée : attaque +8 %',abs(a/base['a']-1.08)<.005,(a,base['a']))
         await fresh('["braise"]');v=await ev('(()=>{fight.mzFirst=false;return orbPreview("redorb")})()');v0=await ev('(()=>{const s=fight.mzSt;fight.mzSt={...s,o_redorb:0};const v=orbPreview("redorb");fight.mzSt=s;return v})()')

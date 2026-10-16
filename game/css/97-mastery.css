@@ -1,0 +1,12 @@
+/* Maîtrise (js/99-mastery.js) */
+.msline{margin-top:4px}
+.msline span{display:inline-block;padding:0 4px;border-radius:5px;border:1px solid var(--bd2);opacity:.5;font-size:9px}
+.msline span.on{opacity:1;border-color:#ffd15c;color:#ffe08a}
+.msbtns{margin-top:4px}
+html body .msbtns button{padding:6px 8px;font-size:10px}
+html body button.skbtn .mslv{position:absolute;top:-6px;right:-6px;font-style:normal;font-size:8px;padding:1px 4px;border-radius:6px;background:#ffd15c;color:#2a1a00;font-weight:800}
+html body button.skbtn2{position:relative;width:40px;min-width:40px;height:48px;margin-left:4px;padding:2px;font-size:16px;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #c58bff;background:#c58bff22;color:var(--txt)}
+html body button.skbtn2 small{font-size:8px;opacity:.8}
+html body button.skbtn2.off{opacity:.45}
+.mshow{margin:6px 0;font-size:13px;line-height:1.5}
+.nprow.on{border-color:var(--acc)!important}

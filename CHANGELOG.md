@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.30.0 — Combat : duos d'ennemis et grand plateau de 16 orbes
+- **Duos d'ennemis** (30 % des combats d'histoire dès le niveau 20, du Grand Nord et du Cauchemar) : les deux premiers ennemis arrivent ensemble et attaquent tous les deux à chaque tour, le second décalé d'un tour dans le cycle des attaques puissantes. **Clique sur l'autre ennemi** (clic gauche ou droit) pour le viser, sans perdre ton tour ; un 🎯 marque la cible. Quand l'un tombe, on continue contre l'autre, puis vient la dernière vague. Compensation : PV ×0,9 et attaque ×0,7 pour les deux.
+- **Grand plateau de 16 orbes** (4×4) dans le Cauchemar, le Grand Nord et la Tour dès l'étage 30 : plus de choix. Le boost d'orbes compte les orbes de même couleur ramenées à un plateau de 9, pour garder la même force (8 orbes sur 16 comptent comme 5 sur 9).
+- Les boutons Aide, Garde et Fuir tiennent sur une ligne. Correctifs : le terrain (0.29) est maintenant choisi pour le vrai mode du combat (Cauchemar, Grand Nord…) et non pour le combat d'histoire qui sert de base ; ni duo ni terrain dans le Défi du jour et le Raid. Trois anciens tests rendus indépendants du hasard des duos, terrains et faiblesses.
+- **Équilibrage** (simulation seulement, histoire, 20 combats par mesure) : avec les duos, équipe non éveillée 90 % au niveau 50 et 65 % au niveau 70 (75 % et 25 % sans duo). Ces mesures varient beaucoup d'une simulation à l'autre (25 à 65 % au niveau 70 selon les essais) ; l'équipe éveillée et forgée reste à 100 %. À valider avec de vrais joueurs.
+- Tests : `test_combat4` (15 vérifications, vrais clics). 42 suites.
+
 ## 0.29.0 — Combat : états, faiblesses, terrains et objets à ramasser
 - **États infligés par les orbes** : 🔥 Brûlure (orbe rouge avec avantage, 20 % : −3 % de PV par tour pendant 3 tours), 🧊 Gel (orbe bleue avec avantage, 12 % : l'ennemi saute son tour), 🩸 Saignement (orbe verte avec avantage, 20 % : −2,5 % par tour), 😱 Peur (orbe violette, 15 % : l'ennemi frappe 25 % moins fort pendant 2 tours). Effets moitié moins forts ou moins fréquents sur les boss.
 - **Résistances** : un ennemi de feu ne brûle pas, un ennemi d'eau ne gèle pas ; les golems, squelettes, méduses et cristaux ne saignent pas ; les morts-vivants et golems n'ont pas peur ; les bêtes de la toundra ne gèlent pas.

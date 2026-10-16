@@ -20,7 +20,7 @@ function c3Res(e){const r=new Set(),k=c3Key(e);if(e.el==="redorb")r.add("burn");
 const c3On=f=>!!(f&&f.mx&&!f.over);
 const c3Ter=f=>f&&f.ter?TER3[f.ter]:null;
 /* ---- terrain (décidé au premier rendu : les modes remplacent le combat d'histoire) ---- */
-function c3PickTer(f){if(f.terSet)return;f.terSet=1;const m=f.o&&f.o.mode||"story";if(f.raid||f.daily||!/^(story|dungeon|event|far|nightmare|maze|tower)$/.test(m)||Math.random()>=C3.terP)return;
+function c3PickTer(f){if(f.terSet&&f.terSet===(f.o||1))return;f.terSet=f.o||1;f.ter="";const m=f.o&&f.o.mode||"story";if(f.raid||f.daily||(f.o&&(f.o.daily||f.o.raid))||!/^(story|dungeon|event|far|nightmare|maze|tower)$/.test(m)||Math.random()>=C3.terP)return;
  const z=stageZone(f.zone||"");f.ter=z==="jungle"?"boue":z==="volcan"?"lave":/toundra|glace/.test(z)?"glace":"brume"}
 /* ---- dégâts : terrain (par couleur d'orbe), faiblesse (par famille), éclat ---- */
 const _toC3=tapOrb;tapOrb=function(i){const f=fight;if(c3On(f)&&f.orbs&&!(typeof CUT!=="undefined"&&CUT)){const c=f.orbs[i],T=c3Ter(f);let m=1;if(T){if(T.up===c)m*=T.mul||1.2;if(T.down===c)m*=.9}if(f.c3boost){m*=1.5;f.c3boost=0;f._c3eclat=1}f.c3Now=m}
