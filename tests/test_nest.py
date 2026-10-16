@@ -63,11 +63,11 @@ async def main():
         r=await ev('''(()=>{const A={type:"rex",gn:{hp:3,atk:0},gen:2,level:30,v:"normal"},B={type:"giga",gn:{hp:1,atk:4},gen:4,level:21,v:"alpha"},N=4000;let mut=0,rex=0,va=0,hp3=0,ok=true;
           for(let i=0;i<N;i++){const x=nestBaby(A,B);if(x.mut)mut++;if(x.type==="rex")rex++;if(x.v==="alpha")va++;if(x.gn.hp>=3)hp3++;if(x.gn.hp>5||x.gn.atk>5||x.gen!==5||x.lv!==10)ok=false}
           let mut2=0;for(let i=0;i<N;i++)if(nestBaby(A,{...A}).mut)mut2++;
-          const M={type:"rex",gn:{hp:5,atk:5},gen:9,level:40,v:"normal"};let cap=true;for(let i=0;i<500;i++){const x=nestBaby(M,{...M});if(x.mut||x.gn.hp!==5||x.gn.atk!==5)cap=false}
+          const M={type:"rex",gn:{hp:5,atk:5},gen:9,level:40,v:"normal"};let cap=true;for(let i=0;i<500;i++){const x=nestBaby(M,{...M});if(x.gn.hp!==5||x.gn.atk!==5)cap=false}
           return {mut:mut/N,rex:rex/N,va:va/N,hp3:hp3/N,ok,mut2:mut2/N,cap}})()''')
         check('hérédité : espèce d\'un parent (≈ 50 %)',abs(r['rex']-.5)<.04,r)
         check('hérédité : meilleur gène à 70 %',abs(r['hp3']-.7)<.04,r)
-        check('mutation : 20 % (35 % en lignée pure)',abs(r['mut']-.2)<.03 and abs(r['mut2']-.35)<.035,r)
+        check('mutation : 20 % (35 % en lignée pure), +5 % sur les gènes DÉF/super depuis 0.37',abs(r['mut']-.24)<.03 and abs(r['mut2']-.38)<.035,r)
         check('variante d\'un parent : ≈ 20 %',abs(r['va']-.21)<.035,r)
         check('génération = max + 1, niveau = moitié du plus faible, 5 points au plus',r['ok'] and r['cap'],r)
         # ---- statistiques

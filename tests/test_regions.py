@@ -16,7 +16,7 @@ async def main():
         await pg.goto(GAME);await pg.wait_for_timeout(400)
         await ev('setPref("anim",false);setPref("lore",false);WX_ON=false;S.tut={off:true,seen:{}};S.team=["rex","giga","ptera"].map((t,i)=>({id:i+1,type:t,level:60,xp:0}));S.stage=40;ens();delete S.rg;ens();C4.duoP=0;F2.newP=0;F2.goldP=0;F2.callP=0;save()')
         await ev('go("regions")')
-        check('écran Régions : 5 onglets',await pg.locator('#regions .rgtabs button').count()==5)
+        check('écran Régions : 6 onglets (avec le chapitre 3 du Grand Nord)',await pg.locator('#regions .rgtabs button').count()==6)
         check('archipel verrouillé avant la fin de l\'histoire',await pg.locator('#regions .mnode').count()==0 and 'histoire' in await pg.inner_text('#regions'))
         await pg.click('#regions .rgtabs button:has-text("Badlands")');await pg.wait_for_timeout(100)
         check('vrai clic : Badlands ouvertes (histoire 40), 10 niveaux affichés',await pg.locator('#regions .smap .mnode').count()==10)

@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.37.0 — L'élevage et le Grand Nord, plus loin
+- **Élevage** :
+  - **Gènes de défense** (+3 % par point) et **de super** (+0,4 de jauge par orbe et par point), hérités comme les autres ; **mutations de couleur** visibles sur le portrait.
+  - **Soins des œufs** : tourner et réchauffer (une fois par heure chacun, 3 soins) donnent une empreinte de départ au petit.
+  - **Croisements spéciaux** entre familles proches (Cératopsiens × Ankylosaures, Ankylosaures × Stégosaures, Sauropodes × Hadrosaures, Théropodes × Ptérosaures, Reptiles marins × Ptérosaures, Mammifères × Cératopsiens, Insectes × Stégosaures) : le petit est une espèce épique, parfois légendaire.
+  - **3e nid** après 10 éclosions ; la **Couveuse** du camp augmente aussi les mutations (+1 % par niveau) ; **Ponte record** les 3 premiers jours du mois (mutations ×2).
+  - **Arbre généalogique** (parents, grands-parents), **nom de lignée**, **classement des lignées** (score), **bébés plus petits** qui grandissent avec le niveau.
+  - **Échange par code** : un dino d'élevage quitte ta meute et peut rejoindre une autre sauvegarde (code à usage unique, vérifié).
+  - **Quêtes d'élevage du Dr Elara** (6), **statistiques d'élevage**, **œufs visibles au camp**.
+- **Grand Nord** :
+  - **Chapitre 3 : le volcan sous-glaciaire** (niveaux 41 à 60, onglet des Régions, 2 gardiens avec éruption et lianes).
+  - **Mode difficile** (étoiles noires) : les 40 niveaux, ennemis +45 % PV et +20 % ATQ, sous le blizzard.
+  - **Gardien de la semaine** : il revient chaque semaine, plus fort à chaque défaite.
+  - **Blizzard** (35 % des combats du Grand Nord, toujours dans le chapitre 3 et en difficile) : des orbes sont voilées un tour sur deux.
+  - **Équipement de froid** ❄️ (40 % des objets trouvés là-bas) : +15 % d'attaque et −15 % de dégâts reçus dans le Grand Nord.
+  - **Faune apprivoisable** : une bête du Grand Nord affaiblie peut être purifiée et rejoint la meute sous forme de mammifère.
+  - **Expéditions vers le Grand Nord** (cristaux et ambre), **aurore boréale** animée sur l'écran, **vent glacé** en fond sonore, **bestiaire du Grand Nord** avec récompenses à 50 % et 100 %.
+- Correctif : la puce de mécanique d'une région n'affiche plus « Ptérosaures +30 % » pour une mécanique inconnue.
+- 6 succès, entrées du guide.
+- Tests : `test_nest2` (21 vérifications) et `test_far2` (18 vérifications), vrais clics. 58 suites.
+
 ## 0.36.0 — Progression : éveil ultime, prestige, objectifs et conseils
 - **Niveau maximum 100**, porté à **120** par l'**éveil ultime ★★★★★★** (après ★5 : 25 🟠, 25 💎, 200 🔮, 60 🦴). **Auras d'éveil** sur les portraits (couronne à ★5, étoile à ★6).
 - **XP** : les dinos hors équipe gagnent 10 % de l'XP des combats (entraînement passif), ceux 5 niveaux sous la moyenne de l'équipe le double (rattrapage), ceux entre les niveaux 40 et 60 +20 % (creux de la courbe) ; **partage réglable** (équitable, priorité au plus faible, priorité au chef) ; **baies 🫐 et viande 🍖** trouvées en combat à donner directement (+60 / +250 XP).

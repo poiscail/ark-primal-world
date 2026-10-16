@@ -43,7 +43,7 @@ const _rbRg=renderBattle;renderBattle=function(){_rbRg();const f=fight;if(!rgOn(
  if(G.mech==="dark"&&!f.rgHide&&!f.over){const N=f.orbs.length,lit=new Set(rgPick(N,Math.ceil(N*.55)));f.rgHide=[...Array(N).keys()].filter(i=>!lit.has(i))}
  const box=$$("battleArea"),st=box&&box.querySelector(".battlestage");if(st)st.classList.add("rg-"+f.o.r);
  if(f.rgHide&&box)box.querySelectorAll('.orbboard button.orb[onclick^="tapOrb("]').forEach(b=>{const i=+(/tapOrb\((\d+)/.exec(b.getAttribute("onclick"))||[])[1];if(f.rgHide.includes(i))b.classList.add(G.mech==="dark"?"rgdark":"rgsand")});
- const ch=box&&box.querySelector(".sHud .fchips");if(ch&&G.mech&&!ch.querySelector(".rgm"))ch.insertAdjacentHTML("beforeend",`<span class="chip rgm">${G.mech==="sand"?"🌪️ Tempête de sable":G.mech==="dark"?"🔦 Obscurité":"🪶 Ptérosaures +30 %"}</span>`)};
+ const ch=box&&box.querySelector(".sHud .fchips"),mt={sand:"🌪️ Tempête de sable",dark:"🔦 Obscurité",wind:"🪶 Ptérosaures +30 %"}[G.mech];if(ch&&mt&&!ch.querySelector(".rgm"))ch.insertAdjacentHTML("beforeend",`<span class="chip rgm">${mt}</span>`)};
 const _etRg=enemyTurn;enemyTurn=function(){const f=fight;const r=_etRg();if(!rgOn(f)||f.over)return r;const G=RG[f.o.r],T=f.turn||0,N=f.orbs.length;
  if(G.mech==="sand"){if(T%3===1){f.rgHide=rgPick(N,Math.round(N/3));f.log+=" · 🌪️ Tempête de sable : des orbes sont cachées"}else if(T%3===0)f.rgHide=null}
  if(G.mech==="dark"){const lit=new Set(rgPick(N,Math.ceil(N*.55)));f.rgHide=[...Array(N).keys()].filter(i=>!lit.has(i))}

@@ -1,0 +1,10 @@
+/* Grand Nord II (js/99-far2.js) */
+.battlestage.fzbliz::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background-image:radial-gradient(circle at 20% 30%,#fff 0 1.6px,transparent 2.4px),radial-gradient(circle at 70% 60%,#eaf6ff 0 1.3px,transparent 2px);background-size:120px 120px;opacity:.7;animation:fzsnow 2.2s linear infinite}
+@keyframes fzsnow{from{background-position:0 0}to{background-position:-60px 120px}}
+html body .orbboard button.orb.fzhide{background:radial-gradient(circle at 35% 30%,#f4fbff,#a9c6dc) !important;box-shadow:none !important}
+html body .orbboard button.orb.fzhide>*{visibility:hidden}
+html body .orbboard button.orb.fzhide::after{content:"❄";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:28px;color:#6d8aa6}
+.banner .aurora{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.55;background:linear-gradient(115deg,transparent 20%,#3dffb455 35%,transparent 50%,#7f6dff44 65%,transparent 80%);background-size:300% 100%;animation:aurora 9s ease-in-out infinite alternate;mix-blend-mode:screen}
+@keyframes aurora{from{background-position:0% 0}to{background-position:100% 0}}
+@media (prefers-reduced-motion:reduce){.banner .aurora,.battlestage.fzbliz::after{animation:none}}
+.fz2{border-left:3px solid #7fe8ff}.fz2 button.wide{margin-top:8px}.fz2i{border-left:3px solid #7fe8ff}
