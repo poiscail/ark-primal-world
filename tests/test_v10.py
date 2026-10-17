@@ -42,6 +42,8 @@ async def main():
         check('orbes de 3+ pulsent',await ev('document.querySelectorAll(".orb.boost2").length')==3)
         check('aide du boost affichée',await ev('!!document.getElementById("obHint")'))
         async def dmg(orbs):
+            # hasard coupé (météo du jour, terrains, objets, duos, créatures rares) : il faisait parfois tomber le rapport à ×1,15
+            await ev('WX_ON=false;C3.terP=0;C3.itemP=0;C4.duoP=0;F2.newP=F2.goldP=F2.callP=0')
             out=[]
             for _ in range(9):
                 out.append(await ev('(o=>{startBattle({mode:"story",n:1});fight.enemies[0].hp=fight.enemies[0].max=9e9;fight.orbs=o;const _b=C3.burn,_l=C3.bleed;C3.burn=C3.bleed=0;tapOrb(0);C3.burn=_b;C3.bleed=_l;return 9e9-fight.enemies[0].hp})(%s)'%orbs))
