@@ -1,0 +1,10 @@
+/* 0.45 · Décors peints : fond illustré sous la scène dessinée par le code (images dans 97-aibg-img.css) */
+.scene.aibg>.sc-ai{position:absolute;inset:0;background:#0a1226 center/cover no-repeat}
+.scene.aibg>.sc-ai::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#00000040,#0000 35%,#0000 60%,#00000073)}
+.scene.aibg>.sc-sky,.scene.aibg>.sc-layer.l0,.scene.aibg>.sc-layer.l1{display:none}
+.scene.aibg>.sc-layer.l2{opacity:.3}
+.scene.aibg>.sc-gnd{opacity:.55;-webkit-mask:linear-gradient(180deg,transparent,#000 55%);mask:linear-gradient(180deg,transparent,#000 55%)}
+.scene.aibg>.sc-layer.l3{opacity:.75}
+.bscene .scene.aibg>.sc-ai::after{background:linear-gradient(90deg,#000000a6,#00000040 55%,#0000)}
+.smap .scene.aibg>.sc-ai{filter:brightness(.8)}
+html.g2simple .scene.aibg>.sc-ai::after{display:none}

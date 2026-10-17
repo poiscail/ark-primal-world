@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.45.0 — Décors peints
+- **4 décors peints** derrière les combats, les bannières et les cartes des zones **Jungle**, **Volcan**, **Toundra** (Grand Nord) et **Abysses** : images que tu as créées avec FLUX.1 [schnell] (Black Forest Labs, licence Apache 2.0) sur Hugging Face. Le décor dessiné par le code reste par-dessus en transparence (sol, plantes du premier plan, météo), les dinos restent dessinés par le code.
+- **Réglage** : Réglages > Affichage > Décors (« Peints » ou « Dessinés », pour revenir aux décors d'avant). Rien n'a été retiré.
+- Images réduites à 960×540 et compressées (175 Ko en tout), intégrées au jeu (il marche toujours hors ligne). Sources dans `tools/aibg_src/`, `tools/aibg_build.py` refait la feuille d'images ; crédits dans le jeu et dans `docs/LICENSES.md`.
+- `tools/gen_images.py` : génération par FLUX depuis une session (la clé Hugging Face en « secret réseau » n'a pas été acceptée par Hugging Face, donc pas encore utilisable).
+- Test : `test_aibg` (combats, bannière, carte, zone sans image, vrais clics sur le réglage, crédits). 77 suites.
+
 ## 0.44.0 — Des dinos bien plus différents
 Tes retours : « garde les dinos par code mais fais des versions plus différentes ».
 - **Théropodes redessinés** (la famille la plus nombreuse, qui se ressemblait trop) : 3 postures (debout, coureur à l'horizontale, à l'affût tête basse), 5 têtes (fine, massive du T-Rex et du Giganotosaure, museau de crocodile du Spinosaure et du Baryonyx, bec de l'Oviraptor et du Gallimimus, gueule ouverte), pattes plus ou moins longues, griffes géantes du Therizinosaure, griffes en faucille de l'Utahraptor et du Deinonychus, queue à plumes.

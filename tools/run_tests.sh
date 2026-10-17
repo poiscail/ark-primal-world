@@ -8,7 +8,7 @@
 #   tools/run_tests.sh nest far     seulement ceux-là
 #   JOBS=1 tools/run_tests.sh       un par un (comme avant 0.43)
 cd "$(dirname "$0")/.." || exit 1
-ALL="order full skills gacha equipment modes settings portraits qol transfer v10 battle_anim exped traits summon_fx skill_fx story evolution polish nav chain content music layout auto bestiary attack_fx enemy_skills menu_scenes codex summon_buttons juice tactics maze nightmare trials species2 far nest player combat2 combat3 combat4 mastery skills3 bosses foes2 hunts camp world regions modes2 modes3 collect collect2 progress progress2 nest2 far2 gear2 gacha2 events3 anim2 gfx2 ui2 sound2 access share app2 events4 quests2 retours hud portraits2 perf visual"
+ALL="order full skills gacha equipment modes settings portraits qol transfer v10 battle_anim exped traits summon_fx skill_fx story evolution polish nav chain content music layout auto bestiary attack_fx enemy_skills menu_scenes codex summon_buttons juice tactics maze nightmare trials species2 far nest player combat2 combat3 combat4 mastery skills3 bosses foes2 hunts camp world regions modes2 modes3 collect collect2 progress progress2 nest2 far2 gear2 gacha2 events3 anim2 gfx2 ui2 sound2 access share app2 events4 quests2 retours hud portraits2 aibg perf visual"
 SOLO="auto anim2 summon_buttons sound2 perf visual"
 LIST=${*:-$ALL}
 if [ -z "$JOBS" ]; then JOBS=$(( $(nproc 2>/dev/null || echo 2) - 1 )); [ "$JOBS" -lt 1 ] && JOBS=1; [ "$JOBS" -gt 4 ] && JOBS=4; fi

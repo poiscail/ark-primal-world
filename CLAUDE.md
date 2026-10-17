@@ -3,7 +3,7 @@
 Jeu de combat d'orbes façon Dokkan Battle avec des dinosaures, **100 % local** (aucun compte, aucun serveur), en HTML/CSS/JS pur (pas de bundler). Depuis 0.18.0 le jeu est **uniquement sur PC** et livré en **application Windows (.exe)** construite avec Electron (`desktop/`). Plus de version téléphone ; les anciennes sauvegardes (navigateur, téléphone) s'importent toujours (Accueil > Sauvegarde).
 
 - Dépôt : https://github.com/poiscail/ark-primal-world (branche `main`)
-- Version actuelle : **0.44.0** (`game/js/00-version.js`, `ARK_VERSION` et `SAVE_FORMAT=1`)
+- Version actuelle : **0.45.0** (`game/js/00-version.js`, `ARK_VERSION` et `SAVE_FORMAT=1`)
 - L'utilisateur est français : **répondre en français**, être honnête sur ce qui est testé (jamais affirmer qu'une chose non testée marche ; l'.exe Windows n'est testé que par la construction automatique GitHub sur une machine Windows virtuelle ; équilibrage mesuré par simulation seulement).
 - Attentes permanentes : améliorer sans cesse le gameplay, les animations et les graphismes ; mettre à jour GitHub à la fin de chaque étape ; l'utilisateur dira à la fin ce qu'il veut retirer (ne rien supprimer sans demande).
 - Deux sessions ont travaillé en parallèle le 15/10/2026 (branche `main` 0.13→0.17 et branche `claude/magical-heisenberg-a3w1xx` avec une autre 0.13) ; 0.18.0 les fusionne. Toujours `git fetch` et regarder `origin/main` avant de commencer.
@@ -14,7 +14,7 @@ open game/index.html                 # jouer directement dans un navigateur (dé
 python3 tools/build.py               # .exe portable + installateur (sur Windows ; hors Windows il faut Wine)
 python3 tools/build.py --linux --electron-zips=DOSSIER   # version Linux dépaquetée pour tester l'application ici
 python3 tools/build.py --stage       # copie seulement game/ dans desktop/app/ (puis « npm start » dans desktop/)
-tools/run_tests.sh                   # 76 suites, en parallèle (JOBS=1 : un par un) ; « tools/run_tests.sh nest far » : quelques-unes
+tools/run_tests.sh                   # 77 suites, en parallèle (JOBS=1 : un par un) ; « tools/run_tests.sh nest far » : quelques-unes
 python3 tests/test_balance.py        # simulations d'équilibrage (lentes, à lancer en tâche de fond)
 python3 tests/test_balance_modes.py
 python3 tests/test_balance_maze.py 10   # labyrinthe : courses complètes par un bot (~5-15 min)
@@ -29,12 +29,12 @@ python3 tests/test_balance_trials.py 20      # épreuves de la meute, par palier
 ## Architecture (voir docs/ARCHITECTURE.md)
 Les scripts sont chargés dans l'ordre de `game/index.html` et **se corrigent les uns les autres par « monkey-patching » en portée globale** : `const _x=fn; fn=function(){...}`. Règles :
 - Ne jamais déclarer `const` un nom destiné à être re-patché (`function` ou `let`). Deux scripts qui déclarent le même `let`/`const` global = erreur de syntaxe, le second script ne se charge pas du tout.
-- **L'ordre des `<script>` et des `<link>` fait partie du contrat.** `css/95-theme.css` puis `96-skins.css` restent les derniers thèmes ; `90-platform.css` après, puis `97-pc.css` (mise en page PC), `97-juice.css`, `97-content.css`, `97-maze.css`, `97-nightmare.css`, `97-trials.css`, `97-far.css`, `97-nest.css`, `97-player.css`, `97-combat2.css`, `97-combat3.css`, `97-combat4.css`, `97-mastery.css`, `97-skills3.css`, `97-bosses.css`, `97-foes2.css`, `97-hunts.css`, `97-camp.css`, `97-world.css`, `97-regions.css`, `97-modes2.css`, `97-modes3.css`, `97-collect.css`, `97-collect2.css`, `97-progress.css`, `97-progress2.css`, `97-nest2.css`, `97-far2.css`, `97-gear2.css`, `97-gacha2.css`, `97-events3.css`, `97-anim2.css`, `97-gfx2.css`, `97-ui2.css`, `97-sound2.css`, `97-access.css`, `97-share.css`, `97-app2.css`, `97-events4.css`, `97-quests2.css`, puis `97-hud-assets.css`, `97-hud.css` et `97-portraits2.css` en tout dernier. `99-layout.js` reste le dernier script (`99-juice.js` juste avant).
+- **L'ordre des `<script>` et des `<link>` fait partie du contrat.** `css/95-theme.css` puis `96-skins.css` restent les derniers thèmes ; `90-platform.css` après, puis `97-pc.css` (mise en page PC), `97-juice.css`, `97-content.css`, `97-maze.css`, `97-nightmare.css`, `97-trials.css`, `97-far.css`, `97-nest.css`, `97-player.css`, `97-combat2.css`, `97-combat3.css`, `97-combat4.css`, `97-mastery.css`, `97-skills3.css`, `97-bosses.css`, `97-foes2.css`, `97-hunts.css`, `97-camp.css`, `97-world.css`, `97-regions.css`, `97-modes2.css`, `97-modes3.css`, `97-collect.css`, `97-collect2.css`, `97-progress.css`, `97-progress2.css`, `97-nest2.css`, `97-far2.css`, `97-gear2.css`, `97-gacha2.css`, `97-events3.css`, `97-anim2.css`, `97-gfx2.css`, `97-ui2.css`, `97-sound2.css`, `97-access.css`, `97-share.css`, `97-app2.css`, `97-events4.css`, `97-quests2.css`, puis `97-hud-assets.css`, `97-hud.css`, `97-portraits2.css`, `97-aibg.css` puis `97-aibg-img.css` en tout dernier. `99-layout.js` reste le dernier script (`99-juice.js` juste avant).
 - Les modules ajoutent leurs champs de sauvegarde via un wrapper de `ens()` (migration/initialisation).
 - État `S` dans `localStorage["arkPrimalMobile"]` (nom historique, ne pas changer) ; config admin `arkPrimalConfig` ; préférences `arkPrimalPrefs` (`PREFS` : sound, vol, music, anim, lore, chain, diff, art, theme, skin, auto, spd ; `vib` n'a plus d'effet) ; sauvegardes auto `arkPrimalBackups`.
 - Enveloppe de sauvegarde `{game:"ark-primal-world",fmt:1,ver,at,from,S,cfg}` ; codes `ARK2.`(gzip+base64) / `ARK1.` / base64 ancien ; `validate()` strict ; import = copie « avant import » puis rechargement. `ARK_PLATFORM` vaut toujours `"pc"`.
 
-Ordre des modules, rôle de chacun, variables, contenu du jeu, **tous les pièges connus par module** et mesures d'équilibrage : **`docs/CONTEXTE.md`** — lire la section du module avant de le modifier. Le dernier script est `99-layout.js` (`99-juice.js` juste avant, `99-hud.js` après `99-quests2.js`, `99-portraits2.js` après `99-collect2.js`).
+Ordre des modules, rôle de chacun, variables, contenu du jeu, **tous les pièges connus par module** et mesures d'équilibrage : **`docs/CONTEXTE.md`** — lire la section du module avant de le modifier. Le dernier script est `99-layout.js` (`99-juice.js` juste avant, `99-hud.js` après `99-quests2.js`, `99-portraits2.js` après `99-collect2.js`, `99-aibg.js` après `99-hud.js`).
 
 ## Pièges les plus graves (le détail par module est dans docs/CONTEXTE.md)
 - Noms de wrappers (`const _xxx`) et `let`/`const` globaux **uniques entre tous les scripts** (sinon le script entier ne se charge pas) ; `test_order` le vérifie. Identifiants de succès et émojis d'espèce uniques aussi.
@@ -47,6 +47,7 @@ Ordre des modules, rôle de chacun, variables, contenu du jeu, **tous les piège
 - Animations réduites (Windows « Afficher les animations » coupé = `prefers-reduced-motion`) : un élément qui ne disparaît qu'à la fin de son animation reste affiché ; le retirer aussi par JS.
 - Fenêtre minimale 1024×640 : orbes, super et compétences visibles sans défiler (`test_layout`).
 - Portraits (0.44) : `99-portraits2` remplace `FAM.T` (postures, têtes) et enveloppe les autres familles (motifs) ; les options par espèce sont fusionnées dans `PORT[k][1]` au chargement (`LOOK`, `_k`), puis les caches `PCACHE`/`ECACHE` sont vidés. Une espèce ajoutée par un module chargé APRÈS 99-portraits2 n'aurait ni posture ni motif : appeler `p2Merge()`. Les versions (variantes) reçoivent un décor `.vxo` dans `.pt` (enveloppe d'`art`).
+- Décors peints (0.45) : `99-aibg` enveloppe `sceneHTML` (pas `sceneBase`, qui est en cache) et ajoute `.sc-ai` + classes `aibg aibg-<zone>` pour les zones de `AIBG` ; images dans `tools/aibg_src/<zone>.webp` → `python3 tools/aibg_build.py`. Les images viennent du joueur (FLUX.1 schnell sur Hugging Face, Apache 2.0) : la clé Hugging Face en secret réseau n'a jamais marché dans les sessions (whoami refusé).
 - Notifications dans `localStorage["arkPrimalNotes"]`, jamais dans `S` (sinon le test de transfert échoue).
 - Sessions cloud : `.claude/hooks/session-start.sh` installe Playwright 1.56.0 et Pillow.
 

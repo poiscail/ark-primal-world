@@ -51,6 +51,7 @@ Souris partout ; au clavier pendant un combat :
 - **Progression** : missions quotidiennes et permanentes, connexion quotidienne, « À faire aujourd'hui », 69 succès et titres, rang du survivant.
 - **Présentation** : mise en page PC (navigation à gauche, écrans larges), 10 thèmes (Néon, Clair, Jungle, Volcan, Abysses, Mystique, Désert, Fossile, Aurore, Rubis), polices Orbitron / Exo 2 / Bangers, effets à textures, musique et sons générés par le jeu, tutoriel et guide.
 - **Sensations de combat** : gel à l'impact, secousses, flash de l'ennemi touché, étincelles, super attaque mise en scène façon Dokkan (portrait, nom de l'attaque), invocation dont la couleur peut monter d'un cran, cadres légendaires holographiques, parallaxe à la souris (tout est désactivable dans les Réglages).
+- **Décors peints** : Jungle, Volcan, Toundra et Abysses ont un fond illustré (FLUX.1 schnell, Apache 2.0) ; réglage pour revenir aux décors dessinés.
 - **Portraits** : 100 espèces dessinées par le code ; théropodes en 3 postures et 5 têtes, motifs (rayures, taches, bande, tigré), et 9 versions (Alpha, Ombre, Albinos, Doré, Prismatique, Fossile, Cristal, Lave, Esprit) qui ont chacune leur décor.
 - **Interface** : icônes dessinées (game-icons.net) pour la navigation et les ressources, curseur, viseur, vis des panneaux, boutons en relief et barres brillantes du pack Kenney UI Sci-Fi ; chaque élément peut être remis à l'ancien style (Réglages > Affichage).
 - **Admin local** (⚙ ADMIN) : dinosaures, coûts, taux de drop, récompenses.
@@ -60,5 +61,5 @@ Souris partout ; au clavier pendant un combat :
 - `desktop/` : l'application Electron (fenêtre, plein écran, sauvegarde, test de lancement `--smoke-test`).
 - `tools/build.py` : construit l'installateur et le portable (`dist/ARK_Windows/`, non versionné) ; `tools/releases.py` publie une page par version ; `tools/gen_backgrounds.py` génère les images de fond des thèmes.
 - `.github/workflows/windows-exe.yml` : à chaque envoi, construit et teste l'exe sur Windows ; depuis `main`, publie les pages de versions.
-- Tests : `tools/run_tests.sh` (76 suites en parallèle : ordre des scripts + 75 Playwright, dont performance et captures comparées, Python 3 + Chromium), `tests/test_balance*.py` (simulations d'équilibrage).
+- Tests : `tools/run_tests.sh` (77 suites en parallèle : ordre des scripts + 76 Playwright, dont performance et captures comparées, Python 3 + Chromium), `tests/test_balance*.py` (simulations d'équilibrage).
 - Licences des ressources intégrées : [docs/LICENSES.md](docs/LICENSES.md). Historique détaillé : [CHANGELOG.md](CHANGELOG.md).

@@ -90,6 +90,7 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `js/99-events4.js` | Événements IV : musiques et décors par événement (wrapper de `musicMode`, de `renderEvents`), histoires `LORE.ev4_*` (`e4Story`), défi de l'île `commProg`/`commClaim`, anniversaire (`SPEV`, `annivCake`), titres `e4t*`, attaque unique des légendaires (`lgSig`, `lgFx`, wrapper de `tapOrb`) ; état `S.e4` |
 | `js/99-quests2.js` | Missions et succès II : wrappers de `bump`, `tapOrb`/`useSkill`/`special` (`q2Act`), `win`, `renderBattle`, `go`, `achClaim`, `renderAch`, `renderMissions`, `render` ; semaine, défis, familles, débutant, carnet, découvertes, tout récupérer, succès ajoutés, points, paliers, catégories, badges, records ; état `S.q2` |
 | `js/99-hud.js` | Interface (0.43) : `hudApply` (classes `hud-ico`/`hud-cur`/`hud-k` sur `<html>` selon `PREFS.hudIco/hudCur/hudK`), `hudMeters` (icône devant chaque compteur, émoji gardé dans `.hudemo`), viseur `.hudx` sur `.sEnemy` (wrapper de `renderBattle`), curseur « bouton » (`.hudp` posé au survol des éléments en `cursor:pointer`), 3 réglages dans Affichage |
+| `js/99-aibg.js` | Décors peints (0.45) : enveloppe de `sceneHTML` (fond `.sc-ai`, classes `aibg aibg-<zone>` pour `AIBG` : jungle, volcan, toundra, abysses), réglage `PREFS.aiBg` (`aiSet`, les bannières `.bscene` sont refaites) |
 | `js/99-desktop.js` | réglages « Application Windows » (plein écran, dernière version, quitter) via `window.arkDesktop` ; lien vers la dernière version |
 | `js/99-layout.js` | mise en page du combat (classes `bl-*`, ordre visuel en CSS) : **doit rester le dernier script** |
 | `css/91-fonts.css` / `css/91-tex.css` | polices Orbitron et Exo 2 (base64) ; textures de particules (masques) |
@@ -120,6 +121,7 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `css/97-events4.css` / `css/97-quests2.css` | décor des événements, attaques des légendaires ; missions, points, badges, records |
 | `css/97-hud-assets.css` / `css/97-hud.css` | images de l'interface (généré par `tools/hud_assets.py` : icônes game-icons.net en variables `--gi-*`, curseur `--k-cur`/`--k-cur2`, viseur `--k-cross`, règles des icônes de navigation) ; style : icônes, curseur, vis, relief, brillance, viseur |
 | `css/97-portraits2.css` | décors des versions (`.vxo-alpha` … `.vxo-spectral`, images SVG en data-URI) et filtres de Cristal, Lave, Ombre, Albinos |
+| `css/97-aibg.css` / `css/97-aibg-img.css` | fond peint sous la scène dessinée (ciel et plans du fond cachés, sol et plan du milieu en transparence) ; images WebP en base64 (généré par `tools/aibg_build.py`) |
 | `css/97-pc.css` / `css/97-juice.css` | mise en page PC chargée en dernier (navigation en colonne, contenu large, grilles) ; styles des sensations de combat, de la coupure et des cadres holographiques |
 | `css/96-skins.css` | 7 thèmes (`html[data-skin]`) avec images de fond en base64 (`tools/gen_backgrounds.py`) |
 | `desktop/main.js` | application Electron : fenêtre (taille mémorisée, F11, une seule instance), sauvegarde dans `%APPDATA%`, liens externes ouverts dans le navigateur, test de lancement `--smoke-test` |
