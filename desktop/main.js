@@ -5,7 +5,8 @@
    --smoke-test : lance le jeu dans un dossier de données à part (--smoke-data=dossier, jamais la vraie sauvegarde),
    joue un combat, fait une invocation et clique vraiment sur OK, écrit un rapport (--smoke-out=fichier.json),
    une capture (--smoke-shot=fichier.png) et quitte avec le code 0 (succès) ou 1 (échec).
-   --smoke-expect-boot=N : vérifie aussi que c'est le N-ième lancement avec ce dossier (sauvegarde conservée). */
+   --smoke-expect-boot=N : vérifie aussi que c'est le N-ième lancement avec ce dossier (sauvegarde conservée).
+   Le test vérifie aussi que le jeu continue fenêtre cachée (page visible, minuterie de 100 ms et images qui continuent pendant 3 s). */
 const { app, BrowserWindow, Menu, ipcMain, shell, session, dialog, screen } = require("electron");
 const path = require("path"), fs = require("fs");
 const arg = k => { const a = process.argv.find(x => x.startsWith(k + "=")); return a ? a.slice(k.length + 1) : null };
@@ -20,6 +21,15 @@ if (process.platform === "win32") app.setAppUserModelId("fr.poiscail.arkprimalwo
 const optFile = () => path.join(app.getPath("userData"), "options.json");
 function loadOpt() { try { return JSON.parse(fs.readFileSync(optFile(), "utf8")) } catch (e) { return {} } }
 function saveOpt(o) { try { fs.writeFileSync(optFile(), JSON.stringify(o)) } catch (e) {} }
+/* 0.47 : le jeu continue en arrière-plan (fenêtre réduite, cachée ou derrière une autre) : Chromium ne ralentit plus
+   les minuteries ni les animations du jeu. Option « bgRun » (oui par défaut, réglage « Jouer en arrière-plan »). */
+const BG_RUN = SMOKE ? process.env.ARK_SMOKE_BG !== "0" : loadOpt().bgRun !== false; /* ARK_SMOKE_BG=0 : vérifier que le test échoue sans l'option */
+if (BG_RUN) {
+  app.commandLine.appendSwitch("disable-background-timer-throttling");
+  app.commandLine.appendSwitch("disable-renderer-backgrounding");
+  app.commandLine.appendSwitch("disable-backgrounding-occluded-windows");
+  app.commandLine.appendSwitch("disable-features", "CalculateNativeWinOcclusion");
+}
 const crashLog = m => { try { fs.appendFileSync(path.join(app.getPath("userData"), "plantages.log"), new Date().toISOString() + " " + m + "\n") } catch (e) {} };
 let win = null;
 const stateFile = () => path.join(app.getPath("userData"), "fenetre.json");
@@ -36,7 +46,7 @@ function createWindow() {
     width: bl ? bl.width : st.w || 1280, height: bl ? bl.height : st.h || 800, x: bl ? bl.x : st.x, y: bl ? bl.y : st.y, minWidth: 1024, minHeight: 640, frame: !bl,
     backgroundColor: "#04060d", title: "ARK: Primal World", show: false, autoHideMenuBar: true,
     icon: path.join(__dirname, "build", "icon.ico"),
-    webPreferences: { preload: path.join(__dirname, "preload.js"), contextIsolation: true, sandbox: true, spellcheck: false,
+    webPreferences: { preload: path.join(__dirname, "preload.js"), contextIsolation: true, sandbox: true, spellcheck: false, backgroundThrottling: !BG_RUN,
       devTools: !app.isPackaged || process.env.ARK_DEVTOOLS === "1" }
   });
   Menu.setApplicationMenu(null);
@@ -75,7 +85,8 @@ async function screenshot() {
 }
 app.on("child-process-gone", (e, d) => crashLog("processus " + (d && d.type) + " arrêté : " + (d && d.reason)));
 ipcMain.on("ark:opts", e => { e.returnValue = { ...loadOpt(), portableSave: !!(PORT_SAVE && app.getPath("userData") === PORT_SAVE), canPortable: !!PORT_SAVE } });
-ipcMain.on("ark:setOpt", (e, k, v) => { if (k !== "borderless") return; const o = loadOpt(); o[k] = !!v; saveOpt(o) });
+ipcMain.on("ark:setOpt", (e, k, v) => { if (k !== "borderless" && k !== "bgRun") return; const o = loadOpt(); o[k] = !!v; saveOpt(o);
+  if (k === "bgRun" && win) try { win.webContents.setBackgroundThrottling(!v) } catch (x) {} });
 ipcMain.on("ark:relaunch", () => { try { session.defaultSession.flushStorageData() } catch (e) {} app.relaunch(); app.exit(0) });
 ipcMain.on("ark:crashlog", e => { try { e.returnValue = fs.readFileSync(path.join(app.getPath("userData"), "plantages.log"), "utf8").slice(-8000) } catch (x) { e.returnValue = "" } });
 /* copie de sauvegarde dans un dossier choisi (OneDrive, clé USB…) : seulement des .json, seulement dans ce dossier */
@@ -145,7 +156,14 @@ function smokeTest() {
         if (p) for (const type of ["mouseMove", "mouseDown", "mouseUp"]) wc.sendInputEvent({ type, x: p.x, y: p.y, button: "left", clickCount: 1 });
         for (let k = 0; k < 30 && !r.summonClosed; k++) { await wait(100); r.summonClosed = await js('document.getElementById("gachaVeil").classList.contains("hide")') }
       }
-      /* 3. capture de l'accueil */
+      /* 3. arrière-plan (0.47) : fenêtre cachée 3 s (hide : réduire ne fait rien sans gestionnaire de fenêtres, sous xvfb), la page doit rester « visible » pour le jeu,
+         les minuteries et les images (requestAnimationFrame) doivent continuer ; sans l'option, la page passe « hidden » et les images s'arrêtent */
+      await js('window.__bgN=0;window.__bgF=0;window.__bgI=setInterval(()=>window.__bgN++,100);(function f(){window.__bgF++;if(window.__bgI)requestAnimationFrame(f)})();true');
+      win.hide(); await wait(3000); r.bgVis = await js('document.visibilityState');
+      Object.assign(r, await js('(()=>{clearInterval(window.__bgI);window.__bgI=0;return{bgTicks:window.__bgN,bgFrames:window.__bgF}})()'));
+      r.bgRun = r.bgVis === "visible" && r.bgTicks >= 15 && r.bgFrames >= 30;
+      win.show(); await wait(300);
+      /* 4. capture de l'accueil */
       const shot = arg("--smoke-shot");
       if (shot) { await js('go("home");true'); await wait(900); fs.writeFileSync(shot, (await wc.capturePage()).toPNG()) }
     } catch (e) { errs.push(String(e)) }
@@ -154,7 +172,7 @@ function smokeTest() {
     const eb = arg("--smoke-expect-boot");
     if (eb) r.persist = r.boot === Number(eb) && (Number(eb) < 2 || r.stage0 >= 1);
     const ok = !errs.length && !r.error && r.version && r.version === r.appVersion && r.platform === "pc" && r.desktop && r.battle === "win" && r.scene
-      && r.settings && r.summon && r.okOnTop && r.summonClosed && r.save && (eb ? r.persist : true);
+      && r.settings && r.summon && r.okOnTop && r.summonClosed && r.save && r.bgRun && (eb ? r.persist : true);
     finish({ ok: !!ok, ...r, errs }, ok ? 0 : 1);
   }, 2500));
 }

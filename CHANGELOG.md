@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.47.0 — Le jeu continue en arrière-plan
+Ta demande : « permets au jeu de fonctionner en arrière-plan ».
+- **Dans l'application Windows**, le jeu ne ralentit plus quand sa fenêtre est réduite, cachée ou derrière une autre : les minuteries et les animations continuent, et le jeu se croit toujours à l'écran.
+- **L'auto-combat et l'enchaînement continuent** fenêtre réduite. Avant, ils s'arrêtaient dès que le jeu n'était plus visible.
+- **Réglage** : Réglages > Application Windows > **Jouer en arrière-plan** (Oui par défaut, Non pour revenir à l'ancien comportement). Il s'applique tout de suite.
+- Le son reste coupé quand la fenêtre n'est pas active, comme avant. C'est le réglage « Silence hors de la fenêtre » de la partie Son : mets-le sur Non pour garder la musique.
+- Les expéditions, le nid et le camp avançaient déjà jeu fermé (ils suivent l'heure réelle).
+- Tests : `test_bgrun` (auto-combat page cachée, vrais clics sur le réglage). Le test de lancement de l'application cache maintenant la fenêtre 3 secondes et vérifie que le jeu continue (minuterie et images). Vérifié ici sur la version Linux : 41 images en 3 s avec l'option, 1 seule sans (le test échoue alors, comme prévu). Sous Windows, c'est vérifié par la construction automatique. 79 suites.
+
 ## 0.46.0 — Onglets plus clairs
 Ta demande : « que les onglets deviennent plus propres et plus faciles à comprendre, et améliore le visuel ».
 - **Sous-onglets rangés par thème**, avec une étiquette par groupe :

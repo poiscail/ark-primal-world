@@ -3,7 +3,7 @@
 Jeu de combat d'orbes façon Dokkan Battle avec des dinosaures, **100 % local** (aucun compte, aucun serveur), en HTML/CSS/JS pur (pas de bundler). Depuis 0.18.0 le jeu est **uniquement sur PC** et livré en **application Windows (.exe)** construite avec Electron (`desktop/`). Plus de version téléphone ; les anciennes sauvegardes (navigateur, téléphone) s'importent toujours (Accueil > Sauvegarde).
 
 - Dépôt : https://github.com/poiscail/ark-primal-world (branche `main`)
-- Version actuelle : **0.46.0** (`game/js/00-version.js`, `ARK_VERSION` et `SAVE_FORMAT=1`)
+- Version actuelle : **0.47.0** (`game/js/00-version.js`, `ARK_VERSION` et `SAVE_FORMAT=1`)
 - L'utilisateur est français : **répondre en français**, être honnête sur ce qui est testé (jamais affirmer qu'une chose non testée marche ; l'.exe Windows n'est testé que par la construction automatique GitHub sur une machine Windows virtuelle ; équilibrage mesuré par simulation seulement).
 - Attentes permanentes : améliorer sans cesse le gameplay, les animations et les graphismes ; mettre à jour GitHub à la fin de chaque étape ; l'utilisateur dira à la fin ce qu'il veut retirer (ne rien supprimer sans demande).
 - Deux sessions ont travaillé en parallèle le 15/10/2026 (branche `main` 0.13→0.17 et branche `claude/magical-heisenberg-a3w1xx` avec une autre 0.13) ; 0.18.0 les fusionne. Toujours `git fetch` et regarder `origin/main` avant de commencer.
@@ -14,7 +14,7 @@ open game/index.html                 # jouer directement dans un navigateur (dé
 python3 tools/build.py               # .exe portable + installateur (sur Windows ; hors Windows il faut Wine)
 python3 tools/build.py --linux --electron-zips=DOSSIER   # version Linux dépaquetée pour tester l'application ici
 python3 tools/build.py --stage       # copie seulement game/ dans desktop/app/ (puis « npm start » dans desktop/)
-tools/run_tests.sh                   # 78 suites, en parallèle (JOBS=1 : un par un) ; « tools/run_tests.sh nest far » : quelques-unes
+tools/run_tests.sh                   # 79 suites, en parallèle (JOBS=1 : un par un) ; « tools/run_tests.sh nest far » : quelques-unes
 python3 tests/test_balance.py        # simulations d'équilibrage (lentes, à lancer en tâche de fond)
 python3 tests/test_balance_modes.py
 python3 tests/test_balance_maze.py 10   # labyrinthe : courses complètes par un bot (~5-15 min)
@@ -49,6 +49,7 @@ Ordre des modules, rôle de chacun, variables, contenu du jeu, **tous les piège
 - Portraits (0.44) : `99-portraits2` remplace `FAM.T` (postures, têtes) et enveloppe les autres familles (motifs) ; les options par espèce sont fusionnées dans `PORT[k][1]` au chargement (`LOOK`, `_k`), puis les caches `PCACHE`/`ECACHE` sont vidés. Une espèce ajoutée par un module chargé APRÈS 99-portraits2 n'aurait ni posture ni motif : appeler `p2Merge()`. Les versions (variantes) reçoivent un décor `.vxo` dans `.pt` (enveloppe d'`art`).
 - Décors peints (0.45) : `99-aibg` enveloppe `sceneHTML` (pas `sceneBase`, qui est en cache) et ajoute `.sc-ai` + classes `aibg aibg-<zone>` pour les zones de `AIBG` ; images dans `tools/aibg_src/<zone>.webp` → `python3 tools/aibg_build.py`. Les images viennent du joueur (FLUX.1 schnell sur Hugging Face, Apache 2.0) : la clé Hugging Face en secret réseau n'a jamais marché dans les sessions (whoami refusé).
 - Onglets (0.46) : `99-tabs2` enveloppe `navUpdate` : les boutons des sous-onglets sont DÉPLACÉS dans des groupes `.snsec` (Aventure, Quêtes ; `T2_GRP`), donc viser `#subnav button[onclick="go('x')"]` et pas `.snwrap > button`. Ligne « où suis-je » `#t2where` (`T2_DESC` : une phrase par écran et sous-onglet, à compléter pour tout nouvel onglet ; `test_tabs2` le vérifie). Missions et Succès en grille (`.t2grid`, seulement avec `.active`, sinon l'écran caché s'afficherait) ; filtres des Succès `T2_ACH`, sections repliables des Missions `T2_FOLD` (classe `.t2off`).
+- Arrière-plan (0.47) : dans l'application, option `bgRun` (options.json, oui par défaut) → `backgroundThrottling:false` + interrupteurs Chromium (minuteries, fenêtres cachées/occultées) : la page reste « visible » quand la fenêtre est réduite. Côté jeu, `PREFS.bgRun` : `autoReady` (remplacé dans 99-desktop) ignore `document.hidden`. Le test de lancement cache la fenêtre 3 s (`win.hide()`, car réduire ne fait rien sous xvfb) et vérifie page visible + minuterie + images ; `ARK_SMOKE_BG=0` le fait échouer exprès.
 - Notifications dans `localStorage["arkPrimalNotes"]`, jamais dans `S` (sinon le test de transfert échoue).
 - Sessions cloud : `.claude/hooks/session-start.sh` installe Playwright 1.56.0 et Pillow.
 
