@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.42.0 — Missions, succès et événements, plus loin
+Les idées 270 à 301, qui manquaient dans la sélection d'origine.
+- **Missions** (écran Missions) :
+  - **Missions de la semaine** (5 tirées parmi 10 ; **une peut être renouvelée chaque jour** 🔄).
+  - **Défis** (gagner sans super, sans perdre de dino, en 5 actions ou moins, en 3 actions ou moins) et **missions par famille** (10 victoires avec au moins 2 dinos de la famille dans l'équipe, pour chacune des 10 familles).
+  - **Parcours du débutant** sur 7 jours (2 objectifs par jour, un jour s'ouvre chaque jour), **carnet du Dr Elara** (8 missions qui racontent une petite histoire), **« découvre une fonction »** (+1 🎟️ la première fois qu'on ouvre un menu peu utilisé : Labyrinthe, Épreuves, Nid, Camp…).
+  - **Tout récupérer en un clic** : missions, défis, familles, découvertes, parcours, carnet, succès et paliers.
+  - **Suivi de la mission la plus proche** dans le combat (petite puce) et **objectif du moment** toujours visible sur l'accueil.
+- **Succès** :
+  - **Succès cachés** (« ??? » tant qu'ils ne sont pas obtenus), **succès drôles** (« Presque ! » : perdre alors que l'ennemi n'a plus que 2 % de ses PV ; « Trop pressé »), **de vitesse** (gagner en 3 actions), **par variante** (les 9, plus « Arc-en-ciel »), **bestiaire complet**, **d'élevage** (10e génération, gènes au maximum), **du Labyrinthe par relique** (10, 20, toutes), **série du Défi du jour** (7 et 30 jours).
+  - **Points de succès** (10, 25 avec un titre, 20 pour un caché) et **paliers** (Bronze 100 → Légende 1 600) avec récompenses ; **récompense quand une catégorie est complète** ; **notification discrète** quand un succès est presque atteint (90 %).
+  - **Vitrine de badges** (3) sur le profil et l'accueil.
+- **Tes retours** :
+  - **L'œuf de l'invocation ne disparaissait pas** et restait sur le résultat : quand Windows réduit les animations (réglage « Afficher les animations » coupé), l'animation de l'œuf était coupée et il restait affiché. Il est maintenant retiré après 1,1 s dans tous les cas, et n'apparaît pas du tout si les animations sont réduites.
+  - **Notifications plus grosses** : cloche de 58 px (au lieu d'environ 40), pastille plus grande avec « 99+ », halo qui pulse quand il y a du nouveau, texte de la liste en 15 px et messages en bas de l'écran en 15 px (au lieu de 12).
+  - **Camp redessiné** : sol avec clairière et chemin, 5 bâtiments dessinés (palissade, cabane du garde-manger, carrière, bibliothèque, nid de la couveuse) qui grandissent avec leur niveau, chantier en pointillés tant qu'un bâtiment n'est pas construit, feu de camp qui éclaire la clairière avec étincelles et fumée, ombres, habitants avec leur nom, lucioles la nuit. Les dinos étaient tous empilés à gauche quand les animations sont réduites : ils sont maintenant répartis sur le sol.
+- **Statistiques et records** : dégâts totaux, orbes jouées, compétences, super attaques, ennemis vaincus ; records du plus gros coup, du plus long combo, de la victoire la plus rapide et de la plus longue série — sur un écran où les chiffres défilent.
+- **Événements** : **une musique et un décor de menu propres à chaque événement** de la semaine (aussi dans le jukebox), **mini-histoire en 3 dialogues** par événement (une fois par semaine, relisible), **titre exclusif** par événement (10 victoires), **défi de l'île** simulé (« l'île a vaincu 10 000 ennemis » : la progression avance avec la semaine et tes victoires, paliers à 25/50/75/100 % si tu as gagné 5 combats), **anniversaire du jeu** du 15 au 21 octobre (un gâteau par jour, musique de fête, titre « Invité d'honneur »).
+- **Attaque unique pour chaque légendaire** : forme, symbole, couleur et nom propres à chaque espèce légendaire (« Fureur de… », « Souffle de… »), quand il frappe avec une orbe de son élément (une fois sur trois).
+- Tests : `test_quests2` (36 vérifications) et `test_events4` (23), vrais clics. 73 suites.
+
 ## 0.41.0 — Partage, application et outils
 - **Partage et rejouabilité** (Accueil > Partage et extras) :
   - **Code d'équipe** : un ami entre ton code et affronte ton équipe en **duel amical** (vrais dinos affichés, sur son ordinateur). Les codes sont vérifiés (un code abîmé est refusé).

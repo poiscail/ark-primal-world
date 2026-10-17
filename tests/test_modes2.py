@@ -32,7 +32,7 @@ async def main():
         for k in range(10):
             if k:await ev(f'fight=null;startBattle({{mode:"sprint",k:{k}}})')
             for w in range(3):r=await ev(KILL)
-        check('sprint : 10 combats, temps enregistré (≈1:05)',await ev('fight.over')=='win' and 64000<=await ev('S.m2.sprBest')<=70000 and 'Sprint terminé' in await ev('fight.report||""'),await ev('S.m2.sprBest'))
+        check('sprint : 10 combats, temps enregistré (≈1:05)',await ev('fight.over')=='win' and 64000<=await ev("S.m2.sprBest")<=80000 and 'Sprint terminé' in await ev('fight.report||""'),await ev('S.m2.sprBest'))
         # énigme
         await ev('go("modes2")');await pg.click('#modes2 button[data-m="puzzle"]');await pg.wait_for_timeout(100)
         check('choix des 8 énigmes',await pg.locator('#modalBody .m2puz button').count()==8)

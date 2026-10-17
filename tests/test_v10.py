@@ -44,7 +44,7 @@ async def main():
         async def dmg(orbs):
             out=[]
             for _ in range(9):
-                out.append(await ev('(o=>{startBattle({mode:"story",n:1});fight.enemies[0].hp=fight.enemies[0].max=9e9;fight.orbs=o;tapOrb(0);return 9e9-fight.enemies[0].hp})(%s)'%orbs))
+                out.append(await ev('(o=>{startBattle({mode:"story",n:1});fight.enemies[0].hp=fight.enemies[0].max=9e9;fight.orbs=o;const _b=C3.burn,_l=C3.bleed;C3.burn=C3.bleed=0;tapOrb(0);C3.burn=_b;C3.bleed=_l;return 9e9-fight.enemies[0].hp})(%s)'%orbs))
             return statistics.median(out)
         d3=await dmg('["redorb","redorb","redorb","blueorb","blueorb","greenorb","purpleorb","goldorb","goldorb"]');d1=await dmg('["redorb","blueorb","greenorb","purpleorb","goldorb","blueorb","greenorb","purpleorb","goldorb"]')
         check('boost: dégâts réellement ×1,3 (3 orbes vs 1)',1.18<d3/d1<1.42,(d3,d1,d3/d1))
@@ -63,8 +63,9 @@ async def main():
         await ev('startBattle({mode:"story",n:1});fight.enemies[fight.wave].hp=1;tapOrb(0)');check('mort d\'ennemi: fantôme animé',await ev('document.querySelectorAll("#fxLayer .ghost").length')>=0)
         await ev('go("home");go("team")');check('transition d\'écran',await ev('document.getElementById("team").classList.contains("enter")'))
         # compteurs animés
-        await ev('S.stone=100;save();render()');await pg.wait_for_timeout(700);await ev('S.stone=900;save()');await pg.wait_for_timeout(120)
-        mid=int(await ev('document.getElementById("stone").textContent'));check('compteur animé (valeur intermédiaire)',100<mid<900,mid)
+        await ev('S.stone=100;save();render()');await pg.wait_for_timeout(700);await ev('S.stone=900;save()')
+        mid=await ev('new Promise(r=>{let n=0;const t=setInterval(()=>{const v=+document.getElementById("stone").textContent;if((v>100&&v<900)||++n>60){clearInterval(t);r(v)}},10)})')
+        mid=int(mid);check('compteur animé (valeur intermédiaire)',100<mid<900,mid)
         await pg.wait_for_timeout(700);check('compteur final exact',await ev('document.getElementById("stone").textContent')=='900')
         await ev('setPref("anim",false);S.stone=5;save()');await pg.wait_for_timeout(80);check('sans animation: valeur immédiate',await ev('document.getElementById("stone").textContent')=='5')
         await ev('setPref("anim",true)')

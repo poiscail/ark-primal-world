@@ -22,4 +22,5 @@ html body .ga2wish button{display:flex;flex-direction:column;align-items:center;
 .ga2card{display:flex;flex-direction:column;align-items:center;padding:6px 3px;border-radius:10px;background:linear-gradient(160deg,#1c2640,#0f1424);border:1px solid #fff2;font-size:22px;text-align:center}
 .ga2card small{font-size:9px;line-height:1.1}.ga2card.no{opacity:.35}.ga2card.gold{border-color:#ffd15c;box-shadow:0 0 8px #ffd15c88;background:linear-gradient(160deg,#4a3a10,#1a1408)}
 .ga2card.r3{border-width:2px}.ga2card .pt,.ga2card svg{width:46px;height:46px}
-@media (prefers-reduced-motion:reduce){.ga2egg,.ga2egg span,#gachaBody::before{animation:none}}
+@media (prefers-reduced-motion:reduce){.ga2egg{display:none}#gachaBody::before{animation:none}}
+html.axrm .ga2egg{display:none}

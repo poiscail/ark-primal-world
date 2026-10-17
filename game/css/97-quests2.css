@@ -1,0 +1,17 @@
+/* Missions et succès II (js/99-quests2.js) */
+.q2all{margin:6px 0 10px}
+.q2m .row{gap:6px}.q2rr{padding:6px 9px;min-height:0}
+.q2m.done,.q2nb.done,.q2fam.done{opacity:.6}
+.q2chain{border-left:4px solid #ffd15c}.q2chain i{opacity:.9}
+.q2newbie{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.q2nb{display:flex;flex-direction:column;gap:3px;margin:0}.q2nb.lock{opacity:.5}.q2nb button{padding:6px;min-height:0}
+.q2fams{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px;margin:6px 0}
+.q2fam{display:flex;align-items:center;gap:6px;padding:8px;border-radius:10px;background:var(--surf2,#17213a)}.q2fam b{flex:1;font-size:12px}.q2fam small{opacity:.8}.q2fam button{padding:5px 9px;min-height:0}
+.q2pts{border-left:4px solid #ffd15c}
+.panel.ach.q2hidden{filter:grayscale(.6);border-style:dashed}
+.q2bdgs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.q2bdgs button{padding:6px 10px;min-height:0}
+.q2bdgrow{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.q2bdg{padding:3px 9px;border-radius:12px;background:linear-gradient(90deg,#ffd15c33,#ff7ad933);border:1px solid #ffd15c88;font-size:12px;font-weight:700}
+.q2recs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.q2rec{display:flex;flex-direction:column;align-items:center;padding:10px;border-radius:10px;background:var(--surf2,#17213a);text-align:center}.q2rec span{font-size:24px}.q2rec b{font-size:22px;font-variant-numeric:tabular-nums}.q2rec small{opacity:.8;font-size:11px}
+.q2obj{cursor:pointer;border-left:4px solid var(--acc,#00e5ff)}.q2obj span{font-size:13px}
+.chip.q2track{border-color:#ffd15c88}

@@ -2,15 +2,17 @@
 
 Liste de travail (16/10/2026), classée en 20 thèmes de 25 idées.
 
-**État au 17/10/2026 (version 0.41.0)** : toutes les idées choisies par le joueur ont été réalisées, de la version 0.28 à la
-0.41 (le détail est dans le CHANGELOG, version par version), **sauf** :
+**État au 17/10/2026 (version 0.42.0)** : toutes les idées choisies par le joueur ont été réalisées, de la version 0.28 à la
+0.42 (le détail est dans le CHANGELOG, version par version ; les idées 270 à 301, oubliées dans la sélection d'origine, sont
+dans la 0.42), **sauf** :
 - 453 · signature de l'exe : il faut un certificat de signature de code payant, au nom de l'auteur ;
 - 472 · Discord « joue en ce moment » : il faut créer une application Discord (identifiant client) ;
 - 462 · la version **Linux** est construite et testée, la version **macOS** non (signature et notarisation Apple payantes) ;
 - 459 · pas de vrai limiteur d'images (Electron ne le permet pas pour une fenêtre normale) : remplacé par l'économie d'énergie ;
 - 468 · chargement mesuré (~0,7 s) : rien de lent à différer ;
 - 499 · le nom « ARK » (marque de Studio Wildcard) reste à vérifier : c'est une décision de l'auteur, rappelée dans les crédits.
-Faites en plus de la sélection : 411 (taille des orbes), 412 (flashs et secousses coupés partout), 413 (rappel de pause). Les idées non choisies (301, 349, 414-447, 454, 500) restent une réserve.
+Faites en plus de la sélection : 411 (taille des orbes), 412 (flashs et secousses coupés partout), 413 (rappel de pause). Les idées non choisies (1, 5-6, 8, 12, 15, 19, 21-25, 28, 33, 38, 47, 53, 58-60, 67-68, 70, 115-122, 167, 349, 414-447, 454, 500)
+restent une réserve.
 Les idées marquées ⭐ sont celles que je conseillerais en premier (fort effet pour un coût raisonnable).
 
 ## 1. Combat : mécaniques (1-25)
