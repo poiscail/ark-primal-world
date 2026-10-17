@@ -35,7 +35,7 @@ async def main():
         check('orbe : l\'écran tremble (trauma)',shook)
         check('la secousse retombe à zéro',await until(pg,'!document.querySelector("#battleArea .battlestage").style.translate',3000))
         # gel à l'impact : les animations du combat s'arrêtent un instant puis repartent
-        r=await ev('''(()=>{const el=document.querySelector("#battleArea .battlestage .sEart");const a=el.animate([{opacity:1},{opacity:.99}],{duration:4000});hitStop(120);const p=a.playState;return new Promise(res=>setTimeout(()=>res([p,a.playState]),fxd(120)+120))})()''')
+        r=await ev('''(()=>{const el=document.querySelector("#battleArea .battlestage .sEart");const a=el.animate([{opacity:1},{opacity:.99}],{duration:4000});hsUntil=0;hitStop(120);const p=a.playState;return new Promise(res=>setTimeout(()=>res([p,a.playState]),fxd(120)+120))})()''')
         check('gel à l\'impact : pause puis reprise',r==['paused','running'],r)
         # coupure de super attaque
         t0=await ev('fight.turn');sp0=await ev('fight.sp=100,renderBattle(),fight.sp')

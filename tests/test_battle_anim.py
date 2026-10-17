@@ -18,23 +18,25 @@ async def main():
         check('bannière de début de combat',await ev('document.querySelectorAll(".wavebn").length')>=1)
         check('scène de zone appliquée',await ev('/z-/.test(document.querySelector("#battleArea .battlestage").className)'))
         check('ennemi et équipe dessinés sur la scène',await ev('document.querySelectorAll(".battlestage .sEnemy svg").length')==1 and await ev('document.querySelectorAll(".battlestage .sFig").length')==3)
-        check('couches de décor',await ev('document.querySelectorAll(".battlestage .sc-layer").length')==3)
+        check('couches de décor (4 plans depuis 0.39)',await ev('document.querySelectorAll(".battlestage .sc-layer").length')==4)
         check('orbes en verre avec symbole',await ev('document.querySelectorAll("#battleArea .orb .osym").length')==9)
         if SHOTS:await pg.screenshot(path='/tmp/shots/battle_start.png')
         await pg.wait_for_timeout(1800)
+        # on compte les effets créés (ils ne vivent qu'une fraction de seconde) plutôt que ceux encore présents
+        await ev('window.__fxc={};new MutationObserver(M=>M.forEach(m=>m.addedNodes.forEach(n=>{if(n.classList)["tx","trail","hurtflash","shk"].forEach(c=>{if(n.classList.contains(c))__fxc[c]=(__fxc[c]||0)+1})}))).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:["class"]})')
         await ev('tapOrb(0)');await pg.wait_for_timeout(250)
         # 0.13 : chaque famille a sa propre attaque (morsure, charge…) au lieu du projectile générique
         check('effets d\'attaque lancés',await ev('document.querySelectorAll("#fxLayer .proj,#fxLayer .jawfx,#fxLayer .istar,#fxLayer .spdln,#fxLayer .swipe,#fxLayer .spikefx,#fxLayer .quakefx,#fxLayer .sonicfx,#fxLayer .jetfx").length')>=1)
         check('allié en charge',await ev('[...document.querySelectorAll("#battleArea .sFig")].some(e=>e.getAnimations().length>0)||document.querySelectorAll("#battleArea .lunge").length>0'))
         await pg.wait_for_timeout(500)
         check('chiffre de dégâts flottant',await ev('document.querySelectorAll(".dmgnum").length')>=1)
-        check('textures d\'impact (Kenney)',await ev('document.querySelectorAll(".tx").length')>=1)
+        check('textures d\'impact (Kenney)',await ev('(__fxc.tx||0)+document.querySelectorAll(".tx").length')>=1)
         check('polices intégrées chargées',await ev('document.fonts.check("900 20px Orbitron") && document.fonts.check("700 14px \\"Exo 2\\"")'))
         if SHOTS:await pg.screenshot(path='/tmp/shots/battle_hit.png')
         await pg.wait_for_timeout(900)
         # attaque ennemie : forcer
         await ev('fight.turn=2;fight.stun=0;fight.enemies[fight.wave].max=999999;fight.enemies[fight.wave].hp=999999;tapOrb(1)');await pg.wait_for_timeout(500)
-        check('traînée de PV ou flash de dégâts',await ev('document.querySelectorAll(".progress .trail,.hurtflash,#battleArea .shk").length')>=1)
+        check('traînée de PV ou flash de dégâts',await ev('document.querySelectorAll(".progress .trail,.hurtflash,#battleArea .shk").length+(__fxc.trail||0)+(__fxc.hurtflash||0)+(__fxc.shk||0)')>=1)
         if SHOTS:await pg.screenshot(path='/tmp/shots/battle_foe.png')
         # victoire -> étoiles
         await ev('fight.enemies.forEach(e=>e.hp=1);fight.wave=2;fight.turn=0');

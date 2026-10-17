@@ -60,8 +60,9 @@ async def main():
         ok=await until(pg,'fight.over',40000);check('auto sans animations',ok and await ev('fight.over')=='win')
         # enchaînement (99-chain) piloté par le bouton 🔁 de l'en-tête : avec l'auto, les combats s'enchaînent seuls
         await ev(BASE+'setPref("anim",false);setPref("spd",3);PREFS.auto=true;PREFS.chain=false;savePrefs()')
-        await ev('startBattle({mode:"story",n:7})');await pg.wait_for_timeout(150)
-        await pg.click('#battleArea .cbtn')
+        # l'auto ×3 redessine l'écran sans arrêt : on le suspend le temps du vrai clic (sinon le bouton est sans cesse remplacé)
+        await ev('PREFS.auto=false;startBattle({mode:"story",n:7})');await pg.wait_for_timeout(150)
+        await pg.click('#battleArea .cbtn');await ev('setPref("auto",true)')
         check('🔁 active l\'enchaînement',await ev('PREFS.chain===true&&(()=>{const b=document.querySelector("#battleArea .cbtn");return !b||b.classList.contains("on")})()'))  # le combat peut déjà être fini (auto ×3)
         ok=await until(pg,'fight.n===8',30000)
         check('victoire en auto -> niveau suivant démarré seul',ok,await ev('[fight.n,fight.over]'))

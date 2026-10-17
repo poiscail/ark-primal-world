@@ -1,0 +1,112 @@
+/* Graphismes II (js/99-gfx2.js) */
+/* portraits ombrés et texturés (grands portraits seulement) */
+.sfa>svg,.sEart .pt>svg,#modalBody .bigicon .pt>svg,.c2gal .pt>svg{filter:url(#g2skin)}
+/* 4e plan du décor */
+.sc-layer.l0{bottom:40%;height:46%;animation:scdrift 220s linear infinite;opacity:.8}
+.sc-layer.l0,.bscene .sc-layer.l0{translate:calc(var(--px,0) * -2px) calc(var(--py,0) * -1px)}
+.sc-layer.l0 .g2bird{animation:g2fly 22s linear infinite}
+@keyframes g2fly{0%{transform:translate(-120px,10px)}50%{transform:translate(300px,-12px)}100%{transform:translate(800px,6px)}}
+body.noanim .sc-layer.l0,body.noanim .sc-layer.l0 .g2bird{animation:none}
+/* éclairage selon l'élément */
+#fxLayer .g2lit{position:fixed;z-index:58;pointer-events:none;mix-blend-mode:screen;background:radial-gradient(ellipse at 70% 45%,color-mix(in srgb,var(--c) 45%,transparent),transparent 65%);animation:g2lit .5s ease-out forwards}
+@keyframes g2lit{0%{opacity:0}25%{opacity:1}100%{opacity:0}}
+/* météo visible */
+.battlestage .g2wx{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden}
+.g2wx i{position:absolute;top:-10%;display:block}
+.g2wx-rain i{width:1.5px;height:22px;background:linear-gradient(transparent,#bfe3ffcc);transform:rotate(12deg);animation:g2rain calc(.7s + var(--r) * .4s) linear infinite}
+@keyframes g2rain{to{transform:translate(-40px,520px) rotate(12deg)}}
+.g2wx-snow i{width:6px;height:6px;border-radius:50%;background:#fff;opacity:.85;filter:blur(.5px);animation:g2snow calc(5s + var(--r) * 4s) linear infinite}
+@keyframes g2snow{50%{transform:translate(18px,260px)}to{transform:translate(-10px,540px)}}
+.g2wx-sand i{width:3px;height:3px;border-radius:50%;background:#e8c27a;top:auto;bottom:calc(var(--r) * 90%);animation:g2sand calc(1.6s + var(--r) * 1.4s) linear infinite}
+@keyframes g2sand{from{transform:translateX(-60px)}to{transform:translateX(1200px)}}
+.g2wx-sand{background:linear-gradient(0deg,#d9a75a33,transparent 60%)}
+.g2wx-ash i{width:4px;height:4px;border-radius:50%;background:#ffb070;box-shadow:0 0 6px #ff6a1a;top:auto;bottom:-5%;animation:g2ash calc(4s + var(--r) * 3s) ease-in infinite}
+@keyframes g2ash{0%{transform:translate(0,0);opacity:0}15%{opacity:1}100%{transform:translate(40px,-460px);opacity:0}}
+.g2wx-aur i{inset:0 -20% 55% -20%;top:0;background:linear-gradient(90deg,transparent,#6dffc855,#b48cff55,#6dffc844,transparent);filter:blur(14px);animation:g2aur 9s ease-in-out infinite alternate}
+@keyframes g2aur{from{transform:translateX(-8%) skewX(-12deg)}to{transform:translateX(8%) skewX(10deg)}}
+.g2wx-mist i{inset:auto -30% 0 -30%;top:auto;height:45%;background:radial-gradient(ellipse at 50% 100%,#c9f5d455,transparent 70%);filter:blur(10px);animation:g2mist 14s ease-in-out infinite alternate}
+@keyframes g2mist{from{transform:translateX(-10%)}to{transform:translateX(10%)}}
+/* brume du Cauchemar */
+.battlestage .g2fog{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden}
+.g2fog i{position:absolute;left:-40%;width:180%;height:40%;border-radius:50%;background:radial-gradient(ellipse,#5a2a7a66,transparent 70%);filter:blur(18px);animation:g2fog 18s ease-in-out infinite alternate}
+.g2fog i:nth-child(1){bottom:-8%}.g2fog i:nth-child(2){bottom:18%;animation-duration:24s;animation-delay:-6s;opacity:.7}.g2fog i:nth-child(3){top:-10%;animation-duration:30s;animation-delay:-12s;opacity:.5}
+@keyframes g2fog{from{transform:translateX(-12%)}to{transform:translateX(12%)}}
+/* lucioles */
+.battlestage .g2ffly{position:absolute;inset:0;z-index:4;pointer-events:none}
+.g2ffly i{position:absolute;top:calc(30% + var(--r) * 55%);width:4px;height:4px;border-radius:50%;background:#e9ff8a;box-shadow:0 0 8px 2px #d6ff5c;animation:g2ff calc(5s + var(--r) * 5s) ease-in-out infinite alternate}
+@keyframes g2ff{0%{transform:translate(0,0);opacity:.1}30%{opacity:1}60%{opacity:.3}100%{transform:translate(30px,-26px);opacity:.9}}
+/* reflets dans l'eau */
+.battlestage.g2water .sfa,.battlestage.g2water .sEart{-webkit-box-reflect:below -10px linear-gradient(transparent 62%,#ffffff2e)}
+.battlestage.g2water .sc-gnd{filter:saturate(1.3) brightness(1.15)}
+/* ciel selon l'heure */
+html[data-sky="dawn"] .sc-sky{filter:sepia(.35) saturate(1.3) hue-rotate(-12deg) brightness(1.05)}
+html[data-sky="dusk"] .sc-sky{filter:sepia(.45) saturate(1.5) hue-rotate(-28deg)}
+html[data-sky="night"] .sc-sky{filter:brightness(.55) saturate(.8) hue-rotate(18deg)}
+/* ombres portées au sol */
+.sFig>.sShadow,.sEnemy>.sShadow{background:radial-gradient(#000c,#0005 45%,transparent 72%)}
+/* HUD de combat plus lisible */
+.sHud .grow>b{font-size:14px;letter-spacing:.2px}
+.sHud .grow>div.muted.tiny{font-size:12px;font-weight:800;color:var(--txt,#fff);opacity:.95;font-variant-numeric:tabular-nums}
+.sHud .progress{height:10px}
+.sFig .sHp{height:6px}
+.dmgnum{font-variant-numeric:tabular-nums;-webkit-text-stroke:.6px #0008}
+/* police du titre par zone */
+#battleTitle[data-zone="jungle"]{font-family:Bangers,system-ui;letter-spacing:1.5px;color:#b8ff9a}
+#battleTitle[data-zone="volcan"]{font-family:Bangers,system-ui;letter-spacing:1.5px;color:#ffb070;text-shadow:0 0 8px #ff4a1a}
+#battleTitle[data-zone="ruines"]{font-family:Orbitron,system-ui;letter-spacing:2.5px;color:#d9c8ff}
+#battleTitle[data-zone="obelisque"]{font-family:Orbitron,system-ui;letter-spacing:2px;color:#f0c8ff;text-shadow:0 0 10px #b46cff}
+#battleTitle[data-zone="toundra"]{font-family:"Exo 2",system-ui;font-style:italic;color:#d6f0ff;text-shadow:0 0 8px #7fd3ff}
+#battleTitle[data-zone="abysses"]{font-family:"Exo 2",system-ui;letter-spacing:1px;color:#7fe8ff;text-shadow:0 0 10px #1f8cff}
+/* thèmes Fossile, Aurore, Rubis */
+html[data-skin="fossile"]{--acc:#d9b77a;--acc2:#8fa37a;--acc3:#b89a68;--bg0:#14100a;--bg1:#2c2418;--surf:rgba(44,36,24,.88);--surf2:#3a2f20;--surf3:#211a10;--bd:#5a4a32;--bd2:#9c8358;--txt:#f6eddc;--txt2:#cdbb98;--grid:rgba(217,183,122,.06);--navbg:rgba(18,14,9,.94);--topbg:rgba(24,19,12,.88);--glowc:rgba(217,183,122,.28)}
+html[data-skin="aurore"]{--acc:#6dffc8;--acc2:#b48cff;--acc3:#7fd3ff;--bg0:#050b16;--bg1:#0c1c30;--surf:rgba(10,24,40,.86);--surf2:#123050;--surf3:#081626;--bd:#1e4466;--bd2:#3fa0a0;--txt:#eafff8;--txt2:#a6d8d0;--grid:rgba(109,255,200,.06);--navbg:rgba(4,10,20,.94);--topbg:rgba(6,14,26,.88);--glowc:rgba(109,255,200,.3)}
+html[data-skin="rubis"]{--acc:#ff4d6d;--acc2:#ffb3c1;--acc3:#ff8fa3;--bg0:#14040a;--bg1:#300a18;--surf:rgba(44,10,22,.88);--surf2:#4a1226;--surf3:#260812;--bd:#6a1a32;--bd2:#c03a5c;--txt:#fff0f3;--txt2:#e6a8b8;--grid:rgba(255,77,109,.06);--navbg:rgba(18,4,9,.94);--topbg:rgba(26,6,13,.88);--glowc:rgba(255,77,109,.3)}
+#skinBg.bg-fossile,.skc.bg-fossile{background:radial-gradient(circle at 30% 20%,#5a4a32,#14100a 70%),repeating-linear-gradient(20deg,#d9b77a10 0 2px,transparent 2px 22px)}
+#skinBg.bg-aurore,.skc.bg-aurore{background:linear-gradient(170deg,#0c2a3a,#050b16 55%),radial-gradient(ellipse at 50% 0,#6dffc855,transparent 60%)}
+#skinBg.bg-aurore{background:radial-gradient(ellipse at 30% -10%,#6dffc844,transparent 50%),radial-gradient(ellipse at 75% 0,#b48cff44,transparent 45%),linear-gradient(180deg,#0c1c30,#050b16)}
+#skinBg.bg-rubis,.skc.bg-rubis{background:radial-gradient(circle at 70% 20%,#7a1530,#14040a 70%)}
+/* icônes dessinées */
+.g2ico{display:inline-block;width:18px;height:18px;vertical-align:-4px;margin-right:2px}.g2ico svg{width:100%;height:100%;display:block;filter:drop-shadow(0 1px 1px #0008)}
+/* cadres de rareté distincts */
+html body .dcard.rar-c{border:1px solid #7f8aa3}
+html body .dcard.rar-r{border:2px solid #4cb8ff;box-shadow:0 0 0 3px #4cb8ff22,0 0 12px #4cb8ff44}
+html body .dcard.rar-e{border:2px solid #b46cff;box-shadow:0 0 0 3px #b46cff26,0 0 16px #b46cff55;background-image:radial-gradient(circle at 0 0,#b46cff44 0 10px,transparent 11px),radial-gradient(circle at 100% 0,#b46cff44 0 10px,transparent 11px)}
+html body .dcard.rar-l{border-width:2px}
+html body .dcard.rar-l::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;opacity:.35;mix-blend-mode:color-dodge;
+ background:conic-gradient(from 0deg at var(--hx,50%) var(--hy,50%),#ff6b6b,#ffd15c,#7dff9b,#5fb8ff,#bd8aff,#ff6b6b),radial-gradient(circle at 20% 30%,#fff 0 1px,transparent 2px) 0 0/22px 22px}
+html body .dcard.rar-m{border-color:#fff3a0;box-shadow:0 0 0 2px #ff7ad966,0 0 26px #fff3a088}
+/* collection : vitrine de musée */
+#collection{background:radial-gradient(ellipse at 50% -10%,#ffe9a81c,transparent 55%),linear-gradient(180deg,#ffffff06,#0000);box-shadow:inset 0 1px 0 #ffffff22,inset 0 0 0 1px #ffffff12,inset 0 -30px 40px #0004;border-radius:12px}
+/* carte d'histoire en relief */
+.smap{box-shadow:inset 0 0 60px #000a,inset 0 0 0 1px #ffffff14}
+.smap::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.22;background:
+ radial-gradient(ellipse at 25% 30%,transparent 0 18%,#fff2 18.5% 19%,transparent 19.5% 26%,#fff2 26.5% 27%,transparent 27.5% 34%,#fff2 34.5% 35%,transparent 35.5%),
+ radial-gradient(ellipse at 72% 68%,transparent 0 14%,#fff2 14.5% 15%,transparent 15.5% 22%,#fff2 22.5% 23%,transparent 23.5% 30%,#fff2 30.5% 31%,transparent 31.5%)}
+/* emblème de chaque mode sur sa bannière */
+.screen .banner.hasScene .bscene::after{position:absolute;right:4%;top:50%;transform:translateY(-50%);font-size:64px;opacity:.16;filter:drop-shadow(0 0 12px #fff);pointer-events:none}
+#maze .bscene::after{content:"🌀"}#trials .bscene::after{content:"⚔️"}#far .bscene::after{content:"❄️"}#nest .bscene::after{content:"🥚"}#camp .bscene::after{content:"🏕️"}#world .bscene::after{content:"🗺️"}#regions .bscene::after{content:"🧭"}#modes2 .bscene::after{content:"🎯"}#tower .bscene::after{content:"🗼"}#arena .bscene::after{content:"🏟️"}#events .bscene::after{content:"🎪"}#exped .bscene::after{content:"🧭"}#dungeon .bscene::after{content:"🏰"}#raid .bscene::after{content:"🐉"}#dig .bscene::after{content:"⛏️"}#daily .bscene::after{content:"📅"}
+/* bestiaire : silhouettes plus marquées */
+.cx.no .cxa{filter:brightness(0) opacity(.5) drop-shadow(0 0 5px #67e5ff) drop-shadow(0 0 1px #67e5ff)}
+/* feuillage animé des bannières */
+.bscene .sc-layer.l3 svg{animation:g2sway 6s ease-in-out infinite;transform-origin:50% 100%}
+.bscene .sc-layer.l2 svg{animation:g2sway 9s ease-in-out -3s infinite;transform-origin:50% 100%}
+@keyframes g2sway{50%{transform:skewX(2.2deg)}}
+/* écran titre : dinos au loin, astuce */
+#splash .g2walk{position:absolute;left:0;right:0;bottom:16%;height:40px;overflow:hidden;pointer-events:none}
+#splash .g2walk i{position:absolute;bottom:0;font-size:28px;font-style:normal;filter:brightness(0) opacity(.45);transform:scaleX(-1);animation:g2walk 6s linear infinite}
+#splash .g2walk i:nth-child(2){animation-delay:-2s;font-size:34px}#splash .g2walk i:nth-child(3){animation-delay:-4s;font-size:22px}
+@keyframes g2walk{from{left:-10%}to{left:110%}}
+#splash .g2tip{position:absolute;left:50%;bottom:7%;transform:translateX(-50%);max-width:80%;padding:8px 14px;border-radius:10px;background:#0009;color:#e6f2ff;font:600 14px system-ui;text-align:center;pointer-events:none}
+#splash .g2tip b{font-size:18px;margin-right:4px}
+/* transitions de page */
+.screen.g2pg{animation:g2pg .32s ease-out}
+@keyframes g2pg{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+body.noanim .screen.g2pg{animation:none}
+.g2gfx button{min-width:80px}
+/* graphismes simples : rien de coûteux */
+html.g2simple .sfa>svg,html.g2simple .sEart .pt>svg,html.g2simple #modalBody .bigicon .pt>svg,html.g2simple .c2gal .pt>svg{filter:none}
+html.g2simple .sc-layer.l0,html.g2simple .g2wx,html.g2simple .g2fog,html.g2simple .g2ffly,html.g2simple #splash .g2walk,html.g2simple #fxLayer .g2lit{display:none}
+html.g2simple .battlestage.g2water .sfa,html.g2simple .battlestage.g2water .sEart{-webkit-box-reflect:none}
+html.g2simple .sc-layer,html.g2simple .bscene .sc-layer svg,html.g2simple .dcard.rar-l{animation:none}
+html.g2simple .dcard.rar-l::before{display:none}
+html.g2simple *{backdrop-filter:none!important}

@@ -13,7 +13,7 @@ async def main():
         await pg.goto(GAME);await pg.wait_for_timeout(400)
         await ev('S.tut={off:true,seen:{}};S.team=[{id:1,type:"spino",level:80,xp:0},{id:2,type:"magma",level:80,xp:0},{id:3,type:"levia",level:80,xp:0}];S.nextId=10;S.stage=20;S.stone=5000;S.essence=500;S.tickets=20;ens();setPref("lore",false);setPref("anim",false)')
         # thèmes
-        await ev('openSettings()');check('7 thèmes proposés',await ev('document.querySelectorAll("#setVeil .skc").length')==7)
+        await ev('openSettings()');check('10 thèmes proposés (3 de plus depuis 0.39)',await ev('document.querySelectorAll("#setVeil .skc").length')==10)
         acc0=await ev('getComputedStyle(document.documentElement).getPropertyValue("--acc")')
         await ev('document.querySelector("#setVeil .skc.bg-jungle").click()');await pg.wait_for_timeout(100)
         check('thème Jungle appliqué',await ev('document.documentElement.dataset.skin')=='jungle' and await ev('getComputedStyle(document.documentElement).getPropertyValue("--acc")')!=acc0)

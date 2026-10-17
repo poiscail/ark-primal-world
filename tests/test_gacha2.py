@@ -51,6 +51,10 @@ async def main():
         # 100e invocation
         await ev('S.gstat.total=99;S.ga2.c100={}');t0=await ev('S.tickets');await ev('featPull(1,"tickets",2);closeGacha()')
         check('100e invocation : +5 tickets et un ticket de variante',await ev('S.ga2.vt')>=1 and await ev('S.tickets')>=t0-2+5)
+        # week-end : 2 tirages gratuits (forcé ; sous un navigateur automatisé, jamais par défaut)
+        await ev('S.freeDay="";window.__forceWkend=true');n0=await ev('S.team.length');await ev('freePull();closeGacha()');await ev('window.__forceWkend=false')
+        check('week-end : tirage gratuit doublé',await ev('S.team.length')==n0+2)
+        await ev('S.freeDay=""');n0=await ev('S.team.length');await ev('freePull();closeGacha()');check('en semaine (et par défaut dans les tests) : 1 tirage gratuit',await ev('S.team.length')==n0+1)
         # bestiaire
         await ev('Object.keys(SPEC).filter(k=>!SPEC[k].ex).forEach(k=>{if(!S.team.some(d=>d.type===k))S.team.push({id:S.nextId++,type:k,level:1,xp:0})});render()');t0=await ev('S.tickets')
         await pg.click('#gachaX .ga2pity button:has-text("100 %")');await pg.wait_for_timeout(50);check('vrai clic : bestiaire 100 % → +15 tickets',await ev('S.tickets')==t0+15)

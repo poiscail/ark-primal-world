@@ -27,7 +27,7 @@ function returnPullN(n){if(!ga2Return()){toast("La bannière de retour revient d
 const ga2Anniv=()=>{try{const f=S.ga2.first,t=todayK();return f&&f!==t&&f.slice(5)===t.slice(5)}catch(e){return false}};
 function annivPull(){ens();if(!ga2Anniv()||S.ga2.anniv===todayK())return;S.ga2.anniv=todayK();gachaRun(10,"tickets",0,m=>{const k=pullStd(m);return k},true);toast("🎂 Joyeux anniversaire de ton aventure !",3200)}
 /* ---- tirage gratuit : 2 le week-end ---- */
-const ga2Weekend=()=>{const g=new Date().getDay();return g===0||g===6};
+const ga2Weekend=()=>{if(typeof navigator!=="undefined"&&navigator.webdriver)return!!window.__forceWkend;const g=new Date().getDay();return g===0||g===6};
 const _fpGa=freePull;freePull=function(){ens();if(S.freeDay===todayStr()){toast("Tirage gratuit déjà pris aujourd'hui.");return}if(!ga2Weekend())return _fpGa();S.freeDay=todayStr();gachaRun(2,"tickets",0,pullStd,false)};
 /* ---- « invoquer encore » ---- */
 let ga2Last=null;

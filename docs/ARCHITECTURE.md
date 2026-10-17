@@ -29,7 +29,7 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `js/99-polish.js` | bannières illustrées, carte d'histoire et étoiles, interrupteurs, écran titre, fin de combat |
 | `js/99-nav.js` | navigation à 5 onglets + sous-onglets, « À faire aujourd'hui », Défi du jour, Fouilles |
 | `js/99-chain.js` | enchaînement automatique des combats, animations du plateau |
-| `js/99-skins.js` | 7 thèmes (couleurs + image de fond), sélecteur dans les Réglages |
+| `js/99-skins.js` | 7 thèmes (couleurs + image de fond ; 3 de plus dans 99-gfx2), sélecteur dans les Réglages |
 | `js/99-content.js` | 8 espèces supplémentaires, Raid hebdomadaire, Marché du jour |
 | `js/99-expeditions.js` | expéditions chronométrées, succès (`ACH`) et titres |
 | `js/99-enemy-traits.js` | traits d'ennemis et phases de boss |
@@ -79,6 +79,8 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `js/99-gear2.js` | Équipement II : ensembles `SETS` (`setCount`), uniques `UNIQ` (`hasU`), gemmes `GEMS` (`it.gem`, `g2Gem`), maudits `it.curse`, objets de famille `it.fam`, gravure `g2Engrave`, apparence `g2Look`, verrou `g2Lock`, amélioration risquée (wrapper d'`upgradeItem`, `riskP`), atelier `g2Workshop` (`CONV`, `RECIPES`, `g2Craft`), parchemin `g2Scroll`, durabilité `it.dura`/`g2Repair`, évolution par victoires, historique `g2Hist` ; wrapper de `stats` repassé par `pgCap` ; état `S.g2` |
 | `js/99-gacha2.js` | Invocations II : bannières famille (`pullFam`), choix (`choiceList`/`pullChoice`, `S.ga2.pick`), élément Épique+ (`elMinPull`), retour (`pullReturn`), anniversaire (`annivPull`) ; liste de souhaits (wrapper de `pickType`, `S.ga2.wish`), ticket de variante `varTicket`, échange `exOpen`/`exDups`, cartes `ga2Cards`, historique `ga2Hist`, « invoquer encore » `ga2Last`, simulation `adminSim` ; état `S.ga2` |
 | `js/99-events3.js` | Événements II : événements datés `SPEV` (`evAct`, `evActive`, forcés par `window.__forceEv` sous webdriver), jetons de fête `S.ev3.tok` (`evTok`, wrapper d'`evSync`), boss d'événement `MODES.evboss` (`EVB_T`), œufs dorés `EGGT`, invasion `invPick`, défis du week-end `WKG`, mission de lancement, boutique `E3SHOP`/`e3Offers`, calendrier `e3Cal`, bandeau `#e3Home` ; état `S.ev3` |
+| `js/99-anim2.js` | Animations II : wrappers visuels de `floatNum` (particules, nombres colorés/empilés, critique, zoom, recul), `tapOrb` (éclats, anneau de boost, traînée), `killEnemy`/`win` (désintégration, ralenti `a2Slow`), `renderBattle` (entrée `a2Keep`, vague, rugissement, soins, dôme, bulles, victoire, défaite), `nestHatch` (`a2Hatch`), `evoFx` ; intensité `PREFS.fxLv`, réduction auto `a2PerfFeed` |
+| `js/99-gfx2.js` | Graphismes II : filtre SVG `#g2skin`, 4e plan (wrapper de `sceneHTML`, `g2L0`), météo/brume/lucioles/reflets (wrapper de `renderBattle`), éclairage (wrapper de `tapOrb`), ciel `g2Sky`, thèmes ajoutés à `SKINS`, icônes `G2ICO`, cadre mythique (wrapper de `card`), écran titre `G2TIPS`, transition de page (wrapper de `go`), `PREFS.gfx` |
 | `js/99-desktop.js` | réglages « Application Windows » (plein écran, dernière version, quitter) via `window.arkDesktop` ; lien vers la dernière version |
 | `js/99-layout.js` | mise en page du combat (classes `bl-*`, ordre visuel en CSS) : **doit rester le dernier script** |
 | `css/91-fonts.css` / `css/91-tex.css` | polices Orbitron et Exo 2 (base64) ; textures de particules (masques) |
@@ -102,6 +104,7 @@ des `function` ou des `let`, jamais des `const`. L'ordre des balises `<script>` 
 | `css/97-progress.css` / `css/97-progress2.css` | auras d'éveil, arbre, panneaux de progression ; conseil, objectifs, graphique, maîtrise ; chargés en dernier |
 | `css/97-nest2.css` / `css/97-far2.css` | élevage (arbre, soins, classement, œufs au camp) ; blizzard, orbes voilées, aurore ; chargés en dernier |
 | `css/97-gear2.css` / `css/97-gacha2.css` / `css/97-events3.css` | ensembles, gemmes, atelier, coffre de butin ; bannières, cartes, œuf ; calendrier, bandeau, décors d'événement ; chargés en dernier |
+| `css/97-anim2.css` / `css/97-gfx2.css` | effets de combat, éclosion, silhouette d'évolution ; météo, brume, lucioles, reflets, thèmes, cadres, carte, écran titre, mode simple ; chargés en dernier |
 | `css/97-pc.css` / `css/97-juice.css` | mise en page PC chargée en dernier (navigation en colonne, contenu large, grilles) ; styles des sensations de combat, de la coupure et des cadres holographiques |
 | `css/96-skins.css` | 7 thèmes (`html[data-skin]`) avec images de fond en base64 (`tools/gen_backgrounds.py`) |
 | `desktop/main.js` | application Electron : fenêtre (taille mémorisée, F11, une seule instance), sauvegarde dans `%APPDATA%`, liens externes ouverts dans le navigateur, test de lancement `--smoke-test` |

@@ -9,7 +9,7 @@ def check(name,cond,info=''):
     print(('OK   ' if cond else 'FAIL ')+name+(' '+str(info) if (info!='' and not cond) else ''))
     if not cond:FAILS.append(name)
 def team(types):return 'S.team=%s.map((t,i)=>({id:i+1,type:t,level:30,xp:0}));S.nextId=50;S.stage=40;S.level=10;S.gear=0;S.items=[];S.tut={off:true,seen:{}};ens();render()'%str(types).replace("'",'"')
-FIGHT='fight=null;startBattle({mode:"story",n:5});fight.enemies.forEach(e=>{e.tr="";e.sh=0;e.hp=e.max=999999});fight.cd=[0,0,0];fight.stun=0;renderBattle()'
+FIGHT='F2.newP=F2.goldP=F2.callP=0;fight=null;startBattle({mode:"story",n:5});fight.enemies.forEach(e=>{e.tr="";e.sh=0;e.hp=e.max=999999});fight.cd=[0,0,0];fight.stun=0;renderBattle()'
 async def main():
     async with async_playwright() as p:
         b=await p.chromium.launch();pg=await b.new_page(viewport={'width':1280,'height':800});ev=pg.evaluate

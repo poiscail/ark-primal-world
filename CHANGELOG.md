@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.39.0 — Animations et graphismes, plus loin
+- **Animations de combat** (toutes visuelles, coupées avec les animations) :
+  - Les **orbes éclatent** en éclats à la touche ; une orbe **boostée** lance un anneau de lumière ; les orbes tombent avec un **rebond** et un écrasement.
+  - **Particules d'élément** sur chaque coup (braises, gouttes, feuilles, éclairs, étincelles), **nombres de dégâts colorés** par élément et **empilés**, lettrage **« CRITIQUE ! »** façon bande dessinée et **zoom** de la caméra sur les critiques.
+  - L'ennemi **recule et vacille** selon la force du coup ; le dino qui charge laisse une **traînée** ; un ennemi vaincu **se désintègre** en particules ; le **coup final d'un boss passe au ralenti**.
+  - **Entrée de l'équipe** au début du combat (course et saut), **transition de vague**, **rugissement des boss** avec onde de choc, **feuilles** autour d'un dino soigné, **dôme hexagonal** pendant la Garde ou un bouclier, **bulles vertes** au-dessus d'un dino empoisonné, **pose de victoire**, et après une défaite la meute **se replie et se relève au camp**.
+  - Nid : **éclosion animée** (œuf qui tremble, fissures, lumière ; ADN qui tourne pour une mutation). Évolution : la **silhouette grandit** avant d'être révélée.
+  - Réglages > Affichage : **intensité des animations** (faible, normale, forte) et **réduction automatique** si le combat tourne sous 28 images par seconde.
+- **Graphismes** :
+  - **Portraits ombrés** avec une texture d'écailles (grands portraits), **décor à 4 plans** (crêtes lointaines et vol de ptérosaures, combat et bannières), **éclairage** de la scène selon l'élément de l'attaque.
+  - **Météo plus riche** (gouttes, flocons, grains de sable, braises, aurore, brume en particules, en plus du voile existant), **brume volumétrique** en Cauchemar, **lucioles** la nuit, **reflets dans l'eau** dans les abysses, **ciel selon l'heure réelle** (aube, jour, crépuscule, nuit), **ombres au sol** plus marquées.
+  - **3 nouveaux thèmes** : Fossile, Aurore, Rubis (10 en tout). **Icônes dessinées** pour les ressources de la barre du haut.
+  - **Cadres de rareté** plus distincts (rare, épique avec coins, légendaire holographique irisé qui suit la souris, mythique à part), **vitrine** pour la collection, **carte d'histoire en relief**, **emblème** de chaque mode sur sa bannière, **feuillage animé** des bannières, silhouettes du bestiaire plus marquées.
+  - **Écran titre** : dinos qui passent au loin et **astuce illustrée**. **Transitions** à l'ouverture d'un écran (animation d'entrée : l'API View Transitions aurait rendu le changement d'écran asynchrone, ce qui casserait le code qui enchaîne `go()` puis le rendu). **Police du titre** du combat selon la zone. HUD de combat plus lisible (PV plus grands, chiffres alignés).
+  - Réglages > Affichage : **graphismes « Simples »** (sans textures, météo en particules, brume, lucioles, reflets ni flous) pour les petits ordinateurs.
+- **Correctifs** : le tirage gratuit doublé du week-end (0.38) n'est plus actif sous un navigateur automatisé (sauf `window.__forceWkend`), sinon `test_gacha` échouait le samedi et le dimanche ; tests rendus robustes au hasard et au minutage (`battle_anim` compte les effets créés au lieu de ceux encore présents, `auto` suspend l'auto ×3 pendant un vrai clic, `juice` remet à zéro le gel en cours, `species2` coupe les créatures rares tirées au hasard).
+- Tests : `test_anim2` (35 vérifications) et `test_gfx2` (33), vrais clics et effets comptés dans la couche d'effets. 63 suites. Le rendu a été vérifié sur des captures d'écran (Chromium ici, pas sur Windows).
+
 ## 0.38.0 — L'équipement, les invocations et les événements, plus loin
 - **Équipement** :
   - **Ensembles** (25 % des objets) : 3 pièces du même ensemble donnent un bonus (Croc du Roi +10 % d'attaque, Écaille de glace +12 % de PV, Ambre ancestral +15 % de défense et +5 % de PV, Plume d'orage +2 de super par orbe).
