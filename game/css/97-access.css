@@ -1,0 +1,29 @@
+/* Accessibilité (js/99-access.js) */
+/* mode daltonien : palette Okabe-Ito, très distincte (les orbes gardent leurs symboles) */
+html.axcb body .orbboard .orb.redorb{--orbm:#D55E00;--orbd:#5a2400;--orbc:#D55E00cc;background:radial-gradient(circle at 30% 25%,#ffd2b0,#D55E00 55%,#5a2400)!important}
+html.axcb body .orbboard .orb.greenorb{--orbm:#009E73;--orbd:#003d2c;--orbc:#009E73cc;background:radial-gradient(circle at 30% 25%,#b8ffe9,#009E73 55%,#003d2c)!important}
+html.axcb body .orbboard .orb.blueorb{--orbm:#0072B2;--orbd:#00243a;--orbc:#0072B2cc;background:radial-gradient(circle at 30% 25%,#b5e2ff,#0072B2 55%,#00243a)!important}
+html.axcb body .orbboard .orb.purpleorb{--orbm:#CC79A7;--orbd:#4d1f3a;--orbc:#CC79A7cc;background:radial-gradient(circle at 30% 25%,#ffe0f1,#CC79A7 55%,#4d1f3a)!important}
+html.axcb body .orbboard .orb.goldorb{--orbm:#F0E442;--orbd:#5c5500;--orbc:#F0E442cc;background:radial-gradient(circle at 30% 25%,#fffbe0,#F0E442 55%,#5c5500)!important}
+html.axcb body .orbboard .orb .osym{filter:drop-shadow(0 0 2px #000) drop-shadow(0 0 1px #000)}
+/* contraste élevé */
+html.axhc{--txt:#fff;--txt2:#f2f2f2;--bd:#ffffff;--bd2:#ffffff;--surf:#000;--surf2:#111;--surf3:#000}
+html.axhc .muted,html.axhc .tiny{opacity:1!important;color:#fff!important}
+html.axhc .panel,html.axhc .banner{background:#000!important;border:2px solid #fff!important}
+html.axhc button.secondary{background:#000!important;color:#fff!important;border:2px solid #fff!important}
+html.axhc #skinBg{opacity:.25}
+/* réduction des mouvements : menus et fonds immobiles (le combat garde ses réglages propres) */
+html.axrm body *:not(#battleArea *):not(#fxLayer *){animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important;scroll-behavior:auto!important}
+/* flashs et secousses coupés partout */
+html.axnoflash .battlestage.impactfr,html.axnoflash .gflash,html.axnoflash #fxLayer .g2lit,html.axnoflash .hurtflash,html.axnoflash #fxLayer .a2fin{animation:none!important;display:none!important}
+html.axnoflash .battlestage.impactfr{display:block!important;filter:none!important}
+html.axnoshake body.bigshake,html.axnoshake .shk,html.axnoshake .c2shake{animation:none!important}
+/* taille des orbes */
+html[data-orb="s"] #battleArea .orbboard{zoom:.86}
+html[data-orb="l"] #battleArea .orbboard{zoom:1.14}
+/* focus visible au clavier */
+#battleArea .orbboard .orb:focus-visible{outline:3px solid #fff;outline-offset:3px;box-shadow:0 0 0 6px #000a,0 0 18px #fff}
+button:focus-visible,[tabindex]:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--acc,#00e5ff);outline-offset:2px}
+/* sous-titres */
+#axSubs{position:fixed;left:50%;bottom:70px;transform:translateX(-50%);z-index:700;padding:6px 14px;border-radius:8px;background:#000d;color:#fff;font:700 15px system-ui;pointer-events:none;opacity:0;transition:opacity .2s;max-width:80vw;text-align:center}
+#axSubs.on{opacity:1}

@@ -1,0 +1,5 @@
+/* Son II (js/99-sound2.js) */
+#s2Opts{margin-top:6px;border-top:1px solid var(--bd,#1e3050);padding-top:6px}
+.s2sl input[type=range]{width:min(220px,40vw);accent-color:var(--acc,#00e5ff)}
+.s2juke{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin:8px 0}
+.s2juke button{padding:8px;min-height:0;text-align:left}

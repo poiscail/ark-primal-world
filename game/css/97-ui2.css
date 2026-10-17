@@ -1,0 +1,53 @@
+/* Interface II (js/99-ui2.js) */
+html.u2zoom body{zoom:var(--u2z,1)}
+html.u2compact .screen .panel{padding:8px 10px;margin-bottom:8px}
+html.u2compact .screen .banner{padding-top:12px;padding-bottom:12px;min-height:0}
+html.u2compact .screen .banner h1{font-size:22px}
+html[data-dots="calm"] .dot{animation:none;opacity:.55;transform:scale(.75);box-shadow:none}
+html[data-dots="off"] .dot{display:none!important}
+/* cloche et notifications */
+.u2bell{position:relative;background:transparent;border:1px solid var(--bd2,#2d5a99);border-radius:10px;padding:4px 8px;min-height:0;font-size:15px;margin-right:6px;color:var(--txt,#fff)}
+.u2bell i{position:absolute;top:-6px;right:-6px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:#ff3b5c;color:#fff;font:800 10px/16px system-ui;font-style:normal;display:none}
+.u2bell.on i{display:block}
+html[data-dots="off"] .u2bell i{display:none}
+.u2notes,.u2hist{max-height:52vh;overflow:auto;display:flex;flex-direction:column;gap:4px;margin:6px 0}
+.u2note{padding:6px 8px;border-radius:8px;background:var(--surf2,#17213a);font-size:13px}.u2note small{opacity:.6;margin-right:4px}
+.u2h{display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center;padding:6px 8px;border-radius:8px;background:var(--surf2,#17213a);font-size:13px}.u2h small{opacity:.6}
+.u2h.lose{opacity:.75}
+.toast .u2x{color:#ffd15c;margin-left:4px}
+/* ressources cliquables, où obtenir */
+header .meters .meter.u2click{cursor:pointer}header .meters .meter.u2click:hover{filter:brightness(1.25)}
+.u2where{display:flex;flex-direction:column;gap:6px;margin:8px 0}.u2where button{text-align:left}
+.u2mats{display:flex;flex-direction:column;gap:6px;margin:8px 0}.u2mat{padding:6px 8px;border-radius:8px;background:var(--surf2,#17213a)}
+/* collection */
+.u2search{display:flex;align-items:center;gap:8px;margin-bottom:6px;width:100%}.u2search input{flex:1;min-width:0;padding:8px 10px;border-radius:10px;border:1px solid var(--bd2,#2d5a99);background:var(--surf3,#10182a);color:var(--txt,#fff);font-size:14px}
+.u2search small{opacity:.7;white-space:nowrap}
+#collection>.cocard.u2hide{display:none!important}
+#collection>.cocard[draggable="true"]{cursor:grab}
+#collection>.cocard.u2drag{opacity:.45}
+#collection>.cocard.u2over{outline:2px dashed var(--acc,#00e5ff);outline-offset:2px}
+/* aperçu, équipe du mode, favoris, tutoriels */
+.u2prev,.u2team{display:flex;align-items:center;gap:10px;border-left:3px solid var(--acc,#00e5ff)}
+.u2foes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
+.u2foe{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px;border-radius:10px;background:var(--surf2,#17213a);text-align:center}.u2foe span{font-size:30px}.u2foe small{font-size:11px;opacity:.85}
+.u2foe.boss{outline:2px solid #ff647b}
+.u2fav .u2favrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.u2fav button{padding:7px 10px;min-height:0}
+.u2favs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.banner{position:relative}.banner .u2tbtn{position:absolute;top:8px;right:8px;z-index:3;padding:4px 9px;min-height:0;border-radius:50%;font-size:13px}
+.u2tuto{margin:8px 0;padding-left:20px;line-height:1.5}
+/* fin de combat : XP par dino */
+.u2xp{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:6px 0;width:100%}
+.u2xr{display:flex;flex-direction:column;align-items:center;min-width:92px;padding:6px 8px;border-radius:10px;background:#0004;font-size:12px}.u2xr span{font-size:24px;width:40px;height:40px;display:grid;place-items:center}.u2xr span svg{width:40px;height:40px}
+.u2xr small{opacity:.9}.u2xr em{color:#7dff9b;font-style:normal;font-weight:800}
+/* annulation */
+.u2undo{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:600;display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;background:#000d;color:#fff;box-shadow:0 6px 24px #000a;overflow:hidden}
+.u2undo button{padding:6px 10px;min-height:0}
+.u2undo i{position:absolute;left:0;bottom:0;height:3px;background:var(--acc,#00e5ff);animation:u2undo 10s linear forwards}
+@keyframes u2undo{from{width:100%}to{width:0}}
+.u2ask{display:flex;gap:8px;align-items:center;margin:10px 0 4px;cursor:pointer}
+/* menu pause */
+.u2pause{position:fixed;inset:0;z-index:450;display:grid;place-items:center;background:#000b}
+.u2pause .panel{width:min(340px,90vw);display:flex;flex-direction:column;gap:8px;text-align:center}.u2pause h2{margin:0}
+.u2keys{display:flex;flex-direction:column;gap:6px;margin:8px 0;line-height:1.7}
+kbd{display:inline-block;min-width:18px;padding:0 5px;border-radius:5px;border:1px solid var(--bd2,#2d5a99);border-bottom-width:2px;background:var(--surf3,#10182a);font:700 11px/18px system-ui;text-align:center}
+.u2new{margin:8px 0;padding-left:20px;line-height:1.6}

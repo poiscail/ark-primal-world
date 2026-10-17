@@ -1,5 +1,6 @@
 """Défi du jour (0.26) : taux de victoire selon la règle du jour (aucune, Colosse solitaire, Surcharge, Coups critiques,
 Blessures profondes), avec l'équipe conseillée pour la progression (éveil + forge). Usage : python3 tests/test_balance_daily.py [combats] [règles,…] [niveaux,…]"""
+import sys;sys.path.insert(0,str(__import__("pathlib").Path(__file__).resolve().parent));from balance_seuil import alerte
 import asyncio,pathlib,sys,json
 from playwright.async_api import async_playwright
 GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
@@ -21,4 +22,5 @@ async def main():
         res=await pg.evaluate(JS,[N,RULES,LEVELS])
         for k,v in res.items():print(k,json.dumps(v,ensure_ascii=False))
         print('erreurs:',errs);await b.close()
-asyncio.run(main())
+        return alerte(res,0)+len(errs)
+sys.exit(1 if asyncio.run(main()) else 0)

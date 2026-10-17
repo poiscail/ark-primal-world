@@ -2,6 +2,7 @@
 Équipe « conseillée » = celle qui gagne l'histoire au niveau équivalent (niveau ×1,2 + 6, voir NM_LV), éveillée et forgée comme dans
 test_balance.py ; comparée à l'équipe qui vient juste de finir le chapitre normal correspondant.
 Usage : python3 tests/test_balance_nightmare.py [combats_par_mesure] [pv atq k b] (réglages à essayer)"""
+import sys;sys.path.insert(0,str(__import__("pathlib").Path(__file__).resolve().parent));from balance_seuil import alerte
 import asyncio,pathlib,sys,json
 from playwright.async_api import async_playwright
 GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
@@ -25,4 +26,5 @@ async def main():
         res=await pg.evaluate(JS,arg)
         for k,v in res.items():print(k,json.dumps(v,ensure_ascii=False))
         print('erreurs:',errs);await b.close()
-asyncio.run(main())
+        return alerte(res,0)+len(errs)
+sys.exit(1 if asyncio.run(main()) else 0)

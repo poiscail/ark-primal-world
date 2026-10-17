@@ -53,7 +53,7 @@ async def main():
         r=await ev('(()=>{const d={id:999,type:"rex",level:60,xp:0,star:6,v:"prism",gn:{hp:5,atk:5},imp:100,tal:{a:5,d:5,s:5},aff:200};S.team.push(d);S.gear=20;S.level=100;const v=stats(d),c=pgCore(d);S.team.pop();S.gear=0;S.level=12;return [v.atk/c.atk,v.hp/c.hp]})()')
         check('plafond de puissance : un dino « tout au maximum » (rang 100, forge 20) reste sous ×5',r[0]<5 and r[1]<5.5,r)
         # défense, niveau d'équipe
-        await ev('go("team");subSet("team","pack")');check('défense lisible sur la carte (−X/coup)','/coup' in await pg.inner_text('.cocard[data-id="1"] .stats'))
+        await ev('go("team");subSet("team","pack")');check('défense lisible sur la carte (−X %)','DÉFENSE · −' in await pg.inner_text('.cocard[data-id="1"] .stats') and '%' in await pg.inner_text('.cocard[data-id="1"] .stats'))
         check('niveau d\'équipe dans la barre du haut',(await ev('document.getElementById("powerM").textContent')).startswith('Niv. '))
         check('3 succès',await ev('ACH.filter(a=>/^pg/.test(a[0])).length')==3)
         dup=await ev('(()=>{const s={},d=[];ACH.forEach(a=>{if(s[a[0]])d.push(a[0]);s[a[0]]=1});return d})()');check('identifiants de succès uniques',dup==[],dup)

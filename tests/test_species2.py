@@ -9,7 +9,7 @@ def check(name,cond,info=''):
     print(('OK   ' if cond else 'FAIL ')+name+(' '+str(info) if (info!='' and not cond) else ''))
     if not cond:FAILS.append(name)
 def team(types):return 'S.team=%s.map((t,i)=>({id:i+1,type:t,level:30,xp:0}));S.nextId=50;S.stage=40;S.level=10;S.gear=0;S.items=[];S.tut={off:true,seen:{}};ens();render()'%str(types).replace("'",'"')
-FIGHT='F2.newP=F2.goldP=F2.callP=0;fight=null;startBattle({mode:"story",n:5});fight.enemies.forEach(e=>{e.tr="";e.sh=0;e.hp=e.max=999999});fight.cd=[0,0,0];fight.stun=0;renderBattle()'
+FIGHT='if(typeof F2!=="undefined"){F2.newP=F2.goldP=F2.callP=0}fight=null;startBattle({mode:"story",n:5});fight.enemies.forEach(e=>{e.tr="";e.sh=0;e.hp=e.max=999999});fight.cd=[0,0,0];fight.stun=0;renderBattle()'
 async def main():
     async with async_playwright() as p:
         b=await p.chromium.launch();pg=await b.new_page(viewport={'width':1280,'height':800});ev=pg.evaluate
@@ -32,7 +32,7 @@ async def main():
         check('Ruée frénétique : 2,7× l\'attaque',abs(d-round(a*2.7))<=2,(d,a))
         check('compétence : recharge et compteur',await ev('fight.cd[0]')>0 and await ev('S.cnt.skills')>=1)
         await ev('Math.random=()=>0.1;useSkill(2)');check('Piétinement : étourdit (une chance sur deux)',await ev('fight.stun')>=1)
-        await ev('location.reload()');await pg.wait_for_timeout(400);await ev('setPref("anim",false);setPref("lore",false);WX_ON=false')
+        await ev('location.reload()');await pg.wait_for_timeout(300);await pg.wait_for_function('typeof setPref==="function"&&typeof F2!=="undefined"&&document.readyState!=="loading"');await ev('setPref("anim",false);setPref("lore",false);WX_ON=false')
         await ev(team(['kosmo','proto','nodo']))  # pierce, fortify, fortify
         await ev(FIGHT);await ev('(()=>{const e=fight.enemies[fight.wave];e.sh=5000;e.el="purpleorb"})()');a=await ev('atkOf(0)');h0=await ev('fight.enemies[fight.wave].hp')
         await ev('useSkill(0)');d=h0-await ev('fight.enemies[fight.wave].hp')
@@ -75,7 +75,7 @@ async def main():
         check('Charognard : +15 % de PV quand un ennemi tombe',r>.64,r)
         check('nouveaux attributs disponibles sur les talismans',await ev('["counter","ambush","charger","scavenger"].every(x=>CHARM_PA.includes(x))&&["pack","armor"].every(x=>CHARM_PA_L.includes(x))'))
         # ---- Arène : compétence ennemie adaptée
-        await ev('location.reload()');await pg.wait_for_timeout(400);await ev('setPref("anim",false);setPref("lore",false);WX_ON=false')
+        await ev('location.reload()');await pg.wait_for_timeout(300);await pg.wait_for_function('typeof setPref==="function"&&typeof F2!=="undefined"&&document.readyState!=="loading"');await ev('setPref("anim",false);setPref("lore",false);WX_ON=false')
         await ev(team(['rex','giga','carnota']))
         await ev('S.arena.left=5;S.arena.opp=[{d:0,n:20,team:"Test",sp:["titano","diplo","krono"]}];arenaFight(0)')
         check('Arène : les compétences nouvelles deviennent des compétences ennemies connues',await ev('fight.enemies.map(e=>esOf(e,fight)).join()')=='shield,heal,cleave')

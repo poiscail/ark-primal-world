@@ -1,6 +1,7 @@
 """Taux de victoire simulés : Tour infinie et Arène (joueur qui utilise ses compétences et choisit bien ses orbes).
 Le rang du joueur est fixé à chaque combat (niveau de contenu / 4 + 1) : sinon il grimpe pendant la simulation
 (+0,5 % PV/ATQ par rang) et les dernières mesures sont faussées (corrigé en 0.13)."""
+import sys;sys.path.insert(0,str(__import__("pathlib").Path(__file__).resolve().parent));from balance_seuil import alerte
 import asyncio,pathlib
 from playwright.async_api import async_playwright
 GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
@@ -22,4 +23,5 @@ async def main():
         for k,v in res['tower'].items():print('tour étage',k,v)
         for k,v in res['arena'].items():print('arène',k,v)
         print('erreurs:',errs);await b.close()
-asyncio.run(main())
+        return alerte(res,0)+len(errs)
+sys.exit(1 if asyncio.run(main()) else 0)

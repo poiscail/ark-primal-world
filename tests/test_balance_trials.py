@@ -1,5 +1,6 @@
 """Épreuves de la meute : taux de victoire par palier avec une équipe conseillée pour le niveau du palier (éveil + forge),
 bot qui joue bien. Usage : python3 tests/test_balance_trials.py [combats_par_mesure]"""
+import sys;sys.path.insert(0,str(__import__("pathlib").Path(__file__).resolve().parent));from balance_seuil import alerte
 import asyncio,pathlib,sys,json
 from playwright.async_api import async_playwright
 GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
@@ -21,4 +22,5 @@ async def main():
         res=await pg.evaluate(JS,N)
         for k,v in res.items():print(k,json.dumps(v,ensure_ascii=False))
         print('erreurs:',errs);await b.close()
-asyncio.run(main())
+        return alerte(res,0)+len(errs)
+sys.exit(1 if asyncio.run(main()) else 0)

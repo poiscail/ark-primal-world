@@ -99,9 +99,13 @@ function afterAction(dmg,msg,endTurn){const f=fight,e=f.enemies[f.wave];e.hp-=dm
  enemyTurn();if(e.hp<=0)return killEnemy();renderBattle()}
 function killEnemy(){const f=fight;if(f.wave===2)return win();f.wave++;f.turn=0;f.stun=0;f.dots=[];f.firstTap=true;f.enrage=false;f.log+=" · Ennemi vaincu ! Vague suivante.";renderBattle()}
 function pickTarget(){const t=T3(),w=t.map((d,k)=>alive(k)?(hasPA(d,"tank")?3:1):0),s=w.reduce((a,b)=>a+b,0);let r=Math.random()*s;for(let k=0;k<t.length;k++){r-=w[k];if(r<0)return k}return Math.max(0,w.findIndex(x=>x>0))}
+/* 0.41 (idée 450) : la défense réduit les dégâts en proportion (dégâts = b × K·b / (déf + K·b)) au lieu de les diminuer d'un montant fixe
+   (b − déf/2) : avant, un tank était presque invulnérable au début (déf/2 ≥ attaque ennemie) et la défense ne valait plus grand-chose
+   ensuite. K = 1,4 redonne les mêmes valeurs quand déf ≈ 0,6 × attaque (fin de partie). */
+const DEF_K=1.4;function defHit(b,df){return b<=0?0:b*DEF_K*b/(Math.max(0,df)+DEF_K*b)}
 function hitDino(k,raw,e){const f=fight,d=T3()[k],pa=PA_of(d);f.hurt=f.hurt||{};
  if(hasPA(d,"swift")&&Math.random()<.2){f.log+=" · "+sp(d).name+" esquive !";return}
- let dm=raw*(BEAT[e.el]===sp(d).element?1.3:1)-stats(d).def/2;if(hasPA(d,"guard"))dm*=.85;if(f.buff.shield>0)dm*=.5;dm=Math.max(1,Math.round(dm));
+ let dm=defHit(raw*(BEAT[e.el]===sp(d).element?1.3:1),stats(d).def);if(hasPA(d,"guard"))dm*=.85;if(f.buff.shield>0)dm*=.5;dm=Math.max(1,Math.round(dm));
  if(dm>=f.hp[k]&&hasPA(d,"lastbreath")&&!f.lb[k]){f.lb[k]=true;dm=Math.max(0,f.hp[k]-1);f.log+=" · 🕊️ "+sp(d).name+" survit de justesse !"}
  f.hp[k]=Math.max(0,f.hp[k]-dm);f.log+=" · "+sp(d).name+" subit "+dm;f.hurt[k]=(f.hurt[k]||0)+dm;
  if(hasPA(d,"thorns")){const r=Math.round(dm*.25);e.hp-=r;f.log+=" (renvoi "+r+")"}}

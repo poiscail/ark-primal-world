@@ -1,5 +1,6 @@
 """Taux de victoire par niveau d'histoire, avec un joueur qui utilise ses compétences et choisit bien ses orbes.
 Rang du joueur fixé à chaque combat (niveau / 4 + 1) pour ne pas fausser les mesures (corrigé en 0.13)."""
+import sys;sys.path.insert(0,str(__import__("pathlib").Path(__file__).resolve().parent));from balance_seuil import alerte
 import asyncio,pathlib
 from playwright.async_api import async_playwright
 GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
@@ -17,4 +18,5 @@ async def main():
         res=await pg.evaluate(JS)
         for k,v in res.items():print('niv',k,v)
         print('erreurs:',errs);await b.close()
-asyncio.run(main())
+        return alerte(res,50,'éveillé+forge')+len(errs)  # « nu » est volontairement dur après le niveau 50
+sys.exit(1 if asyncio.run(main()) else 0)

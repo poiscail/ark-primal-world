@@ -13,7 +13,7 @@ async def main():
         await pg.goto(GAME);await pg.wait_for_timeout(400)
         await ev('S.tut={off:true,seen:{}};S.team=[{id:1,type:"raptor",level:30,xp:0}];ens()')
         check('ambiance menu',await ev('musicMode()')=='menu')
-        await ev('startBattle({mode:"story",n:3})');check('ambiance combat',await ev('musicMode()')=='battle')
+        await ev('startBattle({mode:"story",n:3})');check('ambiance combat (thème de la zone depuis 0.40)',await ev('musicMode()') in ('battle','jungle','ruines','volcan','obelisque','toundra','abysses'))
         await ev('fight.wave=2;fight.enemies[2].boss=true');check('ambiance boss',await ev('musicMode()')=='boss')
         await ev('fight.over="win"');check('retour au menu après combat',await ev('musicMode()')=='menu')
         await ev('fight.over=null;setPref("music",true)');await pg.wait_for_timeout(1500)

@@ -22,7 +22,10 @@ const nestName=d=>esc((SPEC[d.type]||sp(d)).name);
 const nestRar=(A,B)=>RAR5.indexOf(sp(A).r)>=RAR5.indexOf(sp(B).r)?sp(A).r:sp(B).r;
 function nestPair(){const A=S.team.find(d=>d.id===nestSel.a),B=S.team.find(d=>d.id===nestSel.b);return{A,B,ok:!!(A&&B&&A.id!==B.id&&nestOk(A)&&nestOk(B)&&nestFam(A.type)===nestFam(B.type))}}
 function nestDur(ms){const m=Math.ceil(ms/60000);if(ms<60000)return Math.max(0,Math.ceil(ms/1000))+" s";if(m<60)return m+" min";const h=Math.floor(m/60),r=m%60;return h+" h"+(r?" "+String(r).padStart(2,"0"):"")}
-const nestRushCost=e=>Math.ceil(nestLeft(e)/900000);   // 1 🔮 par quart d'heure restant
+/* 0.41 (idée 449) : le prix dépend aussi de la rareté de l'œuf (1/1/2/3 🔮 par quart d'heure restant) ; avant, un œuf légendaire de 6 h
+   coûtait 24 🔮, soit à peine quelques victoires. */
+const NEST_RUSH={Commun:1,Rare:1,"Épique":2,"Légendaire":3};
+const nestRushCost=e=>{const l=nestLeft(e);if(!l)return 0;return Math.ceil(l/900000)*(NEST_RUSH[(SPEC[e.type]||{}).r]||1)};
 /* ---- hérédité ---- */
 function nestVar(A,B){const pv=[A.v,B.v].filter(x=>x&&x!=="normal");if(pv.length&&Math.random()<.2)return pv[rnd(pv.length)];
  if(Math.random()<.03){const ks=["alpha","shadow","albino","golden","prism"];let r=Math.random()*ks.reduce((s,k)=>s+VAR[k].w,0);for(const k of ks){r-=VAR[k].w;if(r<0)return k}return "alpha"}return "normal"}

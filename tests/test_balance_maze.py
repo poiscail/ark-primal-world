@@ -2,6 +2,7 @@
 (compétences, super, meilleure orbe), choisit sa route (campement si PV bas, élites si PV hauts), prend la relique la plus rare
 et fait des choix raisonnables aux mystères. L'équipe repart du même niveau à chaque course (elle gagne de l'XP pendant la course).
 Usage : python3 tests/test_balance_maze.py [courses_par_mesure]"""
+import sys;sys.path.insert(0,str(__import__("pathlib").Path(__file__).resolve().parent));from balance_seuil import alerte
 import asyncio,pathlib,sys,json
 from playwright.async_api import async_playwright
 GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
@@ -45,4 +46,5 @@ async def main():
         res=await pg.evaluate(JS,cfg)
         for k,v in res.items():print(k,json.dumps(v,ensure_ascii=False))
         print('erreurs:',errs);await b.close()
-asyncio.run(main())
+        return alerte(res,0)+len(errs)
+sys.exit(1 if asyncio.run(main()) else 0)

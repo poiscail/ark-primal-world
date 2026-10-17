@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.40.0 — Confort, son et accessibilité
+- **Interface et confort** :
+  - **Raccourcis clavier partout** (F1 pour la liste) : Échap ferme une fenêtre, revient à l'accueil ou met le combat en **pause** ; H accueil, C collection, I invocation, V aventure, Q quêtes, N notifications ; P pause en combat. (A, Z et E restent les compétences : la super reste sur Espace et l'auto sur R.)
+  - **Menu pause** en combat (reprendre, réglages, aide, raccourcis, abandonner) : l'auto-combat s'arrête pendant la pause.
+  - **Notifications regroupées** (« ×3 » au lieu de trois bulles) et **centre de notifications** 🔔 avec les **combats récents**.
+  - **Ressources cliquables** : « où obtenir ? » pour chaque ressource, et un guide de tous les matériaux. **Infobulles** sur les PV et l'attaque.
+  - **Collection** : **recherche par nom** (surnoms compris) et **glisser-déposer** pour échanger deux dinos (et former l'équipe).
+  - **Aperçu des ennemis** d'un niveau d'histoire (panneau « prochain niveau », clic droit sur un niveau de la carte) avec **« meilleure équipe »** selon l'élément ennemi ; **équipe mémorisée par mode** (Arène, Tour, Grand Nord, Labyrinthe, Régions, Donjons) à reprendre en un clic.
+  - **Fin de combat** : l'XP gagnée par chaque dino (et ses niveaux). **Molette** sur la carte d'histoire pour changer de chapitre (quand la carte est entièrement visible, ou Maj + molette : sinon la page défile normalement).
+  - **Recyclage** : confirmation avec **« ne plus demander »** et **annulation pendant 10 secondes** (dinos, objets et ressources rendus).
+  - **Accueil** : **raccourcis favoris** personnalisables (6 au plus). **Tutoriels courts** relisibles (bouton ❓ sur la bannière de chaque mode).
+  - Réglages > Affichage : **taille du texte** (90 à 130 %), **mode compact** (automatique sous 700 px de haut), **pastilles** normales, discrètes ou cachées, **reprise du dernier mode** au lancement, réactivation des confirmations. La fenêtre redimensionnée redessine le combat.
+  - **« Quoi de neuf »** après une mise à jour (jamais au premier lancement ; fermé en coupant les dialogues).
+- **Son et musique** :
+  - **Thème musical par zone** (jungle, ruines, volcan, obélisque, toundra, abysses), **boss plus intense en phase 3** (sous un tiers de ses PV), **Arène qui accélère** au fil du combat, **Nid apaisant**, **musique d'Halloween et de Noël**, mode **« musique calme »**.
+  - **Bruitages par famille** d'attaque (morsure, piétinement, charge, massue, piqué, éclaboussure, bourdonnement…), **orbes boostées** qui scintillent, **combo** qui monte en tonalité, **cris** à l'invocation, **son de mutation**, **jingle de victoire selon les étoiles**, sons de menu plus discrets.
+  - **Ambiance par décor** (oiseaux, grondement, vent, bulles…), **battement de cœur** quand un dino a moins de 25 % de PV, **alerte** avant une attaque puissante ennemie, **pas** sur la carte d'histoire, **leitmotiv de la Graine** pendant les dialogues, musique et ambiance **atténuées pendant les dialogues**, **narration vocale** optionnelle (voix de l'ordinateur).
+  - Réglages > Audio : **volumes séparés** (musique, effets, ambiance, voix), **graves et aigus**, **sons « 8 bits »**, **silence quand la fenêtre n'est pas au premier plan**, **jukebox** des musiques entendues.
+- **Accessibilité** (Réglages > Accessibilité) :
+  - **Mode daltonien** (palette Okabe-Ito très distincte, en plus des symboles déjà présents sur les orbes), **contraste élevé**, **réduction des mouvements** étendue à tous les menus et fonds, **flashs et secousses** coupés partout (invocation, coupures, éclairages compris) quand ils sont désactivés.
+  - **Lecture à voix haute** des notifications, des fenêtres et des dialogues (voix de l'ordinateur), **sous-titres** des sons importants (alerte d'attaque puissante, rugissement de boss, cœur, victoire, mutation…), **vitesse des dialogues** (immédiate, rapide, normale, lente).
+  - **Combat entièrement au clavier** : Tab ou les flèches pour choisir une orbe, Entrée pour la jouer, focus bien visible, orbes nommées pour les lecteurs d'écran. **Taille des orbes** (petites, normales, grandes).
+  - **Pas de limite de temps** par défaut : à la pêche, le poisson attend qu'on tire. **Rappel de pause** après chaque heure de jeu (option).
+  - **Difficulté « Histoire »** (ennemis −30 %, récompenses ×0,75) et **« Expert »** (ennemis +60 % PV / +45 % ATQ, récompenses ×1,6), en plus de Facile, Normal et Difficile.
+- **Équilibrage** :
+  - **Défense** : elle réduit maintenant les dégâts **en proportion** (dégâts = b × 1,4·b / (déf + 1,4·b)) au lieu de retirer un montant fixe (b − déf/2). Mesure avant le changement : au niveau 3, la défense d'un dino valait 64 à 129 % de l'attaque ennemie (un Ankylosaure ne prenait qu'1 dégât par coup), contre 25 à 35 % après le niveau 50. Le coefficient 1,4 redonne les mêmes valeurs en fin de partie ; la carte d'un dino affiche « DÉFENSE · −X % » (pour un coup de 100).
+  - **Accélérer un œuf** coûte 1, 1, 2 ou 3 🔮 par quart d'heure selon la rareté (un œuf légendaire de 6 h : 72 🔮 au lieu de 24, soit à peine quelques victoires avant).
+  - **Seuils d'alerte** des simulations (`tests/balance_seuil.py`) : `test_balance.py` échoue si l'équipe conseillée éveillée+forge tombe sous 50 % à un niveau ; les autres simulations l'acceptent avec `--seuil=50`.
+  - Simulation de l'histoire avant → après (20 combats par mesure, soit environ ±20 % de bruit) : équipe conseillée éveillée+forge 100 % → 100 % à tous les niveaux ; sans éveil ni forge : niveau 50 75 % → 60 %, niveau 70 5 % → 20 %, niveau 100 10 % → 25 % ; 6 niveaux en dessous : niveau 30 35 % → 60 %, niveau 50 5 % → 10 %. L'équilibre d'ensemble est conservé.
+- **Vérification de l'ordre des scripts** (`tests/test_order.py`, sans navigateur, lancé en premier) : fichiers présents et tous chargés, `99-layout.js` dernier, ordre des thèmes, et surtout **aucun nom global déclaré deux fois** (on concatène les scripts dans l'ordre et `node` vérifie la syntaxe) : il retrouve le vrai bug « `_rbG2` has already been declared » de la 0.39 quand on le réintroduit.
+- Notifications rangées à part de la sauvegarde (`arkPrimalNotes`) : un message ne modifie jamais la partie (trouvé par `test_transfer`).
+- Tests : `test_ui2` (44 vérifications), `test_sound2` (34) et `test_access` (33), vrais clics, vraies touches et vrai glisser-déposer ; les sons et la synthèse vocale sont comptés ou simulés (pas écoutés : aucun haut-parleur ici). 67 suites (dont `order`).
+
 ## 0.39.0 — Animations et graphismes, plus loin
 - **Animations de combat** (toutes visuelles, coupées avec les animations) :
   - Les **orbes éclatent** en éclats à la touche ; une orbe **boostée** lance un anneau de lumière ; les orbes tombent avec un **rebond** et un écrasement.
