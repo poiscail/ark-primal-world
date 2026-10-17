@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.46.0 — Onglets plus clairs
+Ta demande : « que les onglets deviennent plus propres et plus faciles à comprendre, et améliore le visuel ».
+- **Sous-onglets rangés par thème**, avec une étiquette par groupe :
+  - **Aventure** : *Histoire* (Monde, Histoire, Régions, Grand Nord), *Défis* (Donjons, Tour, Labyrinthe, Épreuves, Modes), *Compétition* (Arène, Raid, Événements) ;
+  - **Quêtes** : *Chaque jour* (Missions, Défi, Fouilles), *Ma base* (Camp, Nid, Expéditions), *Collection* (Succès).
+- **« Où suis-je ? »** : sous la barre des onglets, le chemin (par exemple « Aventure › Défis › Tour ») et une phrase qui explique à quoi sert l'écran, pour chacun des 31 onglets et sous-onglets.
+- **Missions** en grille de 3 colonnes (2 sur les petits écrans) : la page fait moitié moins haut. Chaque section se replie d'un clic ; les « Objectifs » de long terme (71 cadres) sont repliés tant qu'il n'y a rien à y récupérer.
+- **Succès** en grille, avec des filtres : *Tous*, *À récupérer* (cadres dorés), *En cours*, *Obtenus*, chacun avec son nombre. La page passe de 17 000 à 7 000 pixels de haut.
+- Retouche : les familles de la bannière de famille passent à la ligne au lieu d'être coupées.
+- Rien n'a été retiré : tous les boutons sont toujours là.
+- Test : `test_tabs2` (groupes, explications de tous les onglets, vrais clics sur les filtres et les sections). 78 suites.
+
 ## 0.45.0 — Décors peints
 - **6 décors peints** derrière les combats, les bannières et les cartes des zones **Jungle**, **Ruines**, **Volcan**, **Obélisque**, **Toundra** (Grand Nord) et **Abysses** : images que tu as créées avec FLUX.1 [schnell] (Black Forest Labs, licence Apache 2.0) sur Hugging Face. Le décor dessiné par le code reste par-dessus en transparence (sol, plantes du premier plan, météo), les dinos restent dessinés par le code.
 - **Réglage** : Réglages > Affichage > Décors (« Peints » ou « Dessinés », pour revenir aux décors d'avant). Rien n'a été retiré.

@@ -1,0 +1,44 @@
+/* 0.46 · Onglets plus clairs : groupes de sous-onglets, ligne « où suis-je », grilles des Missions et des Succès */
+
+/* sous-onglets rangés par thème */
+html body .subnav .snwrap.t2grp{gap:8px;padding:6px;background:var(--surf3,#0d1528)}
+.snsec{display:flex;gap:2px;position:relative;padding:15px 4px 3px;border-radius:11px;background:color-mix(in srgb,var(--surf2,#17213a) 70%,transparent);border:1px solid color-mix(in srgb,var(--bd2,#2d3d5e) 60%,transparent)}
+.sngrp{position:absolute;top:3px;left:10px;font:800 8.5px/1 var(--font,system-ui);letter-spacing:.16em;text-transform:uppercase;color:var(--acc,#67e5ff);opacity:.9;pointer-events:none;white-space:nowrap}
+html body .subnav .snwrap.t2grp button{min-width:58px}
+
+/* « où suis-je » */
+.t2where{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin:-2px 0 12px;padding:9px 14px;border-left:3px solid var(--acc,#67e5ff);border-radius:4px 10px 10px 4px;background:linear-gradient(90deg,color-mix(in srgb,var(--acc,#67e5ff) 13%,transparent),transparent 80%)}
+.t2path{font:700 11px var(--font,system-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--txt2,#93a9cc);white-space:nowrap}
+.t2path b{color:var(--txt,#e8f1ff);letter-spacing:.06em}
+.t2path i{font-style:normal;opacity:.55;margin:0 2px}
+.t2desc{font-size:13.5px;color:var(--txt,#e8f1ff);opacity:.9}
+
+/* grilles : Succès et Missions */
+.t2off{display:none!important}
+#achs.t2grid.active,#missions.t2grid.active{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-content:start}
+#achs.t2grid>*,#missions.t2grid>*{grid-column:1/-1;margin-top:0;margin-bottom:0}
+#achs.t2grid>.panel.ach,#missions.t2grid>.panel{grid-column:auto;margin:0!important;min-width:0}
+#achs.t2grid>.panel.ach .row,#missions.t2grid>.panel .row{flex-wrap:wrap}
+#achs.t2grid>.panel.ach .grow,#missions.t2grid>.panel .grow{min-width:0}
+#achs.t2grid>.panel.ach.ready{box-shadow:0 0 0 1px var(--gold,#ffd15c),0 0 16px color-mix(in srgb,var(--gold,#ffd15c) 35%,transparent)}
+#achs.t2grid>.panel.ach.done{opacity:.78}
+@media (max-width:1200px){#achs.t2grid.active,#missions.t2grid.active{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* filtres des Succès */
+.t2filt{display:flex;gap:6px;flex-wrap:wrap}
+html body .t2filt button{flex:0 0 auto;padding:8px 14px;font-size:12px;clip-path:none;border-radius:999px;background:var(--surf2,#17213a);color:var(--txt,#e8f1ff);border:1px solid var(--bd2,#2d3d5e)}
+html body .t2filt button.on{background:linear-gradient(135deg,var(--acc,#67e5ff),var(--acc2,#ff3df2));color:#04101e;border-color:transparent}
+.t2filt button i{font-style:normal;opacity:.75;margin-left:4px}
+
+/* sections repliables des Missions */
+#missions .sectionhead.t2sh{display:flex;align-items:center;gap:10px}
+#missions .sectionhead.t2sh>:first-child{flex:1}
+html body #missions .t2tog{flex:0 0 auto;padding:6px 12px;font-size:11px;width:auto}
+/* missions de la semaine et défis (dans #q2box) en grille aussi */
+#missions.t2grid #q2box{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+#missions.t2grid #q2box>*{grid-column:1/-1;margin-top:0;margin-bottom:0}
+#missions.t2grid #q2box>.panel.q2m{grid-column:auto;min-width:0}
+@media (max-width:1200px){#missions.t2grid #q2box{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* retouche : les familles de la bannière de famille passent à la ligne au lieu d'être coupées */
+html body .ga2fam .eltabs{flex-wrap:wrap}
+html body .ga2fam .eltabs button{flex:1 1 auto}
