@@ -9,7 +9,7 @@ Ta demande : « que les onglets deviennent plus propres et plus faciles à compr
 - **Missions** en grille de 3 colonnes (2 sur les petits écrans) : la page fait moitié moins haut. Chaque section se replie d'un clic ; les « Objectifs » de long terme (71 cadres) sont repliés tant qu'il n'y a rien à y récupérer.
 - **Succès** en grille, avec des filtres : *Tous*, *À récupérer* (cadres dorés), *En cours*, *Obtenus*, chacun avec son nombre. La page passe de 17 000 à 7 000 pixels de haut.
 - Retouche : les familles de la bannière de famille passent à la ligne au lieu d'être coupées.
-- Rien n'a été retiré : tous les boutons sont toujours là.
+- Rien n'a été retiré : tous les boutons sont toujours là. La ligne « où suis-je » disparaît pendant les combats.
 - Test : `test_tabs2` (groupes, explications de tous les onglets, vrais clics sur les filtres et les sections). 78 suites.
 
 ## 0.45.0 — Décors peints

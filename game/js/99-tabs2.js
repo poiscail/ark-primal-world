@@ -21,7 +21,7 @@ const T2_DESC={world:"La carte de l'île : chaque zone, ce qu'il reste à décou
 function t2Where(){const g=typeof grpOf==="function"?grpOf(screen):"",G=GRP[g];if(!G||screen==="battle")return null;
  if(G.screens){const it=G.screens.find(x=>x[0]===screen);const gr=(T2_GRP[g]||[]).find(x=>x[1].includes(screen));return it&&{path:[T2_NAME[g]||g,gr&&gr[0]].filter(Boolean),name:it[2],ico:it[1],desc:T2_DESC[screen]||""}}
  const k=(typeof subOn!=="undefined"&&subOn[g])||(G.sub[0]||[])[0],it=G.sub.find(x=>x[0]===k);return it&&{path:[T2_NAME[g]||g],name:it[2],ico:it[1],desc:T2_DESC[g+":"+k]||""}}
-function t2Nav(){const sn=$$("subnav");if(!sn||sn.classList.contains("hide"))return;const w=sn.querySelector(".snwrap");if(!w)return;const g=grpOf(screen),L=T2_GRP[g];
+function t2Nav(){const sn=$$("subnav");if(!sn||sn.classList.contains("hide")||screen==="battle"){const d=$$("t2where");if(d)d.remove();return}const w=sn.querySelector(".snwrap");if(!w)return;const g=grpOf(screen),L=T2_GRP[g];
  if(L&&!w.querySelector(".sngrp")){const bt=[...w.querySelectorAll("button")],by=k=>bt.find(b=>b.getAttribute("onclick")===`go('${k}')`),used=new Set();
   L.forEach(([lab,ks])=>{const bs=ks.map(by).filter(Boolean);if(!bs.length)return;const gEl=document.createElement("div");gEl.className="snsec";gEl.innerHTML=`<span class="sngrp">${lab}</span>`;bs.forEach(b=>{gEl.appendChild(b);used.add(b)});w.appendChild(gEl)});
   const rest=bt.filter(b=>!used.has(b));if(rest.length){const gEl=document.createElement("div");gEl.className="snsec";gEl.innerHTML='<span class="sngrp">Autres</span>';rest.forEach(b=>gEl.appendChild(b));w.appendChild(gEl)}
