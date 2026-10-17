@@ -1,0 +1,7 @@
+/* Application II (js/99-app2.js) */
+html.apidle body *{animation-play-state:paused!important}
+.aperrs,.apdev{max-height:50vh;overflow:auto;display:flex;flex-direction:column;gap:6px;margin:8px 0;font-size:12px}
+.aperrs>div,.apdev>div{padding:6px 8px;border-radius:8px;background:var(--surf2,#17213a)}
+.aperrs pre{white-space:pre-wrap;font-size:11px;opacity:.85;margin:0}
+.apdev small{opacity:.6}
+.ad2box{padding:10px;border:1px solid var(--bd2,#2d5a99);border-radius:10px;margin:8px 0}.ad2box .grid2{margin:6px 0}

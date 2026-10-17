@@ -1,0 +1,21 @@
+/* Partage et rejouabilité (js/99-share.js) */
+.shhome .shrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.shhome button{padding:7px 10px;min-height:0;font-size:12px}
+.shcode{width:100%;margin:6px 0;padding:8px;border-radius:8px;border:1px solid var(--bd2,#2d5a99);background:var(--surf3,#10182a);color:var(--txt,#fff);font:12px monospace}
+.shstats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0;text-align:center}.shstats div{padding:10px;border-radius:10px;background:var(--surf2,#17213a)}.shstats b{display:block;font-size:24px}.shstats small{opacity:.8}
+.shart{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin:8px 0;max-height:50vh;overflow:auto}.shart figure{position:relative;margin:0}.shart img{width:100%;border-radius:8px;display:block}
+.shart figure button{position:absolute;top:4px;right:4px;padding:2px 7px;min-height:0}.shartadd{display:inline-block;cursor:pointer;padding:8px 12px;border-radius:10px;border:1px solid var(--bd2,#2d5a99)}
+.shdecos{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.shdecos button{padding:6px 10px;min-height:0}
+.campscene .shdeco{position:absolute;z-index:3;font-size:26px;filter:drop-shadow(0 3px 3px #0009)}
+.campscene .shpetcamp{position:absolute;left:30%;top:72%;z-index:4;font-size:22px;animation:shhop 1.6s ease-in-out infinite}
+.sTeam .shpet{position:absolute;left:1%;bottom:12%;width:9%;height:9%;z-index:3;pointer-events:none;animation:shhop 1.4s ease-in-out infinite}.sTeam .shpet .pt,.sTeam .shpet svg{width:100%;height:100%}
+@keyframes shhop{50%{transform:translateY(-8px)}}
+body.noanim .shpet,body.noanim .shpetcamp{animation:none}
+.shency details{padding:6px 8px;border-radius:8px;background:var(--surf2,#17213a);margin:4px 0}.shency summary{cursor:pointer}
+.shq{margin:8px 0}.shqa{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.shqa button{padding:6px 10px;min-height:0}
+.shmuseum{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:8px 0}
+.shvit{display:flex;flex-direction:column;align-items:center;padding:10px;border-radius:12px;background:linear-gradient(180deg,#ffffff10,#0003);border:1px solid #ffe9a855;box-shadow:inset 0 0 20px #ffe9a822;text-align:center}
+.shped{width:90px;height:90px;display:grid;place-items:center;font-size:48px;border-bottom:6px solid #8a6a3a;margin-bottom:6px}.shped .pt,.shped svg{width:84px;height:84px}
+.shvit small{opacity:.85;font-size:11px}
+.shprofs .row{padding:6px 0;gap:6px}
+.shcred p{margin:6px 0;line-height:1.5}
+body.shspect #battleArea .orbboard,body.shspect #battleArea>.bl-btns{opacity:.35;pointer-events:none}

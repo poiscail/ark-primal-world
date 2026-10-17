@@ -6,12 +6,21 @@
    joue un combat, fait une invocation et clique vraiment sur OK, écrit un rapport (--smoke-out=fichier.json),
    une capture (--smoke-shot=fichier.png) et quitte avec le code 0 (succès) ou 1 (échec).
    --smoke-expect-boot=N : vérifie aussi que c'est le N-ième lancement avec ce dossier (sauvegarde conservée). */
-const { app, BrowserWindow, Menu, ipcMain, shell, session } = require("electron");
+const { app, BrowserWindow, Menu, ipcMain, shell, session, dialog, screen } = require("electron");
 const path = require("path"), fs = require("fs");
 const arg = k => { const a = process.argv.find(x => x.startsWith(k + "=")); return a ? a.slice(k.length + 1) : null };
 const SMOKE = process.argv.includes("--smoke-test");
 if (SMOKE) app.setPath("userData", path.resolve(arg("--smoke-data") || path.join(app.getPath("temp"), "ark-primal-world-smoke")));
+/* 0.41 : version portable avec la sauvegarde à côté de l'exe (dossier « ARK Primal World - sauvegarde », option des réglages) */
+const NORMAL_DATA = app.getPath("userData");
+const PORT_DIR = process.env.PORTABLE_EXECUTABLE_DIR || null, PORT_SAVE = PORT_DIR ? path.join(PORT_DIR, "ARK Primal World - sauvegarde") : null;
+if (!SMOKE && PORT_SAVE && fs.existsSync(PORT_SAVE)) app.setPath("userData", PORT_SAVE);
 if (process.platform === "win32") app.setAppUserModelId("fr.poiscail.arkprimalworld");
+/* options de l'application (fenêtre sans bordure, dossier de copie de sauvegarde) */
+const optFile = () => path.join(app.getPath("userData"), "options.json");
+function loadOpt() { try { return JSON.parse(fs.readFileSync(optFile(), "utf8")) } catch (e) { return {} } }
+function saveOpt(o) { try { fs.writeFileSync(optFile(), JSON.stringify(o)) } catch (e) {} }
+const crashLog = m => { try { fs.appendFileSync(path.join(app.getPath("userData"), "plantages.log"), new Date().toISOString() + " " + m + "\n") } catch (e) {} };
 let win = null;
 const stateFile = () => path.join(app.getPath("userData"), "fenetre.json");
 function loadState() { try { return JSON.parse(fs.readFileSync(stateFile(), "utf8")) } catch (e) { return {} } }
@@ -20,26 +29,31 @@ function saveState() {
   try { const b = win.getNormalBounds(); fs.writeFileSync(stateFile(), JSON.stringify({ x: b.x, y: b.y, w: b.width, h: b.height, max: win.isMaximized(), full: win.isFullScreen() })) } catch (e) {}
 }
 function createWindow() {
-  const st = SMOKE ? {} : loadState();
+  const st = SMOKE ? {} : loadState(), opt = SMOKE ? {} : loadOpt();
+  let bl = null;
+  if (opt.borderless) { try { bl = screen.getDisplayNearestPoint({ x: st.x || 0, y: st.y || 0 }).bounds } catch (e) { bl = null } }
   win = new BrowserWindow({
-    width: st.w || 1280, height: st.h || 800, x: st.x, y: st.y, minWidth: 1024, minHeight: 640,
+    width: bl ? bl.width : st.w || 1280, height: bl ? bl.height : st.h || 800, x: bl ? bl.x : st.x, y: bl ? bl.y : st.y, minWidth: 1024, minHeight: 640, frame: !bl,
     backgroundColor: "#04060d", title: "ARK: Primal World", show: false, autoHideMenuBar: true,
     icon: path.join(__dirname, "build", "icon.ico"),
     webPreferences: { preload: path.join(__dirname, "preload.js"), contextIsolation: true, sandbox: true, spellcheck: false,
       devTools: !app.isPackaged || process.env.ARK_DEVTOOLS === "1" }
   });
   Menu.setApplicationMenu(null);
-  if (st.max) win.maximize();
+  if (st.max && !bl) win.maximize();
   if (st.full) win.setFullScreen(true);
   win.once("ready-to-show", () => win.show());
   win.on("close", saveState);
   try { const z = win.webContents.setVisualZoomLevelLimits(1, 1); if (z && z.catch) z.catch(() => {}) } catch (e) {}
   win.webContents.on("before-input-event", (e, i) => {
     if (i.type === "keyDown" && i.key === "F11") { win.setFullScreen(!win.isFullScreen()); e.preventDefault() }
+    if (i.type === "keyDown" && i.key === "F12" && !SMOKE) { e.preventDefault(); screenshot() }
   });
   /* aucun site extérieur dans la fenêtre du jeu : les liens s'ouvrent dans le navigateur */
   win.webContents.setWindowOpenHandler(({ url }) => { if (/^https?:/i.test(url)) shell.openExternal(url); return { action: "deny" } });
   win.webContents.on("will-navigate", (e, url) => { if (!url.startsWith("file:")) { e.preventDefault(); if (/^https?:/i.test(url)) shell.openExternal(url) } });
+  win.webContents.on("render-process-gone", (e, d) => { crashLog("moteur du jeu arrêté : " + (d && d.reason)); if (!SMOKE && d && d.reason !== "clean-exit") setTimeout(() => { try { win.reload() } catch (x) {} }, 500) });
+  win.webContents.on("unresponsive", () => crashLog("le jeu ne répond plus"));
   if (SMOKE) smokeTest();
   win.loadFile(path.join(__dirname, "app", "index.html"));
 }
@@ -50,6 +64,43 @@ function setupDownloads() {
     item.setSaveDialogOptions({ title: /\.png$/i.test(item.getFilename()) ? "Enregistrer l'image" : "Exporter la sauvegarde", defaultPath: path.join(app.getPath("documents"), item.getFilename()) });
   });
 }
+/* capture d'écran (F12) dans Images\ARK Primal World */
+async function screenshot() {
+  try {
+    const img = await win.webContents.capturePage(), dir = path.join(app.getPath("pictures"), "ARK Primal World"), d = new Date(), z = n => String(n).padStart(2, "0");
+    fs.mkdirSync(dir, { recursive: true });
+    const f = path.join(dir, `ARK-${d.getFullYear()}${z(d.getMonth() + 1)}${z(d.getDate())}-${z(d.getHours())}${z(d.getMinutes())}${z(d.getSeconds())}.png`);
+    fs.writeFileSync(f, img.toPNG()); win.webContents.send("ark:shot", f);
+  } catch (e) { try { win.webContents.send("ark:shot", "") } catch (x) {} }
+}
+app.on("child-process-gone", (e, d) => crashLog("processus " + (d && d.type) + " arrêté : " + (d && d.reason)));
+ipcMain.on("ark:opts", e => { e.returnValue = { ...loadOpt(), portableSave: !!(PORT_SAVE && app.getPath("userData") === PORT_SAVE), canPortable: !!PORT_SAVE } });
+ipcMain.on("ark:setOpt", (e, k, v) => { if (k !== "borderless") return; const o = loadOpt(); o[k] = !!v; saveOpt(o) });
+ipcMain.on("ark:relaunch", () => { try { session.defaultSession.flushStorageData() } catch (e) {} app.relaunch(); app.exit(0) });
+ipcMain.on("ark:crashlog", e => { try { e.returnValue = fs.readFileSync(path.join(app.getPath("userData"), "plantages.log"), "utf8").slice(-8000) } catch (x) { e.returnValue = "" } });
+/* copie de sauvegarde dans un dossier choisi (OneDrive, clé USB…) : seulement des .json, seulement dans ce dossier */
+ipcMain.handle("ark:pickDir", async () => {
+  const r = await dialog.showOpenDialog(win, { title: "Dossier pour les copies de sauvegarde", properties: ["openDirectory", "createDirectory"] });
+  if (r.canceled || !r.filePaths[0]) return null;
+  const o = loadOpt(); o.backupDir = r.filePaths[0]; saveOpt(o); return o.backupDir;
+});
+ipcMain.on("ark:backup", (e, name, content) => {
+  const o = loadOpt();
+  if (!o.backupDir || !/^[\w .-]+\.json$/.test(String(name || "")) || typeof content !== "string" || content.length > 2e7) { e.returnValue = false; return }
+  try { fs.mkdirSync(o.backupDir, { recursive: true }); fs.writeFileSync(path.join(o.backupDir, name), content); e.returnValue = true } catch (x) { e.returnValue = false }
+});
+ipcMain.on("ark:noBackup", () => { const o = loadOpt(); delete o.backupDir; saveOpt(o) });
+/* version portable : déplacer la sauvegarde à côté de l'exe (ou la ramener) ; prend effet au prochain lancement */
+ipcMain.on("ark:portable", (e, on) => {
+  if (!PORT_SAVE) { e.returnValue = { ok: false, why: "Ce n'est pas la version portable." }; return }
+  try {
+    try { session.defaultSession.flushStorageData() } catch (x) {}
+    const skip = src => !/(^|[\\/])(LOCK|lockfile|SingletonLock)$/.test(src);
+    if (on) fs.cpSync(app.getPath("userData"), PORT_SAVE, { recursive: true, force: true, filter: skip });
+    else { fs.cpSync(PORT_SAVE, NORMAL_DATA, { recursive: true, force: true, filter: skip }); fs.rmSync(PORT_SAVE, { recursive: true, force: true }) }
+    e.returnValue = { ok: true };
+  } catch (x) { e.returnValue = { ok: false, why: String(x && x.message || x) } }
+});
 ipcMain.on("ark:fullscreen", () => { if (win) win.setFullScreen(!win.isFullScreen()) });
 ipcMain.on("ark:quit", () => app.quit());
 ipcMain.on("ark:info", e => { e.returnValue = { version: app.getVersion(), platform: process.platform, portable: !!process.env.PORTABLE_EXECUTABLE_DIR, data: app.getPath("userData") } });

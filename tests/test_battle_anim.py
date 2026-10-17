@@ -26,7 +26,11 @@ async def main():
         await ev('window.__fxc={};new MutationObserver(M=>M.forEach(m=>m.addedNodes.forEach(n=>{if(n.classList)["tx","trail","hurtflash","shk","proj","jawfx","istar","spdln","swipe","spikefx","quakefx","sonicfx","jetfx"].forEach(c=>{if(n.classList.contains(c))__fxc[c]=(__fxc[c]||0)+1})}))).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:["class"]})')
         await ev('tapOrb(0)');await pg.wait_for_timeout(250)
         # 0.13 : chaque famille a sa propre attaque (morsure, charge…) au lieu du projectile générique
-        check('effets d\'attaque lancés',await ev('document.querySelectorAll("#fxLayer .proj,#fxLayer .jawfx,#fxLayer .istar,#fxLayer .spdln,#fxLayer .swipe,#fxLayer .spikefx,#fxLayer .quakefx,#fxLayer .sonicfx,#fxLayer .jetfx").length+["proj","jawfx","istar","spdln","swipe","spikefx","quakefx","sonicfx","jetfx"].reduce((a,k)=>a+(__fxc[k]||0),0)')>=1)
+        ok=False
+        for _w in range(60):
+            if await ev('document.querySelectorAll("#fxLayer .proj,#fxLayer .jawfx,#fxLayer .istar,#fxLayer .spdln,#fxLayer .swipe,#fxLayer .spikefx,#fxLayer .quakefx,#fxLayer .sonicfx,#fxLayer .jetfx").length+["proj","jawfx","istar","spdln","swipe","spikefx","quakefx","sonicfx","jetfx"].reduce((a,k)=>a+(__fxc[k]||0),0)')>=1:ok=True;break
+            await pg.wait_for_timeout(50)
+        check('effets d\'attaque lancés',ok)
         check('allié en charge',await ev('[...document.querySelectorAll("#battleArea .sFig")].some(e=>e.getAnimations().length>0)||document.querySelectorAll("#battleArea .lunge").length>0'))
         await pg.wait_for_timeout(500)
         check('chiffre de dégâts flottant',await ev('document.querySelectorAll(".dmgnum").length')>=1)

@@ -73,8 +73,14 @@ jobs:
           $installed = Get-ChildItem (Join-Path $env:LOCALAPPDATA "Programs") -Recurse -Filter "ARK Primal World.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
           if (-not $installed) { throw "installation : exe introuvable dans %LOCALAPPDATA%\Programs" }
           Write-Host "installé dans : $($installed.DirectoryName)"
+          # raccourcis vérifiés (idée 456) : Bureau et menu Démarrer, sinon échec
           $lnk = Join-Path ([Environment]::GetFolderPath("Desktop")) "ARK Primal World.lnk"
           Write-Host "raccourci Bureau : $(Test-Path $lnk)"
+          if (-not (Test-Path $lnk)) { throw "installation : raccourci du Bureau absent" }
+          $menus = @([Environment]::GetFolderPath("StartMenu"), [Environment]::GetFolderPath("CommonStartMenu")) | Where-Object { $_ }
+          $start = $menus | ForEach-Object { Get-ChildItem $_ -Recurse -Filter "ARK Primal World.lnk" -ErrorAction SilentlyContinue } | Select-Object -First 1
+          Write-Host "raccourci menu Démarrer : $(if ($start) { $start.FullName } else { 'absent' })"
+          if (-not $start) { throw "installation : raccourci du menu Démarrer absent" }
           Invoke-Smoke $installed.FullName "installe" (Join-Path $out "data-installe") $null
           $un = Get-ChildItem $installed.DirectoryName -Filter "Uninstall*.exe" | Select-Object -First 1
           if ($un) {
@@ -97,6 +103,45 @@ jobs:
           name: tests-de-lancement
           path: ${{ runner.temp }}/smoke/*.*
           if-no-files-found: ignore
+
+  linux:
+    # version Linux (idée 462) : construite et testée comme l'exe, fournie en archive (fichier « ARK_Primal_World_Linux » de l'exécution)
+    name: Construire et tester (Linux)
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: desktop/package-lock.json
+      - name: Dépendances
+        working-directory: desktop
+        run: |
+          npm ci --no-audit --no-fund
+          sudo apt-get update -qq && sudo apt-get install -y -qq xvfb > /dev/null
+      - name: Construction (Linux)
+        run: python3 tools/build.py --linux
+      - name: Test de lancement (Linux, deux fois)
+        run: |
+          set -e
+          APP=dist/ARK_Windows/linux-unpacked/ark-primal-world
+          OUT=$RUNNER_TEMP/smoke-linux; mkdir -p $OUT
+          for n in 1 2; do
+            xvfb-run -a $APP --no-sandbox --smoke-test --smoke-data=$OUT/data --smoke-out=$OUT/linux$n.json --smoke-shot=$OUT/linux$n.png --smoke-expect-boot=$n || true
+            cat $OUT/linux$n.json
+            python3 -c "import json,sys;sys.exit(0 if json.load(open('$OUT/linux$n.json')).get('ok') else 1)"
+          done
+      - name: Archive
+        run: |
+          V=$(python3 -c "import re;print(re.search(r'ARK_VERSION=\"([^\"]+)\"',open('game/js/00-version.js').read()).group(1))")
+          cd dist/ARK_Windows && mv linux-unpacked "ARK_Primal_World_${V}_linux" && tar czf "ARK_Primal_World_${V}_linux.tar.gz" "ARK_Primal_World_${V}_linux"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ARK_Primal_World_Linux
+          path: dist/ARK_Windows/*.tar.gz
+          if-no-files-found: error
 
   release:
     name: Publier les versions (une page par version)

@@ -28,7 +28,7 @@ const _toU2=toast;toast=function(m,ms){try{const now=Date.now(),s=String(m);U2N.
 function u2Bell(){const b=$$("u2bell");if(!b)return;const n=U2N.unread;b.querySelector("i").textContent=n?Math.min(99,n):"";b.classList.toggle("on",n>0)}
 function u2Notes(){U2N.unread=0;u2NSave();u2Bell();const L=U2N.notes,t=x=>new Date(x).toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"});
  openModal(`<h3 style="margin:0 0 6px">🔔 Notifications</h3><div class="u2notes">${L.length?L.map(n=>`<div class="u2note"><small>${t(n.t)}</small> ${esc(n.m)}</div>`).join(""):'<div class="tiny muted">Aucune notification.</div>'}</div><div class="btns"><button class="secondary" onclick="u2Hist()">📜 COMBATS RÉCENTS</button><button class="secondary" onclick="U2N.notes=[];u2NSave();u2Notes()">EFFACER</button><button onclick="closeModal()">OK</button></div>`)}
-(function(){const top=document.querySelector("header .meters");if(top&&!$$("u2bell"))top.insertAdjacentHTML("beforebegin",'<button id="u2bell" class="u2bell" title="Notifications (N)" onclick="u2Notes()">🔔<i></i></button>')})();
+(function(){if(!$$("u2bell"))document.body.insertAdjacentHTML("beforeend",'<button id="u2bell" class="u2bell" title="Notifications (N)" onclick="u2Notes()">🔔<i></i></button>')})();/* flottante : l'en-tête (backdrop-filter) piégerait un élément fixe */
 /* ---- barre de ressources cliquable : où obtenir ---- */
 const U2_WHERE={stone:["🪨 Pierres",[["Combats (toutes les victoires)","story"],["Expéditions","exped"],["Fouilles","dig"],["Recyclage de dinos","team"]]],
  essence:["🔮 Essence",[["Victoires et boss","story"],["Défi du jour","daily"],["Combats de nuit (+3)","story"],["Événements","events"]]],

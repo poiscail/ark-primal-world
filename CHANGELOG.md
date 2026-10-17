@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.41.0 — Partage, application et outils
+- **Partage et rejouabilité** (Accueil > Partage et extras) :
+  - **Code d'équipe** : un ami entre ton code et affronte ton équipe en **duel amical** (vrais dinos affichés, sur son ordinateur). Les codes sont vérifiés (un code abîmé est refusé).
+  - **Défis à partager** : même niveau, **même hasard** (graine) — qui le gagne avec le moins d'actions ? **Défi du jour** : comparaison de ton résultat avec celui d'un ami.
+  - **Relecture du dernier combat** (avec ton équipe d'alors, sans récompense) et **mode spectateur** (auto-combat ×3 ; Échap reprend la main).
+  - **Résumé du mois**, **musée** (6 vitrines), **mini-encyclopédie** (12 fiches de vraie paléontologie) et **quiz du jour** (3 questions, 1 🎟️ par bonne réponse), **galerie de fan-art** (images importées et réduites, gardées sur l'ordinateur), **compagnon** non combattant qui suit l'équipe en combat et au camp, **décorations du camp**.
+  - **Profils de joueur** sur le même ordinateur (chacun sa sauvegarde) et **duel entre profils** ; **défi « nuzlocke »** (un dino K.O. en histoire est perdu jusqu'à la fin du défi, puis tout le monde revient) ; **cadeau après une mise à jour** ; **crédits** (ressources libres utilisées et avertissement : « ARK » est une marque de Studio Wildcard, nom provisoire à vérifier avant toute diffusion).
+- **Application Windows** :
+  - **Vérification de la dernière version** sur GitHub (Réglages > Application et outils, et une fois toutes les 6 h au lancement).
+  - **Copies automatiques de la sauvegarde** dans un dossier choisi (OneDrive, clé USB…) : toutes les 10 minutes, en quittant, et une **copie datée chaque semaine** ; dans le navigateur, un rappel d'export chaque semaine.
+  - **Version portable** : option pour garder la sauvegarde **à côté de l'exe** (dossier « ARK Primal World - sauvegarde », copiée puis utilisée au prochain lancement, et ramenée si on désactive).
+  - **Capture d'écran avec F12** (dans Images\ARK Primal World), **fenêtre sans bordure** (plein écran fenêtré), **économie d'énergie** (animations décoratives en pause après 1 minute sans action), **journal local des erreurs et des plantages** (rien n'est envoyé ; le jeu se recharge seul si son moteur s'arrête), **copie de secours dans IndexedDB** (restaurée si le stockage principal est vidé), **manette** (croix, A, B, X super, Y auto, Start pause), **mode développeur** (journal du combat exportable).
+  - **Raccourcis vérifiés** : la construction automatique échoue maintenant si l'installateur ne crée pas les raccourcis du Bureau et du menu Démarrer.
+  - **Version Linux** construite et testée (lancement ×2, sauvegarde conservée) par la construction automatique, fournie en archive dans l'exécution GitHub (pas encore sur la page de version). Testée aussi ici (conteneur Linux) : combat, invocation avec vrai clic, sauvegarde retrouvée.
+  - **Administration** : éditeur des zones (noms, ennemis, élément) et de la force globale des ennemis.
+  - **Lecteur d'écran** : noms pour les boutons à émoji seul, navigation et zones étiquetées, notifications annoncées ; vérifié avec l'arbre d'accessibilité de Chromium.
+- **Technique** :
+  - **Crochets déclarés** `hook(nom, après, {avant})` pour les prochains modules (moins de wrappers écrits à la main).
+  - `99-maze.js`, le plus gros script, est coupé en deux (`99-maze2.js` : écran et intégration).
+  - **Tests de performance** (`test_perf` : chargement ~0,7 s, rendu du combat ~7 ms, orbe jouée ~23 ms ici) et **tests visuels par captures comparées** (`test_visual` : combat, plateau, carte ; références dans `tests/visual/`).
+  - **Guide « ajouter une espèce en 5 étapes »** (`docs/AJOUTER_UNE_ESPECE.md`), dont l'exemple est exécuté par `test_app2`.
+- **Non faits, et pourquoi** : la **signature de l'exe** demande un certificat de signature de code payant (au nom de l'auteur) ; l'intégration **Discord** demande de créer une application Discord (identifiant client) ; le **chargement** a été mesuré (~0,7 s) et ne justifiait pas de différer des scripts (leur ordre fait partie du contrat). La **version macOS** n'est pas construite : sans signature ni notarisation Apple (compte développeur payant), macOS bloque l'application au lancement ; le **limiteur d'images par seconde** est remplacé par l'économie d'énergie (Electron ne permet pas de plafonner les images d'une fenêtre normale).
+- **Correctifs** : la cloche des notifications (0.40) s'affichait sur une ligne à part sous l'en-tête : c'est maintenant un bouton flottant en bas à droite ; le premier lancement d'Échap en mode spectateur ouvrait aussi le menu pause.
+- Tests : `test_share` (37 vérifications), `test_app2` (29), `test_perf`, `test_visual` ; tests rendus plus robustes (`species2` attend le rechargement, `battle_anim` compte les effets créés). 71 suites (dont `order`).
+
 ## 0.40.0 — Confort, son et accessibilité
 - **Interface et confort** :
   - **Raccourcis clavier partout** (F1 pour la liste) : Échap ferme une fenêtre, revient à l'accueil ou met le combat en **pause** ; H accueil, C collection, I invocation, V aventure, Q quêtes, N notifications ; P pause en combat. (A, Z et E restent les compétences : la super reste sur Espace et l'auto sur R.)
