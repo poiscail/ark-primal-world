@@ -7,7 +7,8 @@ D'après la recherche en ligne de modèles de HUD et de boutons gratuits (17/10/
 - **Trois réglages** (Réglages > Affichage) pour revenir à l'ancien style : Icônes (dessinées / émojis), Curseur (du jeu / Windows), Cadres (sci-fi / simples). Rien n'a été retiré.
 - Crédits (Accueil > Crédits) et `docs/LICENSES.md` complétés ; les sources des icônes sont dans `tools/hud_src/`, `tools/hud_assets.py` régénère la feuille d'images.
 - **Outils** :
-  - les tests tournent **en parallèle** (3 à la fois ici, `JOBS=1` pour un par un) ; un test qui échoue est relancé seul et marqué « instable » s'il passe ;
+  - les tests tournent **en parallèle** (3 à la fois ici, `JOBS=1` pour un par un ; ceux qui mesurent des temps ou des images passent à la fin, seuls) : 75 suites en 13 min au lieu d'environ 35 ; un test qui échoue est relancé seul et marqué « instable » s'il passe ;
+  - `test_sound2` ne dépend plus du moment où le jeu remet le volume après un dialogue (il échouait parfois) ;
   - `CLAUDE.md` allégé (46 Ko → 11 Ko) : le détail des modules, des pièges et des mesures est dans `docs/CONTEXTE.md` ;
   - les sessions cloud installent Playwright toutes seules (`.claude/hooks/session-start.sh`).
 - Tests : `test_hud` (survol, vrais clics sur les 3 réglages, rechargement, crédits). 75 suites.

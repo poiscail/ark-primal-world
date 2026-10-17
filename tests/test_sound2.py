@@ -50,9 +50,9 @@ async def main():
         await ev('S.nest.slots[0]={type:"rex",ta:"rex",tb:"rex",lv:1,gn:{hp:1,atk:1},gen:2,v:"normal",mut:1,t0:Date.now()-1e6,t1:Date.now()-1000};window.__mut=0;nestHatch(0);closeGacha&&closeGacha()')
         check('son de mutation à l\'éclosion',await ev('__mut')==1)
         # dialogue : leitmotiv, atténuation
-        await ev('fight=null;go("story");window.__motif=0;PREFS.lore=true');await ev('loreShow(Object.keys(LORE).find(k=>/^\\d+$/.test(k))*1,()=>{})')
+        await ev('fight=null;go("story");window.__motif=0;PREFS.lore=true');duck=await ev('(loreShow(Object.keys(LORE).find(k=>/^\\d+$/.test(k))*1,()=>{}),SND.duck)')
         check('dialogue : leitmotiv de la Graine',await ev('__motif')==1)
-        check('dialogue : musique et ambiance atténuées',await ev('SND.duck')<1)
+        check('dialogue : musique et ambiance atténuées',duck<1,duck)
         await ev('setPref("lore",false);document.querySelectorAll("#loreVeil").forEach(v=>v.classList.add("hide"))');check('fin du dialogue : volume rétabli',await until(pg,'SND.duck===1',2000))
         check('narration : sans erreur si désactivée',await ev('sayLine("Bonjour")')==False)
         # pas sur la carte
