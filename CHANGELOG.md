@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.43.0 — Nouvelle interface (Kenney Sci-Fi, game-icons.net) et outils plus rapides
+D'après la recherche en ligne de modèles de HUD et de boutons gratuits (17/10/2026).
+- **Icônes dessinées** à la place des émojis : barre de navigation, tous les sous-onglets (Monde, Histoire, Donjons, Tour, Arène, Labyrinthe, Camp, Nid, Succès, Bannières, Marché…) et compteurs de ressources (os, peaux, cristaux, ambre, niveau de l'équipe, fragments, réglages). 35 icônes de [game-icons.net](https://game-icons.net) (CC BY 3.0, par Lorc, Delapouite et Sbed), colorées par le thème choisi ; l'icône de l'onglet ouvert prend le dégradé du thème.
+- **Pièces du Kenney UI Pack Sci-Fi** ([kenney.nl](https://kenney.nl/assets/ui-pack-sci-fi), CC0) : curseur de la souris aux couleurs du jeu (cyan sur ce qu'on peut cliquer), viseur qui tourne sur l'ennemi survolé, vis aux coins des panneaux, boutons en relief qui s'écrasent quand on appuie, barres de vie et de progression brillantes, titres de section en lame.
+- **Trois réglages** (Réglages > Affichage) pour revenir à l'ancien style : Icônes (dessinées / émojis), Curseur (du jeu / Windows), Cadres (sci-fi / simples). Rien n'a été retiré.
+- Crédits (Accueil > Crédits) et `docs/LICENSES.md` complétés ; les sources des icônes sont dans `tools/hud_src/`, `tools/hud_assets.py` régénère la feuille d'images.
+- **Outils** :
+  - les tests tournent **en parallèle** (3 à la fois ici, `JOBS=1` pour un par un) ; un test qui échoue est relancé seul et marqué « instable » s'il passe ;
+  - `CLAUDE.md` allégé (46 Ko → 11 Ko) : le détail des modules, des pièges et des mesures est dans `docs/CONTEXTE.md` ;
+  - les sessions cloud installent Playwright toutes seules (`.claude/hooks/session-start.sh`).
+- Tests : `test_hud` (survol, vrais clics sur les 3 réglages, rechargement, crédits). 75 suites.
+
 ## 0.42.0 — Missions, succès et événements, plus loin
 Les idées 270 à 301, qui manquaient dans la sélection d'origine.
 - **Missions** (écran Missions) :

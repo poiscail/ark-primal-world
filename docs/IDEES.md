@@ -2,9 +2,9 @@
 
 Liste de travail (16/10/2026), classée en 20 thèmes de 25 idées.
 
-**État au 17/10/2026 (version 0.42.0)** : toutes les idées choisies par le joueur ont été réalisées, de la version 0.28 à la
+**État au 17/10/2026 (version 0.43.0)** : toutes les idées choisies par le joueur ont été réalisées, de la version 0.28 à la
 0.42 (le détail est dans le CHANGELOG, version par version ; les idées 270 à 301, oubliées dans la sélection d'origine, sont
-dans la 0.42), **sauf** :
+dans la 0.42 ; la 0.43 refait l'interface avec le Kenney UI Pack Sci-Fi et game-icons.net), **sauf** :
 - 453 · signature de l'exe : il faut un certificat de signature de code payant, au nom de l'auteur ;
 - 472 · Discord « joue en ce moment » : il faut créer une application Discord (identifiant client) ;
 - 462 · la version **Linux** est construite et testée, la version **macOS** non (signature et notarisation Apple payantes) ;

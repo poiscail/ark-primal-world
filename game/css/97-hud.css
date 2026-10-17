@@ -1,0 +1,40 @@
+/* 0.43 · Interface : icônes game-icons.net (masques colorés par le thème) et pièces du Kenney UI Pack Sci-Fi.
+   Images dans 97-hud-assets.css (généré). Classes sur <html> : hud-ico (icônes), hud-cur (curseur), hud-k (cadres). */
+
+/* ---- icônes de la navigation ---- */
+html.hud-ico body .bottomnav button>span:first-child{width:30px;height:30px;margin:0 auto 6px;--hudic:var(--txt2);transition:transform .2s}
+html.hud-ico body .bottomnav button:hover>span:first-child{--hudic:var(--txt);transform:scale(1.08)}
+html.hud-ico body .bottomnav button.active>span:first-child{--hudic:linear-gradient(150deg,var(--acc),var(--acc2));transform:scale(1.12)}
+html.hud-ico body #subnav .snwrap button>span:first-child{width:20px;height:20px;margin:0 auto 3px;--hudic:currentColor}
+
+/* ---- icônes des compteurs ---- */
+.hudico{display:none}
+html.hud-ico body .hudico{display:inline-block;width:17px;height:17px;flex:0 0 17px;vertical-align:-3px;margin-right:3px;background:var(--gic,var(--txt2));-webkit-mask:var(--gi) center/contain no-repeat;mask:var(--gi) center/contain no-repeat}
+html.hud-ico body .hudemo{display:none}
+html[data-theme="light"].hud-ico body .hudico[data-for="m_bone"]{--gic:#9b8653}
+
+/* ---- curseur Kenney ---- */
+html.hud-cur,html.hud-cur body{cursor:var(--k-cur) 1 1,auto}
+html.hud-cur body .hudp,html.hud-cur body .hudp *:not(input):not(textarea){cursor:var(--k-cur2) 1 1,pointer}
+html.hud-cur body .hudp:disabled{cursor:not-allowed}
+
+/* ---- cadres sci-fi (Kenney : vis, relief, brillance) ---- */
+/* vis aux deux coins non coupés des panneaux (les coins haut-gauche et bas-droit sont biseautés par le thème) */
+html.hud-k body .panel{background:radial-gradient(circle,#0007 0 .8px,var(--bd2) 1.3px 2.6px,#0005 3px,transparent 3.6px) right 7px top 7px/9px 9px no-repeat,radial-gradient(circle,#0007 0 .8px,var(--bd2) 1.3px 2.6px,#0005 3px,transparent 3.6px) left 7px bottom 7px/9px 9px no-repeat,linear-gradient(145deg,var(--surf),var(--surf3))}
+/* titres de section : bandeau en lame (« header blade » du pack) */
+html.hud-k body .sectionhead h2{background:linear-gradient(90deg,color-mix(in srgb,var(--acc) 20%,transparent),transparent 85%);clip-path:polygon(0 0,calc(100% - 22px) 0,100% 100%,0 100%);padding-right:34px}
+/* boutons larges : relief en bas et reflet en haut (« button depth »), qui s'écrase quand on appuie */
+html.hud-k body button.wide{position:relative}
+html.hud-k body button.wide::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,#00000052 0 4px,transparent 4px),linear-gradient(180deg,#ffffff2e,transparent 52%);z-index:0}
+html.hud-k body button.wide:active:not(:disabled)::before{background:linear-gradient(0deg,#00000052 0 1px,transparent 1px),linear-gradient(180deg,#ffffff1c,transparent 52%)}
+html.hud-k body button.wide:disabled::before{display:none}
+/* barres : reflet brillant (« bar gloss ») */
+html.hud-k body .progress i{position:relative}
+html.hud-k body .progress i::before{content:"";position:absolute;left:0;right:0;top:0;height:48%;background:linear-gradient(180deg,#ffffff6b,#ffffff14);border-radius:inherit;pointer-events:none}
+/* viseur sur les ennemis (survol) */
+.hudx{display:none}
+html.hud-k body #battleArea .sEnemy .hudx{display:block;position:absolute;left:50%;top:52%;width:74px;height:74px;margin:-37px 0 0 -37px;pointer-events:none;opacity:0;scale:.6;background:var(--k-cross) center/contain no-repeat;filter:hue-rotate(160deg) saturate(1.6) drop-shadow(0 0 6px #ff3d6e);transition:opacity .18s,scale .18s;z-index:5}
+html.hud-k body #battleArea .sEnemy:hover .hudx{opacity:.95;scale:1;animation:hudspin 3s linear infinite}
+@keyframes hudspin{to{rotate:360deg}}
+@media (prefers-reduced-motion:reduce){html.hud-k body #battleArea .sEnemy:hover .hudx{animation:none}}
+html.axrm.hud-k body #battleArea .sEnemy:hover .hudx{animation:none}
