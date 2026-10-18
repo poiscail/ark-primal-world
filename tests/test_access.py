@@ -3,7 +3,7 @@ réduction des mouvements, flashs/secousses coupés partout, lecture à voix hau
 sous-titres, combat au clavier (vraies flèches + Entrée), taille des orbes, pas de limite de temps (pêche), rappel de pause,
 réglages (vrais clics) ; défense proportionnelle, coût d'accélération du Nid selon la rareté, seuils d'alerte des simulations."""
 import asyncio,pathlib,sys,os
-sys.path.insert(0,str(pathlib.Path(__file__).resolve().parent))
+sys.path.insert(0,str(pathlib.Path(__file__).resolve().parent/'balance'))
 from balance_seuil import alerte
 from playwright.async_api import async_playwright
 GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/os.environ.get('ARK_PAGE','index.html')).as_uri()

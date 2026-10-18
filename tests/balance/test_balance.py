@@ -3,7 +3,7 @@ Rang du joueur fixé à chaque combat (niveau / 4 + 1) pour ne pas fausser les m
 import sys;sys.path.insert(0,str(__import__("pathlib").Path(__file__).resolve().parent));from balance_seuil import alerte
 import asyncio,pathlib
 from playwright.async_api import async_playwright
-GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
+GAME=(pathlib.Path(__file__).resolve().parent.parent.parent/'game'/'index.html').as_uri()
 JS='''()=>{const out={},types=["rex","spino","giga","mosa","argento","dracorex"];
 const sim=(n,L,star,gear,skills)=>{let w=0,T=20;for(let r=0;r<T;r++){S.team=[0,1,2].map(i=>({id:i+1,type:types[i],level:L,xp:0,star}));S.gear=gear;S.stage=99;S.level=Math.round(n/4)+1;S.xp=0;startBattle({mode:"story",n});let g=0;
  while(!fight.over&&g++<500){if(skills)[0,1,2].forEach(k=>{if(!fight.over&&fight.hp[k]>0&&fight.cd[k]<=0)useSkill(k)});if(fight.over)break;

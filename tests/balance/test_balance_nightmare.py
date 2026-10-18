@@ -5,7 +5,7 @@ Usage : python3 tests/test_balance_nightmare.py [combats_par_mesure] [pv atq k b
 import sys;sys.path.insert(0,str(__import__("pathlib").Path(__file__).resolve().parent));from balance_seuil import alerte
 import asyncio,pathlib,sys,json
 from playwright.async_api import async_playwright
-GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
+GAME=(pathlib.Path(__file__).resolve().parent.parent.parent/'game'/'index.html').as_uri()
 N=int(sys.argv[1]) if len(sys.argv)>1 else 20
 JS='''(T)=>{const types=["rex","giga","carnota"],out={};if(T.tune){NM_TUNE=T.tune;NM_LV=T.lv;T=T.n}
 const sim=(n,L,star,gear)=>{let w=0;for(let r=0;r<T;r++){S.team=types.map((t,j)=>({id:j+1,type:t,level:L,xp:0,star}));S.gear=gear;S.stage=100;S.nm.stage=100;S.level=Math.round(NM_EQ(n)/4)+1;S.xp=0;

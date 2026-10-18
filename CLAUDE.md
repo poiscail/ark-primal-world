@@ -15,11 +15,11 @@ python3 tools/build.py               # .exe portable + installateur (sur Windows
 python3 tools/build.py --linux --electron-zips=DOSSIER   # version Linux dépaquetée pour tester l'application ici
 python3 tools/build.py --stage       # copie seulement game/ dans desktop/app/ (puis « npm start » dans desktop/)
 tools/run_tests.sh                   # 79 suites, en parallèle (JOBS=1 : un par un) ; « tools/run_tests.sh nest far » : quelques-unes
-python3 tests/test_balance.py        # simulations d'équilibrage (lentes, à lancer en tâche de fond)
-python3 tests/test_balance_modes.py
-python3 tests/test_balance_maze.py 10   # labyrinthe : courses complètes par un bot (~5-15 min)
-python3 tests/test_balance_nightmare.py 20   # mode Cauchemar (option : pv atq k b pour essayer des réglages)
-python3 tests/test_balance_trials.py 20      # épreuves de la meute, par palier
+python3 tests/balance/test_balance.py        # simulations d'équilibrage (lentes, à lancer en tâche de fond)
+python3 tests/balance/test_balance_modes.py
+python3 tests/balance/test_balance_maze.py 10   # labyrinthe : courses complètes par un bot (~5-15 min)
+python3 tests/balance/test_balance_nightmare.py 20   # mode Cauchemar (option : pv atq k b pour essayer des réglages)
+python3 tests/balance/test_balance_trials.py 20      # épreuves de la meute, par palier
 ```
 - Tests : Playwright Python (ici `pip install playwright==1.56.0`, version qui correspond au Chromium préinstallé dans /opt/pw-browsers). Les tests coupent animations/dialogues (`setPref("anim",false)`, `setPref("lore",false)`) car sinon les simulations de milliers de combats sont très lentes. **Chaque test doit finir par `sys.exit(1 if FAILS else 0)`** (sinon `run_tests.sh` ne voit pas les échecs). `dist/` est ignoré par git. Les scripts longs (>2 min) doivent tourner en arrière-plan.
 - Application : `desktop/main.js` (fenêtre, F11, une seule instance, sauvegarde dans `%APPDATA%\ARK Primal World`), `desktop/preload.js` (pont `window.arkDesktop` : `toggleFullscreen`, `quit`, `info`), `game/js/99-desktop.js` (panneau « Application Windows » des réglages). Test de lancement : `"ARK Primal World.exe" --smoke-test --smoke-data=DOSSIER --smoke-expect-boot=N --smoke-out=f.json --smoke-shot=f.png` (combat joué, invocation + vrai clic sur OK, sauvegarde conservée entre 2 lancements ; jamais la vraie sauvegarde).

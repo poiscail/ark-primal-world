@@ -1,6 +1,6 @@
 """Onglets II (0.46) : sous-onglets de l'Aventure et des Quêtes rangés par thème (tous les boutons gardés), ligne « où suis-je »
 (chemin + explication) sur chaque écran, filtres des Succès et sections repliables des Missions par vrais clics, grilles affichées
-seulement sur l'écran ouvert."""
+seulement sur l'écran ouvert. 0.48 : sous-onglets verrouillés cachés (le prochain grisé), sommaire des Réglages."""
 import asyncio,pathlib,sys,os
 from playwright.async_api import async_playwright
 GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/os.environ.get('ARK_PAGE','index.html')).as_uri()
@@ -44,6 +44,26 @@ async def main():
         await ev('F2.newP=F2.goldP=F2.callP=0;fight=null;startBattle({mode:"story",n:3});go("battle")')
         check('combat : pas de ligne « où suis-je » au-dessus de la scène',await pg.locator('#t2where').count()==0)
         await ev('fight=null;go("tower")');check('elle revient hors combat',await pg.locator('#t2where').count()==1)
+        # 0.48 : onglets qui s'ouvrent au fil de l'histoire
+        vis='[...document.querySelectorAll("#subnav button")].filter(b=>getComputedStyle(b).display!=="none")'
+        await ev('fight=null;S.stage=0;save();go("story")')
+        names=await ev(vis+'.map(b=>b.getAttribute("onclick"))')
+        check('niveau 0 : Labyrinthe, Épreuves, Régions, Grand Nord cachés',not any(x in str(names) for x in ["maze","trials","regions","far"]),names)
+        L=await ev(vis+'.filter(b=>b.classList.contains("t2lock")).map(b=>b.innerText)');check('niveau 0 : seul le prochain (Raid, niv. 5) est montré grisé',len(L)==1 and 'NIV. 5' in L[0].upper(),L)
+        await pg.click('#subnav button.t2lock');await pg.wait_for_timeout(150)
+        check('vrai clic sur l\'onglet grisé : il ouvre l\'écran (qui explique le verrou)',await ev('screen')=='raid')
+        await ev('S.stage=12;save();go("story")')
+        names=await ev(vis+'.map(b=>b.getAttribute("onclick"))')
+        check('niveau 12 : Labyrinthe et Épreuves ouverts, Régions grisé (niv. 30), Grand Nord caché',"go('maze')" in names and "go('trials')" in names and "go('far')" not in names and await ev('document.querySelector(\'#subnav button[onclick="go(\\\'regions\\\')"]\').classList.contains("t2lock")'),names)
+        await ev('go("missions")');names=await ev(vis+'.map(b=>b.getAttribute("onclick"))')
+        check('niveau 12 : Quêtes, le Nid grisé (niv. 15)',"go('nest')" in names and await ev('document.querySelector(\'#subnav button[onclick="go(\\\'nest\\\')"]\').classList.contains("t2lock")'),names)
+        await ev('S.stage=60;save();go("story")');check('niveau 60 : les 12 sous-onglets de l\'Aventure visibles, aucun grisé',len(await ev(vis))==12 and await pg.locator('#subnav button.t2lock').count()==0)
+        # 0.48 : sommaire des Réglages
+        await pg.click('#setFab');await pg.wait_for_timeout(200)
+        T=await ev('[...document.querySelectorAll(".t2setnav button")].map(b=>b.textContent)');check('Réglages : sommaire avec Audio, Affichage, Combat',all(x in T for x in ['Audio','Affichage','Combat']),T)
+        await pg.click('.t2setnav button:has-text("Combat")');await pg.wait_for_timeout(300)
+        check('vrai clic sur « Combat » : la section Combat est juste sous le sommaire',await ev('(()=>{const n=document.querySelector(".t2setnav").getBoundingClientRect(),p=[...document.querySelectorAll("#setBody>.panel")].find(x=>x.querySelector(":scope>b").textContent==="Combat").getBoundingClientRect();return Math.abs(p.top-n.bottom)<30})()'))
+        await ev('closeSettings()')
         check('aucune erreur JS',errs==[],errs)
         await b.close()
 asyncio.run(main())

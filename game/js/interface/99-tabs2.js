@@ -26,9 +26,9 @@ function t2Nav(){const sn=$$("subnav");if(!sn||sn.classList.contains("hide")||sc
   L.forEach(([lab,ks])=>{const bs=ks.map(by).filter(Boolean);if(!bs.length)return;const gEl=document.createElement("div");gEl.className="snsec";gEl.innerHTML=`<span class="sngrp">${lab}</span>`;bs.forEach(b=>{gEl.appendChild(b);used.add(b)});w.appendChild(gEl)});
   const rest=bt.filter(b=>!used.has(b));if(rest.length){const gEl=document.createElement("div");gEl.className="snsec";gEl.innerHTML='<span class="sngrp">Autres</span>';rest.forEach(b=>gEl.appendChild(b));w.appendChild(gEl)}
   w.classList.add("t2grp")}
- const W=t2Where();let d=$$("t2where");if(!W){if(d)d.remove();return}
+ const W=t2Where();let d=$$("t2where");if(!W){if(d)d.remove();try{t2Locks()}catch(e){}return}
  if(!d){sn.insertAdjacentHTML("afterend",'<div id="t2where" class="t2where"></div>');d=$$("t2where")}
- d.innerHTML=`<span class="t2path">${W.path.map(esc).join(' <i>›</i> ')} <i>›</i> <b>${esc(W.name)}</b></span>${W.desc?`<span class="t2desc">${esc(W.desc)}</span>`:""}`}
+ d.innerHTML=`<span class="t2path">${W.path.map(esc).join(' <i>›</i> ')} <i>›</i> <b>${esc(W.name)}</b></span>${W.desc?`<span class="t2desc">${esc(W.desc)}</span>`:""}`;try{t2Locks()}catch(e){}}
 const _nuT2=navUpdate;navUpdate=function(){_nuT2.apply(this,arguments);try{t2Nav()}catch(e){}};
 // Succès : filtres (tous, à récupérer, en cours, obtenus) au-dessus de la grille
 let T2_ACH="all";
@@ -51,4 +51,22 @@ function t2Missions(){const box=$$("missions");if(!box)return;box.classList.add(
    el.querySelector(".t2tog").textContent=(f?"Afficher":"Replier")+` (${cnt.length})`;return}
   if(cur&&el.classList.contains("panel"))el.classList.toggle("t2off",t2Folded(cur))})}
 const _rT2=render;render=function(){_rT2.apply(this,arguments);try{if(screen==="achs")t2Achs();if(screen==="missions")t2Missions();t2Nav()}catch(e){}};
-if(typeof GUIDE!=="undefined")GUIDE.push(["Onglets","Sous la barre des onglets, une ligne rappelle où tu es (Aventure › Défis › Tour) et à quoi sert l'écran. Les onglets de l'Aventure et des Quêtes sont rangés par thème. Les Succès ont des filtres (à récupérer, en cours, obtenus) et les sections des Missions se replient."]);
+// 0.48 · Onglets qui s'ouvrent au fil de l'histoire : un sous-onglet encore verrouillé est caché ; seul le prochain à s'ouvrir
+// reste visible, grisé, avec le niveau d'histoire à atteindre (un nouveau joueur voit ~10 sous-onglets au lieu de 17).
+const T2_LOCK={camp:()=>typeof CAMP_UNLOCK!=="undefined"?CAMP_UNLOCK:3,raid:()=>5,maze:()=>typeof MZ_UNLOCK!=="undefined"?MZ_UNLOCK:10,trials:()=>10,
+ nest:()=>typeof NEST_UNLOCK!=="undefined"?NEST_UNLOCK:15,regions:()=>30,far:()=>typeof FAR_UNLOCK!=="undefined"?FAR_UNLOCK:50};
+function t2Need(k){const f=T2_LOCK[k];return f?f():0}
+function t2Locks(){const sn=$$("subnav");if(!sn)return;const st=(S&&S.stage)||0;let next=null;
+ const L=[...sn.querySelectorAll("button")].map(b=>{const m=(b.getAttribute("onclick")||"").match(/^go\('(\w+)'\)$/),k=m&&m[1],n=k?t2Need(k):0;return{b,k,n}}).filter(x=>x.n>st&&x.k!==screen);
+ L.forEach(x=>{if(!next||x.n<next.n)next=x});
+ L.forEach(x=>{const nx=x===next;x.b.classList.toggle("t2hid",!nx);x.b.classList.toggle("t2lock",nx);if(nx&&!x.b.querySelector(".t2need"))x.b.insertAdjacentHTML("beforeend",`<small class="t2need">🔒 niv. ${x.n}</small>`);if(nx)x.b.title="S'ouvre au niveau "+x.n+" de l'histoire"});
+ sn.querySelectorAll(".snsec").forEach(g=>g.classList.toggle("t2hid",![...g.querySelectorAll("button")].some(b=>!b.classList.contains("t2hid"))))}
+// 0.48 · Réglages : un sommaire cliquable en haut (Audio, Thème, Affichage…) pour aller directement à une section
+function t2SetNav(){const B=$$("setBody");if(!B||B.querySelector(".t2setnav"))return;
+ const P=[...B.querySelectorAll(":scope>.panel")].map(p=>({p,t:((p.querySelector(":scope>b")||{}).textContent||"").trim()})).filter(x=>x.t&&x.t.length<34);if(P.length<4)return;
+ P.forEach((x,i)=>x.p.dataset.t2s=i);const first=B.querySelector(":scope>.panel");if(!first)return;
+ first.insertAdjacentHTML("beforebegin",`<div class="t2setnav">${P.map((x,i)=>`<button class="secondary" onclick="t2SetGo(${i})">${esc(x.t)}</button>`).join("")}</div>`)}
+function t2SetGo(i){const B=$$("setBody"),p=B&&B.querySelector(`.panel[data-t2s="${i}"]`),n=B&&B.querySelector(".t2setnav");if(!p||!n)return;
+ // le sommaire est « collant » : une fois défilé il est en haut de la boîte, d'où le calcul depuis le haut de la boîte
+ B.scrollTo({top:B.scrollTop+p.getBoundingClientRect().top-B.getBoundingClientRect().top-n.offsetHeight-12,behavior:PREFS.anim===false?"auto":"smooth"})}
+if(typeof GUIDE!=="undefined")GUIDE.push(["Onglets","Sous la barre des onglets, une ligne rappelle où tu es (Aventure › Défis › Tour) et à quoi sert l'écran. Les onglets de l'Aventure et des Quêtes sont rangés par thème. Les Succès ont des filtres (à récupérer, en cours, obtenus) et les sections des Missions se replient. Un onglet encore fermé est caché : seul le prochain à s'ouvrir est montré, grisé, avec le niveau d'histoire à atteindre. Les Réglages ont un sommaire en haut."]);

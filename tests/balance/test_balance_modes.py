@@ -4,7 +4,7 @@ Le rang du joueur est fixé à chaque combat (niveau de contenu / 4 + 1) : sinon
 import sys;sys.path.insert(0,str(__import__("pathlib").Path(__file__).resolve().parent));from balance_seuil import alerte
 import asyncio,pathlib
 from playwright.async_api import async_playwright
-GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
+GAME=(pathlib.Path(__file__).resolve().parent.parent.parent/'game'/'index.html').as_uri()
 JS='''()=>{const types=["rex","spino","giga","mosa","argento","dracorex"],out={tower:{},arena:{}};
 const run=(setup,start)=>{let w=0,T=20;for(let r=0;r<T;r++){S.team=[0,1,2].map(i=>({id:i+1,type:types[i],level:setup.L,xp:0,star:setup.st}));S.gear=setup.gr;S.stage=99;S.level=setup.rk||1;S.xp=0;start();let g=0;
  while(!fight.over&&g++<600){[0,1,2].forEach(k=>{if(!fight.over&&fight.hp[k]>0&&fight.cd[k]<=0)useSkill(k)});if(fight.over)break;

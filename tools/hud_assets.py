@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Génère game/css/97-hud-assets.css (0.43) à partir des sources de tools/hud_src/ :
+"""Génère game/css/assets/97-hud-assets.css (0.43) à partir des sources de tools/hud_src/ :
 - icônes game-icons.net (CC BY 3.0, auteurs dans tools/hud_src/gi/license.txt et docs/LICENSES.md),
   fichiers nommés « auteur--nom.svg », intégrées en variables CSS --gi-<nom> (masques : la couleur vient du thème) ;
 - pièces du Kenney UI Pack Sci-Fi (CC0) : curseur (normal et « bouton », recoloré) et viseur.
 Les règles qui posent les icônes sur la navigation et les ressources sont générées ici aussi (table NAV/SUB/MET),
-le reste du style est dans game/css/97-hud.css. Relancer après avoir changé la table ou ajouté une icône :
+le reste du style est dans game/css/graphismes/97-hud.css. Relancer après avoir changé la table ou ajouté une icône :
     python3 tools/hud_assets.py
 """
 import pathlib,re,urllib.parse
 ROOT=pathlib.Path(__file__).resolve().parent.parent
 SRC=ROOT/'tools'/'hud_src'
-OUT=ROOT/'game'/'css'/'97-hud-assets.css'
+OUT=ROOT/'game'/'css'/'assets'/'97-hud-assets.css'
 
 def uri(svg):
     svg=re.sub(r'>\s+<','><',svg.strip())

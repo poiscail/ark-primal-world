@@ -10,7 +10,7 @@ Nécessite Node.js 18+ (npm). Hors de Windows, les cibles « portable » et « i
 la construction automatique GitHub (.github/workflows/windows-exe.yml) les produit sur un vrai Windows et y teste l'exe."""
 import os,re,shutil,subprocess,sys,pathlib
 ROOT=pathlib.Path(__file__).resolve().parent.parent;SRC=ROOT/'game';DESK=ROOT/'desktop';DIST=ROOT/'dist'
-def version():return re.search(r'ARK_VERSION="([^"]+)"',(SRC/'js/00-version.js').read_text(encoding='utf-8')).group(1)
+def version():return re.search(r'ARK_VERSION="([^"]+)"',(SRC/'js/socle/00-version.js').read_text(encoding='utf-8')).group(1)
 def run(cmd,**kw):
     print('>',' '.join(cmd),flush=True);subprocess.run(cmd,check=True,**kw)
 def stage():

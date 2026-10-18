@@ -135,7 +135,7 @@ jobs:
           done
       - name: Archive
         run: |
-          V=$(python3 -c "import re;print(re.search(r'ARK_VERSION=\"([^\"]+)\"',open('game/js/00-version.js').read()).group(1))")
+          V=$(python3 -c "import re;print(re.search(r'ARK_VERSION=\"([^\"]+)\"',open('game/js/socle/00-version.js').read()).group(1))")
           cd dist/ARK_Windows && mv linux-unpacked "ARK_Primal_World_${V}_linux" && tar czf "ARK_Primal_World_${V}_linux.tar.gz" "ARK_Primal_World_${V}_linux"
       - uses: actions/upload-artifact@v4
         with:

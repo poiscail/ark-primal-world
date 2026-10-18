@@ -14,20 +14,24 @@ def check(name,cond,info=''):
 html=(ROOT/'index.html').read_text()
 js=re.findall(r'<script src="(js/[^"]+)"',html);css=re.findall(r'<link rel="stylesheet" href="(css/[^"]+)"',html)
 check('fichiers référencés présents',all((ROOT/x).exists() for x in js+css),[x for x in js+css if not (ROOT/x).exists()])
-oubli=sorted(str(p.relative_to(ROOT)) for p in list((ROOT/'js').glob('*.js'))+list((ROOT/'css').glob('*.css')) if str(p.relative_to(ROOT)) not in js+css)
+oubli=sorted(str(p.relative_to(ROOT)) for p in list((ROOT/'js').rglob('*.js'))+list((ROOT/'css').rglob('*.css')) if str(p.relative_to(ROOT)) not in js+css)
+# 0.48 : fichiers rangés en dossiers (socle, combat, dinos, modes, quetes, graphismes, interface, assets) ; l'ordre se vérifie par nom
+B=lambda L:[x.rsplit('/',1)[1] for x in L];js_p,css_p=js,css;js,css=B(js),B(css)
+check('dossiers connus (js et css sous socle, combat, dinos, modes, quetes, graphismes, interface ; css/assets)',all(re.match(r'(js|css)/(socle|combat|dinos|modes|quetes|graphismes|interface|assets)/[^/]+$',x) for x in js_p+css_p),[x for x in js_p+css_p if not re.match(r'(js|css)/(socle|combat|dinos|modes|quetes|graphismes|interface|assets)/[^/]+$',x)])
+check('noms de fichiers uniques entre dossiers',len(set(js))==len(js) and len(set(css))==len(css))
 check('aucun fichier js/css oublié dans index.html',oubli==[],oubli)
 check('pas de doublon de chargement',len(js)==len(set(js)) and len(css)==len(set(css)))
-check('00-version.js puis 00-core.js en premier',js[:2]==['js/00-version.js','js/00-core.js'],js[:2])
-check('99-layout.js en dernier, 99-juice.js juste avant',js[-2:]==['js/99-juice.js','js/99-layout.js'],js[-3:])
-i=lambda n:css.index('css/'+n) if 'css/'+n in css else -1
+check('00-version.js puis 00-core.js en premier',js[:2]==['00-version.js','00-core.js'],js[:2])
+check('99-layout.js en dernier, 99-juice.js juste avant',js[-2:]==['99-juice.js','99-layout.js'],js[-3:])
+i=lambda n:css.index(n) if n in css else -1
 check('95-theme < 96-skins < 90-platform < 97-pc',0<=i('95-theme.css')<i('96-skins.css')<i('90-platform.css')<i('97-pc.css'),[i('95-theme.css'),i('96-skins.css'),i('90-platform.css'),i('97-pc.css')])
-p97=[n for n in css if re.match(r'css/97-',n)]
+p97=[n for n in css if re.match(r'97-',n)]
 check('toutes les feuilles 97-* après 97-pc',all(css.index(n)>=i('97-pc.css') for n in p97))
-check('99-tuning après 50-skills-species (équilibrage global)',js.index('js/99-tuning.js')>js.index('js/50-skills-species.js'))
-check('99-species2 avant 99-trials ; 99-skills3 avant 99-mastery',js.index('js/99-species2.js')<js.index('js/99-trials.js') and js.index('js/99-skills3.js')<js.index('js/99-mastery.js'))
+check('99-tuning après 50-skills-species (équilibrage global)',js.index('99-tuning.js')>js.index('50-skills-species.js'))
+check('99-species2 avant 99-trials ; 99-skills3 avant 99-mastery',js.index('99-species2.js')<js.index('99-trials.js') and js.index('99-skills3.js')<js.index('99-mastery.js'))
 # doublons de const/let entre scripts : node vérifie la syntaxe de la concaténation
 with tempfile.NamedTemporaryFile('w',suffix='.js',delete=False) as t:
-    for x in js:t.write('\n/* ==== %s ==== */\n'%x+(ROOT/x).read_text()+'\n;\n')
+    for x in js_p:t.write('\n/* ==== %s ==== */\n'%x+(ROOT/x).read_text()+'\n;\n')
     tmp=t.name
 r=subprocess.run(['node','--check',tmp],capture_output=True,text=True)
 msg=(r.stderr or '').strip().splitlines()

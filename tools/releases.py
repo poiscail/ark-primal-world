@@ -2,7 +2,7 @@
 """Publie une page GitHub (« release ») par version, avec les notes du CHANGELOG.
 - Versions anciennes (0.4.0 à 0.17.0) : étiquette vX.Y.Z sur le commit de la version + zip du jeu de l'époque
   (à ouvrir dans un navigateur : index.html). Créées une seule fois, jamais marquées « dernière version ».
-- Version actuelle (game/js/00-version.js) : étiquette sur le commit construit + les .exe Windows (installateur, portable),
+- Version actuelle (game/js/socle/00-version.js) : étiquette sur le commit construit + les .exe Windows (installateur, portable),
   marquée « dernière version » ; recréée à chaque construction de main pour suivre le code.
 Lancé par .github/workflows/windows-exe.yml après les tests de l'exe (gh + GITHUB_TOKEN).
   python3 tools/releases.py --exe-dir=DOSSIER [--sha=COMMIT] [--dry-run]"""
@@ -23,7 +23,7 @@ def run(*cmd,capture=False):
     print('>',' '.join(cmd),flush=True)
     if DRY and cmd[0]=='gh' and cmd[2] in('create','delete'):return ''
     r=subprocess.run(cmd,check=True,text=True,capture_output=capture);return r.stdout if capture else ''
-def version():return re.search(r'ARK_VERSION="([^"]+)"',(ROOT/'game/js/00-version.js').read_text(encoding='utf-8')).group(1)
+def version():return re.search(r'ARK_VERSION="([^"]+)"',(ROOT/'game/js/socle/00-version.js').read_text(encoding='utf-8')).group(1)
 def changelog():
     """{"0.17.0": ("titre", "notes")} d'après les sections « ## X.Y.Z — titre » du CHANGELOG"""
     secs,cur={},None

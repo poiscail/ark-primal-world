@@ -70,5 +70,5 @@ Ajoute ensuite ton test à la liste de `tools/run_tests.sh`.
 
 - **Crochets** (`hook`, 0.41, `99-app2.js`) : pour réagir à une fonction du jeu sans écrire le wrapper à la main,
   `hook("win",()=>{ /* après la victoire */ },{id:"mon-module"})`. Les modules chargés **après** `99-app2.js` peuvent l'utiliser.
-- **Équilibrage** : `tests/test_balance.py` (simulation) ; `tests/balance_seuil.py` signale une équipe conseillée sous 50 %.
+- **Équilibrage** : `tests/balance/test_balance.py` (simulation) ; `tests/balance/balance_seuil.py` signale une équipe conseillée sous 50 %.
 - **Sauvegarde** : un nouveau champ de `S` s'initialise dans un wrapper de `ens()` (voir n'importe quel module 99-*).

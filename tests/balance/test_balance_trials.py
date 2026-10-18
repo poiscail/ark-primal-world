@@ -3,7 +3,7 @@ bot qui joue bien. Usage : python3 tests/test_balance_trials.py [combats_par_mes
 import sys;sys.path.insert(0,str(__import__("pathlib").Path(__file__).resolve().parent));from balance_seuil import alerte
 import asyncio,pathlib,sys,json
 from playwright.async_api import async_playwright
-GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
+GAME=(pathlib.Path(__file__).resolve().parent.parent.parent/'game'/'index.html').as_uri()
 N=int(sys.argv[1]) if len(sys.argv)>1 else 20
 JS='''(T)=>{const out={};
 const sim=(id,types,L,star,gear,t)=>{let w=0;for(let r=0;r<T;r++){S.team=types.map((x,j)=>({id:j+1,type:x,level:L,xp:0,star}));S.gear=gear;S.stage=100;S.level=Math.round(TR_TIERS[t].lv/4)+1;S.xp=0;S.trial.done={};S.trial.done[id]=t-1;

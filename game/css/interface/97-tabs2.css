@@ -42,3 +42,14 @@ html body #missions .t2tog{flex:0 0 auto;padding:6px 12px;font-size:11px;width:a
 /* retouche : les familles de la bannière de famille passent à la ligne au lieu d'être coupées */
 html body .ga2fam .eltabs{flex-wrap:wrap}
 html body .ga2fam .eltabs button{flex:1 1 auto}
+
+/* 0.48 · sous-onglets encore verrouillés : cachés, sauf le prochain (grisé, avec le niveau à atteindre) */
+html body .subnav .t2hid{display:none!important}
+html body .subnav button.t2lock{opacity:.55;filter:saturate(.4)}
+html body .subnav button.t2lock:hover{opacity:.8}
+.t2need{display:block;font-size:9.5px;font-weight:700;letter-spacing:.04em;opacity:.9;margin-top:1px;white-space:nowrap}
+
+/* 0.48 · sommaire des Réglages */
+.t2setnav{position:sticky;top:-1px;z-index:3;display:flex;flex-wrap:wrap;gap:6px;margin:10px -6px 12px;padding:8px 6px;background:#0b1426;border-bottom:1px solid var(--bd2,#2d3d5e);box-shadow:0 8px 14px -6px rgba(0,0,0,.6)}
+html[data-theme="light"] .t2setnav{background:#eef3fb}
+html body .t2setnav button{flex:0 0 auto;width:auto;padding:6px 12px;font-size:11.5px;border-radius:999px;clip-path:none}

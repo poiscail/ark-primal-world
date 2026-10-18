@@ -5,7 +5,7 @@ Usage : python3 tests/test_balance_maze.py [courses_par_mesure]"""
 import sys;sys.path.insert(0,str(__import__("pathlib").Path(__file__).resolve().parent));from balance_seuil import alerte
 import asyncio,pathlib,sys,json
 from playwright.async_api import async_playwright
-GAME=(pathlib.Path(__file__).resolve().parent.parent/'game'/'index.html').as_uri()
+GAME=(pathlib.Path(__file__).resolve().parent.parent.parent/'game'/'index.html').as_uri()
 N=int(sys.argv[1]) if len(sys.argv)>1 else 12
 JS='''(cfg)=>{const types=["rex","giga","carnota"],RO={c:1,r:2,l:3,x:0};
 const avg=r=>r.hp.reduce((a,b)=>a+b,0)/3;
