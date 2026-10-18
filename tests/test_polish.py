@@ -12,7 +12,7 @@ async def main():
         errs=[];pg.on('pageerror',lambda e:errs.append(str(e)));pg.on('dialog',lambda d:asyncio.ensure_future(d.accept()))
         await pg.goto(GAME);await pg.wait_for_timeout(400)
         check('pas d\'écran titre sous automatisation',await ev('!document.getElementById("splash")'))
-        await ev('S.tut={off:true,seen:{}};S.team=[{id:1,type:"spino",level:60,xp:0},{id:2,type:"magma",level:60,xp:0},{id:3,type:"levia",level:60,xp:0}];S.stage=34;ens();setPref("lore",false)')
+        await ev('S.tut={off:true,seen:{}};S.team=[{id:1,type:"spino",level:60,xp:0},{id:2,type:"magma",level:60,xp:0},{id:3,type:"levia",level:60,xp:0}];S.stage=34;mapCh=null;ens();setPref("lore",false)')
         for s in ['home','team','summon','story','tower','arena','events','exped','achs','missions']:
             await ev(f'go("{s}")');await pg.wait_for_timeout(60)
             if not await ev(f'!!document.querySelector("#{s} .banner .bscene svg")'):FAILS.append('bannière '+s);print('FAIL bannière',s)
