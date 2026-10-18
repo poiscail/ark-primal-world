@@ -44,7 +44,7 @@ Une nouvelle source d'invocation doit filtrer les exclusives (`isEx(k)`).
 
 ## 4. Charger le module
 
-Dans `game/index.html`, ajoute `<script src="js/99-mon-module.js"></script>` **avant** `js/99-desktop.js`
+Dans `game/index.html`, ajoute `<script src="js/99-mon-module.js"></script>` **avant** `js/interface/99-desktop.js`
 (et sa feuille de style éventuelle `css/97-mon-module.css` après les autres `97-*`). Puis lance :
 
 ```

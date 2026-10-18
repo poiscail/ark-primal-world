@@ -59,7 +59,7 @@ Souris partout ; au clavier pendant un combat :
 - **Admin local** (⚙ ADMIN) : dinosaures, coûts, taux de drop, récompenses.
 
 ## Pour les développeurs
-- `game/` : le jeu (HTML/CSS/JS sans bundler, modules chargés dans l'ordre de `index.html`). Architecture : [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Contexte pour Claude Code : [CLAUDE.md](CLAUDE.md).
+- `game/` : le jeu (HTML/CSS/JS sans bundler, modules chargés dans l'ordre de `index.html`), rangé en dossiers : `socle/` (le cœur), puis `combat/`, `dinos/`, `modes/`, `quetes/`, `graphismes/`, `interface/`, et `css/assets/` (polices, textures, images intégrées). Architecture : [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Contexte pour Claude Code : [CLAUDE.md](CLAUDE.md).
 - `desktop/` : l'application Electron (fenêtre, plein écran, sauvegarde, test de lancement `--smoke-test`).
 - `tools/build.py` : construit l'installateur et le portable (`dist/ARK_Windows/`, non versionné) ; `tools/releases.py` publie une page par version ; `tools/gen_backgrounds.py` génère les images de fond des thèmes.
 - `.github/workflows/windows-exe.yml` : à chaque envoi, construit et teste l'exe sur Windows ; depuis `main`, publie les pages de versions.

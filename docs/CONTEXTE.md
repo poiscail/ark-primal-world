@@ -23,7 +23,7 @@ lire la section du module concerné **avant de le modifier** (chercher son nom o
 - Sous-onglets (99-nav) : un bouton d'un autre sous-onglet est caché (`.subhide`) ; dans un test, ouvrir d'abord son sous-onglet (clic sur `#subnav button[onclick="subSet('summon','bonus')"]`, voir `show()` dans `test_summon_buttons.py`).
 - Fenêtre minimale de l'application : 1024×640 (`desktop/main.js`) ; les orbes, la super et les compétences doivent y rester visibles sans défiler (règle compacte `max-height:760px` dans `94-layout.css` ; les boutons secondaires du bas — Aide, Garde, Fuir, Journal — passent sous la ligne de flottaison, même à 1280×800). `test_layout.py` vérifie 1280×800, 1366×700 et 1920×1080.
 - Éviter les `sleep` enchaînés pour attendre des tests ; utiliser un `until` avec timeout.
-- Combat : ne jamais déplacer les nœuds de `#battleArea` ; `99-layout.js` (dernier script) les étiquette `bl-*` et `css/94-layout.css` règle l'ordre (grille 2 colonnes). Un nouvel élément non reconnu par `blKind()` va en fin d'écran.
+- Combat : ne jamais déplacer les nœuds de `#battleArea` ; `99-layout.js` (dernier script) les étiquette `bl-*` et `css/socle/94-layout.css` règle l'ordre (grille 2 colonnes). Un nouvel élément non reconnu par `blKind()` va en fin d'écran.
 - Animations de combat : délais via `fxd(ms)` (vitesse `FX_SPEED`, `let` dans 94), effets dans `#fxLayer` via `fxAdd`. Une compétence n'anime que son lanceur (`BQ.sk` → `castFx`) ; orbes/super → `atkFx` par famille (`PORT[type][0]`) ; riposte ennemie jouée après 480 ms (`foeFx`).
 - `eye()` (portraits) est remplacé temporairement pendant `corruptSVG` (yeux luisants) : les portraits du joueur restent identiques (testé).
 - Noms et variété des ennemis appliqués à l'affichage (`bnName`/`cxVary` dans `stageBuild`), car `startBattle` peut être différé par un dialogue d'histoire (dans l'application, `navigator.webdriver` est faux : couper `lore` pour un test automatique).
@@ -77,3 +77,11 @@ lire la section du module concerné **avant de le modifier** (chercher son nom o
 - Labyrinthe (0.21, simulation, 10 courses par mesure) : équipe conseillée éveillée+forge, histoire 40-100 : profondeur 0 → 90-100 %, 3 → 70-90 %, 6 → 40-80 %, 10 → 0-10 % ; histoire 20 : 100 % partout (le niveau des ennemis suit ensuite l'équipe, `mzN0`) ; équipe nue histoire 40 : 100 % / 20 % (profondeurs 0 / 3). Boutique des marques limitée par semaine (tickets).
 - Le « truc inutile » signalé par l'utilisateur : hypothèse = niveau du joueur (maintenant rang) ; à confirmer (autre candidat : la jauge ⚔ puissance).
 - Le nom « ARK » appartient à Studio Wildcard : à vérifier avant toute diffusion publique.
+
+## Limites connues (reprises de l'ancienne liste d'idées, supprimée en 0.48)
+- 453 · signature de l'exe : il faut un certificat de signature de code payant, au nom de l'auteur ;
+- 472 · Discord « joue en ce moment » : il faut créer une application Discord (identifiant client) ;
+- 462 · la version **Linux** est construite et testée, la version **macOS** non (signature et notarisation Apple payantes) ;
+- 459 · pas de vrai limiteur d'images (Electron ne le permet pas pour une fenêtre normale) : remplacé par l'économie d'énergie ;
+- 468 · chargement mesuré (~0,7 s) : rien de lent à différer ;
+- le nom « ARK » (marque de Studio Wildcard) reste à vérifier : décision de l'auteur, rappelée dans les crédits.

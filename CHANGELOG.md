@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.48.0 — Grand ménage : plus simple, plus propre, mieux rangé
+Ta demande : « simplifie ce qui peut, supprime ce qui ne sert à rien et réorganise les fichiers ». Première étape vers une version 1.0 : aucune nouveauté de jeu, seulement du nettoyage.
+- **Onglets plus simples pour un nouveau joueur** : un sous-onglet encore fermé (Camp, Raid, Labyrinthe, Épreuves, Nid, Régions, Grand Nord) n'est plus affiché. Seul le prochain à s'ouvrir reste visible, grisé, avec le niveau d'histoire à atteindre (« 🔒 niv. 10 »). Au début, l'Aventure montre 8 onglets au lieu de 12.
+- **Réglages** : un sommaire en haut (Audio, Thème, Affichage, Accessibilité, Combat…) ; un clic amène à la section. Il reste en haut quand on fait défiler.
+- **Démarrage plus rapide** : le jeu ne se dessine plus qu'une fois au lancement, une fois tout chargé. Avant, il se redessinait 12 fois pendant le chargement (environ 1,8 s → 1,2 s mesuré ici, sur la version navigateur).
+- **Code mort retiré** (~25 Ko) : les premières versions du moteur (combat, invocation, histoire, administration), réécrites depuis mais toujours présentes, et une quinzaine de fonctions plus jamais appelées. La vibration, reste de la version téléphone sans effet sur PC, est retirée aussi.
+- **Fichiers rangés en dossiers** : `game/js` et `game/css` passent de 90 et 66 fichiers en vrac à des dossiers par thème (socle, combat, dinos, modes, quetes, graphismes, interface ; et `css/assets` pour les gros fichiers générés : polices, textures, icônes, décors peints). Les simulations d'équilibrage sont dans `tests/balance/`.
+- **Fichiers supprimés** : les deux listes d'idées (`docs/IDEES.md`, toutes réalisées ou écartées, et `docs/IDEES5000.md`) et `tools/gen_images.py` (la clé Hugging Face n'a jamais marché ; les décors viennent de tes images). Tout reste récupérable dans l'historique GitHub.
+- Rien n'a été retiré du jeu lui-même : tous les modes, écrans et réglages sont là.
+- Tests : `test_tabs2` vérifie les onglets verrouillés (niveaux 0, 12, 60, vrai clic sur l'onglet grisé) et le sommaire des Réglages (vrai clic) ; `test_order` vérifie les dossiers. `test_transfer` et `test_polish` adaptés à l'affichage unique au lancement.
+
 ## 0.47.0 — Le jeu continue en arrière-plan
 Ta demande : « permets au jeu de fonctionner en arrière-plan ».
 - **Dans l'application Windows**, le jeu ne ralentit plus quand sa fenêtre est réduite, cachée ou derrière une autre : les minuteries et les animations continuent, et le jeu se croit toujours à l'écran.
