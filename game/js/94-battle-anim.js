@@ -3,7 +3,6 @@ const ELC={redorb:"#ff647b",blueorb:"#5fb8ff",greenorb:"#7dff9b",purpleorb:"#bd8
 const BQ={dmg:null,hurt:[],atk:false};
 /* vitesse des animations de combat (×1/×2/×3, réglée par js/99-auto.js) : les délais d'enchaînement passent par fxd() */
 let FX_SPEED=1;const fxd=ms=>ms/FX_SPEED;
-function vib(){}/* PC : pas de vibration */
 function fxAdd(el,ms){const L=$$("fxLayer");if(!L)return;L.appendChild(el);setTimeout(()=>el.remove(),ms)}
 function floatNum(txt,x,y,cls,sub){if(!PREFS.anim)return;const d=document.createElement("div");d.className="dmgnum "+(cls||"");d.style.left=x+"px";d.style.top=y+"px";d.innerHTML=txt+(sub?`<small>${sub}</small>`:"");fxAdd(d,1100);d.animate([{transform:"translate(-50%,0) scale(.4)",opacity:0},{transform:"translate(-50%,-14px) scale(1.25)",opacity:1,offset:.2},{transform:"translate(-50%,-34px) scale(1)",opacity:1,offset:.6},{transform:"translate(-50%,-64px) scale(.9)",opacity:0}],{duration:1050,easing:"ease-out"})}
 function banner(t,sub,cls){if(!PREFS.anim)return;const d=document.createElement("div");d.className="wavebn "+(cls||"");d.innerHTML=`<b>${t}</b>${sub?`<small>${sub}</small>`:""}`;fxAdd(d,1900)}
@@ -29,17 +28,16 @@ const _rb94=renderBattle;renderBattle=function(){_rb94();const f=fight;if(!f||!f
  /* attaque alliée */
  if(BQ.atk&&BQ.dmg&&eIcon&&PREFS.anim){const q=BQ.dmg,t=S.team.slice(0,3);if(BQ.sk!==undefined){if(typeof castFx==="function")castFx(rows[BQ.sk],t[BQ.sk])}else rows.forEach((el,k)=>{if(!t[k]||f.hp[k]<=0)return;if(typeof atkFx==="function"&&atkFx(el,eIcon,t[k],k))return;el.classList.add("lunge");el.style.animationDelay=k*60+"ms";projectile(el,eIcon,ELC[sp(t[k]).element]||"#fff",k*60)});
   const r=eIcon.getBoundingClientRect(),crit=/CRITIQUE/.test(q.msg),cb=(q.msg.match(/combo x(\d+)/)||[])[1];
-  if(q.v>0)setTimeout(()=>{const R=live().getBoundingClientRect();floatNum("-"+q.v,R.left+R.width/2,R.top+R.height*.3,(q.big||crit?"big ":"")+(crit?"crit":""),(q.adv?"EFFICACE !":"")+(crit?" CRITIQUE !":"")+(cb&&!q.adv&&!crit?"COMBO ×"+cb:""));ring(R.left+R.width/2,R.top+R.height/2,"#fff");vib(q.big||crit?[25,30,40]:18)},fxd(380+rows.length*40));
+  if(q.v>0)setTimeout(()=>{const R=live().getBoundingClientRect();floatNum("-"+q.v,R.left+R.width/2,R.top+R.height*.3,(q.big||crit?"big ":"")+(crit?"crit":""),(q.adv?"EFFICACE !":"")+(crit?" CRITIQUE !":"")+(cb&&!q.adv&&!crit?"COMBO ×"+cb:""));ring(R.left+R.width/2,R.top+R.height/2,"#fff")},fxd(380+rows.length*40));
   else if(/absorbé/.test(q.msg))setTimeout(()=>{const R=live().getBoundingClientRect();floatNum("🛡️",R.left+R.width/2,R.top+R.height*.3,"","ABSORBÉ")},fxd(380+rows.length*40))}
  /* attaque ennemie */
  if(BQ.hurt.length&&PREFS.anim){const hurt=BQ.hurt.slice();setTimeout(()=>{const E=live(),R=figs();if(E&&E.isConnected){E.classList.remove("elunge");void E.offsetWidth;E.classList.add("elunge")}
   const d=document.createElement("div");d.className="hurtflash";fxAdd(d,600);if(typeof foeFx==="function")foeFx(E,R,hurt,f);
-  hurt.forEach(({k,d:dm},j)=>{const el=R[k];if(!el)return;el.classList.remove("shk");void el.offsetWidth;el.classList.add("shk");setTimeout(()=>{const X=(figs()[k]||el).getBoundingClientRect();floatNum("-"+dm,X.left+X.width/2,X.top+4,"foe")},fxd(220+j*90))});vib([40,40,60])},fxd(late))}
- else if(BQ.hurt.length)vib([40,40,60]);
+  hurt.forEach(({k,d:dm},j)=>{const el=R[k];if(!el)return;el.classList.remove("shk");void el.offsetWidth;el.classList.add("shk");setTimeout(()=>{const X=(figs()[k]||el).getBoundingClientRect();floatNum("-"+dm,X.left+X.width/2,X.top+4,"foe")},fxd(220+j*90))})},fxd(late))}
  BQ.atk=false;BQ.dmg=null;BQ.hurt=[];
  /* bannières de vague / boss / rage */
  const e=f.enemies[f.wave];
- if(!f.over){if(f._lw!==f.wave){const first=f._lw===undefined;f._lw=f.wave;if(e.boss&&f.wave===2){banner("⚠ ALERTE ⚠",esc(e.name),"boss");document.body.classList.remove("bigshake");void document.body.offsetWidth;document.body.classList.add("bigshake");setTimeout(()=>document.body.classList.remove("bigshake"),500);vib([80,50,120])}else banner(first?esc(f.zone||"Combat"):"VAGUE "+(f.wave+1),first?"Vague 1 / 3":esc(e.name))}
+ if(!f.over){if(f._lw!==f.wave){const first=f._lw===undefined;f._lw=f.wave;if(e.boss&&f.wave===2){banner("⚠ ALERTE ⚠",esc(e.name),"boss");document.body.classList.remove("bigshake");void document.body.offsetWidth;document.body.classList.add("bigshake");setTimeout(()=>document.body.classList.remove("bigshake"),500)}else banner(first?esc(f.zone||"Combat"):"VAGUE "+(f.wave+1),first?"Vague 1 / 3":esc(e.name))}
   if(e.boss&&e.hp<e.max*.3&&!f._enr94){f._enr94=1;banner("😡 ENRAGÉ !",esc(e.name)+" attaque plus fort","boss")}}
  /* écran de résultat */
  if(f.over){const res=box.querySelector(".result:not(.tiny)");if(res&&!res.dataset.fx){res.dataset.fx=1;res.classList.add("resultfx",f.over);

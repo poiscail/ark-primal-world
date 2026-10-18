@@ -12,7 +12,7 @@ const TIPS={
  summon:{t:"🔮 Invocation",d:"Dépense des tickets (gagnés en combat) pour obtenir des dinosaures. Tirage gratuit chaque jour, bannière vedette, garantie légendaire. Les doublons se recyclent en fragments.",on:()=>screen==="summon"},
  missions:{t:"📋 Missions",d:"Les missions quotidiennes se renouvellent chaque jour, les permanentes restent. Pense à récupérer tes récompenses (pastille rouge).",on:()=>screen==="missions"},
  modes:{t:"🗺️ Modes de jeu",d:"Histoire et Donjons donnent matériaux et objets. La Tour monte sans fin, l'Arène classe ton équipe contre l'IA (5 combats/jour), les Événements changent chaque semaine.",on:()=>ADV.has(screen)&&screen!=="battle"&&screen!=="story"}};
-let tipNow=null;
+
 function tipActive(){ens();if(S.tut.off)return null;for(const id of Object.keys(TIPS)){if(S.tut.seen[id])continue;let ok=false;try{ok=TIPS[id].on()}catch(e){}if(ok)return id}return null}
 function tipHTML(id){const T=TIPS[id],d=typeof T.d==="function"?T.d():T.d;return `<div class="tip" id="tipCard"><b>${T.t}</b><div class="tiny" style="margin:4px 0 8px">${d}</div><div class="btns">${T.btn?`<button onclick="tipDone('${id}');${T.btn[1]}">${T.btn[0]}</button>`:""}<button class="${T.btn?"secondary":""}" onclick="tipDone('${id}')">COMPRIS</button><button class="secondary" onclick="tipSkip()">PASSER LE TUTORIEL</button></div></div>`}
 function tipDone(id){ens();S.tut.seen[id]=1;save();render()}
@@ -34,4 +34,3 @@ document.body.insertAdjacentHTML("beforeend",'<div id="guideVeil" class="authvei
 function openGuide(){$$("guideBody").innerHTML=`<div class="row"><div class="grow"><h2 style="margin:0">Guide du jeu</h2></div><button class="secondary" onclick="closeGuide()">FERMER</button></div>`+GUIDE.map(g=>`<div class="panel"><b>${g[0]}</b><div class="tiny" style="margin-top:4px">${g[1]}</div></div>`).join("")+`<button class="wide secondary" onclick="tutReset();closeGuide()">REVOIR LE TUTORIEL</button>`;$$("guideVeil").classList.remove("hide")}
 function closeGuide(){$$("guideVeil").classList.add("hide")}
 const _setR98=setRender;setRender=function(){_setR98();const box=$$("setBody");if(box)box.insertAdjacentHTML("afterbegin",'<button class="wide blue" style="margin:8px 0" onclick="closeSettings();openGuide()">📖 GUIDE DU JEU</button>')};
-render();

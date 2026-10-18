@@ -71,7 +71,7 @@ if(typeof nestHatch==="function"){const _nhS2=nestHatch;nestHatch=function(i){le
 /* ---- ambiance par décor ---- */
 const AMB={jungle:()=>{tone(2400+Math.random()*900,.08,"sine",.05,0,3400);tone(2600+Math.random()*700,.08,"sine",.04,.12,3600)},volcan:()=>{noise(1.2,.06,90,.8);if(Math.random()<.3)tone(60,.6,"sine",.08,0,40)},
  toundra:()=>noise(1.4,.05,1400,.5),abysses:()=>{tone(300+Math.random()*200,.12,"sine",.05,0,700);if(Math.random()<.2)tone(110,1.2,"sine",.05,0,80)},ruines:()=>{if(Math.random()<.4)tone(1800,.5,"sine",.025,0,1700)},obelisque:()=>tone(660+Math.random()*60,.9,"sine",.025,0,700)};
-let ambT=0;function ambTick(){if(!PREFS.amb||PREFS.sound===false||screen!=="battle"||!fight||fight.over||document.hidden)return;const z=stageZone(fight.zone||"");if(AMB[z])onBus("amb",AMB[z])}
+function ambTick(){if(!PREFS.amb||PREFS.sound===false||screen!=="battle"||!fight||fight.over||document.hidden)return;const z=stageZone(fight.zone||"");if(AMB[z])onBus("amb",AMB[z])}
 setInterval(()=>{try{ambTick()}catch(e){}},1700);
 /* ---- battement de cœur, alerte d'attaque puissante ---- */
 let heartOn=false;setInterval(()=>{try{const f=fight;heartOn=!!(PREFS.heart&&PREFS.sound!==false&&screen==="battle"&&f&&!f.over&&f.hp&&f.mx&&f.hp.some((h,k)=>h>0&&h/f.mx[k]<.25));if(heartOn){window.__heart=(window.__heart||0)+1;tone(55,.12,"sine",.3,0,40);tone(52,.12,"sine",.24,.22,38)}}catch(e){}},900);

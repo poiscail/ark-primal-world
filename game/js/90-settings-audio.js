@@ -1,5 +1,5 @@
 /* Réglages, sons (Web Audio synthétisé, aucun fichier), animations, difficulté, mesure d'équilibrage */
-const PREF_KEY="arkPrimalPrefs",DEF_PREFS={sound:true,vol:.6,music:false,anim:true,vib:true,lore:true,chain:false,diff:"normal",art:"svg",theme:"dark"};
+const PREF_KEY="arkPrimalPrefs",DEF_PREFS={sound:true,vol:.6,music:false,anim:true,lore:true,chain:false,diff:"normal",art:"svg",theme:"dark"};
 let PREFS={...DEF_PREFS};try{PREFS={...DEF_PREFS,...JSON.parse(localStorage.getItem(PREF_KEY)||"{}")}}catch(e){}
 function savePrefs(){try{localStorage.setItem(PREF_KEY,JSON.stringify(PREFS))}catch(e){}}
 const DIFFS={easy:{n:"Facile",h:.75,a:.75,r:.85},normal:{n:"Normal",h:1,a:1,r:1},hard:{n:"Difficile",h:1.3,a:1.25,r:1.3}};
@@ -9,13 +9,13 @@ const _H8=H,_A8=A;H=n=>Math.round(_H8(n)*dm().h);A=n=>_A8(n)*dm().a;
 let inWin9=false;const _give9=give;give=function(r){if(inWin9&&dm().r!==1){const m=dm().r;for(const k of ["stone","essence","bone","hide","crystal","amber"])if(r[k])r[k]=Math.max(1,Math.round(r[k]*m))}return _give9(r)};
 /* ---- sons ---- */
 let AC=null;const ac=()=>{if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==="suspended")AC.resume().catch(()=>{});return AC};
-function tone(f,d,type,v,t0,slide){const c=ac();if(!c)return;const t=c.currentTime+(t0||0),o=c.createOscillator(),g=c.createGain();o.type=type||"sine";o.frequency.setValueAtTime(f,t);if(slide)o.frequency.exponentialRampToValueAtTime(Math.max(30,slide),t+d);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime((v||.2)*PREFS.vol,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+d+.02)}
+
 const SFX={tap:()=>tone(520,.07,"square",.12,0,760),hit:()=>{tone(180,.12,"sawtooth",.2,0,60)},hurt:()=>tone(140,.2,"sawtooth",.22,0,50),skill:()=>{tone(420,.1,"triangle",.2,0,900);tone(630,.12,"triangle",.15,.07)},special:()=>{[330,440,660,880].forEach((f,i)=>tone(f,.18,"square",.15,i*.06))},
  win:()=>[523,659,784,1047].forEach((f,i)=>tone(f,.25,"triangle",.22,i*.11)),lose:()=>[392,330,262,196].forEach((f,i)=>tone(f,.3,"sawtooth",.15,i*.16)),ping:()=>tone(880,.1,"sine",.15),gacha:()=>[392,494,587].forEach((f,i)=>tone(f,.2,"triangle",.16,i*.08)),legend:()=>[523,659,784,1047,1319,1568].forEach((f,i)=>tone(f,.35,"triangle",.2,i*.09)),buy:()=>{tone(660,.08,"square",.12);tone(990,.12,"square",.12,.07)}};
 function sfx(n){if(!PREFS.sound||!SFX[n])return;try{SFX[n]()}catch(e){}}
 let musicT=null,mStep=0;const PENTA=[220,262,294,330,392,440,524,588];
-function musicTick(){if(!PREFS.music||!PREFS.sound){stopMusic();return}const seq=[0,2,4,2,5,4,2,1,0,3,4,6,5,4,2,3];tone(PENTA[seq[mStep%16]]/2,.9,"sine",.08,0);if(mStep%4===0)tone(PENTA[seq[mStep%16]]/4,1.6,"triangle",.06,0);mStep++}
-function startMusic(){if(musicT||!PREFS.music||!PREFS.sound)return;ac();musicT=setInterval(musicTick,520)}
+
+
 function stopMusic(){clearInterval(musicT);musicT=null}
 document.addEventListener("pointerdown",()=>{ac();if(PREFS.music)startMusic()},{once:true});
 /* ---- branchement sur le jeu ---- */

@@ -18,7 +18,7 @@ async def newpage(b,name):
     pg.on('dialog',dlg)
     await pg.goto(GAME);await pg.wait_for_timeout(300);await pg.evaluate('S.tut={off:true,seen:{}};ens();save()');return pg
 async def canon(pg):  # état canonique (clés triées récursivement)
-    return await pg.evaluate('()=>{ens();const s=o=>Array.isArray(o)?o.map(s):o&&typeof o==="object"?Object.fromEntries(Object.keys(o).sort().map(k=>[k,s(o[k])])):o;const o=JSON.parse(JSON.stringify(S));["day","dcnt","dclaimed","login","freeDay","ev","hist","gstat","dch","dig","mkt"].forEach(k=>delete o[k]);return JSON.stringify(s(o))}')
+    return await pg.evaluate('()=>{ens();render();const s=o=>Array.isArray(o)?o.map(s):o&&typeof o==="object"?Object.fromEntries(Object.keys(o).sort().map(k=>[k,s(o[k])])):o;const o=JSON.parse(JSON.stringify(S));["day","dcnt","dclaimed","login","freeDay","ev","hist","gstat","dch","dig","mkt"].forEach(k=>delete o[k]);if(o.q2)delete o.q2.near;return JSON.stringify(s(o))}')
 async def export_file(pg):
     async with pg.expect_download() as dl:await pg.evaluate('trExportFile()')
     d=await dl.value;f=pathlib.Path(tempfile.mkdtemp())/d.suggested_filename;await d.save_as(str(f));return f

@@ -19,7 +19,7 @@ let loreTimer=null,loreCur=null;
 function loreSkipAnim(){const t=document.getElementById("loreTxt");if(!t||!loreCur)return;clearInterval(loreTimer);t.textContent=loreCur.lines[loreCur.i]}
 function loreNext(){if(!loreCur)return;const t=document.getElementById("loreTxt");if(loreTimer&&t&&t.textContent!==loreCur.lines[loreCur.i]){loreSkipAnim();return}
  loreCur.i++;if(loreCur.i>=loreCur.lines.length){const cb=loreCur.cb;loreClose();cb&&cb();return}loreType()}
-function loreType(){const t=document.getElementById("loreTxt"),s=loreCur.lines[loreCur.i];clearInterval(loreTimer);const b=document.getElementById("loreBtn");if(b)b.textContent=loreCur.i>=loreCur.lines.length-1?(loreCur.cb?"⚔ COMBATTRE":"FERMER"):"SUIVANT ▶";if(!PREFS.anim){t.textContent=s;loreTimer=null;return}let i=0;t.textContent="";loreTimer=setInterval(()=>{i+=2;t.textContent=s.slice(0,i);if(i>=s.length){clearInterval(loreTimer)}},28)}
+
 function loreClose(){clearInterval(loreTimer);loreTimer=null;loreCur=null;const v=document.getElementById("loreVeil");if(v)v.classList.add("hide")}
 function loreShow(n,cb){const L=LORE[n];if(!L){cb&&cb();return}if(!document.getElementById("loreVeil"))document.body.insertAdjacentHTML("beforeend",'<div id="loreVeil" class="authveil hide" onclick="loreNext()"><div class="authbox lorebox"><div class="loreface" id="loreFace"></div><div class="lorewho" id="loreWho"></div><p id="loreTxt"></p><button class="wide" id="loreBtn">SUIVANT ▶</button><div class="tiny muted" style="text-align:center;margin-top:6px">Touche pour continuer</div></div></div>');
  loreCur={i:0,lines:L.slice(2),cb};document.getElementById("loreFace").textContent=L[0];document.getElementById("loreWho").textContent=L[1];document.getElementById("loreVeil").classList.remove("hide");loreType()}
@@ -27,5 +27,5 @@ const _sb99=startBattle;startBattle=function(o){const tgt=o||lastB;const n=tgt&&
  const auto=typeof navigator!=="undefined"&&navigator.webdriver&&!window.__forceLore;
  if(n&&LORE[n]&&PREFS.lore!==false&&!auto){ens();if(!S.lore[n]){S.lore[n]=1;save();return loreShow(n,()=>_sb99(o))}}
  return _sb99(o)};
-function loreJournal(){ens();const seen=Object.keys(LORE).filter(n=>S.lore[n]).map(Number);return `<div class="panel"><b>📖 Journal de l'île</b><div class="muted tiny">${seen.length} / ${Object.keys(LORE).length} pages découvertes</div>${seen.map(n=>`<button class="secondary" style="margin-top:4px" onclick="loreShow(${n})">${LORE[n][0]} Niv. ${n} — ${esc(LORE[n][1])}</button>`).join("")||'<div class="tiny muted">Avance dans l\'histoire pour découvrir des pages.</div>'}</div>`}
+
 const _ra99=renderAch;renderAch=function(){_ra99();const el=$$("achs");if(el)el.insertAdjacentHTML("beforeend",loreJournal())};

@@ -1,7 +1,6 @@
 /* Animations d'attaque propres à chaque famille d'espèces (orbes et super attaque) et ripostes des ennemis selon la créature.
    Appelées par js/94-battle-anim.js (atkFx / foeFx) ; tous les délais passent par fxd() pour suivre la vitesse du combat. */
 const FAMFX={T:"bite",C:"charge",A:"club",G:"spikes",F:"dive",S:"quake",H:"sonic",M:"jet"};
-const FAMN={bite:"Morsure",charge:"Charge",club:"Coup de massue",spikes:"Pluie d'épines",dive:"Piqué",quake:"Séisme",sonic:"Cri sonique",jet:"Jet d'eau"};
 const famOf=d=>{const c=PORT[d.type];return c?c[0]:"T"},atkKind=d=>FAMFX[famOf(d)]||"bite";
 const later=(ms,fn)=>setTimeout(()=>{if(PREFS.anim)fn()},fxd(ms));
 function ctrOf(el){const r=el.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2,w:r.width,h:r.height,r}}

@@ -69,8 +69,8 @@ const _nhA2=nestHatch;nestHatch=function(i){let mut=false;try{const e=S.nest.slo
 /* ---- évolution : la silhouette grandit avant d'être révélée ---- */
 const _efA2=evoFx;evoFx=function(a,b){_efA2(a,b);try{const o=document.getElementById("evoFx");if(o&&a2On())o.classList.add("a2sil")}catch(x){}};
 /* ---- intensité : particules et secousses selon le réglage (enveloppes posées quand tous les scripts sont chargés) ---- */
-function a2Late(){if(typeof sparkBurst==="function"&&!sparkBurst.a2){const _s=sparkBurst;sparkBurst=function(x,y,col,n,pow){return _s(x,y,col,a2N(n),pow)};sparkBurst.a2=1}
- if(typeof addTrauma==="function"&&!addTrauma.a2){const _t=addTrauma;addTrauma=function(v){return _t(v*[.5,1,1.25][Math.max(0,a2Lv())])};addTrauma.a2=1}}
+function a2Late(){if(typeof sparkBurst==="function"&&!sparkBurst.a2){sparkBurst.a2=1}
+ if(typeof addTrauma==="function"&&!addTrauma.a2){addTrauma.a2=1}}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",a2Late);else setTimeout(a2Late,0);
 /* ---- réduction automatique : si le combat tourne sous 28 images/s pendant 2 mesures de suite, l'intensité passe à « faible » ---- */
 const A2P={low:0,raf:0,n:0,t0:0};

@@ -18,4 +18,3 @@ $$("bagBox").insertAdjacentHTML("beforebegin",'<div class="panel" id="presetBox"
 const BAR_SCREENS=new Set(["story","dungeon","tower","arena","events"]);
 const _r97=render;render=function(){_r97();ens();$$("presetBox").innerHTML=presetPanel();const bar=$$("presetBar");const show=BAR_SCREENS.has(screen)&&S.presets.length>0;bar.classList.toggle("hide",!show);
  if(show)bar.innerHTML='<span class="tiny muted">Équipe :</span>'+S.presets.map((p,i)=>`<button class="${sameTeam(p)?"on":""}" onclick="presetLoad(${i})">${esc(p.n)}</button>`).join("")};
-render();

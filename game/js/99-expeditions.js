@@ -11,7 +11,7 @@ function xLeft(s){return Math.max(0,s.start+s.min*60000-Date.now())}
 function xFmt(ms){const s=Math.ceil(ms/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60),r=s%60;return h?`${h} h ${String(m).padStart(2,"0")} min`:`${m}:${String(r).padStart(2,"0")}`}
 function xBusy(){const b=new Set();S.exp.slots.forEach(s=>s&&s.ids.forEach(i=>b.add(i)));return b}
 function xStart(slot){ens();const ids=xDraft.sel.filter(i=>S.team.some(d=>d.id===i));if(!ids.length||S.exp.slots[slot])return;const dd=XD[xDraft.d];S.exp.slots[slot]={z:xDraft.z,d:xDraft.d,ids,start:Date.now(),min:dd.min};xDraft.sel=[];save();sfx&&sfx("ping");renderExp()}
-function xClaim(slot){ens();const s=S.exp.slots[slot];if(!s||xLeft(s)>0)return;const {R}=xReward(s.z,s.d,s.ids);give(R);S.exp.slots[slot]=null;S.exp.done++;bump("expeds");addXP&&addXP(Math.round(XD[s.d].mul*6));log("Expédition "+XZ[s.z].n+" terminée : "+Object.entries(R).map(([k,v])=>"+"+v+" "+k).join(" "));save();toast("🧭 Expédition terminée ! "+Object.entries(R).map(([k,v])=>"+"+v+" "+(XNAME[k]||k)).join(" · "),4200);vib&&vib(30);render()}
+function xClaim(slot){ens();const s=S.exp.slots[slot];if(!s||xLeft(s)>0)return;const {R}=xReward(s.z,s.d,s.ids);give(R);S.exp.slots[slot]=null;S.exp.done++;bump("expeds");addXP&&addXP(Math.round(XD[s.d].mul*6));log("Expédition "+XZ[s.z].n+" terminée : "+Object.entries(R).map(([k,v])=>"+"+v+" "+k).join(" "));save();toast("🧭 Expédition terminée ! "+Object.entries(R).map(([k,v])=>"+"+v+" "+(XNAME[k]||k)).join(" · "),4200);render()}
 function xCancel(slot){const s=S.exp.slots[slot];if(!s)return;if(!confirm("Annuler cette expédition ? Aucune récompense."))return;S.exp.slots[slot]=null;save();renderExp()}
 const XNAME={stone:"🪨",essence:"🔮",tickets:"🎟️",shards:"🧩",bone:"🦴",hide:"🟤",crystal:"💎",amber:"🟠"};
 function xTog(id){const i=xDraft.sel.indexOf(id);if(i>=0)xDraft.sel.splice(i,1);else if(xDraft.sel.length<3)xDraft.sel.push(id);renderExp()}
@@ -43,7 +43,6 @@ const ACH=[
  ["p1","Survivant confirmé","Atteindre le niveau joueur 10",()=>S.level,10,{stone:50,essence:10}],["p2","Vétéran","Atteindre le niveau joueur 30",()=>S.level,30,{tickets:3,shards:15},"Vétéran"],
  ["h1","Éclosion","Faire éclore 5 œufs",()=>S.cnt.hatched||0,5,{stone:60}],["v1","Chromatique","Obtenir 3 variantes",()=>S.cnt.variants||0,3,{essence:30,tickets:1},"Chasseur de Chromas"],
  ["w1","Chanceux","Invoquer un dino Légendaire",()=>(S.gstat&&S.gstat.r?S.gstat.r[3]||0:0),1,{tickets:2,shards:10}],["w2","Béni des dieux","Invoquer 10 Légendaires",()=>(S.gstat&&S.gstat.r?S.gstat.r[3]||0:0),10,{tickets:5,shards:30},"Béni des Dieux"]];
-function achDone(a){return(S.ach.got[a[0]])}
 function achOk(a){return a[3]()>=a[4]}
 function achClaim(id){ens();const a=ACH.find(x=>x[0]===id);if(!a||S.ach.got[id]||!achOk(a))return;S.ach.got[id]=1;give(a[5]);if(a[6]&&!S.ach.title)S.ach.title=a[6];save();toast("🏅 Succès : "+a[1],3200);sfx&&sfx("win");renderAch();topbar()}
 function achTitle(t){S.ach.title=t;save();renderAch();render()}

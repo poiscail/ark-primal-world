@@ -69,4 +69,3 @@ $$("colTools").insertAdjacentHTML("afterend",'<div class="panel" id="bagBox"></d
 const _r7=render;render=function(){_r7();renderBag()};
 /* missions */
 [["loot","objets trouvés",[5,25,100]],["upgrades","améliorations d'objets",[5,25,100]]].forEach(([t,l,gs])=>gs.forEach((g,i)=>PERM.push({id:"p_"+t+g,t,g,n:g+" "+l,r:{tickets:i+1,crystal:i+1,stone:100*(i+1)}})));
-render();

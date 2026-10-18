@@ -6,8 +6,7 @@ function gBurst(x,y,col,n){const L=document.getElementById("gfxLayer");if(!L)ret
 function gReveal(cards,veil){const done=()=>{cards.forEach(c=>c.classList.remove("facedown","flipin"));gClear();veil.classList.remove("summoning")};
  cards.forEach((c,i)=>{gTimers.push(setTimeout(()=>{c.classList.remove("facedown");void c.offsetWidth;c.classList.add("flipin");const r=c.getBoundingClientRect(),lv=c.classList.contains("gl-l")?3:c.classList.contains("gl-e")?2:c.classList.contains("gl-r")?1:0;
   if(lv>=1)gBurst(r.left+r.width/2,r.top+r.height/2,GCOL[lv],lv===3?36:lv===2?22:10);
-  if(lv===3){const b=document.createElement("div");b.className="beam";b.style.left=(r.left+r.width/2)+"px";const L=document.getElementById("gfxLayer");if(L){L.appendChild(b);gTimers.push(setTimeout(()=>b.remove(),1400))}document.body.classList.remove("bigshake");void document.body.offsetWidth;document.body.classList.add("bigshake");gTimers.push(setTimeout(()=>document.body.classList.remove("bigshake"),500));vib&&vib([60,40,120])}
-  else if(lv===2)vib&&vib(40)},i*(cards.length>6?170:260)))});
+  if(lv===3){const b=document.createElement("div");b.className="beam";b.style.left=(r.left+r.width/2)+"px";const L=document.getElementById("gfxLayer");if(L){L.appendChild(b);gTimers.push(setTimeout(()=>b.remove(),1400))}document.body.classList.remove("bigshake");void document.body.offsetWidth;document.body.classList.add("bigshake");gTimers.push(setTimeout(()=>document.body.classList.remove("bigshake"),500))}},i*(cards.length>6?170:260)))});
  /* fin de la révélation : on retire le calque d'effets (sinon il reste par-dessus la fenêtre et bloque le bouton OK) */
  gTimers.push(setTimeout(done,cards.length*(cards.length>6?170:260)+500))}
 const _sg99=showGacha;showGacha=function(got,news,title){_sg99(got,news,title);if(!PREFS.anim)return;const veil=$$("gachaVeil"),cards=[...veil.querySelectorAll(".gres .gc")];if(!cards.length)return;gClear();

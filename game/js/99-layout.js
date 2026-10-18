@@ -35,4 +35,6 @@ function blTag(){const box=$$("battleArea"),f=fight;if(!box)return;
  if(!PREFS.anim)return;const r=box.querySelector(".battlestage").getBoundingClientRect();document.documentElement.style.setProperty("--bnTop",Math.round(Math.min(innerHeight*.4,Math.max(30,r.top+r.height*.36)))+"px")}
 const _rbL=renderBattle;renderBattle=function(){_rbL();blTag()};
 const _goL=go;go=function(s){_goL(s);document.body.classList.toggle("inbattle",screen==="battle"&&!!(fight&&fight.mx))};
+// 0.48 : un seul affichage au chargement, une fois tous les modules chargés (avant, chaque ancien fichier redessinait tout)
+go(screen);
 if(screen==="battle")renderBattle();

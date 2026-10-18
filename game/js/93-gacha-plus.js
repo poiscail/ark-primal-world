@@ -40,4 +40,3 @@ function renderGachaPlus(){ens();const W=S.wheel,nextC=5*(W.paid+1),offer=S.offe
  <div class="sectionhead"><h2>🎯 Garanties</h2></div><div class="panel">${pb(S.pity||0,40,"Légendaire (bannières standard)")}${pb(S.fpity||0,60,"Légendaire vedette")}</div>`}
 const _r93=render;render=function(){_r93();if(!spinning)renderGachaPlus()};
 [["gacha","tirages au total",[300,1000]]].forEach(([t,l,gs])=>gs.forEach((g,i)=>PERM.push({id:"p_"+t+g,t,g,n:g+" "+l,r:{tickets:3+i*3,crystal:5+i*5,stone:500*(i+1)}})));
-render();

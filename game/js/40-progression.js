@@ -41,15 +41,13 @@ function win(){const f=fight;f.over="win";ens();const t=S.team.slice(0,3),n=f.n,
  t.forEach(d=>{d.xp+=20+3*n;while(d.xp>=need(d.level)){d.xp-=need(d.level);d.level++;log(sp(d).name+" passe niveau "+d.level+".")}});
  f.report=`<div class="panel"><b>🎁 Récompenses</b><div style="margin-top:6px;font-size:15px">${fmt(R)}</div>${f.first?'<div class="tiny ok">Première victoire !</div>':""}</div>`+missHTML(f.snap)+(f.o.mode==="story"&&n<100?`<button class="wide blue" onclick="startBattle({mode:'story',n:${n+1}})">NIVEAU SUIVANT (${n+1})</button>`:"");
  log("Victoire · "+f.zone+" : "+fmt(R));save();render()}
-const _special=special;special=function(){const ok=fight&&!fight.over&&fight.sp>=100;_special();if(ok){bump("supers");save()}};
-const _rb4=renderBattle;renderBattle=function(){_rb4();if(!fight||!fight.over)return;
- if(fight.over==="lose"&&!fight.report){ens();bump("battles");fight.report='<div class="panel tiny muted">Défaite : aucune récompense. Entraîne, éveille ou renforce ton équipe.</div>'+missHTML(fight.snap);save()}
- if(fight.report)$$("battleArea").insertAdjacentHTML("beforeend",fight.report)};
+
+
 // entraînement suivi
 const _train=train;train=function(id){const s=S.stone;_train(id);if(S.stone<s){bump("trains");save()}};
 // éveil
 const awCost=k=>({bone:10*(k+1),hide:6*(k+1),amber:k>=2?3*(k-1):0});
-const _card2=card;card=function(d,a=true){const h=_card2(d,a);if(!a)return h;const k=d.star||0;return h.replace(/<\/div>$/,k>=5?`<div class="tiny muted" style="margin-top:8px">${"★".repeat(5)} éveil maximum</div></div>`:`<button class="wide purple" onclick="awaken(${d.id})">ÉVEIL ${"★".repeat(k)||"☆"} → +10 % stats · ${fmt(awCost(k))}</button></div>`)};
+
 function awaken(id){ens();const d=S.team.find(x=>x.id===id);if(!d)return;const k=d.star||0,c=awCost(k);if(k>=5)return;if(Object.entries(c).some(([m,v])=>S.mat[m]<v)){alert("Matériaux insuffisants : "+fmt(c));return}
  Object.entries(c).forEach(([m,v])=>S.mat[m]-=v);d.star=k+1;bump("awaken");log(sp(d).name+" : éveil "+d.star+"★.");save();render()}
 // gacha
@@ -57,10 +55,7 @@ function pickType(rar){let pool=Object.keys(SPEC).filter(k=>SPEC[k].r===rar);if(
 const RATE_STD=()=>[CONFIG.commonRate,CONFIG.rareRate,CONFIG.epicRate,CONFIG.legendRate];
 function pull(rt,minEpic){let r=Math.random()*(rt.reduce((a,b)=>a+b,0)||100),i=0,acc=0;for(;i<3;i++){acc+=rt[i];if(r<acc)break}
  if(S.pity>=39)i=3;else if(minEpic&&i<2)i=2;S.pity=i===3?0:S.pity+1;return pickType(RARS[i])}
-function doGacha(n,rt,key,cost,guar){ens();const bal=MATS[key]?S.mat[key]:S[key];if(bal<cost){alert("Pas assez de "+LBL[key]+" (il en faut "+cost+").");return}
- give({[key]:-cost});const got=[];for(let i=0;i<n;i++){const top=got.some(d=>["Épique","Légendaire"].includes(sp(d).r)),d={id:S.nextId++,type:pull(rt,guar&&i===n-1&&!top),level:1,xp:0};S.team.push(d);got.push(d)}
- bump("summons",n);log("Invocation : "+n+" dinosaure(s).");save();
- $$("summonResult").innerHTML=`<div class="result"><div class="rarity">RÉSULTAT DE L'INVOCATION</div><div class="teamlead" style="justify-content:center;flex-wrap:wrap">${got.map(d=>`<div class="dino"><div class="art">${art(sp(d).e)}</div><strong>${esc(sp(d).name)}</strong><div class="rarity ${rarityClass(sp(d).r)}">${esc(sp(d).r)}</div></div>`).join("")}</div></div>`;render()}
+
 function summon(n){doGacha(n,RATE_STD(),"tickets",n===1?CONFIG.summonCost1:CONFIG.summonCost5)}
 $$("summonResult").insertAdjacentHTML("beforebegin",`<div class="sectionhead"><h2>Autres bannières</h2><span class="muted tiny" id="pityTxt"></span></div><div class="panel">
 <div class="row"><div class="grow"><b>Invocation de pierres</b><div class="muted tiny">Taux standard · 40 🪨</div></div><button class="blue" onclick="doGacha(1,RATE_STD(),'stone',40)">x1</button><button class="blue" onclick="doGacha(10,RATE_STD(),'stone',380)">x10</button></div>
@@ -71,17 +66,13 @@ $$("story").querySelector(".banner h1").textContent="Les 100 niveaux de l'île";
 document.querySelector("main").insertAdjacentHTML("beforeend",'<section id="dungeon" class="screen"></section><section id="missions" class="screen"></section>');
 document.querySelector(".bottomnav").insertAdjacentHTML("beforeend",'<button data-screen="dungeon"><span>🕳️</span>Donjons</button><button data-screen="missions"><span>📋</span>Missions</button>');
 document.querySelector(".meters").insertAdjacentHTML("beforeend",Object.keys(MATS).map(k=>`<div class="meter">${MATS[k][0]} <b id="m_${k}">0</b></div>`).join(""));
-function renderStory(){ens();const cur=Math.min(100,S.stage+1),rec=n=>Math.ceil(n/2)+1;let rows="";
- for(let n=1;n<=100;n++){const boss=n%10===0;rows+=`<div class="lvl ${boss?"boss":""} ${n===cur?"cur":""} ${n>cur?"lock":""}"><b style="width:28px">${n}</b><div class="grow">${boss?"👹 Boss · ":""}${zoneOf(n)[0]}<div class="muted tiny">Niveau d'équipe conseillé ~${rec(n)}</div></div>${n<=cur?`<button onclick="startBattle({mode:'story',n:${n}})">${n<cur?"REJOUER":"JOUER"}</button>`:"🔒"}</div>`}
- $$("chapters").innerHTML=`<div class="panel"><b>Progression : ${S.stage}/100</b><div class="progress"><i style="width:${S.stage}%"></i></div><div class="muted tiny">Chaque boss tous les 10 niveaux. Première victoire = tickets et cristaux.</div>${S.stage>=100?'<div class="ok">Histoire terminée ! 🎉</div>':`<button class="wide" onclick="startBattle({mode:'story',n:${cur}})">JOUER LE NIVEAU ${cur}</button>`}</div><div class="panel scrollbox">${rows}</div>`}
+
 function renderDungeons(){$$("dungeon").innerHTML=`<div class="banner"><div class="eyebrow">DONJONS</div><h1>Matériaux & récompenses</h1><p>5 difficultés par donjon, débloquées en avançant dans l'histoire.</p><div class="heroDino">🕳️</div></div>`+DUN.map((d,i)=>`<div class="panel"><div class="row"><div class="bigicon">${d.e}</div><div class="grow"><b>${d.n}</b><div class="muted tiny">${d.mat?"Matériau : "+MATS[d.mat][0]+" "+MATS[d.mat][1]:"Récompense : 🎟️ tickets + 🔮 essences"}</div></div></div>${TIERS.map((t,j)=>S.stage>=t[2]?`<button class="wide ${j>2?"red":"secondary"}" onclick="startBattle({mode:'dungeon',d:${i},tier:${j+1},n:${t[1]}})">${t[0].toUpperCase()} · équipe conseillée ~${Math.ceil(t[1]/2)+1}</button>`:`<button class="wide secondary" disabled>🔒 ${t[0]} · histoire niv. ${t[2]}</button>`).join("")}</div>`).join("")}
 function renderMissions(){const row=(m,d)=>{const p=Math.min(prog(m,d),m.g),c=(d?S.dclaimed:S.claimed)[m.id];return `<div class="panel" style="margin:6px 0;padding:10px"><div class="row"><div class="grow"><b class="tiny">${esc(m.n)}</b><div class="muted tiny">${fmt(m.r)} · ${p}/${m.g}</div><div class="progress mbar"><i style="width:${p/m.g*100}%"></i></div></div>${c?'<span class="tag">✅</span>':`<button style="padding:8px" ${p>=m.g?"":"disabled"} onclick="claim('${m.id}',${d})">RÉCUPÉRER</button>`}</div></div>`};
  $$("missions").innerHTML=`<div class="banner"><div class="eyebrow">MISSIONS</div><h1>Quotidiennes & objectifs</h1><p>Les quotidiennes se renouvellent chaque jour.</p><div class="heroDino">📋</div></div><button class="wide blue" onclick="claimAll()">TOUT RÉCUPÉRER</button><div class="sectionhead"><h2>Quotidiennes</h2></div>${DAILY.map(m=>row(m,1)).join("")}<div class="sectionhead"><h2>Objectifs</h2></div>${PERM.map(m=>row(m,0)).join("")}`}
 function claim(id,d){ens();const m=(d?DAILY:PERM).find(x=>x.id===id),c=d?S.dclaimed:S.claimed;if(!m||c[id]||prog(m,d)<m.g)return;c[id]=1;give(m.r);log("Mission : "+m.n+" → "+fmt(m.r));save();render()}
 function claimAll(){allM().forEach(([m,d])=>claim(m.id,d?1:0))}
-const _r4=render;render=function(){ens();_r4();renderDungeons();renderMissions();Object.keys(MATS).forEach(k=>$$("m_"+k).textContent=S.mat[k]);
- const done=DAILY.filter(m=>prog(m,1)>=m.g).length;$$("dailyText").textContent="Missions du jour : "+done+"/"+DAILY.length+" terminées";$$("dailyBar").style.width=done/DAILY.length*100+"%";
- const p=$$("pityTxt");if(p)p.textContent="Garantie légendaire : "+S.pity+"/40"};
+
 // correctif admin local : la validation bloque réellement
 function saveAdmin(){const ids=["rateCommon","rateRare","rateEpic","rateLegend"],rt=ids.map(i=>Number($$(i).value));
  if(rt.some(n=>!Number.isFinite(n)||n<0)||Math.round(rt.reduce((a,b)=>a+b,0))!==100)return alert("Les taux de rareté doivent totaliser exactement 100 %.");
@@ -90,4 +81,3 @@ function saveAdmin(){const ids=["rateCommon","rateRare","rateEpic","rateLegend"]
   if(!d.name.trim()||!d.e.trim()||!(d.hp>=1)||!(d.atk>=1)||!(d.def>=0))return alert("Vérifie les noms, images et statistiques des dinosaures.");dn[el.dataset.dino]=d}
  Object.assign(CONFIG,eco,{commonRate:rt[0],rareRate:rt[1],epicRate:rt[2],legendRate:rt[3]});SPEC={...SPEC,...dn};
  localStorage.setItem("arkPrimalConfig",JSON.stringify({dinos:SPEC,economy:CONFIG}));save();render();buildAdmin();alert("Paramètres enregistrés sur cet appareil.")}
-render();

@@ -107,4 +107,3 @@ function renderEvents(){const E=evSync(),ev=EVENTS[wkNow()%EVENTS.length],next=E
 const _r8=render;render=function(){_r8();if(screen==="tower")renderTower();if(screen==="arena")renderArena();if(screen==="events")renderEvents()};
 [["tower","étages de la Tour",[5,20,50,100]],["arena","victoires en Arène",[3,15,50]],["events","épreuves d'événement",[5,20,60]]].forEach(([t,l,gs])=>gs.forEach((g,i)=>PERM.push({id:"p_"+t+g,t,g,n:g+" "+l,r:{tickets:i+1,crystal:i+1,stone:100*(i+1)}})));
 DAILY.push({id:"d_tower",t:"tower",g:3,n:"Monter 3 étages de la Tour",r:{stone:120,crystal:1}},{id:"d_arena",t:"arena",g:2,n:"Gagner 2 combats d'Arène",r:{essence:3,stone:100}});
-go(screen);

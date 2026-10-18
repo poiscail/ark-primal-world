@@ -8,7 +8,6 @@ const PORT={raptor:["T",{hs:.9}],compsog:["T",{sc:.72,hs:.8}],dilopho:["T",{cr:1
  ptera:["F",{}],quetzal:["F",{sc:1.1,cr:1}],mosa:["M",{k:"mosa"}],plesio:["M",{k:"plesio"}],ichthyo:["M",{k:"ichthyo"}],levia:["M",{k:"levia"}],
  parasau:["H",{cr:1}],iguano:["H",{sp:1}],maia:["H",{}],hypsi:["H",{sc:.75}],psitta:["H",{sc:.8,bk:1}],pachy:["H",{dome:1}],
  dracorex:["T",{cr:1,h:2,hs:1.15,fx:"crown"}],magma:["A",{fx:"lava",sp:1}],tonner:["T",{sa:1,hs:1.1,fx:"bolt"}],helio:["T",{sa:2,hs:1.1,fx:"sun"}],nyx:["T",{cr:1,h:2,hs:1.1,fx:"moon"}]};
-const POOL=Object.keys(PORT);
 function palette(key,el){const h=((E_HUE[el]??200)+(hashS(key)%44)-22+360)%360,s=52+hashS(key+"s")%22,l=50+hashS(key+"l")%10;
  return{h,main:`hsl(${h} ${s}% ${l}%)`,dark:`hsl(${h} ${s}% ${l-20}%)`,light:`hsl(${h} ${s-18}% ${l+26}%)`,acc:`hsl(${(h+35)%360} 75% 62%)`,horn:"#f3ead2",bgd:`hsl(${h} 45% 17%)`,bgl:`hsl(${h} 50% 30%)`}}
 const L=(d,col,w,op)=>`<path d="${d}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round"${op?` opacity="${op}"`:""}/>`;
@@ -70,9 +69,7 @@ function decor(r,c){if(r==="Rare")return[[8,9,2],[56,50,1.6],[12,52,1.2]].map(([
  if(r==="Épique")return`<circle cx="32" cy="31" r="29" fill="none" stroke="#c79bff" stroke-width="1.6" opacity=".9"/>`+[0,1,2,3,4,5].map(i=>`<circle cx="${32+Math.cos(i*1.047)*29}" cy="${31+Math.sin(i*1.047)*29}" r="1.8" fill="#e6ccff"/>`).join("");
  if(r==="Légendaire")return[...Array(12)].map((_,i)=>`<path d="M32 30 L${32+Math.cos(i*.5236)*40} ${30+Math.sin(i*.5236)*40}" stroke="#ffd15c" stroke-width="2.4" opacity=".16"/>`).join("")+`<rect x="1.2" y="1.2" width="61.6" height="61.6" rx="10" fill="none" stroke="#ffd15c" stroke-width="2"/>`;return""}
 const PCACHE={};
-function portrait(type){if(PCACHE[type])return PCACHE[type];const sp0=SPEC[type]||SPEC_DEFAULT[type];if(!sp0)return"❓";const cfg=PORT[type]||["T",{}],o=cfg[1],c=palette(type,sp0.element),sc=o.sc||1;
- const body=FAM[cfg[0]](c,o);
- const svg=`<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${esc(sp0.name)}"><rect width="64" height="64" rx="11" fill="${c.bgd}"/><circle cx="32" cy="30" r="26" fill="${c.bgl}" opacity=".65"/>${decor(sp0.r,c)}<ellipse cx="32" cy="57" rx="22" ry="3.5" fill="#000" opacity=".3"/><g transform="translate(${cfg[0]==="T"?-Math.max(0,(o.hs||1)-1)*8:0} 0) translate(32 55) scale(${sc}) translate(-32 -55)">${body}</g>${fxLayer(c,o.fx)}</svg>`;return PCACHE[type]=svg}
+
 /* art() : prend en charge les images personnalisées (https ou data:) puis les portraits */
 const E2T={};const isImg=e=>/^(https:\/\/|data:image\/(png|jpeg|webp|gif);base64,)/i.test(e);
 function e2t(){Object.keys(E2T).forEach(k=>delete E2T[k]);for(const k of Object.keys(SPEC))if(!isImg(SPEC[k].e)&&!E2T[SPEC[k].e])E2T[SPEC[k].e]=k}
@@ -90,4 +87,4 @@ function uploadDinoImg(key,inp){const f=inp.files&&inp.files[0];if(!f)return;if(
   const el=document.querySelector(`.adminitem[data-dino="${key}"] [data-field="e"]`);if(el){el.value=url;toast("Image prête : clique sur ENREGISTRER.")}};im.onerror=()=>toast("Image illisible.");im.src=rd.result};rd.readAsDataURL(f)}
 function resetDinoImg(key){const el=document.querySelector(`.adminitem[data-dino="${key}"] [data-field="e"]`);if(el&&SPEC_DEFAULT[key]){el.value=SPEC_DEFAULT[key].e;toast("Image par défaut rétablie : clique sur ENREGISTRER.")}}
 const _ba=buildAdmin;buildAdmin=function(){_ba();document.querySelectorAll(".adminitem").forEach(el=>{if(el.querySelector(".imgtools"))return;const k=el.dataset.dino;el.insertAdjacentHTML("beforeend",`<div class="imgtools"><label>Importer une image (réduite à 160 px)</label><input type="file" accept="image/png,image/jpeg,image/webp,image/gif" onchange="uploadDinoImg('${esc(k)}',this)"> <button class="secondary" type="button" onclick="resetDinoImg('${esc(k)}')">IMAGE PAR DÉFAUT</button></div>`)})};
-e2t();render();
+e2t();

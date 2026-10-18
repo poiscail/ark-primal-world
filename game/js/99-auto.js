@@ -31,7 +31,7 @@ function autoPlay(){const f=fight;if(f.sp>=100){special();return}const k=autoSki
 /* ---- boucle : une action à la fois, en pause si une fenêtre est ouverte, l'écran quitté ou la page cachée ---- */
 let autoT=null;
 const autoDelay=()=>Math.round((PREFS.anim?1150:450)/spdNow());
-function autoReady(){const f=fight;return!!(PREFS.auto&&screen==="battle"&&f&&f.mx&&!f.over&&!document.hidden&&!document.querySelector(".authveil:not(.hide)"))}
+
 function autoKick(ms){if(autoT||!autoReady())return;autoT=setTimeout(autoStep,ms===undefined?autoDelay():ms)}
 function autoStep(){autoT=null;if(!autoReady())return;autoPlay();autoKick()}
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)autoKick(600)});

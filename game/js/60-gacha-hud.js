@@ -16,7 +16,6 @@ const FEAT_RATES=[40,36,17,7];
 function pullFeat(minEpic){const f=featured();let i=rollW(FEAT_RATES);if(S.fpity>=59||S.pity>=39)i=3;else if(minEpic&&i<2)i=2;let key;
  if(i===3){const forced=S.fpity>=59;key=f.leg&&(forced||Math.random()<.6)?f.leg:pickType("Légendaire");S.pity=0;S.fpity=key===f.leg?0:S.fpity+1}
  else{S.pity++;S.fpity++;key=i===2?(f.epic&&Math.random()<.5?f.epic:pickType("Épique")):i===1?(f.rare&&Math.random()<.4?f.rare:pickType("Rare")):pickType("Commun")}return key}
-function rarityRoll(rt,minEpic){let i=rollW(rt.slice(0,4));if(S.pity>=39)i=3;else if(minEpic&&i<2)i=2;S.pity=i===3?0:S.pity+1;return i}
 function pullEl(el,minEpic){const av=RAR5.map(r=>Object.keys(SPEC).some(k=>SPEC[k].r===r&&SPEC[k].element===el)),w=RATE_STD().slice(0,4).map((v,i)=>av[i]?v:0);let i=rollW(w.some(x=>x>0)?w:av.map(x=>x?1:0));
  if(S.pity>=39&&av[3])i=3;else if(minEpic&&i<2)i=av[2]?2:(av[3]?3:i);S.pity=i===3?0:S.pity+1;const pool=Object.keys(SPEC).filter(k=>SPEC[k].r===RAR5[i]&&SPEC[k].element===el);return pool.length?pool[rnd(pool.length)]:pickType(RAR5[i])}
 function pullStd(minEpic){return pull(RATE_STD(),minEpic)}
@@ -88,4 +87,3 @@ const _rb6=renderBattle;renderBattle=function(){_rb6();const f=fight;if(!f||!f.m
  const box=$$("battleArea"),b=box.querySelector(".btns");if(b)b.insertAdjacentHTML("beforeend",`<button class="secondary" style="grid-column:1/-1" onclick="toggleJr()">📜 ${f.jrOpen?"MASQUER":"VOIR"} LE JOURNAL</button>`);
  if(f.jrOpen)box.insertAdjacentHTML("beforeend",`<div class="panel tiny">${f.jr.map(x=>"• "+esc(x)).join("<br>")}</div>`)};
 function toggleJr(){if(fight){fight.jrOpen=!fight.jrOpen;renderBattle()}}
-render();

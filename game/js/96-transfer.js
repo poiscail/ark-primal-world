@@ -42,4 +42,3 @@ if(ARK_PLATFORM==="pc")document.addEventListener("keydown",e=>{if(e.ctrlKey||e.m
  const k=e.key.toLowerCase(),d=/^(?:Digit|Numpad)([1-9])$/.exec(e.code||"");/* chiffres par position de touche : marche aussi en AZERTY sans Maj */
  if(d){const i=+d[1]-1;if(fight.orbs&&i<fight.orbs.length)tapOrb(i)}else if("aze".includes(k)&&k.length===1)useSkill("aze".indexOf(k));else if(k===" "){e.preventDefault();special()}});
 const _rbT=renderBattle;renderBattle=function(){_rbT();if(ARK_PLATFORM==="pc"&&fight&&!fight.over)$$("battleArea").insertAdjacentHTML("beforeend",'<div class="tiny muted" style="margin-top:6px">⌨ Clavier : 1 à 9 orbes · A-Z-E compétences · Espace super attaque · R auto · T vitesse</div>')};
-render();

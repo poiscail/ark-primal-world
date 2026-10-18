@@ -41,7 +41,7 @@ const VAR={
  golden:{n:"Doré",hp:1.25,atk:1.25,def:1.25,w:2,col:"#ffd15c"},
  prism:{n:"Prismatique",hp:1.4,atk:1.4,def:1.4,w:.5,col:"#67e5ff"}
 };
-function rollVariant(){let r=Math.random()*100;for(const k of ["alpha","shadow","albino","golden","prism"]){r-=VAR[k].w;if(r<0)return k}return "normal"}
+
 /* [clé, nom, image, rareté, élément, PV, ATQ, DÉF, compétence, attribut] */
 const SPECIES=[
 ["raptor",0,0,0,0,0,0,0,"strike","crit"],["trike",0,0,0,0,0,0,0,"shield","tank"],["stego",0,0,0,0,0,0,0,"cleave","thorns"],["ptera",0,0,0,0,0,0,0,"focus","swift"],
@@ -190,11 +190,7 @@ document.getElementById("forgeBox").insertAdjacentHTML("afterend",'<div class="p
 document.getElementById("home").querySelector(".banner").insertAdjacentHTML("afterend",'<div class="panel" id="homeNext"></div>');
 document.querySelector(".meters").insertAdjacentHTML("beforeend",'<div class="meter">⚔ <b id="powerM">0</b></div>');
 /* ===== Gacha avec variantes ===== */
-doGacha=function(n,rt,key,cost,guar){ens();const bal=MATS[key]?S.mat[key]:S[key];if(bal<cost){alert("Pas assez de "+LBL[key]+" (il en faut "+cost+").");return}
- give({[key]:-cost});const got=[],news=new Set(),had=new Set(S.team.map(d=>d.type));
- for(let i=0;i<n;i++){const top=got.some(d=>["Épique","Légendaire"].includes(sp(d).r)),d={id:S.nextId++,type:pull(rt,guar&&i===n-1&&!top),level:1,xp:0,v:rollVariant()};if(!had.has(d.type)){news.add(d.id);had.add(d.type)}S.team.push(d);got.push(d)}
- const nvar=got.filter(d=>d.v!=="normal").length;bump("summons",n);if(nvar)bump("variants",nvar);log("Invocation : "+n+" dinosaure(s)"+(nvar?" dont "+nvar+" variante(s) !":"."));save();
- $$("summonResult").innerHTML=`<div class="result"><div class="rarity">RÉSULTAT DE L'INVOCATION</div><div class="teamlead" style="justify-content:center;flex-wrap:wrap">${got.map(d=>`<div class="dino"><div class="art">${art(sp(d).e)}</div><strong>${esc(SPEC[d.type].name)}</strong>${d.v!=="normal"?`<div class="vtag" style="color:${(VAR[d.v]||VAR.normal).col};border-color:${(VAR[d.v]||VAR.normal).col}">${(VAR[d.v]||VAR.normal).n.toUpperCase()}</div>`:""}<div class="rarity ${rarityClass(sp(d).r)}">${esc(sp(d).r)}</div>${news.has(d.id)?'<div class="newtag">NOUVEAU !</div>':""}</div>`).join("")}</div></div>`;render()};
+
 /* ===== Rendu général ===== */
 const claimable=()=>allM().filter(([m,d])=>prog(m,d)>=m.g&&!(d?S.dclaimed:S.claimed)[m.id]).length;
 render=function(){ens();topbar();
@@ -220,4 +216,3 @@ function adminForm(k,d){const opt=(arr,v)=>arr.map(r=>`<option value="${esc(r[0]
  return `<div class="adminitem" data-dino="${esc(k)}"><b>${esc(k.toUpperCase())}</b><div class="grid2"><div><label>Nom affiché</label><input data-field="name" value="${esc(d.name)}"></div><div><label>Image (emoji ou URL)</label><input data-field="e" value="${esc(d.e)}"></div><div><label>Rareté</label><select data-field="r">${opt(RAR5.map(r=>[r,r]),d.r)}</select></div><div><label>Type d'orbe</label><select data-field="element">${opt([["redorb","🔥 rouge"],["blueorb","💧 bleue"],["greenorb","🌿 verte"],["purpleorb","⚡ violette"],["goldorb","☀️ dorée"]],d.element)}</select></div><div><label>PV de base</label><input type="number" min="1" data-field="hp" value="${d.hp}"></div><div><label>Attaque de base</label><input type="number" min="1" data-field="atk" value="${d.atk}"></div><div><label>Défense de base</label><input type="number" min="0" data-field="def" value="${d.def}"></div><div><label>Compétence</label><select data-field="sk">${opt(Object.keys(SK).map(x=>[x,SK[x].i+" "+SK[x].n]),d.sk)}</select></div><div><label>Attribut spécial</label><select data-field="pa">${opt([["","— aucun —"],...Object.keys(PA).map(x=>[x,PA[x].i+" "+PA[x].n])],d.pa||"")}</select></div></div></div>`}
 function addAdminDino(){const w=document.createElement("div");w.innerHTML=adminForm("dino_"+Date.now().toString(36),{name:"Nouveau dinosaure",e:"🦖",r:"Commun",hp:100,atk:15,def:10,element:"redorb",sk:"strike",pa:""});const el=w.firstElementChild;$$("adminDinos").appendChild(el);el.scrollIntoView({block:"center"})}
 $$("adminDinos").insertAdjacentHTML("afterend",'<button class="wide blue" onclick="addAdminDino()">+ AJOUTER UN DINOSAURE</button>');
-render();
